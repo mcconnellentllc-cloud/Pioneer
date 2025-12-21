@@ -4,16 +4,16 @@
    ================================ */
 
 :root {
-    --color-primary: #0a1628;
-    --color-primary-light: #1a2d4a;
-    --color-accent: #b8860b;
-    --color-accent-light: #d4a843;
-    --color-text: #2c3e50;
-    --color-text-light: #5a6c7d;
-    --color-text-muted: #8fa3b8;
+    --color-primary: #1a5632;
+    --color-primary-light: #237542;
+    --color-accent: #2d8a4e;
+    --color-accent-light: #3da564;
+    --color-text: #1f2d24;
+    --color-text-light: #4a5d50;
+    --color-text-muted: #7a8f80;
     --color-white: #ffffff;
-    --color-offwhite: #fafbfc;
-    --color-border: #e8edf2;
+    --color-offwhite: #f8faf8;
+    --color-border: #dce8df;
 
     --font-serif: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
     --font-sans: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
@@ -162,7 +162,7 @@ p {
 }
 
 .navbar.scrolled {
-    background-color: rgba(10, 22, 40, 0.98);
+    background-color: rgba(26, 86, 50, 0.98);
     backdrop-filter: blur(20px);
     padding: var(--spacing-sm) 0;
 }
@@ -283,8 +283,8 @@ p {
     content: '';
     position: absolute;
     inset: 0;
-    background: radial-gradient(ellipse at 30% 70%, rgba(184, 134, 11, 0.08) 0%, transparent 50%),
-                radial-gradient(ellipse at 70% 30%, rgba(184, 134, 11, 0.05) 0%, transparent 50%);
+    background: radial-gradient(ellipse at 30% 70%, rgba(45, 138, 78, 0.08) 0%, transparent 50%),
+                radial-gradient(ellipse at 70% 30%, rgba(45, 138, 78, 0.05) 0%, transparent 50%);
 }
 
 .hero-content {
@@ -461,7 +461,7 @@ p {
 
 .expertise-item:hover {
     border-color: transparent;
-    box-shadow: 0 20px 60px rgba(10, 22, 40, 0.1);
+    box-shadow: 0 20px 60px rgba(26, 86, 50, 0.1);
 }
 
 .expertise-item:hover::before {
@@ -698,7 +698,7 @@ p {
 .access-card:hover {
     border-color: var(--color-accent);
     background-color: var(--color-white);
-    box-shadow: 0 20px 60px rgba(10, 22, 40, 0.08);
+    box-shadow: 0 20px 60px rgba(26, 86, 50, 0.08);
     transform: translateY(-4px);
 }
 
@@ -822,7 +822,7 @@ p {
 
 .news-card:hover {
     border-color: var(--color-accent);
-    box-shadow: 0 10px 40px rgba(10, 22, 40, 0.06);
+    box-shadow: 0 10px 40px rgba(26, 86, 50, 0.06);
 }
 
 .news-card-featured {
@@ -872,7 +872,7 @@ p {
     text-transform: uppercase;
     letter-spacing: 2px;
     color: var(--color-accent);
-    background-color: rgba(184, 134, 11, 0.1);
+    background-color: rgba(45, 138, 78, 0.1);
     padding: 4px 10px;
     margin-bottom: var(--spacing-sm);
     align-self: flex-start;
@@ -923,7 +923,7 @@ p {
     content: '';
     position: absolute;
     inset: 0;
-    background: radial-gradient(ellipse at 30% 70%, rgba(184, 134, 11, 0.08) 0%, transparent 50%);
+    background: radial-gradient(ellipse at 30% 70%, rgba(45, 138, 78, 0.08) 0%, transparent 50%);
 }
 
 .page-hero-content {
@@ -1260,7 +1260,7 @@ p {
 
 .impact-card:hover {
     border-color: var(--color-accent);
-    box-shadow: 0 10px 40px rgba(10, 22, 40, 0.06);
+    box-shadow: 0 10px 40px rgba(26, 86, 50, 0.06);
 }
 
 .impact-card-header {
@@ -1355,7 +1355,7 @@ p {
 
 .fund-area:hover {
     background-color: var(--color-white);
-    box-shadow: 0 10px 40px rgba(10, 22, 40, 0.06);
+    box-shadow: 0 10px 40px rgba(26, 86, 50, 0.06);
 }
 
 .fund-area h4 {
