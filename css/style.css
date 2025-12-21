@@ -1315,10 +1315,111 @@ p {
     line-height: 1.8;
 }
 
+/* Community Fund Section */
+.community-fund {
+    padding: var(--spacing-xxl) 0;
+    background-color: var(--color-white);
+}
+
+.fund-layout {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: var(--spacing-xl);
+    align-items: start;
+}
+
+.fund-content h2 {
+    font-size: clamp(32px, 5vw, 42px);
+    margin-bottom: var(--spacing-md);
+}
+
+.fund-intro {
+    font-size: 18px;
+    color: var(--color-text-light);
+    margin-bottom: var(--spacing-lg);
+    line-height: 1.8;
+}
+
+.fund-areas {
+    display: grid;
+    gap: var(--spacing-md);
+    margin-bottom: var(--spacing-lg);
+}
+
+.fund-area {
+    padding: var(--spacing-md);
+    background-color: var(--color-offwhite);
+    border-left: 3px solid var(--color-accent);
+    transition: var(--transition-smooth);
+}
+
+.fund-area:hover {
+    background-color: var(--color-white);
+    box-shadow: 0 10px 40px rgba(10, 22, 40, 0.06);
+}
+
+.fund-area h4 {
+    font-size: 18px;
+    color: var(--color-primary);
+    margin-bottom: var(--spacing-xs);
+}
+
+.fund-area p {
+    font-size: 15px;
+    color: var(--color-text-light);
+    line-height: 1.7;
+    margin: 0;
+}
+
+.fund-growth {
+    font-size: 16px;
+    color: var(--color-accent);
+    font-weight: 500;
+    font-style: italic;
+}
+
+.fund-sidebar {
+    position: sticky;
+    top: 120px;
+}
+
+.fund-quote {
+    padding: var(--spacing-lg);
+    background-color: var(--color-primary);
+    position: relative;
+}
+
+.fund-quote::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    background-color: var(--color-accent);
+}
+
+.fund-quote blockquote {
+    font-family: var(--font-serif);
+    font-size: 20px;
+    font-style: italic;
+    color: var(--color-white);
+    line-height: 1.6;
+    margin: 0;
+}
+
 /* Responsive Design */
 @media (max-width: 1024px) {
     .impact-grid {
         grid-template-columns: 1fr;
+    }
+
+    .fund-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .fund-sidebar {
+        position: static;
     }
 
     .timeline-line {
