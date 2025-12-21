@@ -482,6 +482,12 @@ a {
     color: var(--green-dark);
 }
 
+.contact-location {
+    margin-top: 24px;
+    font-size: 15px;
+    color: var(--gray-400);
+}
+
 /* Footer */
 .footer {
     background: var(--green-dark);
