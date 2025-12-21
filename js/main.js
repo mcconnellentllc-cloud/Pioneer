@@ -1,104 +1,176 @@
 /**
  * Pioneer - McConnell Enterprises
- * Main JavaScript
+ * Refined Interactions
  */
 
-document.addEventListener('DOMContentLoaded', function() {
-    // Mobile Menu Toggle
-    const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
-    const navLinks = document.querySelector('.nav-links');
+(function() {
+    'use strict';
 
-    if (mobileMenuBtn) {
-        mobileMenuBtn.addEventListener('click', function() {
-            navLinks.classList.toggle('active');
-            this.classList.toggle('active');
-        });
+    document.addEventListener('DOMContentLoaded', init);
+
+    function init() {
+        initNavbar();
+        initSmoothScroll();
+        initMobileMenu();
+        initScrollAnimations();
     }
 
-    // Smooth Scroll for Navigation Links
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function(e) {
-            e.preventDefault();
-            const target = document.querySelector(this.getAttribute('href'));
-            if (target) {
-                const headerOffset = 80;
-                const elementPosition = target.getBoundingClientRect().top;
-                const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+    /**
+     * Navbar scroll behavior
+     */
+    function initNavbar() {
+        var navbar = document.querySelector('.navbar');
+        if (!navbar) return;
+
+        var scrollThreshold = 80;
+
+        function updateNavbar() {
+            if (window.scrollY > scrollThreshold) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        }
+
+        window.addEventListener('scroll', throttle(updateNavbar, 16));
+        updateNavbar();
+    }
+
+    /**
+     * Smooth scroll for anchor links
+     */
+    function initSmoothScroll() {
+        var links = document.querySelectorAll('a[href^="#"]');
+
+        links.forEach(function(link) {
+            link.addEventListener('click', function(e) {
+                var href = this.getAttribute('href');
+                if (href === '#') return;
+
+                var target = document.querySelector(href);
+                if (!target) return;
+
+                e.preventDefault();
+
+                var headerOffset = 100;
+                var elementPosition = target.getBoundingClientRect().top;
+                var offsetPosition = elementPosition + window.pageYOffset - headerOffset;
 
                 window.scrollTo({
                     top: offsetPosition,
                     behavior: 'smooth'
                 });
 
-                // Close mobile menu if open
-                if (navLinks.classList.contains('active')) {
-                    navLinks.classList.remove('active');
-                    mobileMenuBtn.classList.remove('active');
-                }
+                closeMobileMenu();
+            });
+        });
+    }
+
+    /**
+     * Mobile menu toggle
+     */
+    function initMobileMenu() {
+        var menuBtn = document.querySelector('.mobile-menu-btn');
+        var navLinks = document.querySelector('.nav-links');
+
+        if (!menuBtn || !navLinks) return;
+
+        menuBtn.addEventListener('click', function() {
+            var isOpen = navLinks.classList.contains('mobile-open');
+
+            if (isOpen) {
+                closeMobileMenu();
+            } else {
+                navLinks.classList.add('mobile-open');
+                menuBtn.classList.add('active');
+                navLinks.style.display = 'flex';
+                navLinks.style.flexDirection = 'column';
+                navLinks.style.position = 'absolute';
+                navLinks.style.top = '100%';
+                navLinks.style.left = '0';
+                navLinks.style.right = '0';
+                navLinks.style.backgroundColor = 'rgba(10, 22, 40, 0.98)';
+                navLinks.style.padding = '24px';
+                navLinks.style.gap = '24px';
             }
         });
-    });
+    }
 
-    // Navbar Background on Scroll
-    const navbar = document.querySelector('.navbar');
+    function closeMobileMenu() {
+        var menuBtn = document.querySelector('.mobile-menu-btn');
+        var navLinks = document.querySelector('.nav-links');
 
-    window.addEventListener('scroll', function() {
-        if (window.scrollY > 50) {
-            navbar.style.backgroundColor = 'rgba(13, 27, 42, 0.98)';
-            navbar.style.padding = '12px 0';
+        if (!navLinks) return;
+
+        navLinks.classList.remove('mobile-open');
+        if (menuBtn) menuBtn.classList.remove('active');
+
+        if (window.innerWidth <= 768) {
+            navLinks.style.display = 'none';
         } else {
-            navbar.style.backgroundColor = 'rgba(26, 54, 93, 0.95)';
-            navbar.style.padding = '16px 0';
+            navLinks.removeAttribute('style');
         }
-    });
+    }
 
-    // Intersection Observer for Fade-in Animations
-    const observerOptions = {
-        threshold: 0.1,
-        rootMargin: '0px 0px -50px 0px'
-    };
+    /**
+     * Scroll-triggered animations
+     */
+    function initScrollAnimations() {
+        var animatedElements = document.querySelectorAll(
+            'section, .expertise-item, .principle'
+        );
 
-    const observer = new IntersectionObserver(function(entries) {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('visible');
-            }
+        if (!('IntersectionObserver' in window)) {
+            animatedElements.forEach(function(el) {
+                el.classList.add('visible');
+            });
+            return;
+        }
+
+        var observer = new IntersectionObserver(function(entries) {
+            entries.forEach(function(entry) {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('fade-up', 'visible');
+                }
+            });
+        }, {
+            threshold: 0.1,
+            rootMargin: '0px 0px -60px 0px'
         });
-    }, observerOptions);
 
-    // Observe all sections and cards
-    document.querySelectorAll('section, .service-card, .stat-item, .value-item').forEach(el => {
-        el.classList.add('fade-in');
-        observer.observe(el);
+        animatedElements.forEach(function(el) {
+            el.classList.add('fade-up');
+            observer.observe(el);
+        });
+    }
+
+    /**
+     * Throttle utility
+     */
+    function throttle(func, limit) {
+        var inThrottle;
+        return function() {
+            var args = arguments;
+            var context = this;
+            if (!inThrottle) {
+                func.apply(context, args);
+                inThrottle = true;
+                setTimeout(function() {
+                    inThrottle = false;
+                }, limit);
+            }
+        };
+    }
+
+    /**
+     * Handle window resize
+     */
+    window.addEventListener('resize', function() {
+        var navLinks = document.querySelector('.nav-links');
+        if (window.innerWidth > 768 && navLinks) {
+            navLinks.removeAttribute('style');
+            navLinks.classList.remove('mobile-open');
+        }
     });
 
-    // Add fade-in styles dynamically
-    const style = document.createElement('style');
-    style.textContent = `
-        .fade-in {
-            opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.6s ease, transform 0.6s ease;
-        }
-        .fade-in.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        .nav-links.active {
-            display: flex;
-            flex-direction: column;
-            position: absolute;
-            top: 100%;
-            left: 0;
-            right: 0;
-            background-color: rgba(13, 27, 42, 0.98);
-            padding: 20px;
-            gap: 20px;
-        }
-    `;
-    document.head.appendChild(style);
-
-    // Console welcome message
-    console.log('%c PIONEER ', 'background: #1a365d; color: #d4a853; font-size: 20px; padding: 10px 20px; font-family: Georgia, serif;');
-    console.log('%c A McConnell Enterprises Initiative ', 'color: #718096; font-size: 12px;');
-});
+})();
