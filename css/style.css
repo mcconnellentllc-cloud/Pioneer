@@ -1226,8 +1226,101 @@ p {
     width: 100%;
 }
 
+/* Community Impact Section */
+.community-impact {
+    padding: var(--spacing-xxl) 0;
+    background-color: var(--color-offwhite);
+}
+
+.community-impact .section-title {
+    text-align: center;
+    margin-bottom: var(--spacing-md);
+}
+
+.community-intro {
+    text-align: center;
+    max-width: 700px;
+    margin: 0 auto var(--spacing-xl);
+    font-size: 18px;
+    color: var(--color-text-light);
+}
+
+.impact-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--spacing-lg);
+}
+
+.impact-card {
+    background-color: var(--color-white);
+    padding: var(--spacing-lg);
+    border: 1px solid var(--color-border);
+    transition: var(--transition-smooth);
+}
+
+.impact-card:hover {
+    border-color: var(--color-accent);
+    box-shadow: 0 10px 40px rgba(10, 22, 40, 0.06);
+}
+
+.impact-card-header {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+    margin-bottom: var(--spacing-md);
+    padding-bottom: var(--spacing-md);
+    border-bottom: 1px solid var(--color-border);
+}
+
+.impact-year {
+    display: inline-block;
+    padding: 8px 16px;
+    background-color: var(--color-accent);
+    color: var(--color-primary);
+    font-family: var(--font-serif);
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.impact-icon {
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    border: 2px solid var(--color-accent);
+    border-radius: 50%;
+    position: relative;
+}
+
+.impact-icon::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 12px;
+    height: 12px;
+    border: 2px solid var(--color-accent);
+    border-radius: 50%;
+}
+
+.impact-card-header h3 {
+    font-size: 22px;
+    color: var(--color-primary);
+    margin: 0;
+}
+
+.impact-card p {
+    color: var(--color-text-light);
+    font-size: 15px;
+    line-height: 1.8;
+}
+
 /* Responsive Design */
 @media (max-width: 1024px) {
+    .impact-grid {
+        grid-template-columns: 1fr;
+    }
+
     .timeline-line {
         left: 60px;
     }
