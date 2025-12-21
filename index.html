@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Pioneer by McConnell Enterprises - Leading the way in innovation and excellence">
-    <title>Pioneer | McConnell Enterprises</title>
+    <meta name="description" content="McConnell Enterprises - Your Pioneer Seed Dealer in Haxtun, Colorado since 1960">
+    <title>Pioneer Seeds | McConnell Enterprises - Haxtun, CO</title>
     <link rel="stylesheet" href="css/style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:wght@400;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 </head>
 <body>
     <nav class="navbar">
@@ -20,7 +20,7 @@
             </a>
             <ul class="nav-links">
                 <li><a href="#home">Home</a></li>
-                <li><a href="#news">News</a></li>
+                <li><a href="#markets">Markets</a></li>
                 <li><a href="#resources">Resources</a></li>
                 <li><a href="history.html">History</a></li>
                 <li><a href="#contact">Contact</a></li>
@@ -35,256 +35,132 @@
     <header id="home" class="hero">
         <div class="hero-background"></div>
         <div class="hero-content">
-            <div class="hero-overline">
-                <span class="line"></span>
-                <span class="text">McConnell Enterprises</span>
-                <span class="line"></span>
-            </div>
+            <p class="hero-location">Haxtun, Colorado</p>
             <h1 class="hero-title">PIONEER</h1>
-            <p class="hero-tagline">Excellence in Every Endeavor</p>
+            <p class="hero-tagline">Serving Northeast Colorado Farmers Since 1960</p>
             <div class="hero-cta">
-                <a href="#resources" class="btn btn-primary">Get Started</a>
+                <a href="#resources" class="btn btn-primary">Access Your Account</a>
             </div>
-        </div>
-        <div class="scroll-indicator">
-            <span class="scroll-line"></span>
         </div>
     </header>
 
-    <section id="resources" class="quick-access">
+    <section id="markets" class="markets">
         <div class="container">
-            <div class="section-label">Quick Access</div>
-            <h2 class="section-title">Your Pioneer Resources</h2>
-            <div class="access-grid">
+            <h2>Today's Markets</h2>
+            <p class="markets-note">Prices updated throughout the trading day</p>
+            <div class="markets-grid">
+                <div class="market-card">
+                    <h3>Corn</h3>
+                    <div class="market-price" id="corn-price">--</div>
+                    <div class="market-change" id="corn-change">--</div>
+                    <div class="market-label">per bushel</div>
+                </div>
+                <div class="market-card">
+                    <h3>Wheat</h3>
+                    <div class="market-price" id="wheat-price">--</div>
+                    <div class="market-change" id="wheat-change">--</div>
+                    <div class="market-label">per bushel</div>
+                </div>
+                <div class="market-card">
+                    <h3>Milo</h3>
+                    <div class="market-price" id="milo-price">--</div>
+                    <div class="market-change" id="milo-change">--</div>
+                    <div class="market-label">per bushel</div>
+                </div>
+                <div class="market-card">
+                    <h3>Millet</h3>
+                    <div class="market-price" id="millet-price">--</div>
+                    <div class="market-change" id="millet-change">--</div>
+                    <div class="market-label">per cwt</div>
+                </div>
+                <div class="market-card">
+                    <h3>Live Cattle</h3>
+                    <div class="market-price" id="cattle-live-price">--</div>
+                    <div class="market-change" id="cattle-live-change">--</div>
+                    <div class="market-label">per cwt</div>
+                </div>
+                <div class="market-card">
+                    <h3>Feeder Cattle</h3>
+                    <div class="market-price" id="cattle-feeder-price">--</div>
+                    <div class="market-change" id="cattle-feeder-change">--</div>
+                    <div class="market-label">per cwt</div>
+                </div>
+            </div>
+            <p class="markets-disclaimer">Market data for reference only. Contact local elevators for cash bids.</p>
+        </div>
+    </section>
+
+    <section id="resources" class="resources">
+        <div class="container">
+            <h2>Pioneer Resources</h2>
+            <div class="resources-grid">
                 <a href="https://agcompanyb2c.b2clogin.com/agcompanyb2c.onmicrosoft.com/oauth2/v2.0/authorize?p=B2C_1_Pioneer_PROD&client_id=efee0769-edcb-42fe-a278-e347b9017e72&nonce=nzoqrkecqmcthemhkaub&redirect_uri=https%3A%2F%2Fwww.pioneer.com%2Fus%2Fredirect.html&scope=https%3A%2F%2Fagcompanyb2c.onmicrosoft.com%2Fapiprod%2Fwrite%20https%3A%2F%2Fagcompanyb2c.onmicrosoft.com%2Fapiprod%2Fread%20offline_access%20openid&response_type=code+id_token&prompt=login&ui_locales=en&response_mode=query"
-                   class="access-card access-card-account" target="_blank" rel="noopener">
-                    <div class="access-card-icon">
-                        <span class="icon-circle"></span>
-                    </div>
-                    <div class="access-card-content">
-                        <h3>Pioneer Account</h3>
-                        <p>
-                            Access your Pioneer account to view seed orders, track deliveries,
-                            review agronomic data, and manage your farm operations. Your personalized
-                            dashboard puts critical information at your fingertips.
-                        </p>
-                        <span class="access-card-link">
-                            Sign In to Your Account
-                            <span class="arrow"></span>
-                        </span>
-                    </div>
+                   class="resource-card" target="_blank" rel="noopener">
+                    <h3>Pioneer Account</h3>
+                    <p>View orders, track deliveries, and access agronomic data for your operation.</p>
+                    <span class="resource-link">Sign In</span>
                 </a>
                 <a href="https://www.togoag.com/shop/pioneer-customers/UTUDVLOMMLNZIYF7JFQO4IXB"
-                   class="access-card access-card-merch" target="_blank" rel="noopener">
-                    <div class="access-card-icon">
-                        <span class="icon-diamond"></span>
-                    </div>
-                    <div class="access-card-content">
-                        <h3>Pioneer Merchandise</h3>
-                        <p>
-                            Shop exclusive Pioneer apparel and gear. From caps and jackets to
-                            workwear and accessories, represent the Pioneer brand with quality
-                            merchandise designed for those who lead the way.
-                        </p>
-                        <span class="access-card-link">
-                            Shop Now
-                            <span class="arrow"></span>
-                        </span>
-                    </div>
+                   class="resource-card" target="_blank" rel="noopener">
+                    <h3>Pioneer Merchandise</h3>
+                    <p>Caps, jackets, and gear. Quality apparel for Pioneer customers.</p>
+                    <span class="resource-link">Shop Now</span>
+                </a>
+                <a href="https://www.pioneer.com/us" class="resource-card" target="_blank" rel="noopener">
+                    <h3>Pioneer.com</h3>
+                    <p>Product information, agronomy insights, and the latest from Pioneer.</p>
+                    <span class="resource-link">Visit Site</span>
                 </a>
             </div>
         </div>
     </section>
 
-    <section id="news" class="news">
+    <section class="about-brief">
         <div class="container">
-            <div class="news-header">
-                <div>
-                    <div class="section-label">Latest Updates</div>
-                    <h2>News and Insights</h2>
-                </div>
+            <div class="about-content">
+                <h2>Three Generations Strong</h2>
+                <p>
+                    The McConnell family has been your local Pioneer dealer since 1960, when
+                    Harold McConnell first shook hands with a Pioneer representative on his
+                    Haxtun farm. Today, we continue that tradition of service, knowledge,
+                    and commitment to helping our neighbors succeed.
+                </p>
+                <a href="history.html" class="btn btn-outline">Our Story</a>
             </div>
-            <div class="news-grid">
-                <article class="news-card news-card-featured">
-                    <div class="news-card-date">
-                        <span class="month">Dec</span>
-                        <span class="day">21</span>
-                        <span class="year">2024</span>
-                    </div>
-                    <div class="news-card-content">
-                        <span class="news-tag">2025 Season</span>
-                        <h3>2025 Pioneer Seed Book Now Available</h3>
-                        <p>
-                            Our comprehensive 2025 seed guide is here. Explore the latest hybrid
-                            offerings, trait packages, and agronomic recommendations tailored
-                            for your region and growing conditions.
-                        </p>
-                        <span class="news-read-more">Coming Soon</span>
-                    </div>
+        </div>
+    </section>
+
+    <section id="news" class="news-simple">
+        <div class="container">
+            <h2>Latest News</h2>
+            <div class="news-list">
+                <article class="news-item">
+                    <time>December 2024</time>
+                    <h3>2025 Seed Planning</h3>
+                    <p>Now is the time to review harvest results and plan your 2025 seed selections. Give us a call to schedule a planning meeting.</p>
                 </article>
-                <article class="news-card">
-                    <div class="news-card-date">
-                        <span class="month">Dec</span>
-                        <span class="day">15</span>
-                        <span class="year">2024</span>
-                    </div>
-                    <div class="news-card-content">
-                        <span class="news-tag">Planning</span>
-                        <h3>Winter Planning Season Underway</h3>
-                        <p>
-                            Now is the time to review your 2024 harvest data and plan your
-                            2025 seed selections. Contact your Pioneer representative to
-                            schedule a planning meeting.
-                        </p>
-                    </div>
-                </article>
-                <article class="news-card">
-                    <div class="news-card-date">
-                        <span class="month">Dec</span>
-                        <span class="day">10</span>
-                        <span class="year">2024</span>
-                    </div>
-                    <div class="news-card-content">
-                        <span class="news-tag">Merchandise</span>
-                        <h3>New Pioneer Gear Available</h3>
-                        <p>
-                            Fresh Pioneer merchandise has arrived at the TogoAg shop.
-                            Explore new styles and show your Pioneer pride with quality
-                            apparel and accessories.
-                        </p>
-                    </div>
+                <article class="news-item">
+                    <time>Coming Soon</time>
+                    <h3>2025 Pioneer Seed Book</h3>
+                    <p>The comprehensive seed guide for the 2025 season will be available soon. Contact us to reserve your copy.</p>
                 </article>
             </div>
         </div>
     </section>
 
-    <section class="statement">
+    <section id="contact" class="contact-simple">
         <div class="container">
-            <div class="statement-content">
-                <blockquote>
-                    Where others see limitations, we see possibilities.
-                </blockquote>
-            </div>
-        </div>
-    </section>
-
-    <section id="about" class="about">
-        <div class="container">
-            <div class="section-label">About</div>
-            <div class="about-layout">
-                <div class="about-heading">
-                    <h2>Defining the<br>Standard of<br>Excellence</h2>
-                </div>
-                <div class="about-content">
-                    <p class="lead">
-                        Pioneer embodies McConnell Enterprises' unwavering commitment to
-                        distinction, innovation, and the relentless pursuit of excellence.
-                    </p>
-                    <p>
-                        We believe that true leadership is not merely about being first,
-                        but about setting standards that others aspire to reach. Our approach
-                        combines strategic vision with meticulous execution, ensuring that
-                        every initiative we undertake reflects our dedication to quality.
-                    </p>
-                    <p>
-                        At Pioneer, we forge paths where none existed before, transforming
-                        challenges into opportunities and vision into reality.
-                    </p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="expertise" class="expertise">
-        <div class="container">
-            <div class="section-label">Expertise</div>
-            <h2 class="section-title">Our Pillars of Excellence</h2>
-            <div class="expertise-grid">
-                <article class="expertise-item">
-                    <span class="expertise-number">01</span>
-                    <h3>Strategic Vision</h3>
-                    <p>
-                        Forward-thinking approaches that anticipate market evolution
-                        and position our partners for sustained success.
-                    </p>
-                </article>
-                <article class="expertise-item">
-                    <span class="expertise-number">02</span>
-                    <h3>Operational Excellence</h3>
-                    <p>
-                        Precision execution and unwavering attention to detail in
-                        every facet of our operations.
-                    </p>
-                </article>
-                <article class="expertise-item">
-                    <span class="expertise-number">03</span>
-                    <h3>Innovation Leadership</h3>
-                    <p>
-                        Pioneering solutions that challenge conventions and establish
-                        new benchmarks within our industry.
-                    </p>
-                </article>
-                <article class="expertise-item">
-                    <span class="expertise-number">04</span>
-                    <h3>Enduring Partnerships</h3>
-                    <p>
-                        Building relationships founded on trust, mutual respect,
-                        and shared commitment to exceptional outcomes.
-                    </p>
-                </article>
-            </div>
-        </div>
-    </section>
-
-    <section id="philosophy" class="philosophy">
-        <div class="container">
-            <div class="philosophy-content">
-                <div class="section-label light">Philosophy</div>
-                <h2>Our Guiding Principles</h2>
-                <div class="principles-grid">
-                    <div class="principle">
-                        <h4>Integrity</h4>
-                        <p>Our word is our bond. We conduct every engagement with
-                        transparency, honesty, and ethical rigor.</p>
+            <div class="contact-content">
+                <h2>Get In Touch</h2>
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <strong>McConnell Enterprises</strong>
+                        <span>Haxtun, Colorado</span>
                     </div>
-                    <div class="principle">
-                        <h4>Excellence</h4>
-                        <p>We accept nothing less than exceptional. Every detail matters,
-                        every outcome reflects our standards.</p>
+                    <div class="contact-item">
+                        <strong>Phone</strong>
+                        <a href="tel:9707743276">(970) 774-3276</a>
                     </div>
-                    <div class="principle">
-                        <h4>Innovation</h4>
-                        <p>We continuously evolve, embracing new methodologies while
-                        honoring time-tested principles.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="contact" class="contact">
-        <div class="container">
-            <div class="contact-layout">
-                <div class="contact-heading">
-                    <div class="section-label">Contact</div>
-                    <h2>Begin the<br>Conversation</h2>
-                </div>
-                <div class="contact-content">
-                    <p>
-                        We welcome inquiries from those who share our commitment to
-                        excellence. Whether you seek partnership, consultation, or
-                        simply wish to learn more about Pioneer, we invite you to
-                        connect with our team.
-                    </p>
-                    <div class="contact-details">
-                        <div class="contact-item">
-                            <span class="contact-label">Email</span>
-                            <a href="mailto:contact@mcconnellenterprises.com">contact@mcconnellenterprises.com</a>
-                        </div>
-                    </div>
-                    <a href="mailto:contact@mcconnellenterprises.com" class="btn btn-dark">
-                        Send an Inquiry
-                    </a>
                 </div>
             </div>
         </div>
@@ -298,12 +174,10 @@
                     <span class="logo-divider"></span>
                     <span class="logo-subtitle">McConnell Enterprises</span>
                 </div>
-                <div class="footer-tagline">
-                    A McConnell Enterprises Initiative
-                </div>
+                <p class="footer-location">Haxtun, Colorado</p>
                 <nav class="footer-nav">
                     <a href="#home">Home</a>
-                    <a href="#news">News</a>
+                    <a href="#markets">Markets</a>
                     <a href="#resources">Resources</a>
                     <a href="history.html">History</a>
                     <a href="#contact">Contact</a>
@@ -316,5 +190,6 @@
     </footer>
 
     <script src="js/main.js"></script>
+    <script src="js/markets.js"></script>
 </body>
 </html>
