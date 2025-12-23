@@ -911,22 +911,66 @@ a {
 
 /* History Quote Section */
 .history-quote {
-    padding: 100px 0;
+    padding: 0;
     background: var(--green-dark);
 }
 
+.history-quote-layout {
+    display: flex;
+    align-items: stretch;
+}
+
+.history-quote-image {
+    width: 40%;
+    flex-shrink: 0;
+}
+
+.history-quote-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
 .history-quote-content {
-    max-width: 800px;
-    margin: 0 auto;
-    text-align: center;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 80px 60px;
+}
+
+.quote-badge {
+    display: inline-block;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    color: rgba(255,255,255,0.6);
+    margin-bottom: 24px;
 }
 
 .history-quote blockquote {
     font-family: var(--font-heading);
-    font-size: clamp(24px, 4vw, 32px);
+    font-size: clamp(22px, 3vw, 28px);
     font-style: italic;
     color: var(--white);
-    line-height: 1.6;
+    line-height: 1.7;
+    margin: 0;
+}
+
+@media (max-width: 900px) {
+    .history-quote-layout {
+        flex-direction: column;
+    }
+
+    .history-quote-image {
+        width: 100%;
+        height: 300px;
+    }
+
+    .history-quote-content {
+        padding: 60px 40px;
+        text-align: center;
+    }
 }
 
 /* Rick Spotlight */
@@ -1414,6 +1458,57 @@ a {
 
 .news-card:hover .news-link::after {
     transform: translateX(4px);
+}
+
+/* Anniversary News Card with Image */
+.news-anniversary {
+    grid-column: span 2;
+    flex-direction: row;
+    padding: 0;
+    overflow: hidden;
+    border: 2px solid var(--green-dark);
+}
+
+.news-anniversary:hover {
+    border-color: var(--green-light);
+}
+
+.news-card-image {
+    width: 45%;
+    height: auto;
+    object-fit: cover;
+    object-position: center;
+}
+
+.news-card-content {
+    flex: 1;
+    padding: 36px 40px;
+    display: flex;
+    flex-direction: column;
+}
+
+.news-anniversary .news-tag {
+    background: linear-gradient(135deg, var(--green-dark) 0%, var(--green-medium) 100%);
+}
+
+.news-anniversary h3 {
+    font-size: 26px;
+}
+
+.news-anniversary p {
+    font-size: 15px;
+}
+
+@media (max-width: 900px) {
+    .news-anniversary {
+        grid-column: span 1;
+        flex-direction: column;
+    }
+
+    .news-card-image {
+        width: 100%;
+        height: 200px;
+    }
 }
 
 /* NCGA Page Styles */
