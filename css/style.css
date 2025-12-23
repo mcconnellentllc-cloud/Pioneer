@@ -1833,7 +1833,7 @@ a {
 
 .seedbook-feature {
     padding: 0;
-    margin-top: -50px;
+    margin-top: -60px;
     position: relative;
     z-index: 10;
 }
@@ -1842,12 +1842,11 @@ a {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background: var(--white);
-    border: 1px solid var(--gray-200);
-    border-left: 4px solid var(--green-dark);
+    background: linear-gradient(135deg, var(--white) 0%, #f8fdf9 100%);
+    border: 2px solid var(--green-dark);
     border-radius: var(--radius-lg);
-    padding: 48px 56px;
-    box-shadow: var(--shadow-xl);
+    padding: 56px 64px;
+    box-shadow: 0 25px 80px rgba(26, 71, 42, 0.2);
     transition: var(--transition);
     position: relative;
     overflow: hidden;
@@ -1857,17 +1856,26 @@ a {
     content: '';
     position: absolute;
     top: 0;
-    right: 0;
-    width: 40%;
+    left: 0;
+    width: 6px;
     height: 100%;
-    background: linear-gradient(135deg, transparent 0%, var(--green-pale) 100%);
-    opacity: 0.5;
+    background: linear-gradient(180deg, var(--green-dark) 0%, var(--green-light) 100%);
+}
+
+.seedbook-banner::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -10%;
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle, rgba(45, 122, 71, 0.08) 0%, transparent 70%);
     pointer-events: none;
 }
 
 .seedbook-banner:hover {
-    box-shadow: 0 24px 60px rgba(0,0,0,0.15);
-    transform: translateY(-3px);
+    box-shadow: 0 30px 100px rgba(26, 71, 42, 0.25);
+    transform: translateY(-4px);
     border-color: var(--green-light);
 }
 
@@ -1879,45 +1887,56 @@ a {
 
 .seedbook-badge {
     display: inline-block;
-    font-size: 10px;
+    font-size: 11px;
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 2px;
     color: var(--white);
-    background: var(--green-dark);
-    padding: 8px 16px;
+    background: linear-gradient(135deg, var(--green-dark) 0%, var(--green-medium) 100%);
+    padding: 10px 20px;
     border-radius: 4px;
-    margin-bottom: 16px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 12px rgba(26, 71, 42, 0.3);
 }
 
 .seedbook-banner h2 {
-    font-size: 30px;
-    margin-bottom: 10px;
+    font-size: 34px;
+    margin-bottom: 14px;
     color: var(--gray-900);
     letter-spacing: -0.02em;
 }
 
 .seedbook-banner p {
-    font-size: 15px;
+    font-size: 16px;
     line-height: 1.7;
-    color: var(--gray-500);
-    margin-bottom: 20px;
-    max-width: 480px;
+    color: var(--gray-600);
+    margin-bottom: 24px;
+    max-width: 520px;
 }
 
 .seedbook-link {
     display: inline-flex;
     align-items: center;
-    gap: 8px;
-    font-size: 14px;
-    font-weight: 600;
+    gap: 10px;
+    font-size: 15px;
+    font-weight: 700;
     color: var(--green-dark);
     letter-spacing: 0.02em;
+    padding: 12px 24px;
+    background: var(--green-pale);
+    border-radius: var(--radius);
+    transition: var(--transition);
 }
 
 .seedbook-link::after {
     content: '\2192';
+    font-size: 16px;
     transition: var(--transition);
+}
+
+.seedbook-banner:hover .seedbook-link {
+    background: var(--green-dark);
+    color: var(--white);
 }
 
 .seedbook-banner:hover .seedbook-link::after {
@@ -1926,30 +1945,32 @@ a {
 
 .seedbook-banner-stats {
     display: flex;
-    gap: 24px;
+    gap: 20px;
     position: relative;
     z-index: 1;
 }
 
 .mini-stat {
     text-align: center;
-    padding: 24px 32px;
+    padding: 28px 32px;
     background: var(--white);
-    border: 1px solid var(--gray-200);
+    border: 2px solid var(--gray-200);
     border-radius: var(--radius-lg);
-    box-shadow: var(--shadow-sm);
+    box-shadow: var(--shadow-md);
     transition: var(--transition);
+    min-width: 120px;
 }
 
 .seedbook-banner:hover .mini-stat {
-    border-color: var(--green-light);
-    box-shadow: var(--shadow-md);
+    border-color: var(--green-dark);
+    box-shadow: var(--shadow-lg);
+    transform: translateY(-2px);
 }
 
 .mini-stat-value {
     display: block;
     font-family: var(--font-heading);
-    font-size: 38px;
+    font-size: 42px;
     font-weight: 700;
     color: var(--green-dark);
     line-height: 1;
@@ -1959,11 +1980,11 @@ a {
 .mini-stat-label {
     display: block;
     font-size: 11px;
-    font-weight: 600;
-    letter-spacing: 0.5px;
+    font-weight: 700;
+    letter-spacing: 1px;
     text-transform: uppercase;
     color: var(--gray-500);
-    margin-top: 6px;
+    margin-top: 8px;
 }
 
 /* ================================
