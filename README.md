@@ -1,78 +1,60 @@
-# Pioneer
+# 2025 Crop Planner - M77 AG
 
-**A McConnell Enterprises Initiative**
+Static website for M77 AG crop planning operations in northeastern Colorado. Tracks costs, inputs, revenue projections, and generates custom farming/lease offers.
 
----
+## Overview
 
-## About
+This planning tool helps manage:
+- **2,640 total acres** across multiple crops
+- Irrigated and dryland operations
+- Complete cost tracking (seed, fertilizer, chemicals, overhead)
+- Revenue projections and breakeven analysis
+- Custom farming rate cards
 
-Pioneer represents McConnell Enterprises' commitment to innovation, excellence, and pushing boundaries. This repository hosts the official Pioneer website.
+## Crops Planned for 2025
 
-## Website
+| Crop | Type | Acres | Target Yield |
+|------|------|-------|--------------|
+| Corn | Irrigated | 640 | 210 bu/ac |
+| Corn | Dryland | 480 | 75 bu/ac |
+| Winter Wheat | Dryland | 800 | 35 bu/ac |
+| Grain Sorghum | Dryland | 320 | 65 bu/ac |
+| Grain Sorghum | Irrigated | 160 | 130 bu/ac |
+| Sunflowers | Dryland | 240 | 1,400 lbs/ac |
 
-This site is hosted on GitHub Pages. Visit the live site at:
-- **GitHub Pages URL**: `https://[username].github.io/Pioneer/`
-
-## Features
-
-- Responsive design that works on all devices
-- Modern, professional aesthetic
-- Smooth scroll navigation
-- Animated sections on scroll
-- Mobile-friendly navigation
-
-## Technology Stack
-
-- HTML5
-- CSS3 (with CSS Variables)
-- Vanilla JavaScript
-- Google Fonts (Inter & Playfair Display)
-
-## Local Development
-
-To run this website locally:
-
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/[username]/Pioneer.git
-   ```
-
-2. Open `index.html` in your browser, or use a local server:
-   ```bash
-   # Using Python
-   python -m http.server 8000
-
-   # Using Node.js (npx)
-   npx serve
-   ```
-
-3. Visit `http://localhost:8000` in your browser
-
-## Enabling GitHub Pages
-
-1. Go to your repository on GitHub
-2. Navigate to **Settings** > **Pages**
-3. Under "Source", select **Deploy from a branch**
-4. Select the `main` branch (or your preferred branch) and `/ (root)` folder
-5. Click **Save**
-6. Your site will be published at `https://[username].github.io/Pioneer/`
-
-## Structure
+## File Structure
 
 ```
-Pioneer/
-├── index.html          # Main HTML page
-├── css/
-│   └── style.css       # Main stylesheet
-├── js/
-│   └── main.js         # JavaScript functionality
-└── README.md           # This file
+/
+├── index.html          # Dashboard with summary stats
+├── css/style.css       # Dark theme styling
+├── js/main.js          # Page rendering logic
+├── data/
+│   ├── crops.js        # Crop acres, yields, prices
+│   └── costs.js        # Input costs, rates, overhead
+└── pages/
+    ├── costs.html      # Detailed cost breakdown
+    ├── inputs.html     # Seed, fertilizer, chemical details
+    ├── projections.html # Revenue and profit projections
+    └── offer.html      # Custom farming rate card
 ```
 
-## License
+## Usage
 
-Copyright 2024 McConnell Enterprises. All rights reserved.
+1. Edit `data/crops.js` to update planned acres and yield goals
+2. Edit `data/costs.js` to update input prices and rates
+3. View the dashboard for updated summaries and projections
 
----
+## Deployment
 
-*Leading the way forward. Building tomorrow's solutions today.*
+Designed for GitHub Pages. Enable Pages in repository settings and select this branch.
+
+## Location
+
+M77 AG operates in:
+- Phillips County
+- Sedgwick County
+- Logan County
+- Yuma County
+
+Based in Haxtun, Colorado.

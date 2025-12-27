@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inputs | 2025 Crop Planner</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+    <nav class="nav">
+        <div class="nav-brand">M77 AG</div>
+        <ul class="nav-links">
+            <li><a href="../index.html">Dashboard</a></li>
+            <li><a href="costs.html">Cost Breakdown</a></li>
+            <li><a href="inputs.html" class="active">Inputs</a></li>
+            <li><a href="projections.html">Projections</a></li>
+            <li><a href="offer.html">Custom Farming Offer</a></li>
+        </ul>
+    </nav>
+
+    <main class="container">
+        <header class="page-header">
+            <h1>2025 Input Details</h1>
+            <p class="subtitle">Seed, Fertilizer, and Chemical specifications</p>
+        </header>
+
+        <div id="inputs-content">
+            <!-- Populated by JS -->
+        </div>
+
+        <section class="section">
+            <h2>Supplier Information</h2>
+            <div class="summary-grid">
+                <div class="card">
+                    <h3>Seed</h3>
+                    <p style="font-size: 1.125rem; color: var(--text-heading); margin-bottom: 0.5rem;">Pioneer Seeds</p>
+                    <p class="text-muted">Kyle McConnell - Local Dealer</p>
+                    <p class="text-muted">Premium genetics for NE Colorado</p>
+                </div>
+                <div class="card">
+                    <h3>Fertilizer</h3>
+                    <p style="font-size: 1.125rem; color: var(--text-heading); margin-bottom: 0.5rem;">Local Co-op / Direct</p>
+                    <p class="text-muted">Fall anhydrous booking</p>
+                    <p class="text-muted">Spring MAP/UAN delivery</p>
+                </div>
+                <div class="card">
+                    <h3>Chemicals</h3>
+                    <p style="font-size: 1.125rem; color: var(--text-heading); margin-bottom: 0.5rem;">ToGoAG</p>
+                    <p class="text-muted">Competitive pricing on generics</p>
+                    <p class="text-muted">Full herbicide programs</p>
+                </div>
+                <div class="card">
+                    <h3>Grain Marketing</h3>
+                    <p style="font-size: 1.125rem; color: var(--text-heading); margin-bottom: 0.5rem;">West Central</p>
+                    <p class="text-muted">Forward contracting</p>
+                    <p class="text-muted">Basis improvement programs</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <p>M77 AG | Haxtun, Colorado | 2025 Planning Year</p>
+    </footer>
+
+    <script src="../data/crops.js"></script>
+    <script src="../data/costs.js"></script>
+    <script src="../js/main.js"></script>
+</body>
+</html>

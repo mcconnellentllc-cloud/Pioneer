@@ -3,261 +3,98 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="McConnell Enterprises - Your Pioneer Seed Dealer in Haxtun, Colorado since 1960">
-    <title>Pioneer Seeds | McConnell Enterprises - Haxtun, CO</title>
+    <title>2025 Crop Planner | M77 AG</title>
     <link rel="stylesheet" href="css/style.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:wght@400;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 </head>
 <body>
-    <nav class="navbar">
-        <div class="container">
-            <a href="#" class="logo">
-                <span class="logo-text">PIONEER</span>
-                <span class="logo-divider"></span>
-                <span class="logo-subtitle">McConnell Enterprises</span>
-            </a>
-            <ul class="nav-links">
-                <li><a href="#home">Home</a></li>
-                <li><a href="#markets">Markets</a></li>
-                <li><a href="#resources">Resources</a></li>
-                <li><a href="history.html">History</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
-            <button class="mobile-menu-btn" aria-label="Toggle menu">
-                <span></span>
-                <span></span>
-            </button>
-        </div>
+    <nav class="nav">
+        <div class="nav-brand">M77 AG</div>
+        <ul class="nav-links">
+            <li><a href="index.html" class="active">Dashboard</a></li>
+            <li><a href="pages/costs.html">Cost Breakdown</a></li>
+            <li><a href="pages/inputs.html">Inputs</a></li>
+            <li><a href="pages/projections.html">Projections</a></li>
+            <li><a href="pages/offer.html">Custom Farming Offer</a></li>
+        </ul>
     </nav>
 
-    <header id="home" class="hero">
-        <div class="hero-background"></div>
-        <div class="hero-content">
-            <p class="hero-location">Haxtun, Colorado</p>
-            <h1 class="hero-title">PIONEER</h1>
-            <p class="hero-tagline">Serving Northeast Colorado Farmers Since 1960</p>
-            <div class="hero-cta">
-                <a href="#resources" class="btn btn-primary">Access Your Account</a>
+    <main class="container">
+        <header class="header">
+            <h1>2025 Crop Planning</h1>
+            <p class="subtitle">Northeastern Colorado Operations</p>
+        </header>
+
+        <section class="summary-grid">
+            <div class="card card-primary">
+                <h3>Total Planned Acres</h3>
+                <div class="stat" id="total-acres">--</div>
+                <span class="label">Irrigated + Dryland</span>
             </div>
-        </div>
-    </header>
-
-    <section class="seedbook-feature">
-        <div class="container">
-            <a href="seedbook.html" class="seedbook-banner">
-                <div class="seedbook-banner-content">
-                    <span class="seedbook-badge">4-Year Data Analysis</span>
-                    <h2>Multi-Year Hybrid Performance Summary</h2>
-                    <p>Comprehensive 2022-2025 yield data, GDU analysis, weather impact assessment, and head-to-head competitor comparisons across 200,000+ harvested acres in Northeast Colorado.</p>
-                    <span class="seedbook-link">View Full Analysis</span>
-                </div>
-                <div class="seedbook-banner-stats">
-                    <div class="mini-stat">
-                        <span class="mini-stat-value">4</span>
-                        <span class="mini-stat-label">Years Data</span>
-                    </div>
-                    <div class="mini-stat">
-                        <span class="mini-stat-value">+13%</span>
-                        <span class="mini-stat-label">Yield Gain</span>
-                    </div>
-                    <div class="mini-stat">
-                        <span class="mini-stat-value">246</span>
-                        <span class="mini-stat-label">Bu/Acre Peak</span>
-                    </div>
-                </div>
-            </a>
-        </div>
-    </section>
-
-    <section id="markets" class="markets">
-        <div class="container">
-            <h2>Today's Markets</h2>
-            <p class="markets-note">Prices updated throughout the trading day</p>
-            <div class="markets-grid">
-                <div class="market-card">
-                    <h3>Corn</h3>
-                    <div class="market-price" id="corn-price">--</div>
-                    <div class="market-change" id="corn-change">--</div>
-                    <div class="market-label">per bushel</div>
-                </div>
-                <div class="market-card">
-                    <h3>Wheat</h3>
-                    <div class="market-price" id="wheat-price">--</div>
-                    <div class="market-change" id="wheat-change">--</div>
-                    <div class="market-label">per bushel</div>
-                </div>
-                <div class="market-card">
-                    <h3>Milo</h3>
-                    <div class="market-price" id="milo-price">--</div>
-                    <div class="market-change" id="milo-change">--</div>
-                    <div class="market-label">per bushel</div>
-                </div>
-                <div class="market-card">
-                    <h3>Millet</h3>
-                    <div class="market-price" id="millet-price">--</div>
-                    <div class="market-change" id="millet-change">--</div>
-                    <div class="market-label">per cwt</div>
-                </div>
-                <div class="market-card">
-                    <h3>Live Cattle</h3>
-                    <div class="market-price" id="cattle-live-price">--</div>
-                    <div class="market-change" id="cattle-live-change">--</div>
-                    <div class="market-label">per cwt</div>
-                </div>
-                <div class="market-card">
-                    <h3>Feeder Cattle</h3>
-                    <div class="market-price" id="cattle-feeder-price">--</div>
-                    <div class="market-change" id="cattle-feeder-change">--</div>
-                    <div class="market-label">per cwt</div>
-                </div>
+            <div class="card">
+                <h3>Est. Total Cost</h3>
+                <div class="stat" id="total-cost">$--</div>
+                <span class="label">All inputs</span>
             </div>
-            <p class="markets-disclaimer">Market data for reference only. Contact local elevators for cash bids.</p>
-        </div>
-    </section>
+            <div class="card">
+                <h3>Cost Per Acre (Avg)</h3>
+                <div class="stat" id="cost-per-acre">$--</div>
+                <span class="label">Weighted average</span>
+            </div>
+            <div class="card">
+                <h3>Breakeven Price</h3>
+                <div class="stat" id="breakeven">$--/bu</div>
+                <span class="label">At projected yield</span>
+            </div>
+        </section>
 
-    <section id="resources" class="resources">
-        <div class="container">
-            <h2>Pioneer Resources</h2>
-            <p class="resources-intro">We know your time is valuable. Here are all the links you need to quickly access your Pioneer account, order merchandise, and find product information.</p>
-            <div class="resources-grid">
-                <a href="https://agcompanyb2c.b2clogin.com/agcompanyb2c.onmicrosoft.com/oauth2/v2.0/authorize?p=B2C_1_Pioneer_PROD&client_id=efee0769-edcb-42fe-a278-e347b9017e72&nonce=nzoqrkecqmcthemhkaub&redirect_uri=https%3A%2F%2Fwww.pioneer.com%2Fus%2Fredirect.html&scope=https%3A%2F%2Fagcompanyb2c.onmicrosoft.com%2Fapiprod%2Fwrite%20https%3A%2F%2Fagcompanyb2c.onmicrosoft.com%2Fapiprod%2Fread%20offline_access%20openid&response_type=code+id_token&prompt=login&ui_locales=en&response_mode=query"
-                   class="resource-card" target="_blank" rel="noopener">
-                    <h3>Pioneer Account</h3>
-                    <p>View orders, track deliveries, and access agronomic data for your operation.</p>
-                    <span class="resource-link">Sign In</span>
+        <section class="crop-overview">
+            <h2>Crop Breakdown</h2>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Crop</th>
+                        <th>Type</th>
+                        <th>Acres</th>
+                        <th>Est. Yield</th>
+                        <th>Cost/Acre</th>
+                        <th>Total Cost</th>
+                    </tr>
+                </thead>
+                <tbody id="crop-table">
+                </tbody>
+            </table>
+        </section>
+
+        <section class="quick-links">
+            <h2>Quick Access</h2>
+            <div class="link-grid">
+                <a href="pages/costs.html" class="link-card">
+                    <span class="link-icon">📊</span>
+                    <span>Full Cost Breakdown</span>
                 </a>
-                <a href="https://www.togoag.com/shop/pioneer-customers/UTUDVLOMMLNZIYF7JFQO4IXB"
-                   class="resource-card" target="_blank" rel="noopener">
-                    <h3>Pioneer Merchandise</h3>
-                    <p>Caps, jackets, and gear. Quality apparel for Pioneer customers.</p>
-                    <span class="resource-link">Shop Now</span>
+                <a href="pages/inputs.html" class="link-card">
+                    <span class="link-icon">🌾</span>
+                    <span>Seed, Fertilizer, Chemicals</span>
                 </a>
-                <a href="https://www.pioneer.com/us" class="resource-card" target="_blank" rel="noopener">
-                    <h3>Pioneer.com</h3>
-                    <p>Product information, agronomy insights, and the latest from Pioneer.</p>
-                    <span class="resource-link">Visit Site</span>
+                <a href="pages/projections.html" class="link-card">
+                    <span class="link-icon">📈</span>
+                    <span>Revenue Projections</span>
+                </a>
+                <a href="pages/offer.html" class="link-card">
+                    <span class="link-icon">📝</span>
+                    <span>Custom Farming / Lease Offer</span>
                 </a>
             </div>
-        </div>
-    </section>
-
-    <section class="about-brief">
-        <div class="container">
-            <div class="about-content">
-                <h2>Three Generations Strong</h2>
-                <p>
-                    The McConnell family has been your local Pioneer dealer since 1960, when
-                    Harold McConnell first shook hands with a Pioneer representative on his
-                    Haxtun farm. Today, we continue that tradition of service, knowledge,
-                    and commitment to helping our neighbors succeed.
-                </p>
-                <a href="history.html" class="btn btn-outline">Our Story</a>
-            </div>
-        </div>
-    </section>
-
-    <section id="news" class="news-section">
-        <div class="container">
-            <h2>Pioneer News</h2>
-            <div class="news-grid">
-                <article class="news-card news-featured">
-                    <span class="news-tag">Breaking News</span>
-                    <time>October 2025</time>
-                    <h3>Corteva to Separate Into Two Companies</h3>
-                    <p>Corteva Agriscience announced plans to split into two independent, publicly traded companies. The seed business, to be named "SpinCo," will be home to Pioneer brand and is expected to generate $9.9 billion in net sales. Current CEO Chuck Magro will lead SpinCo. The separation is expected in the second half of 2026.</p>
-                    <a href="https://www.corteva.com/resources/media-center/corteva-announces-plan-to-separate-into-two-industry-leading-public-companies.html" target="_blank" class="news-link">Read More</a>
-                </article>
-                <article class="news-card">
-                    <span class="news-tag">Yield Contest</span>
-                    <time>December 2024</time>
-                    <h3>David Hula Wins 2024 NCGA Contest with Pioneer</h3>
-                    <p>Virginia farmer David Hula topped the 2024 National Corn Yield Contest with 490.63 bu/acre using Pioneer P14830VYHR. Pioneer products were used in 310 entries exceeding 300 bu/acre - the most of any seed brand.</p>
-                    <a href="ncga.html" class="news-link">Learn About NCGA</a>
-                </article>
-                <article class="news-card">
-                    <span class="news-tag">New Products</span>
-                    <time>2024</time>
-                    <h3>Z-Series Soybeans Deliver Record Yields</h3>
-                    <p>Pioneer Z-Series soybeans showed a 3.5 bu/acre advantage over competitors with 73% wins. Georgia farmer Alex Harrell set a new world record using Z-Series. More varieties available for 2025.</p>
-                    <a href="https://www.pioneer.com/us/products/soybeans/z-series.html" target="_blank" class="news-link">Explore Z-Series</a>
-                </article>
-                <article class="news-card">
-                    <span class="news-tag">Corn</span>
-                    <time>2024</time>
-                    <h3>60+ New High-Yielding Corn Hybrids</h3>
-                    <p>Pioneer advanced more than 60 new corn hybrids for 2024-2025, expanding Vorceed Enlist corn availability and introducing PowerCore Enlist and PowerCore Ultra Enlist options.</p>
-                    <a href="https://www.pioneer.com/us/products/corn.html" target="_blank" class="news-link">View Products</a>
-                </article>
-                <article class="news-card">
-                    <span class="news-tag">Performance</span>
-                    <time>2024</time>
-                    <h3>Pioneer Corn Outperforms Competition</h3>
-                    <p>Pioneer's top 40 corn products outperformed competitors by 10.4 bu/acre with a 73% win rate. Vorceed Enlist products averaged 7.8 bu/acre higher yields in over 16,000 comparisons.</p>
-                    <a href="https://www.pioneer.com/us/agronomy/corn-greater-yield.html" target="_blank" class="news-link">See Results</a>
-                </article>
-                <article class="news-card news-anniversary">
-                    <img src="images/pioneer-100-family.jpg" alt="Pioneer Celebrating 100 Years - One seed can change the farm" class="news-card-image">
-                    <div class="news-card-content">
-                        <span class="news-tag">100 Years</span>
-                        <time>1926-2026</time>
-                        <h3>Celebrating One Hundred Years</h3>
-                        <p>One seed can change the farm. One farmer can change the world. Pioneer celebrates 100 years as an industry leader, continuing the legacy of innovation that began in 1926.</p>
-                        <a href="https://www.pioneer.com/us/news.html" target="_blank" class="news-link">Pioneer News</a>
-                    </div>
-                </article>
-            </div>
-        </div>
-    </section>
-
-    <section id="contact" class="contact-simple">
-        <div class="container">
-            <div class="contact-content">
-                <h2>Get In Touch</h2>
-                <div class="contact-info">
-                    <div class="contact-item">
-                        <strong>Kyle McConnell</strong>
-                        <a href="mailto:kyle.mcconnell@plantpioneer.com">kyle.mcconnell@plantpioneer.com</a>
-                    </div>
-                    <div class="contact-item">
-                        <strong>Cell</strong>
-                        <a href="tel:9705711015">(970) 571-1015</a>
-                    </div>
-                    <div class="contact-item">
-                        <strong>Office</strong>
-                        <a href="tel:9707743276">(970) 774-3276</a>
-                    </div>
-                </div>
-                <p class="contact-location">Haxtun, Colorado</p>
-            </div>
-        </div>
-    </section>
+        </section>
+    </main>
 
     <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-brand">
-                    <span class="logo-text">PIONEER</span>
-                    <span class="logo-divider"></span>
-                    <span class="logo-subtitle">McConnell Enterprises</span>
-                </div>
-                <p class="footer-location">Haxtun, Colorado</p>
-                <nav class="footer-nav">
-                    <a href="#home">Home</a>
-                    <a href="#markets">Markets</a>
-                    <a href="#resources">Resources</a>
-                    <a href="history.html">History</a>
-                    <a href="#contact">Contact</a>
-                </nav>
-            </div>
-            <div class="footer-bottom">
-                <p>Copyright 2024 McConnell Enterprises. All rights reserved.</p>
-            </div>
-        </div>
+        <p>M77 AG | Haxtun, Colorado | 2025 Planning Year</p>
     </footer>
 
+    <script src="data/crops.js"></script>
+    <script src="data/costs.js"></script>
     <script src="js/main.js"></script>
-    <script src="js/markets.js"></script>
 </body>
 </html>
