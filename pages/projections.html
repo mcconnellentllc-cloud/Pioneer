@@ -15,7 +15,7 @@
             <li><a href="costs.html">Cost Breakdown</a></li>
             <li><a href="inputs.html">Inputs</a></li>
             <li><a href="projections.html" class="active">Projections</a></li>
-            <li><a href="offer.html">Custom Farming Offer</a></li>
+            <li><a href="offer.html">Rate Sources</a></li>
         </ul>
     </nav>
 
@@ -37,18 +37,6 @@
                         <td><strong>Corn</strong></td>
                         <td>$4.40/bu - Based on December 2025 futures + basis</td>
                     </tr>
-                    <tr>
-                        <td><strong>Wheat</strong></td>
-                        <td>$5.75/bu - HRW harvest delivery</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Grain Sorghum</strong></td>
-                        <td>$4.20/bu - Typically 85-90% of corn</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Sunflowers</strong></td>
-                        <td>$0.24/lb - High oleic oil market</td>
-                    </tr>
                 </table>
                 <p class="notes mt-2">Prices subject to change. Consider forward contracting 30-50% of expected production when profitable opportunities arise.</p>
             </div>
@@ -56,15 +44,110 @@
 
         <section class="section">
             <h2>Yield Assumptions</h2>
+            <div class="two-column">
+                <div class="card">
+                    <h3>Irrigated Corn</h3>
+                    <table class="rate-table">
+                        <tr><td>Target Yield</td><td>200 bu/acre</td></tr>
+                        <tr><td>Total Acres</td><td>360</td></tr>
+                        <tr><td>Total Production</td><td>72,000 bu</td></tr>
+                    </table>
+                    <p class="notes mt-1">Based on adequate water supply and good management</p>
+                </div>
+                <div class="card">
+                    <h3>Dryland Corn</h3>
+                    <table class="rate-table">
+                        <tr><td>Target Yield</td><td>80 bu/acre</td></tr>
+                        <tr><td>Total Acres</td><td>600</td></tr>
+                        <tr><td>Total Production</td><td>48,000 bu</td></tr>
+                    </table>
+                    <p class="notes mt-1">NE Colorado average - dependent on timely moisture</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2>Breakeven Analysis</h2>
             <div class="card">
-                <p style="margin-bottom: 1rem;">Yield goals based on 5-year averages adjusted for:</p>
-                <ul style="margin-left: 1.5rem;">
-                    <li>Soil types and land quality</li>
-                    <li>Irrigation capacity and water availability</li>
-                    <li>Improved genetics and management practices</li>
-                    <li>Normal weather patterns for NE Colorado</li>
-                </ul>
-                <p class="notes mt-2">Actual results will vary. Dryland yields especially dependent on timely moisture.</p>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Crop</th>
+                            <th>Cost/Acre</th>
+                            <th>Target Yield</th>
+                            <th>Breakeven Price</th>
+                            <th>Target Price</th>
+                            <th>Margin/Bu</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Irrigated Corn</td>
+                            <td>$1,048.95</td>
+                            <td>200 bu/ac</td>
+                            <td>$5.24/bu</td>
+                            <td>$4.40/bu</td>
+                            <td class="text-red">-$0.84</td>
+                        </tr>
+                        <tr>
+                            <td>Dryland Corn</td>
+                            <td>$487.35</td>
+                            <td>80 bu/ac</td>
+                            <td>$6.09/bu</td>
+                            <td>$4.40/bu</td>
+                            <td class="text-red">-$1.69</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p class="notes mt-2">At current projected prices and costs, both operations show negative margins. Higher yields or better prices needed for profitability.</p>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2>Sensitivity Analysis - Irrigated Corn</h2>
+            <div class="card">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Yield (bu/ac)</th>
+                            <th>@ $4.00/bu</th>
+                            <th>@ $4.40/bu</th>
+                            <th>@ $4.80/bu</th>
+                            <th>@ $5.20/bu</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>180</td>
+                            <td class="text-red">-$328.95</td>
+                            <td class="text-red">-$256.95</td>
+                            <td class="text-red">-$184.95</td>
+                            <td class="text-red">-$112.95</td>
+                        </tr>
+                        <tr>
+                            <td>200</td>
+                            <td class="text-red">-$248.95</td>
+                            <td class="text-red">-$168.95</td>
+                            <td class="text-red">-$88.95</td>
+                            <td class="text-red">-$8.95</td>
+                        </tr>
+                        <tr>
+                            <td>220</td>
+                            <td class="text-red">-$168.95</td>
+                            <td class="text-red">-$80.95</td>
+                            <td class="text-green">$7.05</td>
+                            <td class="text-green">$95.05</td>
+                        </tr>
+                        <tr>
+                            <td>240</td>
+                            <td class="text-red">-$88.95</td>
+                            <td class="text-green">$7.05</td>
+                            <td class="text-green">$103.05</td>
+                            <td class="text-green">$199.05</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p class="notes mt-2">Net return per acre at various yield and price combinations. Need 220+ bu/ac or $4.80+/bu to approach profitability.</p>
             </div>
         </section>
     </main>

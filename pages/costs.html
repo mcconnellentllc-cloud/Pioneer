@@ -15,14 +15,14 @@
             <li><a href="costs.html" class="active">Cost Breakdown</a></li>
             <li><a href="inputs.html">Inputs</a></li>
             <li><a href="projections.html">Projections</a></li>
-            <li><a href="offer.html">Custom Farming Offer</a></li>
+            <li><a href="offer.html">Rate Sources</a></li>
         </ul>
     </nav>
 
     <main class="container">
         <header class="page-header">
             <h1>2025 Cost Breakdown</h1>
-            <p class="subtitle">Complete cost analysis by crop and category</p>
+            <p class="subtitle">Complete cost analysis by crop - Based on 75% of survey spread</p>
         </header>
 
         <section class="section">
@@ -33,13 +33,11 @@
                         <tr>
                             <th>Crop</th>
                             <th>Acres</th>
-                            <th>Seed</th>
-                            <th>Fertilizer</th>
-                            <th>Chemical</th>
-                            <th>Insurance</th>
+                            <th>Operations</th>
+                            <th>Inputs</th>
                             <th>Irrigation</th>
-                            <th>Land</th>
-                            <th>Other</th>
+                            <th>Overhead</th>
+                            <th>Interest</th>
                             <th>Total/Ac</th>
                             <th>Total Cost</th>
                         </tr>
@@ -51,16 +49,102 @@
         </section>
 
         <section class="section">
+            <h2>Irrigated Corn Breakdown (360 acres)</h2>
+            <div class="two-column">
+                <div class="card">
+                    <h3>Operations</h3>
+                    <table class="rate-table">
+                        <tr><td>Disk (x2)</td><td class="number">$35.00</td></tr>
+                        <tr><td>Strip Till</td><td class="number">$26.00</td></tr>
+                        <tr><td>Plant</td><td class="number">$35.00</td></tr>
+                        <tr><td>Spray (3 passes)</td><td class="number">$37.50</td></tr>
+                        <tr><td>Harvest</td><td class="number">$66.25</td></tr>
+                        <tr><td>Grain Cart</td><td class="number">$17.75</td></tr>
+                        <tr><td>Hauling</td><td class="number">$8.00</td></tr>
+                        <tr style="border-top: 2px solid var(--border);"><td><strong>Subtotal</strong></td><td class="number"><strong>$225.50</strong></td></tr>
+                    </table>
+                </div>
+                <div class="card">
+                    <h3>Inputs</h3>
+                    <table class="rate-table">
+                        <tr><td>Seed</td><td class="number">$138.13</td></tr>
+                        <tr><td>Fertilizer (220N-40P-25S)</td><td class="number">$174.75</td></tr>
+                        <tr><td>Chemicals (3-pass)</td><td class="number">$44.81</td></tr>
+                        <tr style="border-top: 2px solid var(--border);"><td><strong>Subtotal</strong></td><td class="number"><strong>$357.69</strong></td></tr>
+                    </table>
+                </div>
+            </div>
+            <div class="two-column mt-2">
+                <div class="card">
+                    <h3>Irrigation</h3>
+                    <table class="rate-table">
+                        <tr><td>Pumping (12" x $6.50)</td><td class="number">$78.00</td></tr>
+                        <tr><td>Repairs</td><td class="number">$15.00</td></tr>
+                        <tr><td>Labor</td><td class="number">$10.00</td></tr>
+                        <tr style="border-top: 2px solid var(--border);"><td><strong>Subtotal</strong></td><td class="number"><strong>$103.00</strong></td></tr>
+                    </table>
+                </div>
+                <div class="card">
+                    <h3>Overhead</h3>
+                    <table class="rate-table">
+                        <tr><td>Crop Insurance</td><td class="number">$35.00</td></tr>
+                        <tr><td>Land (Cash Rent)</td><td class="number">$275.00</td></tr>
+                        <tr><td>Miscellaneous</td><td class="number">$10.00</td></tr>
+                        <tr><td>Operating Interest</td><td class="number">$42.76</td></tr>
+                        <tr style="border-top: 2px solid var(--border);"><td><strong>Subtotal</strong></td><td class="number"><strong>$362.76</strong></td></tr>
+                    </table>
+                </div>
+            </div>
+            <div class="highlight-box mt-2">
+                <h3>Irrigated Corn Total: $1,048.95/acre</h3>
+                <p>360 acres x $1,048.95 = <strong>$377,622 total cost</strong></p>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2>Dryland Corn Breakdown (600 acres)</h2>
+            <div class="two-column">
+                <div class="card">
+                    <h3>Operations</h3>
+                    <table class="rate-table">
+                        <tr><td>Disk (x2)</td><td class="number">$35.00</td></tr>
+                        <tr><td>Plant</td><td class="number">$35.00</td></tr>
+                        <tr><td>Spray (2 passes)</td><td class="number">$25.00</td></tr>
+                        <tr><td>Harvest</td><td class="number">$66.25</td></tr>
+                        <tr><td>Grain Cart</td><td class="number">$17.75</td></tr>
+                        <tr><td>Hauling</td><td class="number">$3.20</td></tr>
+                        <tr style="border-top: 2px solid var(--border);"><td><strong>Subtotal</strong></td><td class="number"><strong>$182.20</strong></td></tr>
+                    </table>
+                </div>
+                <div class="card">
+                    <h3>Inputs + Overhead</h3>
+                    <table class="rate-table">
+                        <tr><td>Seed</td><td class="number">$85.25</td></tr>
+                        <tr><td>Fertilizer (80N-25P-15S)</td><td class="number">$86.03</td></tr>
+                        <tr><td>Chemicals (2-pass)</td><td class="number">$27.00</td></tr>
+                        <tr><td>Crop Insurance</td><td class="number">$22.00</td></tr>
+                        <tr><td>Land (Cash Rent)</td><td class="number">$55.00</td></tr>
+                        <tr><td>Miscellaneous</td><td class="number">$10.00</td></tr>
+                        <tr><td>Operating Interest</td><td class="number">$19.87</td></tr>
+                        <tr style="border-top: 2px solid var(--border);"><td><strong>Subtotal</strong></td><td class="number"><strong>$305.15</strong></td></tr>
+                    </table>
+                </div>
+            </div>
+            <div class="highlight-box mt-2">
+                <h3>Dryland Corn Total: $487.35/acre</h3>
+                <p>600 acres x $487.35 = <strong>$292,410 total cost</strong></p>
+            </div>
+        </section>
+
+        <section class="section">
             <h2>Cost Notes</h2>
             <div class="card">
                 <ul style="margin-left: 1.5rem;">
-                    <li><strong>Seed:</strong> Pioneer premium hybrids - quantity discounts applied</li>
-                    <li><strong>Fertilizer:</strong> Fall anhydrous + spring applications; prices from ToGoAG</li>
-                    <li><strong>Chemical:</strong> Full herbicide programs; fungicide on irrigated corn and wheat</li>
-                    <li><strong>Insurance:</strong> Revenue Protection at 75% coverage level</li>
-                    <li><strong>Irrigation:</strong> Electric pivot costs including energy, repairs, labor</li>
-                    <li><strong>Land:</strong> Cash rent based on Phillips/Sedgwick county averages</li>
-                    <li><strong>Other:</strong> Operating interest (8.5% for 6 months) + miscellaneous overhead</li>
+                    <li><strong>Operations:</strong> Based on 75% of reported range (Iowa State 2025 / CSU 2024)</li>
+                    <li><strong>Fertilizer:</strong> Anhydrous @ $825/ton, DAP @ $675/ton, AMS @ $350/ton</li>
+                    <li><strong>Chemicals:</strong> Valor, Atrazine, Metolachlor, Acetochlor 3-pass program</li>
+                    <li><strong>Irrigation:</strong> Electric pivot @ $6.50/acre-inch + repairs + labor</li>
+                    <li><strong>Interest:</strong> Operating loan at 8.5% for 6 months average</li>
                 </ul>
             </div>
         </section>
