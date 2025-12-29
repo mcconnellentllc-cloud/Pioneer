@@ -15,26 +15,26 @@
             <li><a href="pages/costs.html">Cost Breakdown</a></li>
             <li><a href="pages/inputs.html">Inputs</a></li>
             <li><a href="pages/projections.html">Projections</a></li>
-            <li><a href="pages/offer.html">Custom Farming Offer</a></li>
+            <li><a href="pages/offer.html">Rate Sources</a></li>
         </ul>
     </nav>
 
     <main class="container">
         <header class="header">
             <h1>2025 Crop Planning</h1>
-            <p class="subtitle">Northeastern Colorado Operations</p>
+            <p class="subtitle">Northeastern Colorado | CSU & Iowa State 2025 Custom Rates</p>
         </header>
 
         <section class="summary-grid">
             <div class="card card-primary">
                 <h3>Total Planned Acres</h3>
                 <div class="stat" id="total-acres">--</div>
-                <span class="label">Irrigated + Dryland</span>
+                <span class="label">Irrigated + Dryland Corn</span>
             </div>
             <div class="card">
                 <h3>Est. Total Cost</h3>
                 <div class="stat" id="total-cost">$--</div>
-                <span class="label">All inputs</span>
+                <span class="label">All inputs & operations</span>
             </div>
             <div class="card">
                 <h3>Cost Per Acre (Avg)</h3>
@@ -44,7 +44,7 @@
             <div class="card">
                 <h3>Breakeven Price</h3>
                 <div class="stat" id="breakeven">$--/bu</div>
-                <span class="label">At projected yield</span>
+                <span class="label">Weighted avg at target yield</span>
             </div>
         </section>
 
@@ -56,8 +56,9 @@
                         <th>Crop</th>
                         <th>Type</th>
                         <th>Acres</th>
-                        <th>Est. Yield</th>
+                        <th>Target Yield</th>
                         <th>Cost/Acre</th>
+                        <th>Breakeven</th>
                         <th>Total Cost</th>
                     </tr>
                 </thead>
@@ -70,21 +71,33 @@
             <h2>Quick Access</h2>
             <div class="link-grid">
                 <a href="pages/costs.html" class="link-card">
-                    <span class="link-icon">📊</span>
+                    <span class="link-icon">$</span>
                     <span>Full Cost Breakdown</span>
                 </a>
                 <a href="pages/inputs.html" class="link-card">
-                    <span class="link-icon">🌾</span>
-                    <span>Seed, Fertilizer, Chemicals</span>
+                    <span class="link-icon">N</span>
+                    <span>Fertilizer, Chemicals, Operations</span>
                 </a>
                 <a href="pages/projections.html" class="link-card">
-                    <span class="link-icon">📈</span>
+                    <span class="link-icon">%</span>
                     <span>Revenue Projections</span>
                 </a>
                 <a href="pages/offer.html" class="link-card">
-                    <span class="link-icon">📝</span>
-                    <span>Custom Farming / Lease Offer</span>
+                    <span class="link-icon">?</span>
+                    <span>Rate Sources & Methodology</span>
                 </a>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2>Data Sources</h2>
+            <div class="card">
+                <ul style="margin-left: 1.5rem;">
+                    <li><strong>Custom Rates:</strong> Iowa State University 2025 Farm Custom Rate Survey & CSU Extension 2024</li>
+                    <li><strong>Methodology:</strong> 75% of spread between low and high reported rates</li>
+                    <li><strong>Fertilizer Prices:</strong> USDA AMS Illinois/Iowa Reports (Nov 2025)</li>
+                    <li><strong>Chemical Prices:</strong> 2025 retail pricing estimates</li>
+                </ul>
             </div>
         </section>
     </main>

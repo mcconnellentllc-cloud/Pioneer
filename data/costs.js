@@ -1,357 +1,443 @@
 // 2025 Input Costs Database - M77 AG
-// All costs in $/acre unless noted
-// Prices reflect NE Colorado market - ToGoAG, Pioneer, West Central sourcing
+// Based on CSU 2024 and Iowa State 2025 Custom Rate Survey data
+// All custom rates calculated at 75% of reported spread
+// Formula: Low + 0.75 × (High - Low)
 
-const COSTS = {
-    seed: {
-        'corn-irrigated': {
-            hybrid: 'P1082Q, P1185AM',
-            population: 34000,
-            pricePerBag: 325,
-            bagsPerAcre: 0.425,
-            costPerAcre: 138.13,  // 325 * 0.425
-            notes: 'Pioneer Qrome/AquaMax - top yielding hybrids for pivots'
-        },
-        'corn-dryland': {
-            hybrid: 'P0843AM, P0622AM',
-            population: 18000,
-            pricePerBag: 310,
-            bagsPerAcre: 0.225,
-            costPerAcre: 69.75,
-            notes: 'Drought tolerant AquaMax, shorter season'
-        },
-        'wheat-dryland': {
-            variety: 'WestBred WB4792, Langin',
-            lbsPerAcre: 60,
-            pricePerBushel: 14,
-            costPerAcre: 14,  // 60 lbs = 1 bu
-            notes: 'Certified treated seed'
-        },
-        'milo-dryland': {
-            hybrid: '84P80, DKS37-07',
-            population: 35000,
-            pricePerBag: 185,
-            costPerAcre: 46.25,
-            notes: 'Medium maturity for NE CO'
-        },
-        'milo-irrigated': {
-            hybrid: '85P44, DKS54-00',
-            population: 55000,
-            pricePerBag: 195,
-            costPerAcre: 53.63,
-            notes: 'Full season, higher yield potential'
-        },
-        'sunflowers-dryland': {
-            hybrid: 'Pioneer P64HE01',
-            population: 18000,
-            pricePerBag: 285,
-            costPerAcre: 34.20,
-            notes: 'High oleic, ExpressSun'
-        }
-    },
-
-    fertilizer: {
-        products: {
-            anhydrous: { price: 650, unit: '$/ton', notes: '82-0-0' },
-            uan32: { price: 380, unit: '$/ton', notes: '32-0-0' },
-            uan28: { price: 340, unit: '$/ton', notes: '28-0-0' },
-            map: { price: 725, unit: '$/ton', notes: '11-52-0' },
-            dap: { price: 680, unit: '$/ton', notes: '18-46-0' },
-            potash: { price: 420, unit: '$/ton', notes: '0-0-60' },
-            sulfur: { price: 325, unit: '$/ton', notes: 'AMS 21-0-0-24S' },
-            zinc: { price: 1.25, unit: '$/lb', notes: 'Zinc sulfate' },
-        },
-        'corn-irrigated': {
-            nitrogen: 200,
-            phosphorus: 40,
-            potassium: 0,
-            sulfur: 20,
-            zinc: 1,
-            totalCostPerAcre: 142,
-            notes: 'Split apply - 120 lbs fall NH3 + 80 lbs UAN sidedress'
-        },
-        'corn-dryland': {
-            nitrogen: 70,
-            phosphorus: 25,
-            potassium: 0,
-            sulfur: 10,
-            zinc: 0.5,
-            totalCostPerAcre: 58,
-            notes: 'Fall anhydrous with starter'
-        },
-        'wheat-dryland': {
-            nitrogen: 45,
-            phosphorus: 20,
-            potassium: 0,
-            sulfur: 8,
-            zinc: 0,
-            totalCostPerAcre: 42,
-            notes: 'Fall apply pre-plant'
-        },
-        'milo-dryland': {
-            nitrogen: 55,
-            phosphorus: 20,
-            potassium: 0,
-            sulfur: 10,
-            zinc: 0,
-            totalCostPerAcre: 48,
-            notes: 'Starter + pre-plant N'
-        },
-        'milo-irrigated': {
-            nitrogen: 110,
-            phosphorus: 30,
-            potassium: 0,
-            sulfur: 15,
-            zinc: 0.5,
-            totalCostPerAcre: 92,
-            notes: 'Split N application'
-        },
-        'sunflowers-dryland': {
-            nitrogen: 50,
-            phosphorus: 15,
-            potassium: 0,
-            sulfur: 10,
-            zinc: 0,
-            totalCostPerAcre: 38,
-            notes: 'Light N - sunflowers efficient'
-        }
-    },
-
-    chemicals: {
-        herbicides: {
-            glyphosate: { price: 18, unit: '$/gal', rate: 32, notes: 'Generic Roundup' },
-            atrazine: { price: 16, unit: '$/gal', rate: 2, notes: '4L formulation' },
-            acetochlor: { price: 48, unit: '$/gal', rate: 1.3, notes: 'Warrant/Harness' },
-            dicamba: { price: 85, unit: '$/gal', rate: 0.5, notes: 'Clarity/Status' },
-            '24d': { price: 18, unit: '$/gal', rate: 1, notes: 'LV Ester' },
-            mesotrione: { price: 8.50, unit: '$/oz', rate: 3, notes: 'Callisto' },
-            spartan: { price: 145, unit: '$/gal', rate: 0.375, notes: 'Sulfentrazone for sunflowers' },
-        },
-        insecticides: {
-            bifenthrin: { price: 32, unit: '$/gal', rate: 0.1, notes: 'Brigade' },
-            chlorpyrifos: { price: 45, unit: '$/gal', rate: 1, notes: 'Lorsban - if available' },
-            transform: { price: 7.50, unit: '$/oz', rate: 1.5, notes: 'Aphids' },
-        },
-        fungicides: {
-            headline: { price: 28, unit: '$/oz', rate: 6, notes: 'Strobilurin' },
-            trivapro: { price: 22, unit: '$/oz', rate: 13.7, notes: 'Corn fungicide' },
-            prosaro: { price: 18, unit: '$/oz', rate: 6.5, notes: 'Wheat head scab' },
-        },
-        'corn-irrigated': {
-            preEmergence: 28,    // Atrazine + Warrant
-            postEmergence: 18,   // Roundup + Callisto
-            insecticide: 4,      // As needed
-            fungicide: 28,       // Headline/Trivapro
-            totalCostPerAcre: 78,
-            notes: 'Full program for irrigated'
-        },
-        'corn-dryland': {
-            preEmergence: 22,
-            postEmergence: 14,
-            insecticide: 2,
-            fungicide: 0,        // Skip fungicide dryland
-            totalCostPerAcre: 38,
-            notes: 'Reduced program'
-        },
-        'wheat-dryland': {
-            preEmergence: 0,
-            postEmergence: 12,   // Dicamba + 2,4-D
-            insecticide: 3,      // Aphid spray if needed
-            fungicide: 18,       // Prosaro for scab
-            totalCostPerAcre: 33,
-            notes: 'Scout-based applications'
-        },
-        'milo-dryland': {
-            preEmergence: 18,
-            postEmergence: 14,
-            insecticide: 5,      // Sugarcane aphid
-            fungicide: 0,
-            totalCostPerAcre: 37,
-            notes: 'Watch for aphids'
-        },
-        'milo-irrigated': {
-            preEmergence: 22,
-            postEmergence: 16,
-            insecticide: 8,
-            fungicide: 15,
-            totalCostPerAcre: 61,
-            notes: 'Full program under pivot'
-        },
-        'sunflowers-dryland': {
-            preEmergence: 32,    // Spartan + Prowl
-            postEmergence: 12,
-            insecticide: 6,      // Head moths
-            fungicide: 0,
-            totalCostPerAcre: 50,
-            notes: 'ExpressSun herbicide program'
-        }
-    },
-
-    operations: {
-        tillage: {
-            chiselPlow: 20,
-            disk: 16,
-            fieldCultivator: 14,
-            verticalTill: 18,
-            notes: 'Custom rates for NE CO'
-        },
-        planting: {
-            cornPlanter: 22,
-            grainDrill: 16,
-            notes: 'Includes RTK guidance'
-        },
-        application: {
-            sprayer: 9,
-            fertilizer: 12,
-            anhydrous: 16,
-            sidedress: 14,
-            aerial: 14,
-            notes: 'Ground application default'
-        },
-        harvest: {
-            combine: 0,
-            cornBase: 38,
-            cornPerBushel: 0.12,
-            wheatBase: 28,
-            wheatPerBushel: 0.14,
-            miloBase: 32,
-            miloPerBushel: 0.11,
-            sunflowerBase: 35,
-            sunflowerPerCwt: 0.60,
-            notes: 'Includes header, fuel'
-        },
-        hauling: {
-            perBushel: 0.18,
-            perMile: 0.04,
-            notes: 'To local elevator'
-        }
-    },
-
-    irrigation: {
-        pivot: {
-            energyCostPerInch: 6.50,    // Electric pivots
-            repairsPerAcre: 12,
-            laborPerAcre: 8,
-            totalPerAcreInch: 6.50,
-            notes: 'Electric center pivot costs'
-        },
-        waterApplied: {
-            'corn-irrigated': 14,
-            'milo-irrigated': 10,
-        }
-    },
-
-    overhead: {
-        cropInsurance: {
-            'corn-irrigated': 32,
-            'corn-dryland': 18,
-            'wheat-dryland': 12,
-            'milo-dryland': 14,
-            'milo-irrigated': 22,
-            'sunflowers-dryland': 16,
-            notes: 'RP 75% coverage estimates'
-        },
-        landCost: {
-            cashRent: {
-                irrigated: 275,     // Good pivot ground
-                dryland: 55,        // Average dryland
-            },
-            shareRent: {
-                landlordShare: 0.33,
-            },
-            notes: 'Phillips/Sedgwick county averages'
-        },
-        interest: {
-            operatingRate: 0.085,   // Current operating loan rates
-            months: 6,
-            notes: 'Average months financed'
-        },
-        miscellaneous: {
-            perAcre: 8,
-            notes: 'Fuel for pickups, office, crop scouting, misc'
-        }
-    }
+const RATE_SOURCES = {
+    primary: 'Iowa State University 2025 Farm Custom Rate Survey',
+    secondary: 'CSU Extension 2024 Custom Rates for Colorado',
+    methodology: '75% of spread between low and high reported rates',
+    fuelAssumption: '$3.66/gallon diesel (USEIA Feb 2025)',
 };
 
-// Custom farming rates for offer page
-const CUSTOM_FARMING_RATES = {
+// ============================================
+// CUSTOM OPERATIONS - 75% of Spread Values
+// ============================================
+const OPERATIONS = {
     tillage: {
-        chiselPlow: 22,
-        disk: 18,
-        fieldCultivator: 15,
-        verticalTill: 20,
+        disk: {
+            rate: 17.50,
+            range: { low: 10, high: 20 },
+            calculation: '10 + 0.75 × (20 - 10) = $17.50',
+            notes: 'Tandem disk, includes fuel & labor',
+            source: 'Iowa State 2025'
+        },
+        stripTill: {
+            rate: 26.00,
+            range: { low: 14, high: 30 },
+            calculation: '14 + 0.75 × (30 - 14) = $26.00',
+            notes: 'Strip tillage without fertilizer',
+            source: 'Iowa State 2025'
+        },
+        stripTillWithAnhydrous: {
+            rate: 31.00,
+            range: { low: 14, high: 30 },
+            calculation: '$26 strip till + $5 anhydrous application',
+            notes: 'Strip tillage with anhydrous injection',
+            source: 'Iowa State 2025'
+        },
     },
     planting: {
-        rowCrop: 24,        // Corn/Milo planter
-        drill: 18,          // Wheat drill
+        corn: {
+            rate: 35.00,
+            range: { low: 15, high: 42 },
+            calculation: '15 + 0.75 × (42 - 15) = $35.25',
+            notes: 'Row crop planter with attachments, RTK guidance',
+            source: 'Iowa State 2025'
+        },
     },
     application: {
-        sprayer: 10,
-        fertilizer: 13,
-        anhydrous: 18,
-        sidedress: 16,
+        spray: {
+            rate: 12.50,
+            range: { low: 5, high: 15 },
+            calculation: '5 + 0.75 × (15 - 5) = $12.50',
+            notes: 'Broadcast spray, self-propelled',
+            source: 'Iowa State 2025'
+        },
+        sprayTallCrop: {
+            rate: 13.50,
+            range: { low: 6, high: 16 },
+            calculation: '6 + 0.75 × (16 - 6) = $13.50',
+            notes: 'Broadcast spray on tall crops',
+            source: 'Iowa State 2025'
+        },
+        anhydrous: {
+            rate: 16.50,
+            range: { low: 12, high: 18 },
+            calculation: '12 + 0.75 × (18 - 12) = $16.50',
+            notes: 'Anhydrous injection with toolbar',
+            source: 'Iowa State 2025'
+        },
+        dryFertilizer: {
+            rate: 7.30,
+            notes: 'Dry bulk fertilizer spreading',
+            source: 'Iowa State 2025 average'
+        },
     },
     harvest: {
-        cornBase: 42,
-        cornPerBu: 0.14,
-        wheatBase: 30,
-        wheatPerBu: 0.16,
-        miloBase: 36,
-        miloPerBu: 0.13,
-        grainCart: 8,
+        cornCombine: {
+            rate: 66.25,
+            range: { low: 25, high: 80 },
+            calculation: '25 + 0.75 × (80 - 25) = $66.25',
+            notes: 'Corn combine only',
+            source: 'Iowa State 2025'
+        },
+        grainCart: {
+            rate: 17.75,
+            range: { low: 5, high: 22 },
+            calculation: '5 + 0.75 × (22 - 5) = $17.75',
+            notes: 'In-field grain cart',
+            source: 'Iowa State 2025'
+        },
+        hauling: {
+            perBushel: 0.20,
+            perMile: 0.05,
+            notes: 'Farm to elevator',
+            source: 'Iowa State 2025'
+        },
     },
-    hauling: {
-        perBushel: 0.20,
-        perMile: 0.05,
-    }
 };
 
-// Lease rates for offer page
-const LEASE_RATES = {
-    cashRent: {
-        irrigated: 275,         // Per acre pivot
-        drylandGood: 65,        // Good dryland soil
-        drylandAverage: 50,     // Average dryland
-        pasture: 18,            // Native grass
+// ============================================
+// FERTILIZER PROGRAM - 2025 Prices
+// ============================================
+const FERTILIZER = {
+    products: {
+        anhydrous: {
+            price: 825,
+            unit: '$/ton',
+            analysis: '82-0-0',
+            costPerLbN: 0.503,  // $825/2000 × (100/82)
+            notes: 'Nov 2025 avg Midwest price',
+            source: 'USDA AMS Illinois/Iowa Reports'
+        },
+        dap: {
+            price: 675,
+            unit: '$/ton',
+            analysis: '18-46-0',
+            costPerLbP2O5: 0.734,  // $675/2000 × (100/46)
+            notes: '2025 retail pricing'
+        },
+        ams: {
+            price: 350,
+            unit: '$/ton',
+            analysis: '21-0-0-24S',
+            costPerLbS: 0.729,  // $350/2000 × (100/24)
+            notes: 'Ammonium sulfate'
+        },
+        map: {
+            price: 700,
+            unit: '$/ton',
+            analysis: '11-52-0',
+            notes: 'Alternative P source'
+        },
+        urea: {
+            price: 525,
+            unit: '$/ton',
+            analysis: '46-0-0',
+            notes: 'Dry N option'
+        },
+        uan32: {
+            price: 340,
+            unit: '$/ton',
+            analysis: '32-0-0',
+            notes: 'Liquid N solution'
+        },
     },
-    cropShare: {
-        landlordShare: 0.33,
-        landlordPays: 'None (tenant pays all expenses)',
+
+    // IRRIGATED CORN: 220N, 40P, 25S
+    'corn-irrigated': {
+        nitrogen: 220,
+        phosphorus: 40,
+        potassium: 0,
+        sulfur: 25,
+        program: {
+            // 220 lbs N from anhydrous: 220 × $0.503 = $110.66
+            // 40 lbs P2O5 from DAP: 40 × $0.734 = $29.36
+            // 25 lbs S from AMS: 25 × $0.729 = $18.23
+            anhydrousLbs: 268,  // 220 / 0.82
+            dapLbs: 87,         // 40 / 0.46
+            amsLbs: 104,        // 25 / 0.24
+        },
+        materialCost: 158.25,
+        applicationCost: 16.50,  // Anhydrous inject
+        totalCostPerAcre: 174.75,
+        notes: 'Fall anhydrous + spring DAP/AMS broadcast'
     },
-    notes: 'Rates competitive for Phillips, Sedgwick, Logan, Yuma counties. Negotiable based on soil quality, water availability, and term length.'
+
+    // DRYLAND CORN: Reduced program
+    'corn-dryland': {
+        nitrogen: 80,
+        phosphorus: 25,
+        potassium: 0,
+        sulfur: 15,
+        program: {
+            // 80 lbs N from anhydrous: 80 × $0.503 = $40.24
+            // 25 lbs P2O5 from DAP: 25 × $0.734 = $18.35
+            // 15 lbs S from AMS: 15 × $0.729 = $10.94
+            anhydrousLbs: 98,
+            dapLbs: 54,
+            amsLbs: 63,
+        },
+        materialCost: 69.53,
+        applicationCost: 16.50,
+        totalCostPerAcre: 86.03,
+        notes: 'Reduced N for dryland yield potential'
+    },
 };
 
+// ============================================
+// CHEMICAL PROGRAM - 3-Pass System
+// Valor, Atrazine, Metolachlor, Acetochlor
+// ============================================
+const CHEMICALS = {
+    products: {
+        valor: {
+            name: 'Valor (Flumioxazin)',
+            rate: '2 oz/acre',
+            pricePerOz: 4.50,
+            costPerAcre: 9.00,
+            timing: 'Burndown/Pre',
+            notes: 'Broadleaf & grass control, residual'
+        },
+        atrazine: {
+            name: 'Atrazine 4L',
+            rate: '1.5 qt/acre',
+            pricePerGal: 18.00,
+            costPerAcre: 6.75,
+            timing: 'Pre-emergence',
+            notes: 'Broadleaf control, residual'
+        },
+        metolachlor: {
+            name: 'Metolachlor (Dual II Magnum)',
+            rate: '1.3 pt/acre',
+            pricePerGal: 38.00,
+            costPerAcre: 6.18,
+            timing: 'Pre-emergence',
+            notes: 'Grass control, residual'
+        },
+        acetochlor: {
+            name: 'Acetochlor (Warrant/Harness)',
+            rate: '1.25 qt/acre',
+            pricePerGal: 42.00,
+            costPerAcre: 13.13,
+            timing: 'Pre-emergence',
+            notes: 'Extended grass control'
+        },
+        glyphosate: {
+            name: 'Glyphosate 4L',
+            rate: '32 oz/acre',
+            pricePerGal: 20.00,
+            costPerAcre: 5.00,
+            timing: 'Burndown/Post',
+            notes: 'Non-selective burndown'
+        },
+        adjuvants: {
+            name: 'AMS + Surfactant',
+            costPerAcre: 2.50,
+            notes: 'Water conditioner + NIS'
+        },
+    },
+
+    // IRRIGATED CORN - 3 Pass System
+    'corn-irrigated': {
+        passes: [
+            {
+                name: 'Pass 1 - Burndown/Pre',
+                timing: '14-21 days before plant',
+                products: ['Valor 2oz', 'Glyphosate 32oz', 'AMS'],
+                costProducts: 16.50,  // Valor $9 + Glyphosate $5 + Adjuvants $2.50
+                costApplication: 12.50,
+            },
+            {
+                name: 'Pass 2 - Pre-Emergence',
+                timing: 'At planting or within 3 days',
+                products: ['Atrazine 1.5qt', 'Metolachlor 1.3pt'],
+                costProducts: 12.93,  // Atrazine $6.75 + Metolachlor $6.18
+                costApplication: 12.50,
+            },
+            {
+                name: 'Pass 3 - Early Post',
+                timing: 'V2-V4 corn',
+                products: ['Acetochlor 1.25qt', 'Atrazine 0.5qt'],
+                costProducts: 15.38,  // Acetochlor $13.13 + Atrazine $2.25
+                costApplication: 12.50,
+            },
+        ],
+        totalProducts: 44.81,
+        totalApplication: 37.50,  // 3 passes × $12.50
+        totalCostPerAcre: 82.31,
+        notes: '3-pass layered residual program for season-long weed control'
+    },
+
+    // DRYLAND CORN - 2 Pass System (reduced)
+    'corn-dryland': {
+        passes: [
+            {
+                name: 'Pass 1 - Burndown',
+                timing: 'Pre-plant',
+                products: ['Glyphosate 32oz', 'Atrazine 1qt', 'AMS'],
+                costProducts: 12.00,
+                costApplication: 12.50,
+            },
+            {
+                name: 'Pass 2 - Pre-Emergence',
+                timing: 'At planting',
+                products: ['Metolachlor 1pt', 'Acetochlor 1qt'],
+                costProducts: 15.00,
+                costApplication: 12.50,
+            },
+        ],
+        totalProducts: 27.00,
+        totalApplication: 25.00,  // 2 passes × $12.50
+        totalCostPerAcre: 52.00,
+        notes: '2-pass program for dryland'
+    },
+};
+
+// ============================================
+// IRRIGATION COSTS - Electric Pivot
+// ============================================
+const IRRIGATION = {
+    pivot: {
+        energyCostPerInch: 6.50,
+        repairsPerAcre: 15.00,
+        laborPerAcre: 10.00,
+        notes: 'Electric center pivot, 2025 rates'
+    },
+    waterApplied: {
+        'corn-irrigated': 12,  // inches applied
+    },
+    // 12 inches × $6.50 = $78 pumping
+    // + $15 repairs + $10 labor = $103/acre total
+    totalPerAcre: {
+        'corn-irrigated': 103.00,
+    },
+};
+
+// ============================================
+// SEED COSTS - 2025
+// ============================================
+const SEED = {
+    'corn-irrigated': {
+        hybrid: 'Pioneer P1082Q / P1185AM',
+        population: 34000,
+        seedsPerBag: 80000,
+        bagsPerAcre: 0.425,
+        pricePerBag: 325,
+        costPerAcre: 138.13,
+        notes: 'High-yield irrigated hybrids'
+    },
+    'corn-dryland': {
+        hybrid: 'Pioneer P0843AM / P0622AM',
+        population: 22000,
+        seedsPerBag: 80000,
+        bagsPerAcre: 0.275,
+        pricePerBag: 310,
+        costPerAcre: 85.25,
+        notes: 'Drought-tolerant AquaMax hybrids'
+    },
+};
+
+// ============================================
+// OVERHEAD & FIXED COSTS
+// ============================================
+const OVERHEAD = {
+    cropInsurance: {
+        'corn-irrigated': 35.00,
+        'corn-dryland': 22.00,
+        notes: 'RP 75% coverage estimates'
+    },
+    landCost: {
+        cashRent: {
+            irrigated: 275,
+            dryland: 55,
+        },
+        notes: 'Phillips/Sedgwick county averages'
+    },
+    interest: {
+        operatingRate: 0.085,
+        months: 6,
+        notes: 'Operating loan at 8.5%'
+    },
+    miscellaneous: {
+        perAcre: 10.00,
+        notes: 'Fuel, scouting, repairs, misc'
+    },
+};
+
+// ============================================
+// COMPLETE COST CALCULATIONS
+// ============================================
+const COSTS = {
+    'corn-irrigated': {
+        operations: {
+            disk1: 17.50,
+            disk2: 17.50,
+            stripTill: 26.00,
+            plant: 35.00,
+            spray3Pass: 37.50,
+            harvest: 66.25,
+            grainCart: 17.75,
+            hauling: 8.00,  // 200 bu × $0.04/bu avg
+            subtotal: 225.50,
+        },
+        inputs: {
+            seed: 138.13,
+            fertilizer: 174.75,
+            chemicals: 44.81,
+            subtotal: 357.69,
+        },
+        irrigation: {
+            pumping: 78.00,  // 12" × $6.50
+            repairs: 15.00,
+            labor: 10.00,
+            subtotal: 103.00,
+        },
+        overhead: {
+            insurance: 35.00,
+            land: 275.00,
+            miscellaneous: 10.00,
+            subtotal: 320.00,
+        },
+        totalBeforeInterest: 1006.19,
+        interest: 42.76,  // 1006.19 × 0.085 × (6/12)
+        totalCostPerAcre: 1048.95,
+    },
+    'corn-dryland': {
+        operations: {
+            disk1: 17.50,
+            disk2: 17.50,
+            plant: 35.00,
+            spray2Pass: 25.00,
+            harvest: 66.25,
+            grainCart: 17.75,
+            hauling: 3.20,  // 80 bu × $0.04/bu avg
+            subtotal: 182.20,
+        },
+        inputs: {
+            seed: 85.25,
+            fertilizer: 86.03,
+            chemicals: 27.00,
+            subtotal: 198.28,
+        },
+        overhead: {
+            insurance: 22.00,
+            land: 55.00,
+            miscellaneous: 10.00,
+            subtotal: 87.00,
+        },
+        totalBeforeInterest: 467.48,
+        interest: 19.87,  // 467.48 × 0.085 × (6/12)
+        totalCostPerAcre: 487.35,
+    },
+};
+
+// ============================================
+// HELPER FUNCTIONS
+// ============================================
 function calculateTotalCostPerAcre(cropId) {
-    const crop = getCrop(cropId);
-    if (!crop) return 0;
-
-    let total = 0;
-    total += COSTS.seed[cropId]?.costPerAcre || 0;
-    total += COSTS.fertilizer[cropId]?.totalCostPerAcre || 0;
-    total += COSTS.chemicals[cropId]?.totalCostPerAcre || 0;
-    total += COSTS.overhead.cropInsurance[cropId] || 0;
-
-    if (crop.type === 'Irrigated') {
-        const inches = COSTS.irrigation.waterApplied[cropId] || 0;
-        total += inches * (COSTS.irrigation.pivot.totalPerAcreInch || 0);
-        total += COSTS.irrigation.pivot.repairsPerAcre || 0;
-        total += COSTS.irrigation.pivot.laborPerAcre || 0;
-    }
-
-    if (crop.type === 'Irrigated') {
-        total += COSTS.overhead.landCost.cashRent.irrigated;
-    } else {
-        total += COSTS.overhead.landCost.cashRent.dryland;
-    }
-
-    // Add operating interest
-    const months = COSTS.overhead.interest.months;
-    const rate = COSTS.overhead.interest.operatingRate;
-    total += total * (rate * (months / 12));
-
-    total += COSTS.overhead.miscellaneous.perAcre;
-
-    return total;
+    return COSTS[cropId]?.totalCostPerAcre || 0;
 }
 
 function calculateBreakeven(cropId) {
@@ -374,3 +460,10 @@ function calculateNetReturn(cropId) {
     const costs = calculateTotalCostPerAcre(cropId) * crop.acres;
     return gross - costs;
 }
+
+// Export for page access
+const CUSTOM_FARMING_RATES = OPERATIONS;
+const LEASE_RATES = {
+    cashRent: OVERHEAD.landCost.cashRent,
+    notes: 'Based on CSU 2024 and Iowa State 2025 survey data'
+};
