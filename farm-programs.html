@@ -208,6 +208,91 @@
                 grid-template-columns: 1fr;
             }
         }
+
+        /* Kyle's Involvement Section */
+        .involvement-section {
+            margin-top: 60px;
+            padding-top: 60px;
+            border-top: 1px solid var(--gray-200);
+        }
+        .involvement-section h2 {
+            margin-bottom: 12px;
+        }
+        .involvement-intro {
+            font-size: 16px;
+            color: var(--gray-500);
+            margin-bottom: 28px;
+        }
+        .involvement-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+        .involvement-card {
+            background: var(--white);
+            border: 1px solid var(--gray-200);
+            border-radius: var(--radius);
+            padding: 24px;
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+        }
+        .involvement-card:hover {
+            border-color: var(--green-dark);
+            box-shadow: var(--shadow-md);
+        }
+        .involvement-badge {
+            display: inline-block;
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 4px 10px;
+            border-radius: 4px;
+            background: var(--green-pale);
+            color: var(--green-dark);
+            margin-bottom: 12px;
+            align-self: flex-start;
+        }
+        .involvement-badge.new {
+            background: #fef3c7;
+            color: #92400e;
+        }
+        .involvement-card h4 {
+            font-size: 16px;
+            margin-bottom: 8px;
+            line-height: 1.3;
+        }
+        .involvement-card p {
+            font-size: 14px;
+            color: var(--gray-500);
+            line-height: 1.6;
+            margin: 0;
+            flex: 1;
+        }
+        .involvement-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--green-dark);
+            margin-top: 16px;
+        }
+        .involvement-link::after {
+            content: '\2192';
+            font-size: 12px;
+            transition: var(--transition);
+        }
+        .involvement-card:hover .involvement-link::after {
+            transform: translateX(3px);
+        }
+
+        @media (max-width: 900px) {
+            .involvement-grid {
+                grid-template-columns: 1fr;
+            }
+        }
     </style>
 </head>
 <body>
@@ -323,6 +408,33 @@
                         </div>
                     </div>
                     <a href="https://www.nrcs.usda.gov/programs-initiatives/eqip-environmental-quality-incentives" target="_blank" class="program-link">EQIP Information</a>
+                </div>
+            </div>
+
+            <!-- Kyle's Involvement -->
+            <div class="involvement-section">
+                <h2>Industry Involvement</h2>
+                <p class="involvement-intro">Kyle McConnell serves on boards and committees that shape Colorado agriculture policy.</p>
+                <div class="involvement-grid">
+                    <div class="involvement-card">
+                        <span class="involvement-badge">Board Member</span>
+                        <h4>Colorado Corn Growers Association</h4>
+                        <p>Representing Northeast Colorado corn producers and advocating for industry interests at the state level.</p>
+                    </div>
+
+                    <a href="https://www.swca.com/" target="_blank" class="involvement-card">
+                        <span class="involvement-badge">Council Member</span>
+                        <h4>Southwest Council of Agribusiness</h4>
+                        <p>Working with agricultural businesses across the region to support and grow the industry.</p>
+                        <span class="involvement-link">Visit SWCA</span>
+                    </a>
+
+                    <a href="https://www.fsa.usda.gov/state-offices/Colorado/index" target="_blank" class="involvement-card">
+                        <span class="involvement-badge new">2025 Appointment</span>
+                        <h4>Colorado State FSA Committee</h4>
+                        <p>Recently appointed by the Trump administration to serve on the state committee overseeing FSA programs in Colorado.</p>
+                        <span class="involvement-link">Colorado FSA</span>
+                    </a>
                 </div>
             </div>
 
