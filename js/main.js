@@ -15,6 +15,21 @@ document.addEventListener('DOMContentLoaded', function() {
     if (document.getElementById('offer-content')) {
         updateOfferPage();
     }
+
+    // Member login form on home page
+    const memberLoginForm = document.getElementById('memberLoginForm');
+    if (memberLoginForm) {
+        memberLoginForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const password = document.getElementById('memberPassword').value;
+            if (password === 'mcconnell') {
+                localStorage.setItem('memberAuth', 'true');
+                window.location.href = 'farm-programs.html';
+            } else {
+                alert('Incorrect password. Please try again.');
+            }
+        });
+    }
 });
 
 function updateDashboard() {

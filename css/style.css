@@ -1845,6 +1845,89 @@ a {
     display: none !important;
 }
 
+/* Member Access Section */
+.member-section {
+    padding: 80px 0;
+    background: linear-gradient(160deg, var(--green-dark) 0%, var(--green-medium) 100%);
+}
+
+.member-access-content {
+    max-width: 500px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.member-header h2 {
+    font-size: clamp(28px, 5vw, 40px);
+    color: var(--white);
+    margin-bottom: 12px;
+}
+
+.member-header p {
+    font-size: 16px;
+    color: rgba(255,255,255,0.75);
+    margin-bottom: 40px;
+}
+
+.member-login-box {
+    background: var(--white);
+    border-radius: var(--radius-lg);
+    padding: 40px;
+    box-shadow: var(--shadow-xl);
+}
+
+.member-login-box h3 {
+    font-size: 24px;
+    margin-bottom: 8px;
+}
+
+.member-login-box > p {
+    font-size: 15px;
+    color: var(--gray-500);
+    margin-bottom: 24px;
+}
+
+.member-form .form-group {
+    text-align: left;
+    margin-bottom: 20px;
+}
+
+.member-form label {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--gray-700);
+    margin-bottom: 8px;
+}
+
+.member-form input {
+    width: 100%;
+    padding: 14px 16px;
+    font-size: 15px;
+    border: 1px solid var(--gray-300);
+    border-radius: var(--radius);
+    transition: var(--transition);
+}
+
+.member-form input:focus {
+    outline: none;
+    border-color: var(--green-dark);
+    box-shadow: 0 0 0 3px rgba(26, 71, 42, 0.1);
+}
+
+.btn-full {
+    width: 100%;
+    padding: 14px 24px;
+}
+
+.member-help {
+    margin-top: 24px;
+    padding-top: 20px;
+    border-top: 1px solid var(--gray-200);
+    font-size: 14px;
+    color: var(--gray-600);
+}
+
 /* Responsive */
 @media (max-width: 1024px) {
     .markets-grid {
