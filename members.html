@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Member access - YourAgInfo.com">
+    <title>Member Access | YourAgInfo.com</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:wght@400;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        .members-page {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        .members-hero {
+            padding: 140px 0 60px;
+            background: linear-gradient(160deg, var(--green-dark) 0%, var(--green-medium) 100%);
+            text-align: center;
+        }
+        .members-hero h1 {
+            font-size: clamp(32px, 6vw, 48px);
+            color: var(--white);
+            margin-bottom: 12px;
+        }
+        .members-hero p {
+            font-size: 17px;
+            color: rgba(255,255,255,0.75);
+            max-width: 450px;
+            margin: 0 auto;
+        }
+
+        .members-main {
+            flex: 1;
+            padding: 80px 0;
+            background: var(--gray-50);
+        }
+
+        /* Login Form */
+        .login-container {
+            max-width: 420px;
+            margin: 0 auto;
+        }
+        .login-card {
+            background: var(--white);
+            border: 1px solid var(--gray-200);
+            border-radius: var(--radius-lg);
+            padding: 48px;
+            text-align: center;
+        }
+        .login-card h2 {
+            font-size: 24px;
+            margin-bottom: 8px;
+        }
+        .login-card .login-subtitle {
+            font-size: 15px;
+            color: var(--gray-500);
+            margin-bottom: 32px;
+        }
+        .login-form {
+            text-align: left;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-group label {
+            display: block;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--gray-600);
+            margin-bottom: 8px;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 14px 16px;
+            border: 1px solid var(--gray-300);
+            border-radius: var(--radius);
+            font-size: 16px;
+            font-family: var(--font-body);
+            transition: var(--transition);
+        }
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--green-dark);
+            box-shadow: 0 0 0 3px rgba(26, 71, 42, 0.1);
+        }
+        .login-btn {
+            width: 100%;
+            padding: 16px;
+            background: var(--green-dark);
+            color: var(--white);
+            border: none;
+            border-radius: var(--radius);
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        .login-btn:hover {
+            background: var(--green-medium);
+        }
+        .login-error {
+            background: #fef2f2;
+            border: 1px solid #fecaca;
+            color: #dc2626;
+            padding: 12px 16px;
+            border-radius: var(--radius);
+            font-size: 14px;
+            margin-bottom: 20px;
+            display: none;
+        }
+        .login-help {
+            margin-top: 24px;
+            padding-top: 24px;
+            border-top: 1px solid var(--gray-200);
+            font-size: 14px;
+            color: var(--gray-500);
+        }
+        .login-help a {
+            color: var(--green-dark);
+            font-weight: 500;
+        }
+
+        /* Member Dashboard (shown when logged in) */
+        .member-dashboard {
+            display: none;
+        }
+        .dashboard-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 40px;
+        }
+        .dashboard-header h2 {
+            font-size: 28px;
+            margin: 0;
+        }
+        .logout-btn {
+            padding: 10px 20px;
+            background: transparent;
+            color: var(--gray-500);
+            border: 1px solid var(--gray-300);
+            border-radius: var(--radius);
+            font-size: 14px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        .logout-btn:hover {
+            border-color: var(--gray-400);
+            color: var(--gray-700);
+        }
+
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+        }
+        .tool-card {
+            background: var(--white);
+            border: 1px solid var(--gray-200);
+            border-radius: var(--radius-lg);
+            padding: 32px;
+            transition: var(--transition);
+        }
+        .tool-card:hover {
+            border-color: var(--gray-300);
+            box-shadow: var(--shadow-lg);
+            transform: translateY(-4px);
+        }
+        .tool-card h3 {
+            font-size: 20px;
+            margin-bottom: 12px;
+        }
+        .tool-card p {
+            font-size: 15px;
+            color: var(--gray-500);
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+        .tool-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--green-dark);
+        }
+        .tool-link::after {
+            content: '\2192';
+            transition: var(--transition);
+        }
+        .tool-card:hover .tool-link::after {
+            transform: translateX(4px);
+        }
+
+        @media (max-width: 600px) {
+            .tools-grid {
+                grid-template-columns: 1fr;
+            }
+            .login-card {
+                padding: 32px 24px;
+            }
+        }
+    </style>
+</head>
+<body class="members-page">
+    <nav class="navbar">
+        <div class="container">
+            <a href="index.html" class="logo">
+                <span class="logo-text">YourAgInfo</span>
+                <span class="logo-divider"></span>
+                <span class="logo-subtitle">McConnell Enterprises</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="index.html#events">Events</a></li>
+                <li><a href="index.html#research">Research</a></li>
+                <li><a href="index.html#resources">Resources</a></li>
+                <li><a href="index.html#contact">Contact</a></li>
+            </ul>
+            <button class="mobile-menu-btn" aria-label="Toggle menu">
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <header class="members-hero">
+        <div class="container">
+            <h1>Member Access</h1>
+            <p>Exclusive tools and resources for McConnell Enterprises customers.</p>
+        </div>
+    </header>
+
+    <main class="members-main">
+        <div class="container">
+            <!-- Login Form (shown when not logged in) -->
+            <div class="login-container" id="loginSection">
+                <div class="login-card">
+                    <h2>Sign In</h2>
+                    <p class="login-subtitle">Enter your member password to access exclusive content.</p>
+
+                    <div class="login-error" id="loginError">
+                        Incorrect password. Please try again.
+                    </div>
+
+                    <form class="login-form" id="loginForm" onsubmit="return handleLogin(event)">
+                        <div class="form-group">
+                            <label for="password">Password</label>
+                            <input type="password" id="password" placeholder="Enter member password" required>
+                        </div>
+                        <button type="submit" class="login-btn">Access Member Area</button>
+                    </form>
+
+                    <div class="login-help">
+                        <strong>Password:</strong> mcconnell
+                    </div>
+                </div>
+            </div>
+
+            <!-- Member Dashboard (shown when logged in) -->
+            <div class="member-dashboard" id="dashboardSection">
+                <div class="dashboard-header">
+                    <h2>Member Tools</h2>
+                    <button class="logout-btn" onclick="handleLogout()">Sign Out</button>
+                </div>
+
+                <div class="tools-grid">
+                    <a href="planner.html" class="tool-card">
+                        <h3>Input Planner</h3>
+                        <p>Calculate your input costs, adjust prices, and see break-even yields in real time.</p>
+                        <span class="tool-link">Open Tool</span>
+                    </a>
+
+                    <a href="farm-programs.html" class="tool-card">
+                        <h3>Farm Programs</h3>
+                        <p>Key deadlines, enrollment dates, and links for ARC/PLC, crop insurance, CRP, and more.</p>
+                        <span class="tool-link">View Programs</span>
+                    </a>
+
+                    <a href="seedbook.html" class="tool-card">
+                        <h3>Seed Book</h3>
+                        <p>Multi-year hybrid performance data, yield comparisons, and local field results.</p>
+                        <span class="tool-link">View Data</span>
+                    </a>
+
+                    <a href="https://calendly.com/kyletogoag/2023-success-planning" target="_blank" class="tool-card">
+                        <h3>Schedule a Call</h3>
+                        <p>Book a one-on-one meeting to discuss your operation and planning needs.</p>
+                        <span class="tool-link">Book Now</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <span class="logo-text">YourAgInfo</span>
+                    <span class="logo-divider"></span>
+                    <span class="logo-subtitle">McConnell Enterprises</span>
+                </div>
+                <p class="footer-location">Haxtun, Colorado</p>
+                <nav class="footer-nav">
+                    <a href="index.html">Home</a>
+                    <a href="index.html#events">Events</a>
+                    <a href="index.html#research">Research</a>
+                    <a href="index.html#resources">Resources</a>
+                    <a href="index.html#contact">Contact</a>
+                </nav>
+            </div>
+            <div class="footer-bottom">
+                <p>Copyright 2026 McConnell Enterprises LLC. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Simple member access - change this password to whatever you want
+        const MEMBER_PASSWORD = 'mcconnell';
+
+        // Check if already logged in on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            if (localStorage.getItem('memberAccess') === 'true') {
+                showDashboard();
+            }
+        });
+
+        function handleLogin(event) {
+            event.preventDefault();
+            const password = document.getElementById('password').value;
+            const errorEl = document.getElementById('loginError');
+
+            if (password === MEMBER_PASSWORD) {
+                localStorage.setItem('memberAccess', 'true');
+                showDashboard();
+                errorEl.style.display = 'none';
+            } else {
+                errorEl.style.display = 'block';
+                document.getElementById('password').value = '';
+            }
+            return false;
+        }
+
+        function showDashboard() {
+            document.getElementById('loginSection').style.display = 'none';
+            document.getElementById('dashboardSection').style.display = 'block';
+        }
+
+        function handleLogout() {
+            localStorage.removeItem('memberAccess');
+            document.getElementById('loginSection').style.display = 'block';
+            document.getElementById('dashboardSection').style.display = 'none';
+            document.getElementById('password').value = '';
+        }
+    </script>
+</body>
+</html>
