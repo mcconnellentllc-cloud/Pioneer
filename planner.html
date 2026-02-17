@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Input cost calculator for Northeast Colorado farmers - run your own numbers">
+    <title>Input Planner | YourAgInfo.com</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:wght@400;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        .planner-hero {
+            padding: 140px 0 60px;
+            background: linear-gradient(160deg, var(--green-dark) 0%, var(--green-medium) 100%);
+            text-align: center;
+        }
+        .planner-hero h1 {
+            font-size: clamp(32px, 6vw, 48px);
+            color: var(--white);
+            margin-bottom: 12px;
+        }
+        .planner-hero p {
+            font-size: 17px;
+            color: rgba(255,255,255,0.75);
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        .planner-notice {
+            background: rgba(255,255,255,0.1);
+            border-radius: var(--radius);
+            padding: 12px 20px;
+            margin-top: 24px;
+            display: inline-block;
+        }
+        .planner-notice p {
+            font-size: 13px;
+            color: rgba(255,255,255,0.6);
+            margin: 0;
+        }
+
+        .planner-main {
+            padding: 60px 0 100px;
+            background: var(--gray-50);
+        }
+        .planner-layout {
+            display: grid;
+            grid-template-columns: 1fr 380px;
+            gap: 40px;
+            align-items: start;
+        }
+
+        .planner-inputs {
+            background: var(--white);
+            border: 1px solid var(--gray-200);
+            border-radius: var(--radius-lg);
+            padding: 40px;
+        }
+        .planner-inputs h2 {
+            font-size: 22px;
+            margin-bottom: 32px;
+        }
+
+        .input-section {
+            margin-bottom: 36px;
+            padding-bottom: 36px;
+            border-bottom: 1px solid var(--gray-200);
+        }
+        .input-section:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+        .input-section h3 {
+            font-size: 14px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--gray-500);
+            margin-bottom: 20px;
+        }
+
+        .input-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+        .input-row:last-child {
+            margin-bottom: 0;
+        }
+        .input-row label {
+            font-size: 15px;
+            color: var(--gray-700);
+        }
+        .input-row input {
+            width: 120px;
+            padding: 10px 14px;
+            border: 1px solid var(--gray-300);
+            border-radius: var(--radius);
+            font-size: 15px;
+            font-family: var(--font-body);
+            text-align: right;
+        }
+        .input-row input:focus {
+            outline: none;
+            border-color: var(--green-dark);
+        }
+        .input-unit {
+            font-size: 13px;
+            color: var(--gray-400);
+            margin-left: 8px;
+            min-width: 50px;
+        }
+
+        /* Price Slider Section */
+        .price-section {
+            background: var(--green-pale);
+            border-radius: var(--radius);
+            padding: 24px;
+            margin-bottom: 24px;
+        }
+        .price-section h3 {
+            color: var(--green-dark);
+            margin-bottom: 16px;
+        }
+        .price-row {
+            margin-bottom: 20px;
+        }
+        .price-row:last-child {
+            margin-bottom: 0;
+        }
+        .price-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+        .price-header label {
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--gray-700);
+        }
+        .price-value {
+            font-family: var(--font-heading);
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--green-dark);
+        }
+        .price-slider {
+            width: 100%;
+            height: 6px;
+            -webkit-appearance: none;
+            appearance: none;
+            background: var(--gray-200);
+            border-radius: 3px;
+            outline: none;
+        }
+        .price-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 20px;
+            height: 20px;
+            background: var(--green-dark);
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.15s;
+        }
+        .price-slider::-webkit-slider-thumb:hover {
+            transform: scale(1.1);
+            background: var(--green-medium);
+        }
+        .price-range {
+            display: flex;
+            justify-content: space-between;
+            font-size: 11px;
+            color: var(--gray-400);
+            margin-top: 4px;
+        }
+
+        /* Results Sidebar */
+        .planner-results {
+            position: sticky;
+            top: 100px;
+        }
+        .results-card {
+            background: var(--green-dark);
+            border-radius: var(--radius-lg);
+            padding: 36px;
+            color: var(--white);
+        }
+        .results-card h2 {
+            font-size: 18px;
+            color: var(--white);
+            margin-bottom: 28px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid rgba(255,255,255,0.15);
+        }
+
+        .result-item {
+            margin-bottom: 24px;
+        }
+        .result-item:last-of-type {
+            margin-bottom: 32px;
+        }
+        .result-label {
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: rgba(255,255,255,0.6);
+            margin-bottom: 4px;
+        }
+        .result-value {
+            font-family: var(--font-heading);
+            font-size: 36px;
+            font-weight: 700;
+            line-height: 1;
+        }
+        .result-value.highlight {
+            color: var(--gold);
+        }
+        .result-detail {
+            font-size: 13px;
+            color: rgba(255,255,255,0.5);
+            margin-top: 4px;
+        }
+
+        .result-divider {
+            height: 1px;
+            background: rgba(255,255,255,0.15);
+            margin: 24px 0;
+        }
+
+        .result-breakdown {
+            margin-bottom: 28px;
+        }
+        .breakdown-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            font-size: 14px;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+        }
+        .breakdown-row:last-child {
+            border-bottom: none;
+        }
+        .breakdown-label {
+            color: rgba(255,255,255,0.7);
+        }
+        .breakdown-value {
+            font-weight: 600;
+        }
+
+        .email-btn {
+            width: 100%;
+            padding: 16px;
+            background: var(--white);
+            color: var(--green-dark);
+            border: none;
+            border-radius: var(--radius);
+            font-size: 14px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .email-btn:hover {
+            background: var(--gray-100);
+        }
+
+        .reset-btn {
+            width: 100%;
+            padding: 12px;
+            background: transparent;
+            color: rgba(255,255,255,0.6);
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: var(--radius);
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+            margin-top: 12px;
+            transition: all 0.2s;
+        }
+        .reset-btn:hover {
+            border-color: rgba(255,255,255,0.4);
+            color: rgba(255,255,255,0.8);
+        }
+
+        @media (max-width: 900px) {
+            .planner-layout {
+                grid-template-columns: 1fr;
+            }
+            .planner-results {
+                position: static;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <a href="index.html" class="logo">
+                <span class="logo-text">YourAgInfo</span>
+                <span class="logo-divider"></span>
+                <span class="logo-subtitle">McConnell Enterprises</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="index.html#events">Events</a></li>
+                <li><a href="index.html#research">Research</a></li>
+                <li><a href="index.html#resources">Resources</a></li>
+                <li><a href="index.html#contact">Contact</a></li>
+            </ul>
+            <button class="mobile-menu-btn" aria-label="Toggle menu">
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <header class="planner-hero">
+        <div class="container">
+            <h1>Input Planner</h1>
+            <p>Run your own numbers. Enter your costs and adjust prices to see your break-even and potential returns.</p>
+            <div class="planner-notice">
+                <p>Your data stays in your browser — nothing is stored or sent anywhere.</p>
+            </div>
+        </div>
+    </header>
+
+    <main class="planner-main">
+        <div class="container">
+            <div class="planner-layout">
+                <div class="planner-inputs">
+                    <h2>Your Inputs</h2>
+
+                    <div class="input-section">
+                        <h3>Acres & Yield</h3>
+                        <div class="input-row">
+                            <label>Total Acres</label>
+                            <div>
+                                <input type="number" id="acres" value="500" min="1">
+                                <span class="input-unit">ac</span>
+                            </div>
+                        </div>
+                        <div class="input-row">
+                            <label>Expected Yield</label>
+                            <div>
+                                <input type="number" id="yield" value="180" min="1">
+                                <span class="input-unit">bu/ac</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="input-section">
+                        <h3>Seed Cost</h3>
+                        <div class="input-row">
+                            <label>Seed Cost</label>
+                            <div>
+                                <input type="number" id="seedCost" value="320" min="0" step="0.01">
+                                <span class="input-unit">/bag</span>
+                            </div>
+                        </div>
+                        <div class="input-row">
+                            <label>Seeding Rate</label>
+                            <div>
+                                <input type="number" id="seedRate" value="32000" min="1000" step="500">
+                                <span class="input-unit">seeds/ac</span>
+                            </div>
+                        </div>
+                        <div class="input-row">
+                            <label>Seeds Per Bag</label>
+                            <div>
+                                <input type="number" id="seedsPerBag" value="80000" min="1000">
+                                <span class="input-unit">seeds</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="input-section">
+                        <h3>Fertilizer</h3>
+                        <div class="input-row">
+                            <label>Nitrogen (N)</label>
+                            <div>
+                                <input type="number" id="nCost" value="85" min="0" step="0.01">
+                                <span class="input-unit">/ac</span>
+                            </div>
+                        </div>
+                        <div class="input-row">
+                            <label>Phosphorus (P)</label>
+                            <div>
+                                <input type="number" id="pCost" value="35" min="0" step="0.01">
+                                <span class="input-unit">/ac</span>
+                            </div>
+                        </div>
+                        <div class="input-row">
+                            <label>Other Fertilizer</label>
+                            <div>
+                                <input type="number" id="otherFert" value="0" min="0" step="0.01">
+                                <span class="input-unit">/ac</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="input-section">
+                        <h3>Other Costs</h3>
+                        <div class="input-row">
+                            <label>Chemicals</label>
+                            <div>
+                                <input type="number" id="chemCost" value="45" min="0" step="0.01">
+                                <span class="input-unit">/ac</span>
+                            </div>
+                        </div>
+                        <div class="input-row">
+                            <label>Crop Insurance</label>
+                            <div>
+                                <input type="number" id="insuranceCost" value="25" min="0" step="0.01">
+                                <span class="input-unit">/ac</span>
+                            </div>
+                        </div>
+                        <div class="input-row">
+                            <label>Custom/Operations</label>
+                            <div>
+                                <input type="number" id="customCost" value="75" min="0" step="0.01">
+                                <span class="input-unit">/ac</span>
+                            </div>
+                        </div>
+                        <div class="input-row">
+                            <label>Land Cost/Rent</label>
+                            <div>
+                                <input type="number" id="landCost" value="150" min="0" step="0.01">
+                                <span class="input-unit">/ac</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="price-section">
+                        <h3>Adjust Corn Price</h3>
+                        <div class="price-row">
+                            <div class="price-header">
+                                <label>Corn Price</label>
+                                <span class="price-value" id="priceDisplay">$4.50</span>
+                            </div>
+                            <input type="range" class="price-slider" id="cornPrice" min="3.00" max="7.00" step="0.05" value="4.50">
+                            <div class="price-range">
+                                <span>$3.00</span>
+                                <span>$7.00</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="planner-results">
+                    <div class="results-card">
+                        <h2>Your Numbers</h2>
+
+                        <div class="result-item">
+                            <div class="result-label">Total Cost Per Acre</div>
+                            <div class="result-value" id="costPerAcre">$543</div>
+                        </div>
+
+                        <div class="result-item">
+                            <div class="result-label">Break-Even Yield</div>
+                            <div class="result-value highlight" id="breakEven">121 bu</div>
+                            <div class="result-detail">at current price</div>
+                        </div>
+
+                        <div class="result-item">
+                            <div class="result-label">Gross Revenue Per Acre</div>
+                            <div class="result-value" id="grossRevenue">$810</div>
+                        </div>
+
+                        <div class="result-item">
+                            <div class="result-label">Net Return Per Acre</div>
+                            <div class="result-value highlight" id="netReturn">$267</div>
+                        </div>
+
+                        <div class="result-divider"></div>
+
+                        <div class="result-breakdown">
+                            <div class="breakdown-row">
+                                <span class="breakdown-label">Seed</span>
+                                <span class="breakdown-value" id="seedTotal">$128/ac</span>
+                            </div>
+                            <div class="breakdown-row">
+                                <span class="breakdown-label">Fertilizer</span>
+                                <span class="breakdown-value" id="fertTotal">$120/ac</span>
+                            </div>
+                            <div class="breakdown-row">
+                                <span class="breakdown-label">Chemicals</span>
+                                <span class="breakdown-value" id="chemTotal">$45/ac</span>
+                            </div>
+                            <div class="breakdown-row">
+                                <span class="breakdown-label">Insurance</span>
+                                <span class="breakdown-value" id="insTotal">$25/ac</span>
+                            </div>
+                            <div class="breakdown-row">
+                                <span class="breakdown-label">Operations</span>
+                                <span class="breakdown-value" id="opsTotal">$75/ac</span>
+                            </div>
+                            <div class="breakdown-row">
+                                <span class="breakdown-label">Land</span>
+                                <span class="breakdown-value" id="landTotal">$150/ac</span>
+                            </div>
+                        </div>
+
+                        <button class="email-btn" onclick="emailResults()">Email Results to Myself</button>
+                        <button class="reset-btn" onclick="resetForm()">Reset to Defaults</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <span class="logo-text">YourAgInfo</span>
+                    <span class="logo-divider"></span>
+                    <span class="logo-subtitle">McConnell Enterprises</span>
+                </div>
+                <p class="footer-location">Haxtun, Colorado</p>
+                <nav class="footer-nav">
+                    <a href="index.html">Home</a>
+                    <a href="index.html#events">Events</a>
+                    <a href="index.html#research">Research</a>
+                    <a href="index.html#resources">Resources</a>
+                    <a href="index.html#contact">Contact</a>
+                </nav>
+            </div>
+            <div class="footer-bottom">
+                <p>Copyright 2026 McConnell Enterprises LLC. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Get all input elements
+        const inputs = document.querySelectorAll('input[type="number"], input[type="range"]');
+
+        // Add event listeners
+        inputs.forEach(input => {
+            input.addEventListener('input', calculate);
+        });
+
+        // Price slider display
+        const priceSlider = document.getElementById('cornPrice');
+        const priceDisplay = document.getElementById('priceDisplay');
+
+        priceSlider.addEventListener('input', function() {
+            priceDisplay.textContent = '$' + parseFloat(this.value).toFixed(2);
+            calculate();
+        });
+
+        function calculate() {
+            // Get values
+            const acres = parseFloat(document.getElementById('acres').value) || 0;
+            const yieldBu = parseFloat(document.getElementById('yield').value) || 0;
+            const seedCost = parseFloat(document.getElementById('seedCost').value) || 0;
+            const seedRate = parseFloat(document.getElementById('seedRate').value) || 0;
+            const seedsPerBag = parseFloat(document.getElementById('seedsPerBag').value) || 1;
+            const nCost = parseFloat(document.getElementById('nCost').value) || 0;
+            const pCost = parseFloat(document.getElementById('pCost').value) || 0;
+            const otherFert = parseFloat(document.getElementById('otherFert').value) || 0;
+            const chemCost = parseFloat(document.getElementById('chemCost').value) || 0;
+            const insuranceCost = parseFloat(document.getElementById('insuranceCost').value) || 0;
+            const customCost = parseFloat(document.getElementById('customCost').value) || 0;
+            const landCost = parseFloat(document.getElementById('landCost').value) || 0;
+            const cornPrice = parseFloat(document.getElementById('cornPrice').value) || 0;
+
+            // Calculate seed cost per acre
+            const bagsPerAcre = seedRate / seedsPerBag;
+            const seedPerAcre = bagsPerAcre * seedCost;
+
+            // Calculate fertilizer total
+            const fertPerAcre = nCost + pCost + otherFert;
+
+            // Calculate total cost per acre
+            const totalCostPerAcre = seedPerAcre + fertPerAcre + chemCost + insuranceCost + customCost + landCost;
+
+            // Calculate break-even yield
+            const breakEvenYield = cornPrice > 0 ? totalCostPerAcre / cornPrice : 0;
+
+            // Calculate gross and net
+            const grossRevenue = yieldBu * cornPrice;
+            const netReturn = grossRevenue - totalCostPerAcre;
+
+            // Update display
+            document.getElementById('costPerAcre').textContent = '$' + totalCostPerAcre.toFixed(0);
+            document.getElementById('breakEven').textContent = breakEvenYield.toFixed(0) + ' bu';
+            document.getElementById('grossRevenue').textContent = '$' + grossRevenue.toFixed(0);
+            document.getElementById('netReturn').textContent = '$' + netReturn.toFixed(0);
+
+            // Update breakdown
+            document.getElementById('seedTotal').textContent = '$' + seedPerAcre.toFixed(0) + '/ac';
+            document.getElementById('fertTotal').textContent = '$' + fertPerAcre.toFixed(0) + '/ac';
+            document.getElementById('chemTotal').textContent = '$' + chemCost.toFixed(0) + '/ac';
+            document.getElementById('insTotal').textContent = '$' + insuranceCost.toFixed(0) + '/ac';
+            document.getElementById('opsTotal').textContent = '$' + customCost.toFixed(0) + '/ac';
+            document.getElementById('landTotal').textContent = '$' + landCost.toFixed(0) + '/ac';
+
+            // Color code net return
+            const netReturnEl = document.getElementById('netReturn');
+            if (netReturn < 0) {
+                netReturnEl.style.color = '#ef4444';
+            } else {
+                netReturnEl.style.color = '#c9a227';
+            }
+        }
+
+        function emailResults() {
+            const acres = document.getElementById('acres').value;
+            const yieldBu = document.getElementById('yield').value;
+            const cornPrice = parseFloat(document.getElementById('cornPrice').value).toFixed(2);
+            const costPerAcre = document.getElementById('costPerAcre').textContent;
+            const breakEven = document.getElementById('breakEven').textContent;
+            const grossRevenue = document.getElementById('grossRevenue').textContent;
+            const netReturn = document.getElementById('netReturn').textContent;
+
+            const subject = encodeURIComponent('My Input Planner Results - YourAgInfo.com');
+            const body = encodeURIComponent(
+`INPUT PLANNER RESULTS
+Generated from YourAgInfo.com
+
+SUMMARY
+-------
+Total Acres: ${acres}
+Expected Yield: ${yieldBu} bu/ac
+Corn Price: $${cornPrice}/bu
+
+RESULTS
+-------
+Total Cost Per Acre: ${costPerAcre}
+Break-Even Yield: ${breakEven}
+Gross Revenue Per Acre: ${grossRevenue}
+Net Return Per Acre: ${netReturn}
+
+COST BREAKDOWN
+--------------
+Seed: ${document.getElementById('seedTotal').textContent}
+Fertilizer: ${document.getElementById('fertTotal').textContent}
+Chemicals: ${document.getElementById('chemTotal').textContent}
+Insurance: ${document.getElementById('insTotal').textContent}
+Operations: ${document.getElementById('opsTotal').textContent}
+Land: ${document.getElementById('landTotal').textContent}
+
+---
+This is for informational purposes only.
+Questions? Contact Kyle McConnell at 970-571-1015
+`
+            );
+
+            window.location.href = `mailto:?subject=${subject}&body=${body}`;
+        }
+
+        function resetForm() {
+            document.getElementById('acres').value = 500;
+            document.getElementById('yield').value = 180;
+            document.getElementById('seedCost').value = 320;
+            document.getElementById('seedRate').value = 32000;
+            document.getElementById('seedsPerBag').value = 80000;
+            document.getElementById('nCost').value = 85;
+            document.getElementById('pCost').value = 35;
+            document.getElementById('otherFert').value = 0;
+            document.getElementById('chemCost').value = 45;
+            document.getElementById('insuranceCost').value = 25;
+            document.getElementById('customCost').value = 75;
+            document.getElementById('landCost').value = 150;
+            document.getElementById('cornPrice').value = 4.50;
+            priceDisplay.textContent = '$4.50';
+            calculate();
+        }
+
+        // Initial calculation
+        calculate();
+    </script>
+</body>
+</html>
