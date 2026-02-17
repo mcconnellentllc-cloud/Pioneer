@@ -25,6 +25,109 @@
             max-width: 550px;
         }
 
+        /* Urgent Alert Banner */
+        .urgent-alert {
+            background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
+            padding: 0;
+        }
+        .urgent-alert-inner {
+            padding: 32px 0;
+        }
+        .urgent-alert-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+        .urgent-badge {
+            background: #fef3c7;
+            color: #92400e;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 6px 12px;
+            border-radius: 4px;
+        }
+        .urgent-deadline {
+            color: rgba(255,255,255,0.9);
+            font-size: 14px;
+            font-weight: 600;
+        }
+        .urgent-alert h2 {
+            font-size: clamp(22px, 4vw, 28px);
+            color: var(--white);
+            margin-bottom: 12px;
+        }
+        .urgent-alert > .container > p,
+        .urgent-alert-inner > p {
+            font-size: 16px;
+            color: rgba(255,255,255,0.85);
+            margin-bottom: 24px;
+            max-width: 700px;
+        }
+        .urgent-steps {
+            background: rgba(255,255,255,0.1);
+            border-radius: var(--radius-lg);
+            padding: 24px 28px;
+            margin-bottom: 24px;
+        }
+        .urgent-steps h3 {
+            font-size: 14px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: rgba(255,255,255,0.7);
+            margin-bottom: 16px;
+        }
+        .urgent-steps ol {
+            list-style: none;
+            counter-reset: steps;
+            margin: 0;
+            padding: 0;
+        }
+        .urgent-steps li {
+            counter-increment: steps;
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            color: var(--white);
+            font-size: 15px;
+            line-height: 1.5;
+        }
+        .urgent-steps li:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+        .urgent-steps li::before {
+            content: counter(steps);
+            flex-shrink: 0;
+            width: 28px;
+            height: 28px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 13px;
+        }
+        .urgent-steps a {
+            color: #fef3c7;
+            text-decoration: underline;
+            font-weight: 600;
+        }
+        .urgent-steps a:hover {
+            color: var(--white);
+        }
+        .urgent-note {
+            font-size: 14px;
+            color: rgba(255,255,255,0.7);
+            font-style: italic;
+        }
+
         .programs-main {
             padding: 80px 0 100px;
             background: var(--gray-50);
@@ -326,6 +429,32 @@
             <p>Key deadlines, enrollment periods, and program details for Northeast Colorado operations.</p>
         </div>
     </header>
+
+    <!-- Urgent Login.gov Alert -->
+    <section class="urgent-alert">
+        <div class="container">
+            <div class="urgent-alert-inner">
+                <div class="urgent-alert-header">
+                    <span class="urgent-badge">Action Required</span>
+                    <span class="urgent-deadline">Deadline: February 28, 2026</span>
+                </div>
+                <h2>Verify Your Login.gov Account Before FSA Rollout</h2>
+                <p>FSA is transitioning to Login.gov for all online services. Producers must verify their accounts before February 28 to maintain access to FSA programs and services.</p>
+
+                <div class="urgent-steps">
+                    <h3>Complete These Steps Now</h3>
+                    <ol>
+                        <li><strong>Create a Login.gov account</strong> — Go to <a href="https://login.gov" target="_blank">login.gov</a> and create an account using your email address</li>
+                        <li><strong>Create a Farmers.gov account</strong> — Visit <a href="https://farmers.gov" target="_blank">farmers.gov</a> and register using your Login.gov credentials</li>
+                        <li><strong>Link your accounts</strong> — Connect your Login.gov account to your existing FSA customer records</li>
+                        <li><strong>Verify your identity</strong> — Complete identity verification at your <strong>local FSA office</strong> or <strong>participating Post Office</strong></li>
+                    </ol>
+                </div>
+
+                <p class="urgent-note">Questions? Contact your local FSA office or call Kyle at (970) 571-1015 for assistance.</p>
+            </div>
+        </div>
+    </section>
 
     <main class="programs-main">
         <div class="container">
