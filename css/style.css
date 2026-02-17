@@ -284,7 +284,64 @@ a {
     font-weight: 400;
     letter-spacing: 0.02em;
     color: rgba(255,255,255,0.7);
-    margin-bottom: 48px;
+    margin-bottom: 32px;
+}
+
+/* Hero Announcement */
+.hero-announcement {
+    display: inline-flex;
+    align-items: center;
+    gap: 16px;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 40px;
+    padding: 12px 24px;
+    margin-bottom: 40px;
+    transition: var(--transition);
+}
+
+.hero-announcement:hover {
+    background: rgba(255,255,255,0.12);
+    border-color: rgba(255,255,255,0.25);
+}
+
+.announcement-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--gold);
+}
+
+.announcement-text {
+    font-size: 14px;
+    font-weight: 500;
+    color: rgba(255,255,255,0.9);
+    letter-spacing: 0.02em;
+}
+
+.announcement-arrow {
+    font-size: 14px;
+    color: rgba(255,255,255,0.5);
+    transition: var(--transition);
+}
+
+.hero-announcement:hover .announcement-arrow {
+    color: rgba(255,255,255,0.8);
+    transform: translateX(3px);
+}
+
+@media (max-width: 600px) {
+    .hero-announcement {
+        flex-direction: column;
+        gap: 6px;
+        padding: 16px 24px;
+        text-align: center;
+    }
+
+    .announcement-arrow {
+        display: none;
+    }
 }
 
 .hero-cta {
