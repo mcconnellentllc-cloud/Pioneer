@@ -484,6 +484,13 @@
     </style>
 </head>
 <body>
+    <!-- Auth check - redirects to members.html if not logged in -->
+    <script>
+        if (localStorage.getItem('memberAuth') !== 'true') {
+            window.location.href = 'members.html';
+        }
+    </script>
+
     <nav class="navbar">
         <div class="container">
             <a href="index.html" class="logo">
