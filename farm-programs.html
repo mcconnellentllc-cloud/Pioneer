@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Farm programs information for Northeast Colorado - FSA deadlines, crop insurance, conservation programs">
+    <title>Farm Programs | YourAgInfo.com</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:wght@400;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        .programs-hero {
+            padding: 140px 0 60px;
+            background: linear-gradient(160deg, var(--green-dark) 0%, var(--green-medium) 100%);
+        }
+        .programs-hero h1 {
+            font-size: clamp(32px, 6vw, 48px);
+            color: var(--white);
+            margin-bottom: 12px;
+        }
+        .programs-hero p {
+            font-size: 17px;
+            color: rgba(255,255,255,0.75);
+            max-width: 550px;
+        }
+
+        .programs-main {
+            padding: 80px 0 100px;
+            background: var(--gray-50);
+        }
+
+        .programs-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 32px;
+        }
+
+        .program-card {
+            background: var(--white);
+            border: 1px solid var(--gray-200);
+            border-radius: var(--radius-lg);
+            padding: 36px;
+            transition: var(--transition);
+        }
+        .program-card:hover {
+            box-shadow: var(--shadow-lg);
+        }
+
+        .program-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--gray-200);
+        }
+        .program-header h3 {
+            font-size: 22px;
+            margin: 0;
+        }
+        .program-badge {
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 6px 12px;
+            border-radius: 4px;
+            background: var(--green-pale);
+            color: var(--green-dark);
+        }
+        .program-badge.deadline {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .program-card p {
+            font-size: 15px;
+            line-height: 1.7;
+            color: var(--gray-600);
+            margin-bottom: 20px;
+        }
+
+        .program-dates {
+            background: var(--gray-50);
+            border-radius: var(--radius);
+            padding: 16px 20px;
+            margin-bottom: 20px;
+        }
+        .program-dates h4 {
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--gray-400);
+            margin-bottom: 12px;
+        }
+        .date-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid var(--gray-200);
+            font-size: 14px;
+        }
+        .date-item:last-child {
+            border-bottom: none;
+        }
+        .date-label {
+            color: var(--gray-600);
+        }
+        .date-value {
+            font-weight: 600;
+            color: var(--gray-800);
+        }
+
+        .program-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--green-dark);
+        }
+        .program-link::after {
+            content: '\2192';
+            transition: var(--transition);
+        }
+        .program-card:hover .program-link::after {
+            transform: translateX(4px);
+        }
+
+        .quick-links {
+            margin-top: 60px;
+        }
+        .quick-links h2 {
+            margin-bottom: 24px;
+        }
+        .links-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+        .quick-link-card {
+            background: var(--white);
+            border: 1px solid var(--gray-200);
+            border-radius: var(--radius);
+            padding: 24px;
+            text-align: center;
+            transition: var(--transition);
+        }
+        .quick-link-card:hover {
+            border-color: var(--green-dark);
+            box-shadow: var(--shadow-md);
+        }
+        .quick-link-card h4 {
+            font-size: 15px;
+            margin-bottom: 8px;
+        }
+        .quick-link-card p {
+            font-size: 13px;
+            color: var(--gray-500);
+            margin: 0;
+        }
+
+        .contact-cta {
+            margin-top: 60px;
+            background: var(--green-dark);
+            border-radius: var(--radius-lg);
+            padding: 48px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .contact-cta-text h3 {
+            font-size: 24px;
+            color: var(--white);
+            margin-bottom: 8px;
+        }
+        .contact-cta-text p {
+            font-size: 16px;
+            color: rgba(255,255,255,0.7);
+            margin: 0;
+        }
+        .contact-cta .btn {
+            background: var(--white);
+            color: var(--green-dark);
+        }
+        .contact-cta .btn:hover {
+            background: var(--gray-100);
+        }
+
+        @media (max-width: 900px) {
+            .programs-grid {
+                grid-template-columns: 1fr;
+            }
+            .links-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .contact-cta {
+                flex-direction: column;
+                text-align: center;
+                gap: 24px;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .links-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Auth check - redirects to members.html if not logged in -->
+    <script src="js/auth.js"></script>
+
+    <nav class="navbar">
+        <div class="container">
+            <a href="index.html" class="logo">
+                <span class="logo-text">YourAgInfo</span>
+                <span class="logo-divider"></span>
+                <span class="logo-subtitle">McConnell Enterprises</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="index.html#events">Events</a></li>
+                <li><a href="index.html#research">Research</a></li>
+                <li><a href="index.html#resources">Resources</a></li>
+                <li><a href="index.html#contact">Contact</a></li>
+            </ul>
+            <button class="mobile-menu-btn" aria-label="Toggle menu">
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <header class="programs-hero">
+        <div class="container">
+            <h1>Farm Programs</h1>
+            <p>Key deadlines, enrollment periods, and program details for Northeast Colorado operations.</p>
+        </div>
+    </header>
+
+    <main class="programs-main">
+        <div class="container">
+            <div class="programs-grid">
+                <div class="program-card">
+                    <div class="program-header">
+                        <h3>ARC/PLC</h3>
+                        <span class="program-badge">2026 Enrollment</span>
+                    </div>
+                    <p>Agriculture Risk Coverage (ARC) and Price Loss Coverage (PLC) programs provide financial protection against market fluctuations and low prices.</p>
+                    <div class="program-dates">
+                        <h4>Key Dates</h4>
+                        <div class="date-item">
+                            <span class="date-label">Enrollment Opens</span>
+                            <span class="date-value">Oct 2025</span>
+                        </div>
+                        <div class="date-item">
+                            <span class="date-label">Enrollment Deadline</span>
+                            <span class="date-value">Mar 15, 2026</span>
+                        </div>
+                    </div>
+                    <a href="https://www.fsa.usda.gov/programs-and-services/arcplc_program/index" target="_blank" class="program-link">FSA Program Details</a>
+                </div>
+
+                <div class="program-card">
+                    <div class="program-header">
+                        <h3>Crop Insurance</h3>
+                        <span class="program-badge deadline">Deadline Soon</span>
+                    </div>
+                    <p>Federal crop insurance provides a safety net for agricultural producers. Multiple coverage levels and options available through approved agents.</p>
+                    <div class="program-dates">
+                        <h4>Key Dates</h4>
+                        <div class="date-item">
+                            <span class="date-label">Sales Closing (Corn)</span>
+                            <span class="date-value">Mar 15, 2026</span>
+                        </div>
+                        <div class="date-item">
+                            <span class="date-label">Acreage Report</span>
+                            <span class="date-value">Jul 15, 2026</span>
+                        </div>
+                    </div>
+                    <a href="https://www.rma.usda.gov/" target="_blank" class="program-link">RMA Information</a>
+                </div>
+
+                <div class="program-card">
+                    <div class="program-header">
+                        <h3>CRP</h3>
+                        <span class="program-badge">Continuous Signup</span>
+                    </div>
+                    <p>Conservation Reserve Program provides annual rental payments for removing environmentally sensitive land from production.</p>
+                    <div class="program-dates">
+                        <h4>Key Dates</h4>
+                        <div class="date-item">
+                            <span class="date-label">General Signup</span>
+                            <span class="date-value">Check FSA</span>
+                        </div>
+                        <div class="date-item">
+                            <span class="date-label">Continuous Signup</span>
+                            <span class="date-value">Ongoing</span>
+                        </div>
+                    </div>
+                    <a href="https://www.fsa.usda.gov/programs-and-services/conservation-programs/conservation-reserve-program/index" target="_blank" class="program-link">CRP Details</a>
+                </div>
+
+                <div class="program-card">
+                    <div class="program-header">
+                        <h3>EQIP</h3>
+                        <span class="program-badge">NRCS Program</span>
+                    </div>
+                    <p>Environmental Quality Incentives Program provides financial and technical assistance for conservation practices on working agricultural land.</p>
+                    <div class="program-dates">
+                        <h4>Key Dates</h4>
+                        <div class="date-item">
+                            <span class="date-label">Application Batching</span>
+                            <span class="date-value">Varies by State</span>
+                        </div>
+                        <div class="date-item">
+                            <span class="date-label">Funding Periods</span>
+                            <span class="date-value">Multiple/Year</span>
+                        </div>
+                    </div>
+                    <a href="https://www.nrcs.usda.gov/programs-initiatives/eqip-environmental-quality-incentives" target="_blank" class="program-link">EQIP Information</a>
+                </div>
+            </div>
+
+            <div class="quick-links">
+                <h2>Quick Links</h2>
+                <div class="links-grid">
+                    <a href="https://www.farmers.gov/" target="_blank" class="quick-link-card">
+                        <h4>Farmers.gov</h4>
+                        <p>USDA portal for farmers</p>
+                    </a>
+                    <a href="https://www.fsa.usda.gov/state-offices/Colorado/index" target="_blank" class="quick-link-card">
+                        <h4>Colorado FSA</h4>
+                        <p>State office information</p>
+                    </a>
+                    <a href="https://www.rma.usda.gov/tools" target="_blank" class="quick-link-card">
+                        <h4>RMA Tools</h4>
+                        <p>Insurance calculators</p>
+                    </a>
+                    <a href="https://prodwebnlb.rma.usda.gov/apps/AgentLocator/#/" target="_blank" class="quick-link-card">
+                        <h4>Find an Agent</h4>
+                        <p>Crop insurance agents</p>
+                    </a>
+                </div>
+            </div>
+
+            <div class="contact-cta">
+                <div class="contact-cta-text">
+                    <h3>Questions about programs?</h3>
+                    <p>We can help you navigate the options and deadlines.</p>
+                </div>
+                <a href="https://calendly.com/kyletogoag/2023-success-planning" target="_blank" class="btn">Schedule a Call</a>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <span class="logo-text">YourAgInfo</span>
+                    <span class="logo-divider"></span>
+                    <span class="logo-subtitle">McConnell Enterprises</span>
+                </div>
+                <p class="footer-location">Haxtun, Colorado</p>
+                <nav class="footer-nav">
+                    <a href="index.html">Home</a>
+                    <a href="index.html#events">Events</a>
+                    <a href="index.html#research">Research</a>
+                    <a href="index.html#resources">Resources</a>
+                    <a href="index.html#contact">Contact</a>
+                </nav>
+            </div>
+            <div class="footer-bottom">
+                <p>Copyright 2026 McConnell Enterprises LLC. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
