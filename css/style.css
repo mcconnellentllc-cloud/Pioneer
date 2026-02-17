@@ -1828,6 +1828,23 @@ a {
     color: var(--white);
 }
 
+/* Login button in nav */
+.nav-login {
+    background: rgba(255,255,255,0.15);
+    padding: 8px 16px !important;
+    border-radius: var(--radius);
+    border: 1px solid rgba(255,255,255,0.25);
+}
+
+.nav-login:hover {
+    background: rgba(255,255,255,0.25);
+    border-color: rgba(255,255,255,0.4);
+}
+
+.nav-login::after {
+    display: none !important;
+}
+
 /* Responsive */
 @media (max-width: 1024px) {
     .markets-grid {
