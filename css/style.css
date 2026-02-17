@@ -905,6 +905,40 @@ a {
     letter-spacing: 0.01em;
 }
 
+/* Markets Section - Live Widget */
+.markets-section {
+    padding: 60px 0;
+    background: var(--gray-50);
+    border-top: 1px solid var(--gray-200);
+    border-bottom: 1px solid var(--gray-200);
+}
+
+.markets-header {
+    text-align: center;
+    margin-bottom: 32px;
+}
+
+.markets-header h2 {
+    margin-bottom: 8px;
+}
+
+.markets-subtitle {
+    font-size: 15px;
+    color: var(--gray-500);
+}
+
+.markets-widget {
+    background: var(--white);
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius-lg);
+    padding: 20px;
+    overflow: hidden;
+}
+
+.tradingview-widget-container {
+    width: 100%;
+}
+
 /* Resources Section */
 .resources {
     padding: 100px 0;
