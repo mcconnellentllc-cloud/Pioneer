@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rate Sources | 2025 Crop Planner</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+    <nav class="nav">
+        <div class="nav-brand">M77 AG</div>
+        <ul class="nav-links">
+            <li><a href="../index.html">Dashboard</a></li>
+            <li><a href="costs.html">Cost Breakdown</a></li>
+            <li><a href="inputs.html">Inputs</a></li>
+            <li><a href="projections.html">Projections</a></li>
+            <li><a href="offer.html" class="active">Rate Sources</a></li>
+        </ul>
+    </nav>
+
+    <main class="container">
+        <header class="page-header">
+            <h1>Rate Sources & Methodology</h1>
+            <p class="subtitle">2025 custom rates from CSU and Iowa State surveys</p>
+        </header>
+
+        <div id="offer-content">
+            <!-- Populated by JS -->
+        </div>
+
+        <section class="section">
+            <h2>75% of Spread Methodology</h2>
+            <div class="card">
+                <p style="margin-bottom: 1rem;">All custom operation rates are calculated using the <strong>75% of spread</strong> methodology:</p>
+                <div class="highlight-box" style="margin: 1rem 0;">
+                    <code style="font-family: var(--font-mono); color: var(--accent);">Rate = Low + 0.75 × (High - Low)</code>
+                </div>
+                <p>This positions our cost estimates at the 75th percentile of reported rates, providing a conservative (higher) cost estimate that accounts for quality equipment, experienced operators, and complete service.</p>
+
+                <h4 style="margin-top: 1.5rem; margin-bottom: 0.5rem;">Example: Disking</h4>
+                <table class="rate-table">
+                    <tr><td>Reported Range</td><td>$10 - $20 per acre</td></tr>
+                    <tr><td>Spread</td><td>$10</td></tr>
+                    <tr><td>75% of Spread</td><td>$7.50</td></tr>
+                    <tr><td>Final Rate</td><td>$10 + $7.50 = <strong>$17.50/acre</strong></td></tr>
+                </table>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2>Data Sources</h2>
+            <div class="two-column">
+                <div class="card">
+                    <h3>Primary Source</h3>
+                    <p style="font-size: 1.125rem; color: var(--text-heading); margin-bottom: 0.5rem;">Iowa State University</p>
+                    <p>2025 Farm Custom Rate Survey</p>
+                    <p class="text-muted mt-1">193 responses, 3,703 custom rates</p>
+                    <p class="text-muted">Published February 2025</p>
+                    <p class="notes mt-1">Diesel assumed at $3.66/gallon</p>
+                </div>
+                <div class="card">
+                    <h3>Secondary Source</h3>
+                    <p style="font-size: 1.125rem; color: var(--text-heading); margin-bottom: 0.5rem;">CSU Extension</p>
+                    <p>2024 Custom Rates for Colorado</p>
+                    <p class="text-muted mt-1">Colorado-specific data</p>
+                    <p class="text-muted">Published April 2025</p>
+                    <p class="notes mt-1">NE Colorado regional rates</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2>Rate Comparison Table</h2>
+            <div class="card">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Operation</th>
+                            <th>Low</th>
+                            <th>High</th>
+                            <th>75% Rate</th>
+                            <th>Source</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Disking</td>
+                            <td>$10.00</td>
+                            <td>$20.00</td>
+                            <td><strong>$17.50</strong></td>
+                            <td>Iowa State 2025</td>
+                        </tr>
+                        <tr>
+                            <td>Strip Tillage</td>
+                            <td>$14.00</td>
+                            <td>$30.00</td>
+                            <td><strong>$26.00</strong></td>
+                            <td>Iowa State 2025</td>
+                        </tr>
+                        <tr>
+                            <td>Corn Planting</td>
+                            <td>$15.00</td>
+                            <td>$42.00</td>
+                            <td><strong>$35.00</strong></td>
+                            <td>Iowa State 2025</td>
+                        </tr>
+                        <tr>
+                            <td>Spraying</td>
+                            <td>$5.00</td>
+                            <td>$15.00</td>
+                            <td><strong>$12.50</strong></td>
+                            <td>Iowa State 2025</td>
+                        </tr>
+                        <tr>
+                            <td>Anhydrous Application</td>
+                            <td>$12.00</td>
+                            <td>$18.00</td>
+                            <td><strong>$16.50</strong></td>
+                            <td>Iowa State 2025</td>
+                        </tr>
+                        <tr>
+                            <td>Corn Combine</td>
+                            <td>$25.00</td>
+                            <td>$80.00</td>
+                            <td><strong>$66.25</strong></td>
+                            <td>Iowa State 2025</td>
+                        </tr>
+                        <tr>
+                            <td>Grain Cart</td>
+                            <td>$5.00</td>
+                            <td>$22.00</td>
+                            <td><strong>$17.75</strong></td>
+                            <td>Iowa State 2025</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2>References</h2>
+            <div class="card">
+                <ul style="margin-left: 1.5rem;">
+                    <li><a href="https://www.extension.iastate.edu/agdm/crops/html/a3-10.html" style="color: var(--accent);">Iowa State 2025 Farm Custom Rate Survey</a></li>
+                    <li><a href="https://abm.extension.colostate.edu/custom-rates-survey/" style="color: var(--accent);">CSU Extension Custom Rates Survey</a></li>
+                    <li><a href="https://www.ams.usda.gov/mnreports/ams_3195.pdf" style="color: var(--accent);">USDA AMS Illinois Production Cost Report</a></li>
+                    <li><a href="https://www.ams.usda.gov/mnreports/ams_2863.pdf" style="color: var(--accent);">USDA AMS Iowa Production Cost Report</a></li>
+                </ul>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <p>M77 AG | Haxtun, Colorado | 2025 Planning Year</p>
+    </footer>
+
+    <script src="../data/crops.js"></script>
+    <script src="../data/costs.js"></script>
+    <script src="../js/main.js"></script>
+</body>
+</html>

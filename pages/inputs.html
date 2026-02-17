@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inputs | 2025 Crop Planner</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+    <nav class="nav">
+        <div class="nav-brand">M77 AG</div>
+        <ul class="nav-links">
+            <li><a href="../index.html">Dashboard</a></li>
+            <li><a href="costs.html">Cost Breakdown</a></li>
+            <li><a href="inputs.html" class="active">Inputs</a></li>
+            <li><a href="projections.html">Projections</a></li>
+            <li><a href="offer.html">Rate Sources</a></li>
+        </ul>
+    </nav>
+
+    <main class="container">
+        <header class="page-header">
+            <h1>2025 Input Details</h1>
+            <p class="subtitle">Operations, Fertilizer, and Chemical specifications</p>
+        </header>
+
+        <div id="inputs-content">
+            <!-- Populated by JS -->
+        </div>
+
+        <section class="section">
+            <h2>Seed Information</h2>
+            <div class="two-column">
+                <div class="card">
+                    <h3>Irrigated Corn</h3>
+                    <table class="rate-table">
+                        <tr><td>Hybrid</td><td>Pioneer P1082Q / P1185AM</td></tr>
+                        <tr><td>Population</td><td>34,000 seeds/acre</td></tr>
+                        <tr><td>Bags/Acre</td><td>0.425</td></tr>
+                        <tr><td>Price/Bag</td><td>$325</td></tr>
+                        <tr style="border-top: 2px solid var(--border);"><td><strong>Cost/Acre</strong></td><td><strong>$138.13</strong></td></tr>
+                    </table>
+                </div>
+                <div class="card">
+                    <h3>Dryland Corn</h3>
+                    <table class="rate-table">
+                        <tr><td>Hybrid</td><td>Pioneer P0843AM / P0622AM</td></tr>
+                        <tr><td>Population</td><td>22,000 seeds/acre</td></tr>
+                        <tr><td>Bags/Acre</td><td>0.275</td></tr>
+                        <tr><td>Price/Bag</td><td>$310</td></tr>
+                        <tr style="border-top: 2px solid var(--border);"><td><strong>Cost/Acre</strong></td><td><strong>$85.25</strong></td></tr>
+                    </table>
+                    <p class="notes mt-1">Drought-tolerant AquaMax hybrids</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2>Fertilizer Pricing (2025)</h2>
+            <div class="card">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Product</th>
+                            <th>Analysis</th>
+                            <th>Price</th>
+                            <th>Cost/lb Nutrient</th>
+                            <th>Source</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Anhydrous Ammonia</td>
+                            <td>82-0-0</td>
+                            <td>$825/ton</td>
+                            <td>$0.503/lb N</td>
+                            <td>USDA AMS Nov 2025</td>
+                        </tr>
+                        <tr>
+                            <td>DAP</td>
+                            <td>18-46-0</td>
+                            <td>$675/ton</td>
+                            <td>$0.734/lb P2O5</td>
+                            <td>2025 retail</td>
+                        </tr>
+                        <tr>
+                            <td>AMS</td>
+                            <td>21-0-0-24S</td>
+                            <td>$350/ton</td>
+                            <td>$0.729/lb S</td>
+                            <td>2025 retail</td>
+                        </tr>
+                        <tr>
+                            <td>Urea</td>
+                            <td>46-0-0</td>
+                            <td>$525/ton</td>
+                            <td>$0.571/lb N</td>
+                            <td>2025 retail</td>
+                        </tr>
+                        <tr>
+                            <td>UAN-32</td>
+                            <td>32-0-0</td>
+                            <td>$340/ton</td>
+                            <td>$0.531/lb N</td>
+                            <td>2025 retail</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2>Chemical Products</h2>
+            <div class="card">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Product</th>
+                            <th>Active Ingredient</th>
+                            <th>Rate</th>
+                            <th>Timing</th>
+                            <th>Cost/Acre</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Valor</td>
+                            <td>Flumioxazin</td>
+                            <td>2 oz/acre</td>
+                            <td>Burndown/Pre</td>
+                            <td>$9.00</td>
+                        </tr>
+                        <tr>
+                            <td>Atrazine 4L</td>
+                            <td>Atrazine</td>
+                            <td>1.5 qt/acre</td>
+                            <td>Pre-emergence</td>
+                            <td>$6.75</td>
+                        </tr>
+                        <tr>
+                            <td>Dual II Magnum</td>
+                            <td>S-Metolachlor</td>
+                            <td>1.3 pt/acre</td>
+                            <td>Pre-emergence</td>
+                            <td>$6.18</td>
+                        </tr>
+                        <tr>
+                            <td>Warrant/Harness</td>
+                            <td>Acetochlor</td>
+                            <td>1.25 qt/acre</td>
+                            <td>Pre-emergence</td>
+                            <td>$13.13</td>
+                        </tr>
+                        <tr>
+                            <td>Glyphosate 4L</td>
+                            <td>Glyphosate</td>
+                            <td>32 oz/acre</td>
+                            <td>Burndown</td>
+                            <td>$5.00</td>
+                        </tr>
+                        <tr>
+                            <td>AMS + Surfactant</td>
+                            <td>Adjuvants</td>
+                            <td>Standard</td>
+                            <td>All passes</td>
+                            <td>$2.50</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <p>M77 AG | Haxtun, Colorado | 2025 Planning Year</p>
+    </footer>
+
+    <script src="../data/crops.js"></script>
+    <script src="../data/costs.js"></script>
+    <script src="../js/main.js"></script>
+</body>
+</html>
