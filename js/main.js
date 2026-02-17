@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', function() {
         updateOfferPage();
     }
 
-    // Member login form on home page
+    // Member login form on members.html page
     const memberLoginForm = document.getElementById('memberLoginForm');
     if (memberLoginForm) {
         memberLoginForm.addEventListener('submit', function(e) {
@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const password = document.getElementById('memberPassword').value;
             if (password === 'mcconnell') {
                 localStorage.setItem('memberAuth', 'true');
-                window.location.href = 'farm-programs.html';
+                window.location.href = 'seedbook.html';
             } else {
                 alert('Incorrect password. Please try again.');
             }
