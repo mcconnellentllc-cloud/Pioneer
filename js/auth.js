@@ -3,7 +3,7 @@
 
 (function() {
     // Check if user has member access
-    if (localStorage.getItem('memberAccess') !== 'true') {
+    if (localStorage.getItem('memberAuth') !== 'true') {
         // Not logged in - redirect to members page
         window.location.href = 'members.html';
     }
