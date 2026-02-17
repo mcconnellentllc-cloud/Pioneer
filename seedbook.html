@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Multi-year hybrid performance data for Northeast Colorado - YourAgInfo.com">
+    <title>Seed Book | YourAgInfo.com</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:wght@400;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        .seedbook-page {
+            min-height: 100vh;
+        }
+        .seedbook-hero {
+            padding: 140px 0 80px;
+            background: linear-gradient(160deg, var(--green-dark) 0%, var(--green-medium) 100%);
+            text-align: center;
+        }
+        .seedbook-hero h1 {
+            font-size: clamp(36px, 7vw, 56px);
+            color: var(--white);
+            margin-bottom: 16px;
+        }
+        .seedbook-hero p {
+            font-size: 18px;
+            color: rgba(255,255,255,0.8);
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.7;
+        }
+
+        /* Stats Bar */
+        .stats-bar {
+            background: var(--white);
+            border-bottom: 1px solid var(--gray-200);
+            padding: 40px 0;
+        }
+        .stats-bar-grid {
+            display: flex;
+            justify-content: center;
+            gap: 80px;
+        }
+        .stat-item {
+            text-align: center;
+        }
+        .stat-item .value {
+            font-family: var(--font-heading);
+            font-size: 48px;
+            font-weight: 700;
+            color: var(--green-dark);
+            line-height: 1;
+        }
+        .stat-item .label {
+            font-size: 14px;
+            color: var(--gray-500);
+            margin-top: 8px;
+        }
+
+        /* Content Sections */
+        .seedbook-content {
+            padding: 80px 0;
+            background: var(--gray-50);
+        }
+        .content-section {
+            background: var(--white);
+            border: 1px solid var(--gray-200);
+            border-radius: var(--radius-lg);
+            padding: 48px;
+            margin-bottom: 32px;
+        }
+        .content-section h2 {
+            font-size: 28px;
+            margin-bottom: 16px;
+        }
+        .content-section > p {
+            font-size: 16px;
+            color: var(--gray-500);
+            margin-bottom: 32px;
+            max-width: 700px;
+        }
+
+        /* Data Table */
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 24px;
+        }
+        .data-table th,
+        .data-table td {
+            padding: 16px 20px;
+            text-align: left;
+            border-bottom: 1px solid var(--gray-200);
+        }
+        .data-table th {
+            background: var(--gray-50);
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--gray-500);
+        }
+        .data-table td {
+            font-size: 15px;
+        }
+        .data-table .hybrid-name {
+            font-weight: 600;
+            color: var(--green-dark);
+        }
+        .data-table .highlight {
+            background: var(--green-pale);
+        }
+        .data-table .positive {
+            color: var(--green-positive);
+            font-weight: 600;
+        }
+
+        /* Coming Soon */
+        .coming-soon {
+            text-align: center;
+            padding: 60px 40px;
+            background: var(--gray-50);
+            border-radius: var(--radius);
+            border: 2px dashed var(--gray-300);
+        }
+        .coming-soon h3 {
+            font-size: 24px;
+            margin-bottom: 12px;
+        }
+        .coming-soon p {
+            color: var(--gray-500);
+            margin-bottom: 24px;
+        }
+
+        /* CTA Section */
+        .seedbook-cta {
+            padding: 80px 0;
+            background: var(--green-dark);
+            text-align: center;
+        }
+        .seedbook-cta h2 {
+            color: var(--white);
+            margin-bottom: 16px;
+        }
+        .seedbook-cta p {
+            color: rgba(255,255,255,0.8);
+            font-size: 18px;
+            margin-bottom: 32px;
+        }
+        .cta-buttons {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+        }
+        .cta-buttons .btn-outline {
+            border-color: rgba(255,255,255,0.5);
+            color: var(--white);
+        }
+        .cta-buttons .btn-outline:hover {
+            background: var(--white);
+            color: var(--green-dark);
+        }
+
+        @media (max-width: 768px) {
+            .stats-bar-grid {
+                flex-direction: column;
+                gap: 32px;
+            }
+            .content-section {
+                padding: 32px 24px;
+            }
+            .data-table {
+                font-size: 14px;
+            }
+            .data-table th,
+            .data-table td {
+                padding: 12px 10px;
+            }
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+<body class="seedbook-page">
+    <nav class="navbar">
+        <div class="container">
+            <a href="index.html" class="logo">
+                <span class="logo-text">YourAgInfo</span>
+                <span class="logo-divider"></span>
+                <span class="logo-subtitle">McConnell Enterprises</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="index.html#events">Events</a></li>
+                <li><a href="index.html#research" class="active">Research</a></li>
+                <li><a href="index.html#resources">Resources</a></li>
+                <li><a href="index.html#contact">Contact</a></li>
+            </ul>
+            <button class="mobile-menu-btn" aria-label="Toggle menu">
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <header class="seedbook-hero">
+        <div class="container">
+            <h1>Multi-Year Hybrid Performance</h1>
+            <p>Comprehensive 2022-2025 yield data, weather analysis, and head-to-head competitor comparisons across 200,000+ harvested acres in Northeast Colorado.</p>
+        </div>
+    </header>
+
+    <section class="stats-bar">
+        <div class="container">
+            <div class="stats-bar-grid">
+                <div class="stat-item">
+                    <div class="value">4</div>
+                    <div class="label">Years of Data</div>
+                </div>
+                <div class="stat-item">
+                    <div class="value">+13%</div>
+                    <div class="label">Avg Yield Advantage</div>
+                </div>
+                <div class="stat-item">
+                    <div class="value">246</div>
+                    <div class="label">Bu/Acre Peak Yield</div>
+                </div>
+                <div class="stat-item">
+                    <div class="value">200K+</div>
+                    <div class="label">Acres Analyzed</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <main class="seedbook-content">
+        <div class="container">
+            <div class="content-section">
+                <h2>Top Performing Hybrids</h2>
+                <p>Based on multi-year averages across varying conditions in Phillips, Yuma, and Washington counties.</p>
+
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Hybrid</th>
+                            <th>Avg Yield</th>
+                            <th>vs. Check</th>
+                            <th>Maturity</th>
+                            <th>Drought Score</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="highlight">
+                            <td class="hybrid-name">P1082Q</td>
+                            <td>234 bu/ac</td>
+                            <td class="positive">+18 bu</td>
+                            <td>108 day</td>
+                            <td>8/10</td>
+                        </tr>
+                        <tr>
+                            <td class="hybrid-name">P1197AM</td>
+                            <td>228 bu/ac</td>
+                            <td class="positive">+12 bu</td>
+                            <td>111 day</td>
+                            <td>7/10</td>
+                        </tr>
+                        <tr>
+                            <td class="hybrid-name">P0950Q</td>
+                            <td>221 bu/ac</td>
+                            <td class="positive">+5 bu</td>
+                            <td>109 day</td>
+                            <td>9/10</td>
+                        </tr>
+                        <tr>
+                            <td class="hybrid-name">P1185AM</td>
+                            <td>219 bu/ac</td>
+                            <td class="positive">+3 bu</td>
+                            <td>111 day</td>
+                            <td>7/10</td>
+                        </tr>
+                        <tr>
+                            <td class="hybrid-name">P1093AM</td>
+                            <td>216 bu/ac</td>
+                            <td>Baseline</td>
+                            <td>110 day</td>
+                            <td>8/10</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="content-section">
+                <h2>Year-Over-Year Performance</h2>
+                <p>How our flagship hybrids have performed across different growing conditions.</p>
+
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Year</th>
+                            <th>Conditions</th>
+                            <th>Pioneer Avg</th>
+                            <th>County Avg</th>
+                            <th>Advantage</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>2025</strong></td>
+                            <td>Favorable</td>
+                            <td>238 bu/ac</td>
+                            <td>211 bu/ac</td>
+                            <td class="positive">+27 bu</td>
+                        </tr>
+                        <tr>
+                            <td><strong>2024</strong></td>
+                            <td>Drought stress</td>
+                            <td>198 bu/ac</td>
+                            <td>178 bu/ac</td>
+                            <td class="positive">+20 bu</td>
+                        </tr>
+                        <tr>
+                            <td><strong>2023</strong></td>
+                            <td>Late frost</td>
+                            <td>215 bu/ac</td>
+                            <td>194 bu/ac</td>
+                            <td class="positive">+21 bu</td>
+                        </tr>
+                        <tr>
+                            <td><strong>2022</strong></td>
+                            <td>Heat stress</td>
+                            <td>189 bu/ac</td>
+                            <td>171 bu/ac</td>
+                            <td class="positive">+18 bu</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="content-section">
+                <h2>Full Seed Book</h2>
+                <div class="coming-soon">
+                    <h3>Detailed Analysis Coming Soon</h3>
+                    <p>Complete hybrid breakdowns, field-by-field data, and printable seed book will be available here.</p>
+                    <a href="tel:9705711015" class="btn btn-primary">Call Kyle for Current Recommendations</a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <section class="seedbook-cta">
+        <div class="container">
+            <h2>Ready to Plan Your 2026 Season?</h2>
+            <p>Let's look at your specific fields and find the right hybrids for your operation.</p>
+            <div class="cta-buttons">
+                <a href="https://calendly.com/kyletogoag/2023-success-planning" target="_blank" class="btn btn-primary">Schedule a Meeting</a>
+                <a href="tel:9705711015" class="btn btn-outline">Call 970-571-1015</a>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <span class="logo-text">YourAgInfo</span>
+                    <span class="logo-divider"></span>
+                    <span class="logo-subtitle">McConnell Enterprises</span>
+                </div>
+                <p class="footer-location">Haxtun, Colorado</p>
+                <nav class="footer-nav">
+                    <a href="index.html">Home</a>
+                    <a href="index.html#events">Events</a>
+                    <a href="index.html#research">Research</a>
+                    <a href="index.html#resources">Resources</a>
+                    <a href="index.html#contact">Contact</a>
+                </nav>
+            </div>
+            <div class="footer-bottom">
+                <p>Copyright 2026 McConnell Enterprises LLC. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+</body>
+</html>
