@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cost Breakdown | 2025 Crop Planner</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+    <nav class="nav">
+        <div class="nav-brand"><a href="../../index.html" style="color:inherit;text-decoration:none;">M77 AG</a></div>
+        <ul class="nav-links">
+            <li><a href="../index.html">Dashboard</a></li>
+            <li><a href="costs.html" class="active">Cost Breakdown</a></li>
+            <li><a href="inputs.html">Inputs</a></li>
+            <li><a href="projections.html">Projections</a></li>
+            <li><a href="offer.html">Custom Farming Offer</a></li>
+        </ul>
+    </nav>
+
+    <main class="container">
+        <header class="page-header">
+            <h1>2025 Cost Breakdown</h1>
+            <p class="subtitle">Complete cost analysis by crop and category</p>
+        </header>
+
+        <section class="section">
+            <h2>Cost Summary by Crop</h2>
+            <div style="overflow-x: auto;">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Crop</th>
+                            <th>Acres</th>
+                            <th>Seed</th>
+                            <th>Fertilizer</th>
+                            <th>Chemical</th>
+                            <th>Insurance</th>
+                            <th>Irrigation</th>
+                            <th>Land</th>
+                            <th>Other</th>
+                            <th>Total/Ac</th>
+                            <th>Total Cost</th>
+                        </tr>
+                    </thead>
+                    <tbody id="costs-table">
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2>Cost Notes</h2>
+            <div class="card">
+                <ul style="margin-left: 1.5rem;">
+                    <li><strong>Seed:</strong> Pioneer premium hybrids - quantity discounts applied</li>
+                    <li><strong>Fertilizer:</strong> Fall anhydrous + spring applications; prices from ToGoAG</li>
+                    <li><strong>Chemical:</strong> Full herbicide programs; fungicide on irrigated corn and wheat</li>
+                    <li><strong>Insurance:</strong> Revenue Protection at 75% coverage level</li>
+                    <li><strong>Irrigation:</strong> Electric pivot costs including energy, repairs, labor</li>
+                    <li><strong>Land:</strong> Cash rent based on Phillips/Sedgwick county averages</li>
+                    <li><strong>Other:</strong> Operating interest (8.5% for 6 months) + miscellaneous overhead</li>
+                </ul>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <p>M77 AG | Haxtun, Colorado | 2025 Planning Year</p>
+        <p style="margin-top:0.5rem;"><a href="../../index.html" style="color:var(--text-muted);">← Back to YourAgInfo.com</a></p>
+    </footer>
+
+    <script src="../data/crops.js"></script>
+    <script src="../data/costs.js"></script>
+    <script src="../js/main.js"></script>
+</body>
+</html>
