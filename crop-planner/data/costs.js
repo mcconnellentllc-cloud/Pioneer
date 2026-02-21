@@ -1,4 +1,4 @@
-// 2025 Input Costs Database - M77 AG
+// 2025 Input Costs Database - YourAgInfo
 // All costs in $/acre unless noted
 // Prices reflect NE Colorado market - ToGoAG, Pioneer, West Central sourcing
 

@@ -1,4 +1,4 @@
-// 2025 Crop Planning Data - M77 AG
+// 2025 Crop Planning Data - YourAgInfo
 // Northeastern Colorado Operations (Phillips, Sedgwick, Logan, Yuma counties)
 // Edit these values as plans develop
 

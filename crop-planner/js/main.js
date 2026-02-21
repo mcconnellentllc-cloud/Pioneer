@@ -313,7 +313,7 @@ function updateOfferPage() {
 
     <div class="highlight-box">
         <h3 style="margin-bottom: 1rem;">Full Service Custom Farming Package</h3>
-        <p style="margin-bottom: 1rem;">M77 AG offers complete custom farming services for landowners who want professional management without the hassle. Our full-service package includes:</p>
+        <p style="margin-bottom: 1rem;">We offer complete custom farming services for landowners who want professional management without the hassle. Our full-service package includes:</p>
         <ul style="margin-left: 1.5rem; margin-bottom: 1rem;">
             <li>All tillage and field preparation</li>
             <li>Planting with premium Pioneer seed</li>
@@ -322,7 +322,7 @@ function updateOfferPage() {
             <li>Harvest and grain handling</li>
             <li>Marketing assistance through West Central</li>
         </ul>
-        <p><strong>Contact:</strong> Kyle McConnell | M77 AG | Haxtun, CO</p>
+        <p><strong>Contact:</strong> Kyle McConnell | Haxtun, CO</p>
     </div>
     `;
 
