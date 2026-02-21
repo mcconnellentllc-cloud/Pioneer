@@ -616,7 +616,7 @@
             if (localStorage.getItem('memberAuth') === 'true') {
                 showDashboard();
             }
-            displayVisitorCount();
+            loadVisitorCount(); // Load current count without incrementing
         });
 
         function handleLogin(event) {
@@ -648,20 +648,42 @@
             document.getElementById('password').value = '';
         }
 
-        // Discreet visitor counter using localStorage
+        // Persistent site-wide visitor counter using CountAPI
+        // This count persists across ALL visitors and ALL deployments forever
+        const COUNTER_NAMESPACE = 'youraginfo-mcconnell';
+        const COUNTER_KEY = 'member-logins';
+
         function incrementVisitorCount() {
-            let count = parseInt(localStorage.getItem('siteVisits') || '0', 10);
-            count++;
-            localStorage.setItem('siteVisits', count.toString());
-            displayVisitorCount();
+            // Increment the global counter (persists forever, across all visitors)
+            fetch(`https://api.countapi.xyz/hit/${COUNTER_NAMESPACE}/${COUNTER_KEY}`)
+                .then(res => res.json())
+                .then(data => {
+                    displayVisitorCount(data.value);
+                })
+                .catch(err => {
+                    console.log('Counter unavailable');
+                });
         }
 
-        function displayVisitorCount() {
-            const count = localStorage.getItem('siteVisits') || '0';
+        function displayVisitorCount(count) {
             const el = document.getElementById('visitorCount');
-            if (el && count > 0) {
-                el.textContent = 'Logins: ' + count;
+            if (el && count) {
+                el.textContent = 'Total Logins: ' + count;
             }
+        }
+
+        // Load current count on page load (without incrementing)
+        function loadVisitorCount() {
+            fetch(`https://api.countapi.xyz/get/${COUNTER_NAMESPACE}/${COUNTER_KEY}`)
+                .then(res => res.json())
+                .then(data => {
+                    if (data.value) {
+                        displayVisitorCount(data.value);
+                    }
+                })
+                .catch(err => {
+                    console.log('Counter unavailable');
+                });
         }
     </script>
 </body>
