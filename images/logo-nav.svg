@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 45" fill="none">
+  <defs>
+    <linearGradient id="gold" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#c9a227"/>
+      <stop offset="100%" style="stop-color:#dfc65a"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Small wheat sprig -->
+  <g transform="translate(0, 8)">
+    <ellipse cx="6" cy="6" rx="2.5" ry="5" fill="url(#gold)" transform="rotate(-25 6 6)"/>
+    <ellipse cx="9" cy="12" rx="2.5" ry="5" fill="url(#gold)" transform="rotate(-10 9 12)"/>
+    <ellipse cx="10" cy="20" rx="2.5" ry="5" fill="url(#gold)" transform="rotate(5 10 20)"/>
+    <path d="M8 26 Q10 18 8 6" stroke="#c9a227" stroke-width="1.5" fill="none"/>
+  </g>
+
+  <!-- Text -->
+  <text x="22" y="32" font-family="'Playfair Display', Georgia, serif" font-size="28" font-style="italic" fill="white">
+    YourAgInfo
+  </text>
+</svg>
