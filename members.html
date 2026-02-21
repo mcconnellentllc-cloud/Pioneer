@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="css/style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:wght@400;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Source+Serif+4:wght@400;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
         .members-page {
             min-height: 100vh;
@@ -286,11 +286,11 @@
                         <span class="tool-link">View Data</span>
                     </a>
 
-                    <a href="https://calendly.com/kyletogoag/2023-success-planning" target="_blank" class="tool-card">
+                    <div class="tool-card">
                         <h3>Schedule a Call</h3>
-                        <p>Book a one-on-one meeting to discuss your operation and planning needs.</p>
-                        <span class="tool-link">Book Now</span>
-                    </a>
+                        <p>Call or text Kyle to discuss your operation and planning needs.</p>
+                        <a href="tel:9705711015" class="tool-link">Call (970) 571-1015</a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -325,7 +325,7 @@
 
         // Check if already logged in on page load
         document.addEventListener('DOMContentLoaded', function() {
-            if (localStorage.getItem('memberAccess') === 'true') {
+            if (localStorage.getItem('memberAuth') === 'true') {
                 showDashboard();
             }
         });
@@ -336,7 +336,7 @@
             const errorEl = document.getElementById('loginError');
 
             if (password === MEMBER_PASSWORD) {
-                localStorage.setItem('memberAccess', 'true');
+                localStorage.setItem('memberAuth', 'true');
                 showDashboard();
                 errorEl.style.display = 'none';
             } else {
@@ -352,7 +352,7 @@
         }
 
         function handleLogout() {
-            localStorage.removeItem('memberAccess');
+            localStorage.removeItem('memberAuth');
             document.getElementById('loginSection').style.display = 'block';
             document.getElementById('dashboardSection').style.display = 'none';
             document.getElementById('password').value = '';
