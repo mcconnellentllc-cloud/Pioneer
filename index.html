@@ -3,67 +3,340 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="YourAgInfo.com - Agricultural resources, events, and Pioneer seed data for Northeast Colorado farmers">
+    <meta name="description" content="YourAgInfo.com - Agricultural resources for McConnell Enterprises customers">
     <title>YourAgInfo.com | McConnell Enterprises - Haxtun, CO</title>
     <link rel="stylesheet" href="css/style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Source+Serif+4:wght@400;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        /* Simple Header */
+        .simple-header {
+            background: var(--green-dark);
+            padding: 16px 0;
+        }
+        .simple-header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .simple-header .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+        .simple-header .logo-text {
+            font-family: var(--font-heading);
+            font-size: 24px;
+            font-weight: 600;
+            color: var(--white);
+            font-style: italic;
+        }
+        .simple-header .logo-divider {
+            width: 1px;
+            height: 20px;
+            background: rgba(255,255,255,0.3);
+        }
+        .simple-header .logo-subtitle {
+            font-size: 13px;
+            color: rgba(255,255,255,0.7);
+            letter-spacing: 0.5px;
+        }
+        .header-phone {
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+            font-size: 14px;
+        }
+        .header-phone:hover {
+            color: var(--white);
+        }
+
+        /* Hero with Login */
+        .hero-login {
+            background: linear-gradient(160deg, var(--green-dark) 0%, var(--green-medium) 100%);
+            padding: 60px 0 80px;
+            position: relative;
+            overflow: hidden;
+        }
+        .hero-login::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('images/hero-bg.jpg') center/cover;
+            opacity: 0.15;
+        }
+        .hero-login-grid {
+            display: grid;
+            grid-template-columns: 1fr 400px;
+            gap: 60px;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+        .hero-login-text {
+            color: var(--white);
+        }
+        .hero-login-location {
+            font-size: 13px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.6);
+            margin-bottom: 12px;
+        }
+        .hero-login-title {
+            font-family: var(--font-heading);
+            font-size: clamp(42px, 6vw, 56px);
+            font-weight: 600;
+            font-style: italic;
+            margin-bottom: 16px;
+            line-height: 1.1;
+        }
+        .hero-login-tagline {
+            font-size: 18px;
+            color: rgba(255,255,255,0.8);
+            margin-bottom: 32px;
+            line-height: 1.6;
+        }
+        .hero-login-features {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .hero-login-features li {
+            padding: 8px 0;
+            padding-left: 24px;
+            position: relative;
+            color: rgba(255,255,255,0.75);
+            font-size: 15px;
+        }
+        .hero-login-features li::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 14px;
+            width: 8px;
+            height: 8px;
+            background: var(--gold);
+            border-radius: 50%;
+        }
+
+        /* Login Card */
+        .login-card {
+            background: var(--white);
+            border-radius: var(--radius-lg);
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        .login-card h2 {
+            font-size: 24px;
+            color: var(--green-dark);
+            margin-bottom: 8px;
+        }
+        .login-card > p {
+            font-size: 14px;
+            color: var(--gray-500);
+            margin-bottom: 24px;
+        }
+        .login-form {
+            margin-bottom: 20px;
+        }
+        .login-form input {
+            width: 100%;
+            padding: 14px 16px;
+            border: 1px solid var(--gray-300);
+            border-radius: var(--radius);
+            font-size: 16px;
+            margin-bottom: 12px;
+        }
+        .login-form input:focus {
+            outline: none;
+            border-color: var(--green-dark);
+        }
+        .login-form button {
+            width: 100%;
+            padding: 14px;
+            background: var(--green-dark);
+            color: var(--white);
+            border: none;
+            border-radius: var(--radius);
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .login-form button:hover {
+            background: var(--green-medium);
+        }
+        .login-error {
+            color: #dc2626;
+            font-size: 13px;
+            margin-top: -8px;
+            margin-bottom: 12px;
+            display: none;
+        }
+        .login-divider {
+            text-align: center;
+            margin: 24px 0;
+            position: relative;
+        }
+        .login-divider::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 50%;
+            height: 1px;
+            background: var(--gray-200);
+        }
+        .login-divider span {
+            background: var(--white);
+            padding: 0 16px;
+            font-size: 12px;
+            color: var(--gray-400);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            position: relative;
+        }
+        .login-request {
+            text-align: center;
+        }
+        .login-request p {
+            font-size: 14px;
+            color: var(--gray-600);
+            margin-bottom: 12px;
+        }
+        .login-request a {
+            color: var(--green-dark);
+            font-weight: 600;
+            text-decoration: none;
+        }
+        .login-request a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 900px) {
+            .hero-login-grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+            .hero-login-text {
+                text-align: center;
+            }
+            .hero-login-features {
+                display: inline-block;
+                text-align: left;
+            }
+        }
+
+        /* Events Section - Compact */
+        .events-compact {
+            padding: 60px 0 80px;
+            background: var(--gray-50);
+        }
+        .events-compact .section-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        .events-compact .section-header h2 {
+            font-size: 28px;
+            margin-bottom: 8px;
+        }
+        .events-compact .section-header p {
+            color: var(--gray-500);
+        }
+
+        /* Simple Footer */
+        .footer-simple {
+            background: var(--green-dark);
+            padding: 40px 0;
+            text-align: center;
+            color: var(--white);
+        }
+        .footer-simple .footer-brand {
+            margin-bottom: 16px;
+        }
+        .footer-simple .footer-brand span {
+            font-family: var(--font-heading);
+            font-size: 20px;
+            font-style: italic;
+        }
+        .footer-simple .footer-contact {
+            margin-bottom: 16px;
+        }
+        .footer-simple .footer-contact a {
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+            margin: 0 16px;
+            font-size: 14px;
+        }
+        .footer-simple .footer-contact a:hover {
+            color: var(--white);
+        }
+        .footer-simple .footer-copy {
+            font-size: 12px;
+            color: rgba(255,255,255,0.5);
+        }
+    </style>
 </head>
 <body>
-    <nav class="navbar">
+    <!-- Simple Header -->
+    <header class="simple-header">
         <div class="container">
             <a href="#" class="logo">
-                <img src="images/logo-nav.svg" alt="YourAgInfo" class="logo-svg">
+                <span class="logo-text">YourAgInfo</span>
                 <span class="logo-divider"></span>
                 <span class="logo-subtitle">McConnell Enterprises</span>
             </a>
-            <ul class="nav-links">
-                <li><a href="#home">Home</a></li>
-                <li><a href="#events">Events</a></li>
-                <li><a href="farm-programs.html">Farm Programs</a></li>
-                <li><a href="#contact">Contact</a></li>
-                <li><a href="members.html" class="nav-login">Member Access</a></li>
-            </ul>
-            <button class="mobile-menu-btn" aria-label="Toggle menu">
-                <span></span>
-                <span></span>
-            </button>
-        </div>
-    </nav>
-
-    <header id="home" class="hero">
-        <div class="hero-background"></div>
-        <div class="hero-content">
-            <div class="hero-ornament">
-                <span class="ornament-wheat left"></span>
-                <p class="hero-location">Haxtun, Colorado</p>
-                <span class="ornament-wheat right"></span>
-            </div>
-            <h1 class="hero-title">YourAgInfo</h1>
-            <p class="hero-tagline">Your Go-To Resource for Northeast Colorado Agriculture</p>
-
-            <!-- Announcement Banner -->
-            <a href="#events" class="hero-announcement">
-                <span class="announcement-label">Coming Up</span>
-                <span class="announcement-text">Planter Clinic  ·  March 10-12  ·  M77 AG Warehouse</span>
-                <span class="announcement-arrow">→</span>
-            </a>
-
-            <div class="hero-cta">
-                <a href="#events" class="btn btn-primary">View Upcoming Events</a>
-                <a href="tel:9705711015" class="btn btn-outline" style="border-color: rgba(255,255,255,0.5); color: white;">Call (970) 571-1015</a>
-            </div>
+            <a href="tel:9705711015" class="header-phone">(970) 571-1015</a>
         </div>
     </header>
 
-    <!-- UPCOMING EVENTS - Primary Feature -->
-    <section id="events" class="events-section">
+    <!-- Hero with Login -->
+    <section class="hero-login">
         <div class="container">
-            <div class="events-header section-header-decorated">
-                <span class="section-badge">March 2026</span>
+            <div class="hero-login-grid">
+                <div class="hero-login-text">
+                    <p class="hero-login-location">Haxtun, Colorado</p>
+                    <h1 class="hero-login-title">YourAgInfo</h1>
+                    <p class="hero-login-tagline">Exclusive resources for McConnell Enterprises customers. Access Pioneer data, crop planning tools, live markets, and more.</p>
+                    <ul class="hero-login-features">
+                        <li>Multi-Year Hybrid Performance Data</li>
+                        <li>2025 Crop Planner</li>
+                        <li>Live Commodity Markets</li>
+                        <li>Pioneer Account Access</li>
+                        <li>Industry News &amp; Updates</li>
+                    </ul>
+                </div>
+                <div class="login-card">
+                    <h2>Member Login</h2>
+                    <p>Enter your password to access member resources.</p>
+                    <form class="login-form" id="loginForm">
+                        <input type="password" id="password" placeholder="Enter password" required>
+                        <p class="login-error" id="loginError">Incorrect password. Please try again.</p>
+                        <button type="submit">Sign In</button>
+                    </form>
+                    <div class="login-divider">
+                        <span>New here?</span>
+                    </div>
+                    <div class="login-request">
+                        <p>Request access and we'll send your password once approved.</p>
+                        <a href="#request-access">Request Member Access</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Upcoming Events -->
+    <section class="events-compact">
+        <div class="container">
+            <div class="section-header">
                 <h2>Upcoming Events</h2>
-                <p class="events-intro">Join us at the M77 AG Warehouse for hands-on learning, expert insights, and networking with fellow farmers.</p>
+                <p>Join us at the M77 AG Warehouse in Haxtun</p>
             </div>
 
             <!-- Featured Event: Planter Clinic -->
@@ -82,7 +355,7 @@
                             <p class="event-provider">Provided by Servi Tech</p>
                             <p class="event-description">Get your planter units professionally calibrated and ready for the 2026 season. Drop off anytime prior to event, pick up by Friday.</p>
                             <div class="event-meta">
-                                <span class="event-location">M77 AG Warehouse • 34549 HWY 59, Haxtun</span>
+                                <span class="event-location">M77 AG Warehouse - 34549 HWY 59, Haxtun</span>
                             </div>
                         </div>
                     </div>
@@ -105,7 +378,6 @@
                         <h4>John Deere Operations Center</h4>
                         <p>Getting the most from your data. Learn to leverage your precision ag data for better decisions.</p>
                         <a href="docs/JD_OpsCenter_Granular_Training.pdf" target="_blank" class="event-resource-link">Training Guide (PDF)</a>
-                        <p class="event-note">Planter units also running this day</p>
                     </div>
                     <a href="tel:9705711015" class="event-card-cta">RSVP</a>
                 </div>
@@ -120,7 +392,6 @@
                         <span class="event-tag">Workshop</span>
                         <h4>AI Integration for Agriculture</h4>
                         <p>Managing the data constantly streaming in. Practical AI tools for modern farming operations.</p>
-                        <p class="event-note">Planter units pick up by Friday</p>
                     </div>
                     <a href="tel:9705711015" class="event-card-cta">RSVP</a>
                 </div>
@@ -135,99 +406,60 @@
                         <span class="event-tag tag-gold">Lunch Provided</span>
                         <h4>CLIP Insurance & Farm Programs</h4>
                         <p>Program updates and enrollment information. Stay current on FSA deadlines and insurance options.</p>
-                        <p class="event-note">Lunch served 12:00 - 12:30 PM</p>
                     </div>
                     <a href="tel:9705711015" class="event-card-cta">RSVP</a>
                 </div>
             </div>
-
-            <!-- Private Sessions CTA -->
-            <div class="private-sessions">
-                <div class="private-sessions-content">
-                    <h3>Can't Make These Times?</h3>
-                    <p>Schedule a private session or bring a group — we'll work with your schedule.</p>
-                </div>
-                <a href="tel:9705711015" class="btn btn-primary">Call to Schedule</a>
-            </div>
         </div>
     </section>
 
-    <!-- Member Access Banner -->
-    <section id="member-access" class="member-banner">
+    <!-- Request Access Section -->
+    <section id="request-access" class="member-banner">
         <div class="container">
-            <div class="member-banner-content">
-                <div class="member-banner-text">
-                    <span class="member-banner-badge">Customer Benefits</span>
-                    <h2>Member Access</h2>
-                    <p>Pioneer resources, multi-year hybrid performance data, input cost planner, live markets, and industry news — all in one place for McConnell Enterprises customers.</p>
-                    <ul class="member-banner-features">
-                        <li>Multi-Year Hybrid Performance Data</li>
-                        <li>Input Cost Planner</li>
-                        <li>Pioneer Account &amp; Merchandise</li>
-                        <li>Live Commodity Markets</li>
-                        <li>Industry News &amp; Updates</li>
-                    </ul>
-                </div>
+            <div class="member-banner-content" style="justify-content: center;">
                 <div class="member-banner-action">
                     <div class="member-banner-card">
-                        <h3>Request Access</h3>
-                        <p>Sign up below and we'll send your member password once approved.</p>
+                        <h3>Request Member Access</h3>
+                        <p>Sign up below and we'll send your password once approved.</p>
                         <!-- Constant Contact Signup Form -->
                         <div class="ctct-inline-form" data-form-id="a3d691d0-a7cb-48b9-8063-ab2216e5704b"></div>
-                        <p class="member-card-note">Already have access? <a href="members.html">Sign in here</a></p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="contact" class="contact-simple">
+    <!-- Simple Footer -->
+    <footer class="footer-simple">
         <div class="container">
-            <div class="contact-content">
-                <h2>Get In Touch</h2>
-                <div class="contact-info">
-                    <div class="contact-item">
-                        <strong>Kyle McConnell</strong>
-                        <a href="mailto:kyle.mcconnell@plantpioneer.com">kyle.mcconnell@plantpioneer.com</a>
-                    </div>
-                    <div class="contact-item">
-                        <strong>Cell</strong>
-                        <a href="tel:9705711015">(970) 571-1015</a>
-                    </div>
-                    <div class="contact-item">
-                        <strong>Office</strong>
-                        <a href="tel:9707743276">(970) 774-3276</a>
-                    </div>
-                </div>
-                <p class="contact-location">Haxtun, Colorado</p>
+            <div class="footer-brand">
+                <span>YourAgInfo</span> | McConnell Enterprises
             </div>
-        </div>
-    </section>
-
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-brand">
-                    <img src="images/logo-nav.svg" alt="YourAgInfo" class="footer-logo-svg">
-                    <span class="logo-divider"></span>
-                    <span class="logo-subtitle">McConnell Enterprises</span>
-                </div>
-                <p class="footer-location">Haxtun, Colorado</p>
-                <nav class="footer-nav">
-                    <a href="#home">Home</a>
-                    <a href="#events">Events</a>
-                    <a href="farm-programs.html">Farm Programs</a>
-                    <a href="members.html">Member Access</a>
-                    <a href="#contact">Contact</a>
-                </nav>
+            <div class="footer-contact">
+                <a href="tel:9705711015">(970) 571-1015</a>
+                <a href="mailto:kyle.mcconnell@plantpioneer.com">kyle.mcconnell@plantpioneer.com</a>
             </div>
-            <div class="footer-bottom">
-                <p>Copyright 2026 McConnell Enterprises LLC. All rights reserved.</p>
-            </div>
+            <p class="footer-copy">Copyright 2026 McConnell Enterprises LLC. Haxtun, Colorado.</p>
         </div>
     </footer>
 
-    <script src="js/main.js"></script>
+    <script>
+        // Login Form Handler
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const password = document.getElementById('password').value;
+            const errorEl = document.getElementById('loginError');
+
+            if (password === 'mcconnell') {
+                localStorage.setItem('memberAuth', 'true');
+                window.location.href = 'members.html';
+            } else {
+                errorEl.style.display = 'block';
+                document.getElementById('password').value = '';
+                document.getElementById('password').focus();
+            }
+        });
+    </script>
     <!-- Constant Contact Script -->
     <script src="//static.ctctcdn.com/js/signup-form-widget/current/signup-form-widget.min.js" async defer></script>
 </body>
