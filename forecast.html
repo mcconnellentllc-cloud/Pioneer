@@ -199,10 +199,7 @@
     <div class="header">
         <h1>Pioneer 2027 Hybrid Quantity Forecast</h1>
         <div style="display:flex; gap:0.5rem; align-items:center;">
-            <a href="members.html" class="btn btn-primary" style="text-decoration:none;">Home</a>
-            <a href="yield-zone.html" class="btn btn-secondary" style="text-decoration:none;">Yield Zones</a>
-            <a href="sorghum.html" class="btn btn-secondary" style="text-decoration:none;">Sorghum</a>
-            <a href="soybeans.html" class="btn btn-secondary" style="text-decoration:none;">Soybeans</a>
+            <a href="members.html" class="btn btn-primary" style="text-decoration:none;">Back to Dashboard</a>
             <button class="btn btn-primary" onclick="exportData()">Export Forecast</button>
             <button class="btn btn-secondary" onclick="localStorage.removeItem('memberAuth'); window.location.href='index.html';">Logout</button>
         </div>
@@ -633,11 +630,6 @@
                     <label>My Notes:</label>
                     <textarea id="notes-P18512" onchange="saveNotes('P18512', this.value)" placeholder="Your notes: Grain product..."></textarea>
                 </div>
-            </div>
-            <!-- Links to other crop pages -->
-            <div style="margin-top:2rem; padding:1rem; background:#f8f9fa; border-radius:8px; text-align:center;">
-                <h3 style="margin-bottom:1rem; color:#666;">Other Crops</h3>
-                <a href="sorghum.html" style="display:inline-block; padding:0.75rem 1.5rem; background:#8b4513; color:white; text-decoration:none; border-radius:4px; margin:0.5rem; font-weight:600;">Sorghum Hybrids</a>
             </div>
         </div>
         <div id="competitive" class="tab-content">
