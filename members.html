@@ -511,20 +511,31 @@
                     <span class="dashboard-section-title">Today's Markets</span>
                     <div class="dashboard-markets">
                         <!-- TradingView Widget BEGIN -->
-                        <div class="tradingview-widget-container">
-                            <div class="tradingview-widget-container__widget"></div>
-                            <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js" async>
+                        <div class="tradingview-widget-container" style="height:100%;width:100%">
+                            <div class="tradingview-widget-container__widget" style="height:calc(100% - 32px);width:100%"></div>
+                            <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-market-quotes.js" async>
                             {
-                                "symbols": [
-                                    {"proName": "CBOT:ZC1!", "title": "Corn"},
-                                    {"proName": "CBOT:ZS1!", "title": "Soybeans"},
-                                    {"proName": "CBOT:ZW1!", "title": "Wheat"},
-                                    {"proName": "NYMEX:CL1!", "title": "Crude Oil"},
-                                    {"proName": "COMEX:GC1!", "title": "Gold"}
+                                "width": "100%",
+                                "height": 300,
+                                "symbolsGroups": [
+                                    {
+                                        "name": "Grains",
+                                        "symbols": [
+                                            {"name": "CBOT:ZC1!", "displayName": "Corn"},
+                                            {"name": "CBOT:ZS1!", "displayName": "Soybeans"},
+                                            {"name": "CBOT:ZW1!", "displayName": "Wheat"}
+                                        ]
+                                    },
+                                    {
+                                        "name": "Energy & Metals",
+                                        "symbols": [
+                                            {"name": "NYMEX:CL1!", "displayName": "Crude Oil"},
+                                            {"name": "COMEX:GC1!", "displayName": "Gold"}
+                                        ]
+                                    }
                                 ],
-                                "showSymbolLogo": false,
+                                "showSymbolLogo": true,
                                 "isTransparent": true,
-                                "displayMode": "adaptive",
                                 "colorTheme": "light",
                                 "locale": "en"
                             }
