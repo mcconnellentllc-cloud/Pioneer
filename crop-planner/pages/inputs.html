@@ -16,7 +16,6 @@
             <li><a href="costs.html">Cost Breakdown</a></li>
             <li><a href="inputs.html" class="active">Inputs</a></li>
             <li><a href="projections.html">Projections</a></li>
-            <li><a href="offer.html">Custom Farming Offer</a></li>
         </ul>
     </nav>
 
@@ -27,6 +26,34 @@
         </header>
 
         <div id="inputs-content"></div>
+
+        <section class="section">
+            <h2>Your Custom Inputs</h2>
+            <p class="text-muted" style="margin-bottom: 1rem;">Add your own cost items below. Every operation is different.</p>
+            <div style="overflow-x: auto;">
+                <table class="data-table" id="custom-inputs-table">
+                    <thead>
+                        <tr>
+                            <th>Description</th>
+                            <th>Cost / Acre</th>
+                            <th>Acres</th>
+                            <th>Total</th>
+                            <th style="width:50px;"></th>
+                        </tr>
+                    </thead>
+                    <tbody id="custom-inputs-body">
+                    </tbody>
+                    <tfoot>
+                        <tr class="summary-row">
+                            <td colspan="3"><strong>Custom Inputs Total</strong></td>
+                            <td class="number"><strong id="custom-total">$0</strong></td>
+                            <td></td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+            <button id="add-custom-row" style="margin-top: 0.75rem; padding: 0.5rem 1.25rem; background: var(--accent); color: #fff; border: none; border-radius: 6px; cursor: pointer; font-family: var(--font-main); font-size: 0.875rem; font-weight: 500;">+ Add Custom Input</button>
+        </section>
 
         <section class="section">
             <h2>Supplier Information</h2>

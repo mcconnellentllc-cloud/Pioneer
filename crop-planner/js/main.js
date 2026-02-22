@@ -7,12 +7,10 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     if (document.getElementById('inputs-content')) {
         updateInputsPage();
+        initCustomInputs();
     }
     if (document.getElementById('projections-content')) {
         updateProjectionsPage();
-    }
-    if (document.getElementById('offer-content')) {
-        updateOfferPage();
     }
 });
 
@@ -253,82 +251,6 @@ function updateProjectionsPage() {
     content.innerHTML = html;
 }
 
-function updateOfferPage() {
-    const content = document.getElementById('offer-content');
-
-    const rates = CUSTOM_FARMING_RATES;
-    const lease = LEASE_RATES;
-
-    let html = `
-    <div class="two-column">
-        <div class="offer-section">
-            <h3>Custom Farming Rates - 2025</h3>
-            <table class="rate-table">
-                <tr><td colspan="2" style="color: var(--text-muted); font-weight: 600; padding-top: 1rem;">TILLAGE</td></tr>
-                <tr><td>Chisel Plow</td><td>$${rates.tillage.chiselPlow}/ac</td></tr>
-                <tr><td>Disk</td><td>$${rates.tillage.disk}/ac</td></tr>
-                <tr><td>Field Cultivator</td><td>$${rates.tillage.fieldCultivator}/ac</td></tr>
-                <tr><td>Vertical Till</td><td>$${rates.tillage.verticalTill}/ac</td></tr>
-
-                <tr><td colspan="2" style="color: var(--text-muted); font-weight: 600; padding-top: 1rem;">PLANTING</td></tr>
-                <tr><td>Corn/Milo (row crop planter)</td><td>$${rates.planting.rowCrop}/ac</td></tr>
-                <tr><td>Wheat/Small Grain (drill)</td><td>$${rates.planting.drill}/ac</td></tr>
-
-                <tr><td colspan="2" style="color: var(--text-muted); font-weight: 600; padding-top: 1rem;">APPLICATION</td></tr>
-                <tr><td>Spraying</td><td>$${rates.application.sprayer}/ac</td></tr>
-                <tr><td>Fertilizer Spreading</td><td>$${rates.application.fertilizer}/ac</td></tr>
-                <tr><td>Anhydrous Application</td><td>$${rates.application.anhydrous}/ac</td></tr>
-                <tr><td>Sidedress</td><td>$${rates.application.sidedress}/ac</td></tr>
-
-                <tr><td colspan="2" style="color: var(--text-muted); font-weight: 600; padding-top: 1rem;">HARVEST</td></tr>
-                <tr><td>Corn Combining</td><td>$${rates.harvest.cornBase}/ac + $${rates.harvest.cornPerBu}/bu</td></tr>
-                <tr><td>Wheat Combining</td><td>$${rates.harvest.wheatBase}/ac + $${rates.harvest.wheatPerBu}/bu</td></tr>
-                <tr><td>Milo Combining</td><td>$${rates.harvest.miloBase}/ac + $${rates.harvest.miloPerBu}/bu</td></tr>
-                <tr><td>Grain Cart</td><td>$${rates.harvest.grainCart}/ac</td></tr>
-
-                <tr><td colspan="2" style="color: var(--text-muted); font-weight: 600; padding-top: 1rem;">HAULING</td></tr>
-                <tr><td>Grain Hauling</td><td>$${rates.hauling.perBushel}/bu + $${rates.hauling.perMile}/mi</td></tr>
-            </table>
-        </div>
-
-        <div class="offer-section">
-            <h3>Land Lease Rates - 2025</h3>
-            <table class="rate-table">
-                <tr><td colspan="2" style="color: var(--text-muted); font-weight: 600; padding-top: 1rem;">CASH RENT</td></tr>
-                <tr><td>Irrigated (center pivot)</td><td>$${lease.cashRent.irrigated}/ac</td></tr>
-                <tr><td>Dryland (good soil)</td><td>$${lease.cashRent.drylandGood}/ac</td></tr>
-                <tr><td>Dryland (average)</td><td>$${lease.cashRent.drylandAverage}/ac</td></tr>
-                <tr><td>Pasture/Grass</td><td>$${lease.cashRent.pasture}/ac</td></tr>
-
-                <tr><td colspan="2" style="color: var(--text-muted); font-weight: 600; padding-top: 1rem;">CROP SHARE</td></tr>
-                <tr><td>Landlord Share (typical)</td><td>${(lease.cropShare.landlordShare * 100).toFixed(0)}%</td></tr>
-                <tr><td>Landlord Pays</td><td>${lease.cropShare.landlordPays}</td></tr>
-            </table>
-
-            <div class="notes mt-2">
-                <strong>Notes:</strong> ${lease.notes}
-            </div>
-        </div>
-    </div>
-
-    <div class="highlight-box">
-        <h3 style="margin-bottom: 1rem;">Full Service Custom Farming Package</h3>
-        <p style="margin-bottom: 1rem;">We offer complete custom farming services for landowners who want professional management without the hassle. Our full-service package includes:</p>
-        <ul style="margin-left: 1.5rem; margin-bottom: 1rem;">
-            <li>All tillage and field preparation</li>
-            <li>Planting with premium Pioneer seed</li>
-            <li>Fertilizer and chemical application</li>
-            <li>Crop scouting and management</li>
-            <li>Harvest and grain handling</li>
-            <li>Marketing assistance through West Central</li>
-        </ul>
-        <p><strong>Contact:</strong> Kyle McConnell | Haxtun, CO</p>
-    </div>
-    `;
-
-    content.innerHTML = html;
-}
-
 function formatCurrency(value) {
     return '$' + value.toLocaleString(undefined, {
         minimumFractionDigits: 2,
@@ -341,4 +263,79 @@ function formatNumber(value, decimals = 0) {
         minimumFractionDigits: decimals,
         maximumFractionDigits: decimals
     });
+}
+
+// Custom Inputs functionality
+function initCustomInputs() {
+    const addBtn = document.getElementById('add-custom-row');
+    if (!addBtn) return;
+
+    // Load saved custom inputs from localStorage
+    const saved = JSON.parse(localStorage.getItem('customInputs') || '[]');
+    saved.forEach(item => addCustomRow(item.description, item.costPerAcre, item.acres));
+
+    // If no saved rows, add 3 empty starter rows
+    if (saved.length === 0) {
+        for (let i = 0; i < 3; i++) addCustomRow('', 0, 0);
+    }
+
+    addBtn.addEventListener('click', function() {
+        addCustomRow('', 0, 0);
+    });
+}
+
+function addCustomRow(description, costPerAcre, acres) {
+    const tbody = document.getElementById('custom-inputs-body');
+    if (!tbody) return;
+
+    const row = document.createElement('tr');
+    row.innerHTML = `
+        <td><input type="text" value="${description}" placeholder="e.g. Hauling, Drying, Cover Crop..." class="custom-desc" style="width:100%;padding:0.5rem;background:var(--bg);border:1px solid var(--border);border-radius:4px;color:var(--text);font-family:var(--font-main);font-size:0.875rem;"></td>
+        <td><input type="number" value="${costPerAcre}" min="0" step="0.01" class="custom-cost" style="width:100px;padding:0.5rem;background:var(--bg);border:1px solid var(--border);border-radius:4px;color:var(--text);font-family:var(--font-mono);font-size:0.875rem;text-align:right;"></td>
+        <td><input type="number" value="${acres}" min="0" step="1" class="custom-acres" style="width:100px;padding:0.5rem;background:var(--bg);border:1px solid var(--border);border-radius:4px;color:var(--text);font-family:var(--font-mono);font-size:0.875rem;text-align:right;"></td>
+        <td class="number custom-row-total" style="font-family:var(--font-mono);">$0</td>
+        <td><button class="remove-custom-row" style="background:none;border:none;color:var(--accent-red);cursor:pointer;font-size:1.125rem;padding:0.25rem;" title="Remove">&times;</button></td>
+    `;
+    tbody.appendChild(row);
+
+    // Attach event listeners
+    row.querySelector('.custom-desc').addEventListener('input', saveAndRecalcCustom);
+    row.querySelector('.custom-cost').addEventListener('input', saveAndRecalcCustom);
+    row.querySelector('.custom-acres').addEventListener('input', saveAndRecalcCustom);
+    row.querySelector('.remove-custom-row').addEventListener('click', function() {
+        row.remove();
+        saveAndRecalcCustom();
+    });
+
+    recalcCustomTotals();
+}
+
+function recalcCustomTotals() {
+    const rows = document.querySelectorAll('#custom-inputs-body tr');
+    let grandTotal = 0;
+    rows.forEach(row => {
+        const cost = parseFloat(row.querySelector('.custom-cost').value) || 0;
+        const acres = parseFloat(row.querySelector('.custom-acres').value) || 0;
+        const total = cost * acres;
+        grandTotal += total;
+        row.querySelector('.custom-row-total').textContent = '$' + total.toLocaleString(undefined, {maximumFractionDigits: 0});
+    });
+    const totalEl = document.getElementById('custom-total');
+    if (totalEl) totalEl.textContent = '$' + grandTotal.toLocaleString(undefined, {maximumFractionDigits: 0});
+}
+
+function saveAndRecalcCustom() {
+    recalcCustomTotals();
+    // Save to localStorage
+    const rows = document.querySelectorAll('#custom-inputs-body tr');
+    const data = [];
+    rows.forEach(row => {
+        const description = row.querySelector('.custom-desc').value;
+        const costPerAcre = parseFloat(row.querySelector('.custom-cost').value) || 0;
+        const acres = parseFloat(row.querySelector('.custom-acres').value) || 0;
+        if (description || costPerAcre > 0 || acres > 0) {
+            data.push({ description, costPerAcre, acres });
+        }
+    });
+    localStorage.setItem('customInputs', JSON.stringify(data));
 }

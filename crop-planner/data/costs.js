@@ -273,54 +273,6 @@ const COSTS = {
     }
 };
 
-// Custom farming rates for offer page
-const CUSTOM_FARMING_RATES = {
-    tillage: {
-        chiselPlow: 22,
-        disk: 18,
-        fieldCultivator: 15,
-        verticalTill: 20,
-    },
-    planting: {
-        rowCrop: 24,
-        drill: 18,
-    },
-    application: {
-        sprayer: 10,
-        fertilizer: 13,
-        anhydrous: 18,
-        sidedress: 16,
-    },
-    harvest: {
-        cornBase: 42,
-        cornPerBu: 0.14,
-        wheatBase: 30,
-        wheatPerBu: 0.16,
-        miloBase: 36,
-        miloPerBu: 0.13,
-        grainCart: 8,
-    },
-    hauling: {
-        perBushel: 0.20,
-        perMile: 0.05,
-    }
-};
-
-// Lease rates for offer page
-const LEASE_RATES = {
-    cashRent: {
-        irrigated: 275,
-        drylandGood: 65,
-        drylandAverage: 50,
-        pasture: 18,
-    },
-    cropShare: {
-        landlordShare: 0.33,
-        landlordPays: 'None (tenant pays all expenses)',
-    },
-    notes: 'Rates competitive for Phillips, Sedgwick, Logan, Yuma counties. Negotiable based on soil quality, water availability, and term length.'
-};
-
 function calculateTotalCostPerAcre(cropId) {
     const crop = getCrop(cropId);
     if (!crop) return 0;
