@@ -2177,11 +2177,23 @@ a {
     margin-bottom: 12px;
 }
 
-.member-banner-card p {
+.member-banner-card > p {
     font-size: 15px;
     color: var(--gray-500);
     margin-bottom: 24px;
     line-height: 1.6;
+}
+
+.member-card-note {
+    font-size: 13px;
+    color: var(--gray-400);
+    margin-top: 16px;
+    margin-bottom: 0;
+}
+
+.member-card-note a {
+    color: var(--green-dark);
+    font-weight: 500;
 }
 
 @media (max-width: 900px) {
