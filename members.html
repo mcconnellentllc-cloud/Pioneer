@@ -152,9 +152,24 @@
             color: var(--gray-700);
         }
 
+        /* Dashboard Sections */
+        .dashboard-section {
+            margin-bottom: 48px;
+        }
+        .dashboard-section-title {
+            font-family: var(--font-heading);
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--gray-800);
+            margin-bottom: 20px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid var(--green-dark);
+            display: inline-block;
+        }
+
         .tools-grid {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
+            grid-template-columns: repeat(3, 1fr);
             gap: 24px;
         }
         .tool-card {
@@ -163,11 +178,28 @@
             border-radius: var(--radius-lg);
             padding: 32px;
             transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+        .tool-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: var(--green-dark);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: var(--transition);
         }
         .tool-card:hover {
             border-color: var(--gray-300);
             box-shadow: var(--shadow-lg);
             transform: translateY(-4px);
+        }
+        .tool-card:hover::before {
+            transform: scaleX(1);
         }
         .tool-card h3 {
             font-size: 20px;
@@ -194,13 +226,144 @@
         .tool-card:hover .tool-link::after {
             transform: translateX(4px);
         }
+        .tool-card-highlight {
+            border-color: var(--gold);
+            border-width: 2px;
+        }
+        .tool-card-highlight .tool-link {
+            color: var(--gold);
+        }
 
+        /* Markets Widget in Dashboard */
+        .dashboard-markets {
+            background: var(--white);
+            border: 1px solid var(--gray-200);
+            border-radius: var(--radius-lg);
+            padding: 24px;
+            overflow: hidden;
+        }
+        .dashboard-markets-disclaimer {
+            text-align: center;
+            font-size: 12px;
+            color: var(--gray-400);
+            margin-top: 12px;
+        }
+
+        /* News Grid in Dashboard */
+        .dashboard-news-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+        .dashboard-news-card {
+            background: var(--white);
+            border: 1px solid var(--gray-200);
+            border-radius: var(--radius-lg);
+            padding: 28px;
+            transition: var(--transition);
+        }
+        .dashboard-news-card:hover {
+            border-color: var(--gray-300);
+            box-shadow: var(--shadow-md);
+        }
+        .dashboard-news-card .news-tag {
+            display: inline-block;
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--white);
+            background: var(--green-dark);
+            padding: 4px 10px;
+            border-radius: 4px;
+            margin-bottom: 10px;
+        }
+        .dashboard-news-card time {
+            display: block;
+            font-size: 12px;
+            color: var(--gray-400);
+            margin-bottom: 10px;
+        }
+        .dashboard-news-card h4 {
+            font-family: var(--font-heading);
+            font-size: 17px;
+            font-weight: 600;
+            color: var(--gray-900);
+            margin-bottom: 10px;
+            line-height: 1.3;
+        }
+        .dashboard-news-card p {
+            font-size: 14px;
+            color: var(--gray-500);
+            line-height: 1.6;
+            margin-bottom: 14px;
+        }
+        .dashboard-news-card .news-link {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--green-dark);
+        }
+
+        /* Newsletter in dashboard */
+        .dashboard-newsletter {
+            background: linear-gradient(135deg, var(--green-dark) 0%, var(--green-medium) 100%);
+            border-radius: var(--radius-lg);
+            padding: 48px;
+            display: flex;
+            align-items: center;
+            gap: 48px;
+        }
+        .dashboard-newsletter-text {
+            flex: 1;
+        }
+        .dashboard-newsletter-text h3 {
+            color: var(--white);
+            font-size: 24px;
+            margin-bottom: 12px;
+        }
+        .dashboard-newsletter-text p {
+            color: rgba(255,255,255,0.8);
+            font-size: 16px;
+            line-height: 1.7;
+        }
+        .dashboard-newsletter-form {
+            flex: 1;
+            max-width: 400px;
+        }
+
+        /* Visitor counter - discreet */
+        .visitor-count {
+            font-size: 11px;
+            color: var(--gray-400);
+            letter-spacing: 0.02em;
+        }
+
+        @media (max-width: 1024px) {
+            .tools-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .dashboard-news-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
         @media (max-width: 600px) {
             .tools-grid {
                 grid-template-columns: 1fr;
             }
+            .dashboard-news-grid {
+                grid-template-columns: 1fr;
+            }
             .login-card {
                 padding: 32px 24px;
+            }
+            .dashboard-newsletter {
+                flex-direction: column;
+                padding: 32px;
+                gap: 24px;
+            }
+            .dashboard-newsletter-form {
+                max-width: 100%;
+                width: 100%;
             }
         }
     </style>
@@ -209,16 +372,16 @@
     <nav class="navbar">
         <div class="container">
             <a href="index.html" class="logo">
-                <span class="logo-text">YourAgInfo</span>
+                <img src="images/logo-nav.svg" alt="YourAgInfo" class="logo-svg">
                 <span class="logo-divider"></span>
                 <span class="logo-subtitle">McConnell Enterprises</span>
             </a>
             <ul class="nav-links">
                 <li><a href="index.html">Home</a></li>
                 <li><a href="index.html#events">Events</a></li>
-                <li><a href="index.html#research">Research</a></li>
-                <li><a href="index.html#resources">Resources</a></li>
+                <li><a href="farm-programs.html">Farm Programs</a></li>
                 <li><a href="index.html#contact">Contact</a></li>
+                <li><a href="members.html" class="nav-login active">Member Access</a></li>
             </ul>
             <button class="mobile-menu-btn" aria-label="Toggle menu">
                 <span></span>
@@ -255,7 +418,8 @@
                     </form>
 
                     <div class="login-help">
-                        <strong>Password:</strong> mcconnell
+                        Check your email from info@youraginfo.com for your member password.<br>
+                        <strong>Need access?</strong> <a href="index.html#member-access">Request it here</a> or call <a href="tel:9705711015">(970) 571-1015</a>.
                     </div>
                 </div>
             </div>
@@ -263,34 +427,156 @@
             <!-- Member Dashboard (shown when logged in) -->
             <div class="member-dashboard" id="dashboardSection">
                 <div class="dashboard-header">
-                    <h2>Member Tools</h2>
+                    <h2>Welcome Back</h2>
                     <button class="logout-btn" onclick="handleLogout()">Sign Out</button>
                 </div>
 
-                <div class="tools-grid">
-                    <a href="planner.html" class="tool-card">
-                        <h3>Input Planner</h3>
-                        <p>Calculate your input costs, adjust prices, and see break-even yields in real time.</p>
-                        <span class="tool-link">Open Tool</span>
-                    </a>
+                <!-- Tools Section -->
+                <div class="dashboard-section">
+                    <span class="dashboard-section-title">Your Tools</span>
+                    <div class="tools-grid">
+                        <a href="seedbook.html" class="tool-card tool-card-highlight">
+                            <h3>Seed Book</h3>
+                            <p>Multi-year hybrid performance data — 4 years of yield comparisons and local field results across 200,000+ acres.</p>
+                            <span class="tool-link">View Data</span>
+                        </a>
 
-                    <a href="farm-programs.html" class="tool-card">
-                        <h3>Farm Programs</h3>
-                        <p>Key deadlines, enrollment dates, and links for ARC/PLC, crop insurance, CRP, and more.</p>
-                        <span class="tool-link">View Programs</span>
-                    </a>
+                        <a href="planner.html" class="tool-card">
+                            <h3>Input Planner</h3>
+                            <p>Calculate your input costs, adjust prices, and see break-even yields in real time.</p>
+                            <span class="tool-link">Open Tool</span>
+                        </a>
 
-                    <a href="seedbook.html" class="tool-card">
-                        <h3>Seed Book</h3>
-                        <p>Multi-year hybrid performance data, yield comparisons, and local field results.</p>
-                        <span class="tool-link">View Data</span>
-                    </a>
-
-                    <div class="tool-card">
-                        <h3>Schedule a Call</h3>
-                        <p>Call or text Kyle to discuss your operation and planning needs.</p>
-                        <a href="tel:9705711015" class="tool-link">Call (970) 571-1015</a>
+                        <a href="farm-programs.html" class="tool-card">
+                            <h3>Farm Programs</h3>
+                            <p>Key deadlines, enrollment dates, and links for ARC/PLC, crop insurance, CRP, and more.</p>
+                            <span class="tool-link">View Programs</span>
+                        </a>
                     </div>
+                </div>
+
+                <!-- Pioneer Resources -->
+                <div class="dashboard-section">
+                    <span class="dashboard-section-title">Pioneer Resources</span>
+                    <div class="tools-grid">
+                        <a href="https://agcompanyb2c.b2clogin.com/agcompanyb2c.onmicrosoft.com/oauth2/v2.0/authorize?p=B2C_1_Pioneer_PROD&client_id=efee0769-edcb-42fe-a278-e347b9017e72&nonce=nzoqrkecqmcthemhkaub&redirect_uri=https%3A%2F%2Fwww.pioneer.com%2Fus%2Fredirect.html&scope=https%3A%2F%2Fagcompanyb2c.onmicrosoft.com%2Fapiprod%2Fwrite%20https%3A%2F%2Fagcompanyb2c.onmicrosoft.com%2Fapiprod%2Fread%20offline_access%20openid&response_type=code+id_token&prompt=login&ui_locales=en&response_mode=query"
+                           class="tool-card" target="_blank" rel="noopener">
+                            <h3>Pioneer Account</h3>
+                            <p>View orders, track deliveries, and access agronomic data for your operation.</p>
+                            <span class="tool-link">Sign In</span>
+                        </a>
+                        <a href="https://www.togoag.com/shop/pioneer-customers/UTUDVLOMMLNZIYF7JFQO4IXB"
+                           class="tool-card" target="_blank" rel="noopener">
+                            <h3>Pioneer Merchandise</h3>
+                            <p>Caps, jackets, and gear. Quality apparel for Pioneer customers.</p>
+                            <span class="tool-link">Shop Now</span>
+                        </a>
+                        <a href="https://www.pioneer.com/us" class="tool-card" target="_blank" rel="noopener">
+                            <h3>Pioneer.com</h3>
+                            <p>Product information, agronomy insights, and the latest from Pioneer.</p>
+                            <span class="tool-link">Visit Site</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Live Markets -->
+                <div class="dashboard-section">
+                    <span class="dashboard-section-title">Today's Markets</span>
+                    <div class="dashboard-markets">
+                        <!-- TradingView Widget BEGIN -->
+                        <div class="tradingview-widget-container">
+                            <div class="tradingview-widget-container__widget"></div>
+                            <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js" async>
+                            {
+                                "symbols": [
+                                    {"proName": "CBOT:ZC1!", "title": "Corn"},
+                                    {"proName": "CBOT:ZS1!", "title": "Soybeans"},
+                                    {"proName": "CBOT:ZW1!", "title": "Wheat"},
+                                    {"proName": "NYMEX:CL1!", "title": "Crude Oil"},
+                                    {"proName": "COMEX:GC1!", "title": "Gold"}
+                                ],
+                                "showSymbolLogo": false,
+                                "isTransparent": true,
+                                "displayMode": "adaptive",
+                                "colorTheme": "light",
+                                "locale": "en"
+                            }
+                            </script>
+                        </div>
+                        <!-- TradingView Widget END -->
+                    </div>
+                    <p class="dashboard-markets-disclaimer">Market data provided by TradingView. Prices may be delayed.</p>
+                </div>
+
+                <!-- Pioneer News -->
+                <div class="dashboard-section">
+                    <span class="dashboard-section-title">Pioneer News</span>
+                    <div class="dashboard-news-grid">
+                        <article class="dashboard-news-card">
+                            <span class="news-tag">Breaking News</span>
+                            <time>October 2025</time>
+                            <h4>Corteva to Separate Into Two Companies</h4>
+                            <p>The seed business, to be named "SpinCo," will be home to Pioneer brand. Separation expected second half 2026.</p>
+                            <a href="https://www.corteva.com/resources/media-center/corteva-announces-plan-to-separate-into-two-industry-leading-public-companies.html" target="_blank" class="news-link">Read More →</a>
+                        </article>
+                        <article class="dashboard-news-card">
+                            <span class="news-tag">Yield Contest</span>
+                            <time>December 2025</time>
+                            <h4>David Hula Claims 14th National Title</h4>
+                            <p>572.26 bu/acre using Pioneer genetics. The only farmer to exceed 600 bu/acre — three times.</p>
+                            <a href="ncga.html" class="news-link">Learn About NCGA →</a>
+                        </article>
+                        <article class="dashboard-news-card">
+                            <span class="news-tag">Event</span>
+                            <time>February 2026</time>
+                            <h4>Commodity Classic 2026 — San Antonio</h4>
+                            <p>Feb 27 - Mar 1 at Henry B. Gonzalez Convention Center. Pioneer showcasing latest innovations.</p>
+                            <a href="https://commodityclassic.com/" target="_blank" class="news-link">Event Details →</a>
+                        </article>
+                        <article class="dashboard-news-card">
+                            <span class="news-tag">New Products</span>
+                            <time>2025</time>
+                            <h4>Z-Series Soybeans Deliver Record Yields</h4>
+                            <p>3.5 bu/acre advantage over competitors with 73% wins. New world record using Z-Series.</p>
+                            <a href="https://www.pioneer.com/us/products/soybeans/z-series.html" target="_blank" class="news-link">Explore Z-Series →</a>
+                        </article>
+                        <article class="dashboard-news-card">
+                            <span class="news-tag">Corn</span>
+                            <time>2024</time>
+                            <h4>60+ New High-Yielding Corn Hybrids</h4>
+                            <p>Expanding Vorceed Enlist corn availability and introducing PowerCore Enlist options.</p>
+                            <a href="https://www.pioneer.com/us/products/corn.html" target="_blank" class="news-link">View Products →</a>
+                        </article>
+                        <article class="dashboard-news-card">
+                            <span class="news-tag">Performance</span>
+                            <time>2024</time>
+                            <h4>Pioneer Corn Outperforms Competition</h4>
+                            <p>Top 40 products outperformed by 10.4 bu/acre with a 73% win rate across 16,000+ comparisons.</p>
+                            <a href="https://www.pioneer.com/us/agronomy/corn-greater-yield.html" target="_blank" class="news-link">See Results →</a>
+                        </article>
+                    </div>
+                </div>
+
+                <!-- Newsletter -->
+                <div class="dashboard-section">
+                    <div class="dashboard-newsletter">
+                        <div class="dashboard-newsletter-text">
+                            <h3>Stay Connected</h3>
+                            <p>Get event updates, market insights, and agronomic tips delivered to your inbox. We respect your time — only the information that matters.</p>
+                        </div>
+                        <div class="dashboard-newsletter-form">
+                            <!-- Begin Constant Contact Inline Form Code -->
+                            <div class="ctct-inline-form" data-form-id="0250f944-7b02-4620-8fd9-2f549d83b12c"></div>
+                            <!-- End Constant Contact Inline Form Code -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Schedule Call -->
+                <div class="dashboard-section" style="text-align: center; padding: 40px 0 0;">
+                    <h3 style="margin-bottom: 12px;">Need Help?</h3>
+                    <p style="margin-bottom: 20px;">Call or text Kyle to discuss your operation and planning needs.</p>
+                    <a href="tel:9705711015" class="btn btn-primary">Call (970) 571-1015</a>
                 </div>
             </div>
         </div>
@@ -300,7 +586,7 @@
         <div class="container">
             <div class="footer-content">
                 <div class="footer-brand">
-                    <span class="logo-text">YourAgInfo</span>
+                    <img src="images/logo-nav.svg" alt="YourAgInfo" class="footer-logo-svg">
                     <span class="logo-divider"></span>
                     <span class="logo-subtitle">McConnell Enterprises</span>
                 </div>
@@ -308,19 +594,22 @@
                 <nav class="footer-nav">
                     <a href="index.html">Home</a>
                     <a href="index.html#events">Events</a>
-                    <a href="index.html#research">Research</a>
-                    <a href="index.html#resources">Resources</a>
+                    <a href="farm-programs.html">Farm Programs</a>
                     <a href="index.html#contact">Contact</a>
                 </nav>
             </div>
             <div class="footer-bottom">
                 <p>Copyright 2026 McConnell Enterprises LLC. All rights reserved.</p>
+                <span class="visitor-count" id="visitorCount"></span>
             </div>
         </div>
     </footer>
 
+    <!-- Constant Contact Script -->
+    <script src="//static.ctctcdn.com/js/signup-form-widget/current/signup-form-widget.min.js" async defer></script>
+
     <script>
-        // Simple member access - change this password to whatever you want
+        // Simple member access
         const MEMBER_PASSWORD = 'mcconnell';
 
         // Check if already logged in on page load
@@ -328,6 +617,7 @@
             if (localStorage.getItem('memberAuth') === 'true') {
                 showDashboard();
             }
+            loadVisitorCount(); // Load current count without incrementing
         });
 
         function handleLogin(event) {
@@ -337,6 +627,7 @@
 
             if (password === MEMBER_PASSWORD) {
                 localStorage.setItem('memberAuth', 'true');
+                incrementVisitorCount();
                 showDashboard();
                 errorEl.style.display = 'none';
             } else {
@@ -356,6 +647,44 @@
             document.getElementById('loginSection').style.display = 'block';
             document.getElementById('dashboardSection').style.display = 'none';
             document.getElementById('password').value = '';
+        }
+
+        // Persistent site-wide visitor counter using CountAPI
+        // This count persists across ALL visitors and ALL deployments forever
+        const COUNTER_NAMESPACE = 'youraginfo-mcconnell';
+        const COUNTER_KEY = 'member-logins';
+
+        function incrementVisitorCount() {
+            // Increment the global counter (persists forever, across all visitors)
+            fetch(`https://api.countapi.xyz/hit/${COUNTER_NAMESPACE}/${COUNTER_KEY}`)
+                .then(res => res.json())
+                .then(data => {
+                    displayVisitorCount(data.value);
+                })
+                .catch(err => {
+                    console.log('Counter unavailable');
+                });
+        }
+
+        function displayVisitorCount(count) {
+            const el = document.getElementById('visitorCount');
+            if (el && count) {
+                el.textContent = 'Total Logins: ' + count;
+            }
+        }
+
+        // Load current count on page load (without incrementing)
+        function loadVisitorCount() {
+            fetch(`https://api.countapi.xyz/get/${COUNTER_NAMESPACE}/${COUNTER_KEY}`)
+                .then(res => res.json())
+                .then(data => {
+                    if (data.value) {
+                        displayVisitorCount(data.value);
+                    }
+                })
+                .catch(err => {
+                    console.log('Counter unavailable');
+                });
         }
     </script>
 </body>

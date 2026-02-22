@@ -21,12 +21,9 @@
             <ul class="nav-links">
                 <li><a href="#home">Home</a></li>
                 <li><a href="#events">Events</a></li>
-                <li><a href="#research">Research</a></li>
                 <li><a href="farm-programs.html">Farm Programs</a></li>
-                <li><a href="crop-planner/index.html">Crop Planner</a></li>
-                <li><a href="#resources">Resources</a></li>
                 <li><a href="#contact">Contact</a></li>
-                <li><a href="members.html" class="nav-login">Log In</a></li>
+                <li><a href="members.html" class="nav-login">Member Access</a></li>
             </ul>
             <button class="mobile-menu-btn" aria-label="Toggle menu">
                 <span></span>
@@ -155,223 +152,29 @@
         </div>
     </section>
 
-    <!-- Decorative Divider -->
-    <div class="section-divider">
-        <span class="wheat-accent"></span>
-    </div>
-
-    <!-- RESEARCH: Seed Book Feature -->
-    <section id="research" class="seedbook-feature">
+    <!-- Member Access Banner -->
+    <section id="member-access" class="member-banner">
         <div class="container">
-            <a href="seedbook.html" class="seedbook-banner">
-                <div class="seedbook-banner-content">
-                    <span class="seedbook-badge">4-Year Data Analysis</span>
-                    <h2>Multi-Year Hybrid Performance Summary</h2>
-                    <p>Comprehensive 2022-2025 yield data, GDU analysis, weather impact assessment, and head-to-head competitor comparisons across 200,000+ harvested acres in Northeast Colorado.</p>
-                    <span class="seedbook-link">View Full Analysis</span>
+            <div class="member-banner-content">
+                <div class="member-banner-text">
+                    <span class="member-banner-badge">Customer Benefits</span>
+                    <h2>Member Access</h2>
+                    <p>Pioneer resources, multi-year hybrid performance data, input cost planner, live markets, and industry news — all in one place for McConnell Enterprises customers.</p>
+                    <ul class="member-banner-features">
+                        <li>Multi-Year Hybrid Performance Data</li>
+                        <li>Input Cost Planner</li>
+                        <li>Pioneer Account &amp; Merchandise</li>
+                        <li>Live Commodity Markets</li>
+                        <li>Industry News &amp; Updates</li>
+                    </ul>
                 </div>
-                <div class="seedbook-banner-stats">
-                    <div class="mini-stat">
-                        <span class="mini-stat-value">4</span>
-                        <span class="mini-stat-label">Years Data</span>
-                    </div>
-                    <div class="mini-stat">
-                        <span class="mini-stat-value">+13%</span>
-                        <span class="mini-stat-label">Yield Gain</span>
-                    </div>
-                    <div class="mini-stat">
-                        <span class="mini-stat-value">246</span>
-                        <span class="mini-stat-label">Bu/Acre Peak</span>
-                    </div>
-                </div>
-            </a>
-        </div>
-    </section>
-
-    <section id="resources" class="resources">
-        <div class="container">
-            <h2>Pioneer Resources</h2>
-            <p class="resources-intro">We know your time is valuable. Here are all the links you need to quickly access your Pioneer account, order merchandise, and find product information.</p>
-            <div class="resources-grid">
-                <a href="https://agcompanyb2c.b2clogin.com/agcompanyb2c.onmicrosoft.com/oauth2/v2.0/authorize?p=B2C_1_Pioneer_PROD&client_id=efee0769-edcb-42fe-a278-e347b9017e72&nonce=nzoqrkecqmcthemhkaub&redirect_uri=https%3A%2F%2Fwww.pioneer.com%2Fus%2Fredirect.html&scope=https%3A%2F%2Fagcompanyb2c.onmicrosoft.com%2Fapiprod%2Fwrite%20https%3A%2F%2Fagcompanyb2c.onmicrosoft.com%2Fapiprod%2Fread%20offline_access%20openid&response_type=code+id_token&prompt=login&ui_locales=en&response_mode=query"
-                   class="resource-card" target="_blank" rel="noopener">
-                    <h3>Pioneer Account</h3>
-                    <p>View orders, track deliveries, and access agronomic data for your operation.</p>
-                    <span class="resource-link">Sign In</span>
-                </a>
-                <a href="https://www.togoag.com/shop/pioneer-customers/UTUDVLOMMLNZIYF7JFQO4IXB"
-                   class="resource-card" target="_blank" rel="noopener">
-                    <h3>Pioneer Merchandise</h3>
-                    <p>Caps, jackets, and gear. Quality apparel for Pioneer customers.</p>
-                    <span class="resource-link">Shop Now</span>
-                </a>
-                <a href="https://www.pioneer.com/us" class="resource-card" target="_blank" rel="noopener">
-                    <h3>Pioneer.com</h3>
-                    <p>Product information, agronomy insights, and the latest from Pioneer.</p>
-                    <span class="resource-link">Visit Site</span>
-                </a>
-                <a href="members.html" class="resource-card resource-card-tool">
-                    <h3>Member Tools</h3>
-                    <p>Input planner, farm programs, and exclusive resources for customers.</p>
-                    <span class="resource-link">Member Access</span>
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <!-- Live Markets Widget -->
-    <section id="markets" class="markets-section">
-        <div class="container">
-            <div class="markets-header">
-                <h2>Today's Markets</h2>
-                <p class="markets-subtitle">Live commodity prices — updates continuously</p>
-            </div>
-            <div class="markets-widget">
-                <!-- TradingView Widget BEGIN -->
-                <div class="tradingview-widget-container">
-                    <div class="tradingview-widget-container__widget"></div>
-                    <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js" async>
-                    {
-                        "symbols": [
-                            {"proName": "CBOT:ZC1!", "title": "Corn"},
-                            {"proName": "CBOT:ZS1!", "title": "Soybeans"},
-                            {"proName": "CBOT:ZW1!", "title": "Wheat"},
-                            {"proName": "NYMEX:CL1!", "title": "Crude Oil"},
-                            {"proName": "COMEX:GC1!", "title": "Gold"}
-                        ],
-                        "showSymbolLogo": false,
-                        "isTransparent": true,
-                        "displayMode": "adaptive",
-                        "colorTheme": "light",
-                        "locale": "en"
-                    }
-                    </script>
-                </div>
-                <!-- TradingView Widget END -->
-            </div>
-            <p class="markets-disclaimer">Market data provided by TradingView. Prices may be delayed.</p>
-        </div>
-    </section>
-
-    <!-- Decorative Divider -->
-    <div class="section-divider">
-        <span class="wheat-accent"></span>
-    </div>
-
-    <section class="about-brief">
-        <div class="container">
-            <div class="about-content">
-                <h2>Three Generations Strong</h2>
-                <p>
-                    The McConnell family has been your local Pioneer dealer since 1960, when
-                    Harold McConnell first shook hands with a Pioneer representative on his
-                    Haxtun farm. Today, we continue that tradition of service, knowledge,
-                    and commitment to helping our neighbors succeed.
-                </p>
-                <a href="history.html" class="btn btn-outline">Our Story</a>
-            </div>
-        </div>
-    </section>
-
-    <section id="news" class="news-section">
-        <div class="container">
-            <h2>Pioneer News</h2>
-            <div class="news-grid">
-                <article class="news-card news-featured">
-                    <span class="news-tag">Breaking News</span>
-                    <time>October 2025</time>
-                    <h3>Corteva to Separate Into Two Companies</h3>
-                    <p>Corteva Agriscience announced plans to split into two independent, publicly traded companies. The seed business, to be named "SpinCo," will be home to Pioneer brand and is expected to generate $9.9 billion in net sales. Current CEO Chuck Magro will lead SpinCo. The separation is expected in the second half of 2026.</p>
-                    <a href="https://www.corteva.com/resources/media-center/corteva-announces-plan-to-separate-into-two-industry-leading-public-companies.html" target="_blank" class="news-link">Read More</a>
-                </article>
-                <article class="news-card">
-                    <span class="news-tag">Yield Contest</span>
-                    <time>December 2025</time>
-                    <h3>David Hula Claims 14th National Corn Yield Title</h3>
-                    <p>Virginia farmer David Hula won his 14th NCGA national title with 572.26 bu/acre using Pioneer genetics. The 4-time national record holder is the only farmer to ever exceed 600 bu/acre — a feat he's accomplished three times, including his 2023 record of 623.84 bu/acre.</p>
-                    <a href="ncga.html" class="news-link">Learn About NCGA</a>
-                </article>
-                <article class="news-card">
-                    <span class="news-tag">Event</span>
-                    <time>February 2026</time>
-                    <h3>Commodity Classic 2026 — San Antonio</h3>
-                    <p>Join thousands of farmers at the nation's largest farmer-led trade show. February 27 - March 1 at the Henry B. Gonzalez Convention Center. Pioneer will be showcasing the latest innovations.</p>
-                    <a href="https://commodityclassic.com/" target="_blank" class="news-link">Event Details</a>
-                </article>
-                <article class="news-card">
-                    <span class="news-tag">New Products</span>
-                    <time>2025</time>
-                    <h3>Z-Series Soybeans Deliver Record Yields</h3>
-                    <p>Pioneer Z-Series soybeans showed a 3.5 bu/acre advantage over competitors with 73% wins. Georgia farmer Alex Harrell set a new world record using Z-Series.</p>
-                    <a href="https://www.pioneer.com/us/products/soybeans/z-series.html" target="_blank" class="news-link">Explore Z-Series</a>
-                </article>
-                <article class="news-card">
-                    <span class="news-tag">Corn</span>
-                    <time>2024</time>
-                    <h3>60+ New High-Yielding Corn Hybrids</h3>
-                    <p>Pioneer advanced more than 60 new corn hybrids for 2024-2025, expanding Vorceed Enlist corn availability and introducing PowerCore Enlist and PowerCore Ultra Enlist options.</p>
-                    <a href="https://www.pioneer.com/us/products/corn.html" target="_blank" class="news-link">View Products</a>
-                </article>
-                <article class="news-card">
-                    <span class="news-tag">Performance</span>
-                    <time>2024</time>
-                    <h3>Pioneer Corn Outperforms Competition</h3>
-                    <p>Pioneer's top 40 corn products outperformed competitors by 10.4 bu/acre with a 73% win rate. Vorceed Enlist products averaged 7.8 bu/acre higher yields in over 16,000 comparisons.</p>
-                    <a href="https://www.pioneer.com/us/agronomy/corn-greater-yield.html" target="_blank" class="news-link">See Results</a>
-                </article>
-                <article class="news-card news-anniversary">
-                    <img src="images/pioneer-100-family.jpg" alt="Pioneer Celebrating 100 Years - One seed can change the farm" class="news-card-image">
-                    <div class="news-card-content">
-                        <span class="news-tag">100 Years</span>
-                        <time>1926-2026</time>
-                        <h3>Celebrating One Hundred Years</h3>
-                        <p>One seed can change the farm. One farmer can change the world. Pioneer celebrates 100 years as an industry leader, continuing the legacy of innovation that began in 1926.</p>
-                        <a href="https://www.pioneer.com/us/news.html" target="_blank" class="news-link">Pioneer News</a>
-                    </div>
-                </article>
-            </div>
-        </div>
-    </section>
-
-    <!-- Newsletter Signup -->
-    <section id="newsletter" class="newsletter-section">
-        <div class="container">
-            <div class="newsletter-content">
-                <div class="newsletter-text">
-                    <h2>Stay Connected</h2>
-                    <p>Get event updates, market insights, and agronomic tips delivered to your inbox. We respect your time — only the information that matters.</p>
-                </div>
-                <div class="newsletter-form">
-                    <!-- Begin Constant Contact Inline Form Code -->
-                    <div class="ctct-inline-form" data-form-id="0250f944-7b02-4620-8fd9-2f549d83b12c"></div>
-                    <!-- End Constant Contact Inline Form Code -->
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Multi-Year Hybrid Performance -->
-    <section id="research" class="research-section">
-        <div class="container">
-            <div class="research-card">
-                <div class="research-content">
-                    <span class="research-badge">4-Year Data Analysis</span>
-                    <h2>Multi-Year Hybrid Performance Summary</h2>
-                    <p>Comprehensive 2022-2025 yield data, GDU analysis, weather impact assessment, and head-to-head competitor comparisons across 200,000+ harvested acres in Northeast Colorado.</p>
-                    <a href="seedbook.html" class="btn btn-primary">View Full Analysis →</a>
-                </div>
-                <div class="research-stats">
-                    <div class="stat-box">
-                        <span class="stat-value">4</span>
-                        <span class="stat-label">Years Data</span>
-                    </div>
-                    <div class="stat-box">
-                        <span class="stat-value">+13%</span>
-                        <span class="stat-label">Yield Gain</span>
-                    </div>
-                    <div class="stat-box">
-                        <span class="stat-value">246</span>
-                        <span class="stat-label">Bu/Acre Peak</span>
+                <div class="member-banner-action">
+                    <div class="member-banner-card">
+                        <h3>Request Access</h3>
+                        <p>Sign up below and we'll send your member password once approved.</p>
+                        <!-- Constant Contact Signup Form -->
+                        <div class="ctct-inline-form" data-form-id="a3d691d0-a7cb-48b9-8063-ab2216e5704b"></div>
+                        <p class="member-card-note">Already have access? <a href="members.html">Sign in here</a></p>
                     </div>
                 </div>
             </div>
@@ -413,9 +216,8 @@
                 <nav class="footer-nav">
                     <a href="#home">Home</a>
                     <a href="#events">Events</a>
-                    <a href="#research">Research</a>
-                    <a href="#resources">Resources</a>
-                    <a href="history.html">History</a>
+                    <a href="farm-programs.html">Farm Programs</a>
+                    <a href="members.html">Member Access</a>
                     <a href="#contact">Contact</a>
                 </nav>
             </div>
