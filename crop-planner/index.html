@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2025 Crop Planner | YourAgInfo</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+    <nav class="nav">
+        <div class="nav-brand"><a href="../index.html" style="color:inherit;text-decoration:none;">YourAgInfo</a></div>
+        <ul class="nav-links">
+            <li><a href="index.html" class="active">Dashboard</a></li>
+            <li><a href="pages/costs.html">Cost Breakdown</a></li>
+            <li><a href="pages/inputs.html">Inputs</a></li>
+            <li><a href="pages/projections.html">Projections</a></li>
+            <li><a href="pages/offer.html">Custom Farming Offer</a></li>
+        </ul>
+    </nav>
+
+    <main class="container">
+        <header class="header">
+            <h1>2025 Crop Planning</h1>
+            <p class="subtitle">Northeastern Colorado Operations</p>
+        </header>
+
+        <section class="summary-grid">
+            <div class="card card-primary">
+                <h3>Total Planned Acres</h3>
+                <div class="stat" id="total-acres">--</div>
+                <span class="label">Irrigated + Dryland</span>
+            </div>
+            <div class="card">
+                <h3>Est. Total Cost</h3>
+                <div class="stat" id="total-cost">$--</div>
+                <span class="label">All inputs</span>
+            </div>
+            <div class="card">
+                <h3>Cost Per Acre (Avg)</h3>
+                <div class="stat" id="cost-per-acre">$--</div>
+                <span class="label">Weighted average</span>
+            </div>
+            <div class="card">
+                <h3>Breakeven Price</h3>
+                <div class="stat" id="breakeven">$--/bu</div>
+                <span class="label">At projected yield</span>
+            </div>
+        </section>
+
+        <section class="crop-overview">
+            <h2>Crop Breakdown</h2>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Crop</th>
+                        <th>Type</th>
+                        <th>Acres</th>
+                        <th>Est. Yield</th>
+                        <th>Cost/Acre</th>
+                        <th>Total Cost</th>
+                    </tr>
+                </thead>
+                <tbody id="crop-table">
+                </tbody>
+            </table>
+        </section>
+
+        <section class="quick-links">
+            <h2>Quick Access</h2>
+            <div class="link-grid">
+                <a href="pages/costs.html" class="link-card">
+                    <span class="link-icon">📊</span>
+                    <span>Full Cost Breakdown</span>
+                </a>
+                <a href="pages/inputs.html" class="link-card">
+                    <span class="link-icon">🌾</span>
+                    <span>Seed, Fertilizer, Chemicals</span>
+                </a>
+                <a href="pages/projections.html" class="link-card">
+                    <span class="link-icon">📈</span>
+                    <span>Revenue Projections</span>
+                </a>
+                <a href="pages/offer.html" class="link-card">
+                    <span class="link-icon">📝</span>
+                    <span>Custom Farming / Lease Offer</span>
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <p>2025 Crop Planner | Northeastern Colorado</p>
+        <p style="margin-top:0.5rem;"><a href="../index.html" style="color:var(--text-muted);">← Back to YourAgInfo.com</a></p>
+    </footer>
+
+    <script src="data/crops.js"></script>
+    <script src="data/costs.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>

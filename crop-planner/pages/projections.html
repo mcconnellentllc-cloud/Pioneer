@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projections | 2025 Crop Planner</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+    <nav class="nav">
+        <div class="nav-brand"><a href="../../index.html" style="color:inherit;text-decoration:none;">YourAgInfo</a></div>
+        <ul class="nav-links">
+            <li><a href="../index.html">Dashboard</a></li>
+            <li><a href="costs.html">Cost Breakdown</a></li>
+            <li><a href="inputs.html">Inputs</a></li>
+            <li><a href="projections.html" class="active">Projections</a></li>
+            <li><a href="offer.html">Custom Farming Offer</a></li>
+        </ul>
+    </nav>
+
+    <main class="container">
+        <header class="page-header">
+            <h1>2025 Revenue Projections</h1>
+            <p class="subtitle">Expected returns at target yields and prices</p>
+        </header>
+
+        <div id="projections-content"></div>
+
+        <section class="section">
+            <h2>Price Assumptions</h2>
+            <div class="card">
+                <table class="rate-table">
+                    <tr><td><strong>Corn</strong></td><td>$4.40/bu - Based on December 2025 futures + basis</td></tr>
+                    <tr><td><strong>Wheat</strong></td><td>$5.75/bu - HRW harvest delivery</td></tr>
+                    <tr><td><strong>Grain Sorghum</strong></td><td>$4.20/bu - Typically 85-90% of corn</td></tr>
+                    <tr><td><strong>Sunflowers</strong></td><td>$0.24/lb - High oleic oil market</td></tr>
+                </table>
+                <p class="notes mt-2">Prices subject to change. Consider forward contracting 30-50% of expected production when profitable opportunities arise.</p>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2>Yield Assumptions</h2>
+            <div class="card">
+                <p style="margin-bottom: 1rem;">Yield goals based on 5-year averages adjusted for:</p>
+                <ul style="margin-left: 1.5rem;">
+                    <li>Soil types and land quality</li>
+                    <li>Irrigation capacity and water availability</li>
+                    <li>Improved genetics and management practices</li>
+                    <li>Normal weather patterns for NE Colorado</li>
+                </ul>
+                <p class="notes mt-2">Actual results will vary. Dryland yields especially dependent on timely moisture.</p>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <p>2025 Crop Planner | Northeastern Colorado</p>
+        <p style="margin-top:0.5rem;"><a href="../../index.html" style="color:var(--text-muted);">← Back to YourAgInfo.com</a></p>
+    </footer>
+
+    <script src="../data/crops.js"></script>
+    <script src="../data/costs.js"></script>
+    <script src="../js/main.js"></script>
+</body>
+</html>
