@@ -3,338 +3,68 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="2025 Crop Planner for Northeast Colorado farmers - plan your acres, costs, and projected returns">
-    <title>2025 Crop Planner | YourAgInfo.com</title>
+    <meta name="description" content="2025 Input Planner - Irrigated and Dryland Corn Profitability Calculator">
+    <title>2025 Input Planner | YourAgInfo.com</title>
     <link rel="stylesheet" href="css/style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Source+Serif+4:wght@400;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
         .planner-hero {
-            padding: 140px 0 60px;
+            padding: 120px 0 40px;
             background: linear-gradient(160deg, var(--green-dark) 0%, var(--green-medium) 100%);
             text-align: center;
         }
         .planner-hero h1 {
-            font-size: clamp(32px, 6vw, 48px);
+            font-size: clamp(28px, 5vw, 40px);
             color: var(--white);
             margin-bottom: 8px;
-        }
-        .planner-hero .year-badge {
-            display: inline-block;
-            background: var(--gold);
-            color: var(--green-dark);
-            font-size: 14px;
-            font-weight: 700;
-            padding: 6px 16px;
-            border-radius: 20px;
-            margin-bottom: 16px;
         }
         .planner-hero p {
-            font-size: 17px;
-            color: rgba(255,255,255,0.75);
-            max-width: 550px;
+            font-size: 16px;
+            color: rgba(255,255,255,0.7);
+            max-width: 500px;
             margin: 0 auto;
         }
-        .planner-notice {
-            background: rgba(255,255,255,0.1);
-            border-radius: var(--radius);
-            padding: 12px 20px;
-            margin-top: 24px;
-            display: inline-block;
-        }
-        .planner-notice p {
-            font-size: 13px;
-            color: rgba(255,255,255,0.6);
-            margin: 0;
-        }
 
-        .planner-main {
-            padding: 60px 0 100px;
-            background: var(--gray-50);
-        }
+        .planner-main { padding: 40px 0 80px; background: var(--gray-50); }
 
-        /* Farm Summary Card - Top */
-        .farm-summary {
+        /* Price Control */
+        .price-control {
             background: var(--white);
             border: 2px solid var(--green-dark);
-            border-radius: var(--radius-lg);
-            padding: 32px 40px;
-            margin-bottom: 40px;
-        }
-        .farm-summary h2 {
-            font-size: 20px;
-            color: var(--green-dark);
-            margin-bottom: 24px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-        .farm-summary h2::before {
-            content: '';
-            width: 4px;
-            height: 24px;
-            background: var(--gold);
-            border-radius: 2px;
-        }
-        .summary-grid {
-            display: grid;
-            grid-template-columns: repeat(5, 1fr);
-            gap: 24px;
-        }
-        .summary-item {
+            border-radius: 12px;
+            padding: 28px 36px;
+            margin-bottom: 32px;
             text-align: center;
-            padding: 20px;
-            background: var(--gray-50);
-            border-radius: var(--radius);
         }
-        .summary-item.highlight {
-            background: var(--green-dark);
-            color: var(--white);
-        }
-        .summary-label {
-            font-size: 12px;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            color: var(--gray-500);
-            margin-bottom: 8px;
-        }
-        .summary-item.highlight .summary-label {
-            color: rgba(255,255,255,0.6);
-        }
-        .summary-value {
-            font-family: var(--font-heading);
-            font-size: 28px;
-            font-weight: 700;
-            color: var(--green-dark);
-        }
-        .summary-item.highlight .summary-value {
-            color: var(--gold);
-        }
-        .summary-detail {
-            font-size: 12px;
-            color: var(--gray-400);
-            margin-top: 4px;
-        }
-        .summary-item.highlight .summary-detail {
-            color: rgba(255,255,255,0.5);
-        }
-
-        /* Crop Cards */
-        .crops-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 24px;
-            margin-bottom: 40px;
-        }
-        .crop-card {
-            background: var(--white);
-            border: 1px solid var(--gray-200);
-            border-radius: var(--radius-lg);
-            overflow: hidden;
-        }
-        .crop-header {
-            padding: 20px 24px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid var(--gray-200);
-        }
-        .crop-header h3 {
-            font-size: 18px;
-            margin: 0;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        .crop-icon {
-            width: 32px;
-            height: 32px;
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+        .price-control h2 {
             font-size: 16px;
-        }
-        .crop-icon.corn { background: #fef3c7; }
-        .crop-icon.soybeans { background: #d1fae5; }
-        .crop-icon.wheat { background: #fde68a; }
-
-        .crop-toggle {
-            position: relative;
-            width: 48px;
-            height: 26px;
-        }
-        .crop-toggle input {
-            opacity: 0;
-            width: 0;
-            height: 0;
-        }
-        .crop-toggle .slider {
-            position: absolute;
-            cursor: pointer;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-color: var(--gray-300);
-            transition: .3s;
-            border-radius: 26px;
-        }
-        .crop-toggle .slider:before {
-            position: absolute;
-            content: "";
-            height: 20px;
-            width: 20px;
-            left: 3px;
-            bottom: 3px;
-            background-color: white;
-            transition: .3s;
-            border-radius: 50%;
-        }
-        .crop-toggle input:checked + .slider {
-            background-color: var(--green-dark);
-        }
-        .crop-toggle input:checked + .slider:before {
-            transform: translateX(22px);
-        }
-
-        .crop-body {
-            padding: 24px;
-        }
-        .crop-body.disabled {
-            opacity: 0.4;
-            pointer-events: none;
-        }
-
-        .input-group {
-            margin-bottom: 20px;
-        }
-        .input-group:last-child {
-            margin-bottom: 0;
-        }
-        .input-group label {
-            display: block;
-            font-size: 13px;
-            font-weight: 500;
             color: var(--gray-600);
-            margin-bottom: 6px;
-        }
-        .input-group input {
-            width: 100%;
-            padding: 12px 14px;
-            border: 1px solid var(--gray-300);
-            border-radius: var(--radius);
-            font-size: 15px;
-            font-family: var(--font-body);
-        }
-        .input-group input:focus {
-            outline: none;
-            border-color: var(--green-dark);
-        }
-        .input-row-inline {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 12px;
-        }
-        .input-suffix {
-            position: relative;
-        }
-        .input-suffix input {
-            padding-right: 50px;
-        }
-        .input-suffix span {
-            position: absolute;
-            right: 14px;
-            top: 50%;
-            transform: translateY(-50%);
-            font-size: 13px;
-            color: var(--gray-400);
-        }
-
-        .crop-results {
-            background: var(--gray-50);
-            padding: 20px 24px;
-            border-top: 1px solid var(--gray-200);
-        }
-        .crop-results-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 16px;
-        }
-        .crop-result-item {
-            text-align: center;
-        }
-        .crop-result-label {
-            font-size: 11px;
+            margin-bottom: 16px;
             font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            color: var(--gray-500);
-            margin-bottom: 4px;
-        }
-        .crop-result-value {
-            font-family: var(--font-heading);
-            font-size: 20px;
-            font-weight: 700;
-            color: var(--green-dark);
-        }
-        .crop-result-value.profit {
-            color: var(--green-medium);
-        }
-        .crop-result-value.loss {
-            color: #dc2626;
-        }
-
-        /* Price Assumptions */
-        .price-assumptions {
-            background: var(--white);
-            border: 1px solid var(--gray-200);
-            border-radius: var(--radius-lg);
-            padding: 32px 40px;
-            margin-bottom: 40px;
-        }
-        .price-assumptions h2 {
-            font-size: 18px;
-            margin-bottom: 24px;
-            color: var(--gray-700);
-        }
-        .price-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 32px;
-        }
-        .price-item {
-            text-align: center;
-        }
-        .price-item label {
-            display: block;
-            font-size: 14px;
-            font-weight: 500;
-            color: var(--gray-600);
-            margin-bottom: 12px;
         }
         .price-display {
             font-family: var(--font-heading);
-            font-size: 32px;
+            font-size: 48px;
             font-weight: 700;
             color: var(--green-dark);
-            margin-bottom: 8px;
+            margin-bottom: 12px;
         }
         .price-slider {
             width: 100%;
-            height: 6px;
+            max-width: 500px;
+            height: 8px;
             -webkit-appearance: none;
             appearance: none;
             background: var(--gray-200);
-            border-radius: 3px;
+            border-radius: 4px;
             outline: none;
         }
         .price-slider::-webkit-slider-thumb {
             -webkit-appearance: none;
-            width: 20px;
-            height: 20px;
+            width: 24px;
+            height: 24px;
             background: var(--green-dark);
             border-radius: 50%;
             cursor: pointer;
@@ -342,78 +72,255 @@
         .price-range {
             display: flex;
             justify-content: space-between;
+            max-width: 500px;
+            margin: 8px auto 0;
+            font-size: 12px;
+            color: var(--gray-400);
+        }
+
+        /* Two Column Layout */
+        .calc-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 28px;
+            margin-bottom: 32px;
+        }
+
+        .calc-panel {
+            background: var(--white);
+            border: 1px solid var(--gray-200);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+        .calc-panel-header {
+            padding: 20px 24px;
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .calc-panel-header.irrigated {
+            background: linear-gradient(135deg, #1a5f2a, #2d8a4e);
+        }
+        .calc-panel-header.dryland {
+            background: linear-gradient(135deg, #8b6914, #b8941e);
+        }
+        .calc-panel-header h2 { font-size: 20px; margin: 0; }
+        .calc-panel-header .total-cost {
+            font-size: 14px;
+            opacity: 0.85;
+        }
+        .calc-panel-header .total-cost strong {
+            font-size: 22px;
+            display: block;
+        }
+
+        /* Yield Control */
+        .yield-control {
+            padding: 16px 24px;
+            background: var(--gray-50);
+            border-bottom: 1px solid var(--gray-200);
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+        .yield-control label {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--gray-600);
+            white-space: nowrap;
+        }
+        .yield-slider {
+            flex: 1;
+            height: 6px;
+            -webkit-appearance: none;
+            appearance: none;
+            background: var(--gray-200);
+            border-radius: 3px;
+            outline: none;
+        }
+        .yield-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 20px;
+            height: 20px;
+            background: var(--green-dark);
+            border-radius: 50%;
+            cursor: pointer;
+        }
+        .yield-value {
+            font-family: var(--font-heading);
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--green-dark);
+            min-width: 80px;
+            text-align: right;
+        }
+
+        /* Cost Table */
+        .cost-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+        }
+        .cost-table th {
+            text-align: left;
+            padding: 10px 24px;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--gray-400);
+            border-bottom: 1px solid var(--gray-200);
+        }
+        .cost-table td {
+            padding: 9px 24px;
+            border-bottom: 1px solid var(--gray-100);
+        }
+        .cost-table td:last-child {
+            text-align: right;
+            font-family: 'Inter', sans-serif;
+            font-weight: 500;
+        }
+        .cost-table .section-label td {
+            padding: 12px 24px 6px;
+            font-weight: 700;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--gray-500);
+            background: var(--gray-50);
+            border-bottom: 1px solid var(--gray-200);
+        }
+        .cost-table .subtotal td {
+            font-weight: 700;
+            border-top: 2px solid var(--gray-300);
+            padding-top: 10px;
+        }
+
+        /* Profitability Results */
+        .profit-results {
+            padding: 20px 24px;
+            background: var(--gray-50);
+            border-top: 2px solid var(--gray-200);
+        }
+        .profit-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 16px;
+        }
+        .profit-item {
+            text-align: center;
+            padding: 12px;
+            background: var(--white);
+            border-radius: 8px;
+        }
+        .profit-label {
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--gray-500);
+            margin-bottom: 4px;
+        }
+        .profit-value {
+            font-family: var(--font-heading);
+            font-size: 22px;
+            font-weight: 700;
+        }
+        .profit-value.positive { color: #16a34a; }
+        .profit-value.negative { color: #dc2626; }
+        .profit-value.neutral { color: var(--gray-600); }
+        .profit-detail {
             font-size: 11px;
             color: var(--gray-400);
-            margin-top: 6px;
+            margin-top: 2px;
         }
 
-        /* Action Buttons */
-        .planner-actions {
-            display: flex;
-            gap: 16px;
-            justify-content: center;
-        }
-        .btn-primary {
-            padding: 16px 40px;
-            background: var(--green-dark);
-            color: var(--white);
-            border: none;
-            border-radius: var(--radius);
-            font-size: 15px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-        .btn-primary:hover {
-            background: var(--green-medium);
-        }
-        .btn-secondary {
-            padding: 16px 40px;
+        /* Sensitivity Table */
+        .sensitivity {
             background: var(--white);
-            color: var(--gray-700);
-            border: 1px solid var(--gray-300);
-            border-radius: var(--radius);
-            font-size: 15px;
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.2s;
+            border: 1px solid var(--gray-200);
+            border-radius: 12px;
+            padding: 28px 36px;
+            margin-bottom: 32px;
         }
-        .btn-secondary:hover {
-            border-color: var(--gray-400);
+        .sensitivity h2 {
+            font-size: 18px;
+            margin-bottom: 20px;
+            color: var(--gray-700);
+        }
+        .sens-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 28px;
+        }
+        .sens-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13px;
+        }
+        .sens-table caption {
+            text-align: left;
+            font-weight: 700;
+            font-size: 14px;
+            color: var(--gray-700);
+            margin-bottom: 8px;
+            caption-side: top;
+        }
+        .sens-table th, .sens-table td {
+            padding: 8px 12px;
+            text-align: center;
+            border: 1px solid var(--gray-200);
+        }
+        .sens-table th {
+            background: var(--gray-50);
+            font-weight: 600;
+            font-size: 12px;
+            color: var(--gray-600);
+        }
+        .sens-table th:first-child { text-align: left; }
+        .sens-table td:first-child {
+            text-align: left;
+            font-weight: 600;
             background: var(--gray-50);
         }
+        .sens-positive { color: #16a34a; font-weight: 600; }
+        .sens-negative { color: #dc2626; }
 
-        @media (max-width: 1100px) {
-            .crops-grid {
-                grid-template-columns: 1fr;
-            }
-            .summary-grid {
-                grid-template-columns: repeat(3, 1fr);
-            }
-            .summary-grid .summary-item:nth-child(4),
-            .summary-grid .summary-item:nth-child(5) {
-                grid-column: span 1;
-            }
+        /* Notes */
+        .cost-notes {
+            background: var(--white);
+            border: 1px solid var(--gray-200);
+            border-radius: 12px;
+            padding: 24px 36px;
         }
-        @media (max-width: 768px) {
-            .summary-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-            .summary-grid .summary-item:last-child {
-                grid-column: span 2;
-            }
-            .price-grid {
-                grid-template-columns: 1fr;
-                gap: 24px;
-            }
-            .planner-actions {
-                flex-direction: column;
-            }
+        .cost-notes h3 {
+            font-size: 14px;
+            color: var(--gray-600);
+            margin-bottom: 12px;
+        }
+        .cost-notes ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            font-size: 13px;
+            color: var(--gray-500);
+            line-height: 1.8;
+        }
+        .cost-notes li::before {
+            content: '\2022';
+            color: var(--gray-300);
+            margin-right: 8px;
+        }
+
+        @media (max-width: 900px) {
+            .calc-grid { grid-template-columns: 1fr; }
+            .sens-grid { grid-template-columns: 1fr; }
+            .profit-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
 <body>
-    <!-- Auth check - redirects to members.html if not logged in -->
     <script src="js/auth.js"></script>
 
     <nav class="navbar">
@@ -432,326 +339,178 @@
 
     <header class="planner-hero">
         <div class="container">
-            <span class="year-badge">2025 CROP YEAR</span>
-            <h1>Crop Planner</h1>
-            <p>Plan your 2025 acres, input costs, and projected returns. Toggle crops on or off to build your farm plan.</p>
-            <div class="planner-notice">
-                <p>Your data stays in your browser — nothing is stored or sent anywhere.</p>
-            </div>
+            <h1>2025 Input Planner</h1>
+            <p>Slide the price and yield to find where profitability hits for irrigated and dryland corn.</p>
         </div>
     </header>
 
     <main class="planner-main">
         <div class="container">
-            <!-- Farm Summary -->
-            <div class="farm-summary">
-                <h2>2025 Farm Summary</h2>
-                <div class="summary-grid">
-                    <div class="summary-item">
-                        <div class="summary-label">Total Acres</div>
-                        <div class="summary-value" id="totalAcres">0</div>
-                    </div>
-                    <div class="summary-item">
-                        <div class="summary-label">Total Input Cost</div>
-                        <div class="summary-value" id="totalCost">$0</div>
-                    </div>
-                    <div class="summary-item">
-                        <div class="summary-label">Projected Revenue</div>
-                        <div class="summary-value" id="totalRevenue">$0</div>
-                    </div>
-                    <div class="summary-item">
-                        <div class="summary-label">Cost Per Acre</div>
-                        <div class="summary-value" id="avgCostPerAcre">$0</div>
-                        <div class="summary-detail">weighted average</div>
-                    </div>
-                    <div class="summary-item highlight">
-                        <div class="summary-label">Projected Net</div>
-                        <div class="summary-value" id="totalNet">$0</div>
-                        <div class="summary-detail" id="netPerAcre">$0/ac</div>
-                    </div>
+
+            <!-- Corn Price Slider -->
+            <div class="price-control">
+                <h2>2025 Corn Price Assumption</h2>
+                <div class="price-display" id="priceDisplay">$4.40/bu</div>
+                <input type="range" class="price-slider" id="cornPrice" min="3.00" max="7.50" step="0.05" value="4.40">
+                <div class="price-range">
+                    <span>$3.00</span>
+                    <span>$7.50</span>
                 </div>
             </div>
 
-            <!-- Crop Cards -->
-            <div class="crops-grid">
-                <!-- Corn -->
-                <div class="crop-card" id="cornCard">
-                    <div class="crop-header">
-                        <h3><span class="crop-icon corn">C</span> Corn</h3>
-                        <label class="crop-toggle">
-                            <input type="checkbox" id="cornEnabled" checked>
-                            <span class="slider"></span>
-                        </label>
+            <!-- Irrigated / Dryland Side by Side -->
+            <div class="calc-grid">
+
+                <!-- IRRIGATED CORN -->
+                <div class="calc-panel">
+                    <div class="calc-panel-header irrigated">
+                        <h2>Irrigated Corn</h2>
+                        <div class="total-cost">Total Cost<strong id="irrTotalDisplay">$1,049/ac</strong></div>
                     </div>
-                    <div class="crop-body" id="cornBody">
-                        <div class="input-group">
-                            <label>Planned Acres</label>
-                            <div class="input-suffix">
-                                <input type="number" id="cornAcres" value="500" min="0">
-                                <span>ac</span>
-                            </div>
-                        </div>
-                        <div class="input-group">
-                            <label>Expected Yield</label>
-                            <div class="input-suffix">
-                                <input type="number" id="cornYield" value="180" min="0">
-                                <span>bu/ac</span>
-                            </div>
-                        </div>
-                        <div class="input-row-inline">
-                            <div class="input-group">
-                                <label>Seed Cost</label>
-                                <div class="input-suffix">
-                                    <input type="number" id="cornSeed" value="128" min="0">
-                                    <span>/ac</span>
-                                </div>
-                            </div>
-                            <div class="input-group">
-                                <label>Fertilizer</label>
-                                <div class="input-suffix">
-                                    <input type="number" id="cornFert" value="120" min="0">
-                                    <span>/ac</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="input-row-inline">
-                            <div class="input-group">
-                                <label>Chemicals</label>
-                                <div class="input-suffix">
-                                    <input type="number" id="cornChem" value="45" min="0">
-                                    <span>/ac</span>
-                                </div>
-                            </div>
-                            <div class="input-group">
-                                <label>Other Costs</label>
-                                <div class="input-suffix">
-                                    <input type="number" id="cornOther" value="250" min="0">
-                                    <span>/ac</span>
-                                </div>
-                            </div>
-                        </div>
+                    <div class="yield-control">
+                        <label>Yield:</label>
+                        <input type="range" class="yield-slider" id="irrYield" min="120" max="280" step="5" value="200">
+                        <span class="yield-value" id="irrYieldDisplay">200 bu/ac</span>
                     </div>
-                    <div class="crop-results" id="cornResults">
-                        <div class="crop-results-grid">
-                            <div class="crop-result-item">
-                                <div class="crop-result-label">Cost/Acre</div>
-                                <div class="crop-result-value" id="cornCostPerAcre">$543</div>
+                    <table class="cost-table">
+                        <tr class="section-label"><td colspan="2">Operations</td></tr>
+                        <tr><td>Disk (x2)</td><td>$35.00</td></tr>
+                        <tr><td>Strip Till</td><td>$26.00</td></tr>
+                        <tr><td>Plant</td><td>$35.00</td></tr>
+                        <tr><td>Spray (3 passes)</td><td>$37.50</td></tr>
+                        <tr><td>Harvest</td><td>$66.25</td></tr>
+                        <tr><td>Grain Cart</td><td>$17.75</td></tr>
+                        <tr><td>Hauling</td><td>$8.00</td></tr>
+                        <tr class="section-label"><td colspan="2">Inputs</td></tr>
+                        <tr><td>Seed (Pioneer, 34k pop)</td><td>$138.13</td></tr>
+                        <tr><td>Fertilizer (220N-40P-25S)</td><td>$174.75</td></tr>
+                        <tr><td>Chemicals (3-pass)</td><td>$44.81</td></tr>
+                        <tr class="section-label"><td colspan="2">Irrigation</td></tr>
+                        <tr><td>Pumping (12" @ $6.50)</td><td>$78.00</td></tr>
+                        <tr><td>Repairs</td><td>$15.00</td></tr>
+                        <tr><td>Labor</td><td>$10.00</td></tr>
+                        <tr class="section-label"><td colspan="2">Overhead</td></tr>
+                        <tr><td>Crop Insurance</td><td>$35.00</td></tr>
+                        <tr><td>Land (Cash Rent)</td><td>$275.00</td></tr>
+                        <tr><td>Miscellaneous</td><td>$10.00</td></tr>
+                        <tr><td>Operating Interest (8.5%)</td><td>$42.76</td></tr>
+                        <tr class="subtotal"><td>Total Cost / Acre</td><td id="irrCostPerAcre">$1,048.95</td></tr>
+                    </table>
+                    <div class="profit-results">
+                        <div class="profit-grid">
+                            <div class="profit-item">
+                                <div class="profit-label">Breakeven Price</div>
+                                <div class="profit-value neutral" id="irrBreakevenPrice">$5.24/bu</div>
                             </div>
-                            <div class="crop-result-item">
-                                <div class="crop-result-label">Break-Even</div>
-                                <div class="crop-result-value" id="cornBreakEven">121 bu</div>
+                            <div class="profit-item">
+                                <div class="profit-label">Revenue/Acre</div>
+                                <div class="profit-value neutral" id="irrRevenue">$880</div>
                             </div>
-                            <div class="crop-result-item">
-                                <div class="crop-result-label">Gross Revenue</div>
-                                <div class="crop-result-value" id="cornGross">$405,000</div>
-                            </div>
-                            <div class="crop-result-item">
-                                <div class="crop-result-label">Net Return</div>
-                                <div class="crop-result-value profit" id="cornNet">$133,500</div>
+                            <div class="profit-item">
+                                <div class="profit-label">Net Return/Acre</div>
+                                <div class="profit-value negative" id="irrNet">-$169</div>
+                                <div class="profit-detail" id="irrNetDetail">below breakeven</div>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Soybeans -->
-                <div class="crop-card" id="soyCard">
-                    <div class="crop-header">
-                        <h3><span class="crop-icon soybeans">S</span> Soybeans</h3>
-                        <label class="crop-toggle">
-                            <input type="checkbox" id="soyEnabled">
-                            <span class="slider"></span>
-                        </label>
+                <!-- DRYLAND CORN -->
+                <div class="calc-panel">
+                    <div class="calc-panel-header dryland">
+                        <h2>Dryland Corn</h2>
+                        <div class="total-cost">Total Cost<strong id="dryTotalDisplay">$487/ac</strong></div>
                     </div>
-                    <div class="crop-body disabled" id="soyBody">
-                        <div class="input-group">
-                            <label>Planned Acres</label>
-                            <div class="input-suffix">
-                                <input type="number" id="soyAcres" value="0" min="0">
-                                <span>ac</span>
-                            </div>
-                        </div>
-                        <div class="input-group">
-                            <label>Expected Yield</label>
-                            <div class="input-suffix">
-                                <input type="number" id="soyYield" value="45" min="0">
-                                <span>bu/ac</span>
-                            </div>
-                        </div>
-                        <div class="input-row-inline">
-                            <div class="input-group">
-                                <label>Seed Cost</label>
-                                <div class="input-suffix">
-                                    <input type="number" id="soySeed" value="65" min="0">
-                                    <span>/ac</span>
-                                </div>
-                            </div>
-                            <div class="input-group">
-                                <label>Fertilizer</label>
-                                <div class="input-suffix">
-                                    <input type="number" id="soyFert" value="40" min="0">
-                                    <span>/ac</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="input-row-inline">
-                            <div class="input-group">
-                                <label>Chemicals</label>
-                                <div class="input-suffix">
-                                    <input type="number" id="soyChem" value="35" min="0">
-                                    <span>/ac</span>
-                                </div>
-                            </div>
-                            <div class="input-group">
-                                <label>Other Costs</label>
-                                <div class="input-suffix">
-                                    <input type="number" id="soyOther" value="200" min="0">
-                                    <span>/ac</span>
-                                </div>
-                            </div>
-                        </div>
+                    <div class="yield-control">
+                        <label>Yield:</label>
+                        <input type="range" class="yield-slider" id="dryYield" min="30" max="160" step="5" value="80">
+                        <span class="yield-value" id="dryYieldDisplay">80 bu/ac</span>
                     </div>
-                    <div class="crop-results" id="soyResults" style="opacity: 0.4;">
-                        <div class="crop-results-grid">
-                            <div class="crop-result-item">
-                                <div class="crop-result-label">Cost/Acre</div>
-                                <div class="crop-result-value" id="soyCostPerAcre">$340</div>
+                    <table class="cost-table">
+                        <tr class="section-label"><td colspan="2">Operations</td></tr>
+                        <tr><td>Disk (x2)</td><td>$35.00</td></tr>
+                        <tr><td>Plant</td><td>$35.00</td></tr>
+                        <tr><td>Spray (2 passes)</td><td>$25.00</td></tr>
+                        <tr><td>Harvest</td><td>$66.25</td></tr>
+                        <tr><td>Grain Cart</td><td>$17.75</td></tr>
+                        <tr><td>Hauling</td><td>$3.20</td></tr>
+                        <tr class="section-label"><td colspan="2">Inputs</td></tr>
+                        <tr><td>Seed (Pioneer, 22k pop)</td><td>$85.25</td></tr>
+                        <tr><td>Fertilizer (80N-25P-15S)</td><td>$86.03</td></tr>
+                        <tr><td>Chemicals (2-pass)</td><td>$27.00</td></tr>
+                        <tr class="section-label"><td colspan="2">Overhead</td></tr>
+                        <tr><td>Crop Insurance</td><td>$22.00</td></tr>
+                        <tr><td>Land (Cash Rent)</td><td>$55.00</td></tr>
+                        <tr><td>Miscellaneous</td><td>$10.00</td></tr>
+                        <tr><td>Operating Interest (8.5%)</td><td>$19.87</td></tr>
+                        <tr class="subtotal"><td>Total Cost / Acre</td><td id="dryCostPerAcre">$487.35</td></tr>
+                    </table>
+                    <div class="profit-results">
+                        <div class="profit-grid">
+                            <div class="profit-item">
+                                <div class="profit-label">Breakeven Price</div>
+                                <div class="profit-value neutral" id="dryBreakevenPrice">$6.09/bu</div>
                             </div>
-                            <div class="crop-result-item">
-                                <div class="crop-result-label">Break-Even</div>
-                                <div class="crop-result-value" id="soyBreakEven">32 bu</div>
+                            <div class="profit-item">
+                                <div class="profit-label">Revenue/Acre</div>
+                                <div class="profit-value neutral" id="dryRevenue">$352</div>
                             </div>
-                            <div class="crop-result-item">
-                                <div class="crop-result-label">Gross Revenue</div>
-                                <div class="crop-result-value" id="soyGross">$0</div>
-                            </div>
-                            <div class="crop-result-item">
-                                <div class="crop-result-label">Net Return</div>
-                                <div class="crop-result-value" id="soyNet">$0</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Wheat -->
-                <div class="crop-card" id="wheatCard">
-                    <div class="crop-header">
-                        <h3><span class="crop-icon wheat">W</span> Wheat</h3>
-                        <label class="crop-toggle">
-                            <input type="checkbox" id="wheatEnabled">
-                            <span class="slider"></span>
-                        </label>
-                    </div>
-                    <div class="crop-body disabled" id="wheatBody">
-                        <div class="input-group">
-                            <label>Planned Acres</label>
-                            <div class="input-suffix">
-                                <input type="number" id="wheatAcres" value="0" min="0">
-                                <span>ac</span>
-                            </div>
-                        </div>
-                        <div class="input-group">
-                            <label>Expected Yield</label>
-                            <div class="input-suffix">
-                                <input type="number" id="wheatYield" value="50" min="0">
-                                <span>bu/ac</span>
-                            </div>
-                        </div>
-                        <div class="input-row-inline">
-                            <div class="input-group">
-                                <label>Seed Cost</label>
-                                <div class="input-suffix">
-                                    <input type="number" id="wheatSeed" value="25" min="0">
-                                    <span>/ac</span>
-                                </div>
-                            </div>
-                            <div class="input-group">
-                                <label>Fertilizer</label>
-                                <div class="input-suffix">
-                                    <input type="number" id="wheatFert" value="60" min="0">
-                                    <span>/ac</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="input-row-inline">
-                            <div class="input-group">
-                                <label>Chemicals</label>
-                                <div class="input-suffix">
-                                    <input type="number" id="wheatChem" value="30" min="0">
-                                    <span>/ac</span>
-                                </div>
-                            </div>
-                            <div class="input-group">
-                                <label>Other Costs</label>
-                                <div class="input-suffix">
-                                    <input type="number" id="wheatOther" value="165" min="0">
-                                    <span>/ac</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="crop-results" id="wheatResults" style="opacity: 0.4;">
-                        <div class="crop-results-grid">
-                            <div class="crop-result-item">
-                                <div class="crop-result-label">Cost/Acre</div>
-                                <div class="crop-result-value" id="wheatCostPerAcre">$280</div>
-                            </div>
-                            <div class="crop-result-item">
-                                <div class="crop-result-label">Break-Even</div>
-                                <div class="crop-result-value" id="wheatBreakEven">47 bu</div>
-                            </div>
-                            <div class="crop-result-item">
-                                <div class="crop-result-label">Gross Revenue</div>
-                                <div class="crop-result-value" id="wheatGross">$0</div>
-                            </div>
-                            <div class="crop-result-item">
-                                <div class="crop-result-label">Net Return</div>
-                                <div class="crop-result-value" id="wheatNet">$0</div>
+                            <div class="profit-item">
+                                <div class="profit-label">Net Return/Acre</div>
+                                <div class="profit-value negative" id="dryNet">-$135</div>
+                                <div class="profit-detail" id="dryNetDetail">below breakeven</div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Price Assumptions -->
-            <div class="price-assumptions">
-                <h2>2025 Price Assumptions</h2>
-                <div class="price-grid">
-                    <div class="price-item">
-                        <label>Corn Price</label>
-                        <div class="price-display" id="cornPriceDisplay">$4.50</div>
-                        <input type="range" class="price-slider" id="cornPrice" min="3.00" max="7.00" step="0.05" value="4.50">
-                        <div class="price-range">
-                            <span>$3.00</span>
-                            <span>$7.00</span>
-                        </div>
-                    </div>
-                    <div class="price-item">
-                        <label>Soybean Price</label>
-                        <div class="price-display" id="soyPriceDisplay">$10.50</div>
-                        <input type="range" class="price-slider" id="soyPrice" min="8.00" max="15.00" step="0.10" value="10.50">
-                        <div class="price-range">
-                            <span>$8.00</span>
-                            <span>$15.00</span>
-                        </div>
-                    </div>
-                    <div class="price-item">
-                        <label>Wheat Price</label>
-                        <div class="price-display" id="wheatPriceDisplay">$6.00</div>
-                        <input type="range" class="price-slider" id="wheatPrice" min="4.00" max="10.00" step="0.10" value="6.00">
-                        <div class="price-range">
-                            <span>$4.00</span>
-                            <span>$10.00</span>
-                        </div>
-                    </div>
+            <!-- Sensitivity Analysis -->
+            <div class="sensitivity">
+                <h2>Where Does Profitability Hit?</h2>
+                <div class="sens-grid">
+                    <table class="sens-table" id="irrSensTable">
+                        <caption>Irrigated Corn - Net Return/Acre</caption>
+                        <thead>
+                            <tr>
+                                <th>Yield</th>
+                                <th id="irrP1"></th>
+                                <th id="irrP2"></th>
+                                <th id="irrP3"></th>
+                                <th id="irrP4"></th>
+                            </tr>
+                        </thead>
+                        <tbody id="irrSensBody"></tbody>
+                    </table>
+                    <table class="sens-table" id="drySensTable">
+                        <caption>Dryland Corn - Net Return/Acre</caption>
+                        <thead>
+                            <tr>
+                                <th>Yield</th>
+                                <th id="dryP1"></th>
+                                <th id="dryP2"></th>
+                                <th id="dryP3"></th>
+                                <th id="dryP4"></th>
+                            </tr>
+                        </thead>
+                        <tbody id="drySensBody"></tbody>
+                    </table>
                 </div>
             </div>
 
-            <!-- Action Buttons -->
-            <div class="planner-actions">
-                <button class="btn-primary" onclick="emailPlan()">Email Plan to Myself</button>
-                <button class="btn-secondary" onclick="printPlan()">Print Plan</button>
-                <button class="btn-secondary" onclick="resetPlan()">Reset All</button>
+            <!-- Cost Notes -->
+            <div class="cost-notes">
+                <h3>Cost Assumptions</h3>
+                <ul>
+                    <li>Operations based on 75% of reported range (Iowa State 2025 / CSU 2024)</li>
+                    <li>Fertilizer: Anhydrous @ $825/ton, DAP @ $675/ton, AMS @ $350/ton</li>
+                    <li>Chemicals: Valor, Atrazine, Metolachlor, Acetochlor program</li>
+                    <li>Irrigation: Electric pivot @ $6.50/acre-inch, 12 inches applied</li>
+                    <li>Operating interest at 8.5% for 6 months average balance</li>
+                    <li>Prices subject to change. Consider forward contracting when profitable opportunities arise.</li>
+                </ul>
             </div>
+
         </div>
     </main>
 
@@ -764,12 +523,6 @@
                     <span class="logo-subtitle">McConnell Enterprises</span>
                 </div>
                 <p class="footer-location">Haxtun, Colorado</p>
-                <nav class="footer-nav">
-                    <a href="index.html">Home</a>
-                    <a href="index.html#events">Events</a>
-                    <a href="farm-programs.html">Farm Programs</a>
-                    <a href="index.html#contact">Contact</a>
-                </nav>
             </div>
             <div class="footer-bottom">
                 <p>Copyright 2025 McConnell Enterprises LLC. All rights reserved.</p>
@@ -778,250 +531,105 @@
     </footer>
 
     <script>
-        // Crop toggles
-        const cornEnabled = document.getElementById('cornEnabled');
-        const soyEnabled = document.getElementById('soyEnabled');
-        const wheatEnabled = document.getElementById('wheatEnabled');
+        const IRR_COST = 1048.95;
+        const DRY_COST = 487.35;
 
-        cornEnabled.addEventListener('change', function() {
-            document.getElementById('cornBody').classList.toggle('disabled', !this.checked);
-            document.getElementById('cornResults').style.opacity = this.checked ? '1' : '0.4';
-            calculate();
-        });
-        soyEnabled.addEventListener('change', function() {
-            document.getElementById('soyBody').classList.toggle('disabled', !this.checked);
-            document.getElementById('soyResults').style.opacity = this.checked ? '1' : '0.4';
-            calculate();
-        });
-        wheatEnabled.addEventListener('change', function() {
-            document.getElementById('wheatBody').classList.toggle('disabled', !this.checked);
-            document.getElementById('wheatResults').style.opacity = this.checked ? '1' : '0.4';
-            calculate();
-        });
+        const priceSlider = document.getElementById('cornPrice');
+        const irrYieldSlider = document.getElementById('irrYield');
+        const dryYieldSlider = document.getElementById('dryYield');
 
-        // Price slider displays
-        document.getElementById('cornPrice').addEventListener('input', function() {
-            document.getElementById('cornPriceDisplay').textContent = '$' + parseFloat(this.value).toFixed(2);
-            calculate();
-        });
-        document.getElementById('soyPrice').addEventListener('input', function() {
-            document.getElementById('soyPriceDisplay').textContent = '$' + parseFloat(this.value).toFixed(2);
-            calculate();
-        });
-        document.getElementById('wheatPrice').addEventListener('input', function() {
-            document.getElementById('wheatPriceDisplay').textContent = '$' + parseFloat(this.value).toFixed(2);
-            calculate();
-        });
-
-        // Add input listeners to all number inputs
-        document.querySelectorAll('input[type="number"]').forEach(input => {
-            input.addEventListener('input', calculate);
-        });
+        function fmt(n) {
+            return '$' + Math.abs(n).toLocaleString('en-US', {maximumFractionDigits: 0});
+        }
 
         function calculate() {
-            let totalAcres = 0;
-            let totalCost = 0;
-            let totalRevenue = 0;
+            const price = parseFloat(priceSlider.value);
+            const irrYield = parseFloat(irrYieldSlider.value);
+            const dryYield = parseFloat(dryYieldSlider.value);
 
-            // Corn calculations
-            if (cornEnabled.checked) {
-                const acres = parseFloat(document.getElementById('cornAcres').value) || 0;
-                const yieldBu = parseFloat(document.getElementById('cornYield').value) || 0;
-                const seed = parseFloat(document.getElementById('cornSeed').value) || 0;
-                const fert = parseFloat(document.getElementById('cornFert').value) || 0;
-                const chem = parseFloat(document.getElementById('cornChem').value) || 0;
-                const other = parseFloat(document.getElementById('cornOther').value) || 0;
-                const price = parseFloat(document.getElementById('cornPrice').value) || 0;
+            // Display updates
+            document.getElementById('priceDisplay').textContent = '$' + price.toFixed(2) + '/bu';
+            document.getElementById('irrYieldDisplay').textContent = irrYield + ' bu/ac';
+            document.getElementById('dryYieldDisplay').textContent = dryYield + ' bu/ac';
 
-                const costPerAcre = seed + fert + chem + other;
-                const breakEven = price > 0 ? costPerAcre / price : 0;
-                const gross = acres * yieldBu * price;
-                const net = gross - (acres * costPerAcre);
+            // Irrigated
+            const irrRevenue = irrYield * price;
+            const irrNet = irrRevenue - IRR_COST;
+            const irrBreakeven = irrYield > 0 ? IRR_COST / irrYield : 0;
 
-                document.getElementById('cornCostPerAcre').textContent = '$' + costPerAcre.toFixed(0);
-                document.getElementById('cornBreakEven').textContent = breakEven.toFixed(0) + ' bu';
-                document.getElementById('cornGross').textContent = '$' + gross.toLocaleString('en-US', {maximumFractionDigits: 0});
-                document.getElementById('cornNet').textContent = '$' + net.toLocaleString('en-US', {maximumFractionDigits: 0});
-                document.getElementById('cornNet').className = 'crop-result-value ' + (net >= 0 ? 'profit' : 'loss');
+            document.getElementById('irrBreakevenPrice').textContent = '$' + irrBreakeven.toFixed(2) + '/bu';
+            document.getElementById('irrRevenue').textContent = fmt(irrRevenue);
+            document.getElementById('irrNet').textContent = (irrNet < 0 ? '-' : '') + fmt(irrNet);
+            document.getElementById('irrNet').className = 'profit-value ' + (irrNet >= 0 ? 'positive' : 'negative');
+            document.getElementById('irrNetDetail').textContent = irrNet >= 0 ? 'profitable' : 'below breakeven';
 
-                totalAcres += acres;
-                totalCost += acres * costPerAcre;
-                totalRevenue += gross;
-            }
+            // Dryland
+            const dryRevenue = dryYield * price;
+            const dryNet = dryRevenue - DRY_COST;
+            const dryBreakeven = dryYield > 0 ? DRY_COST / dryYield : 0;
 
-            // Soybean calculations
-            if (soyEnabled.checked) {
-                const acres = parseFloat(document.getElementById('soyAcres').value) || 0;
-                const yieldBu = parseFloat(document.getElementById('soyYield').value) || 0;
-                const seed = parseFloat(document.getElementById('soySeed').value) || 0;
-                const fert = parseFloat(document.getElementById('soyFert').value) || 0;
-                const chem = parseFloat(document.getElementById('soyChem').value) || 0;
-                const other = parseFloat(document.getElementById('soyOther').value) || 0;
-                const price = parseFloat(document.getElementById('soyPrice').value) || 0;
+            document.getElementById('dryBreakevenPrice').textContent = '$' + dryBreakeven.toFixed(2) + '/bu';
+            document.getElementById('dryRevenue').textContent = fmt(dryRevenue);
+            document.getElementById('dryNet').textContent = (dryNet < 0 ? '-' : '') + fmt(dryNet);
+            document.getElementById('dryNet').className = 'profit-value ' + (dryNet >= 0 ? 'positive' : 'negative');
+            document.getElementById('dryNetDetail').textContent = dryNet >= 0 ? 'profitable' : 'below breakeven';
 
-                const costPerAcre = seed + fert + chem + other;
-                const breakEven = price > 0 ? costPerAcre / price : 0;
-                const gross = acres * yieldBu * price;
-                const net = gross - (acres * costPerAcre);
-
-                document.getElementById('soyCostPerAcre').textContent = '$' + costPerAcre.toFixed(0);
-                document.getElementById('soyBreakEven').textContent = breakEven.toFixed(0) + ' bu';
-                document.getElementById('soyGross').textContent = '$' + gross.toLocaleString('en-US', {maximumFractionDigits: 0});
-                document.getElementById('soyNet').textContent = '$' + net.toLocaleString('en-US', {maximumFractionDigits: 0});
-                document.getElementById('soyNet').className = 'crop-result-value ' + (net >= 0 ? 'profit' : 'loss');
-
-                totalAcres += acres;
-                totalCost += acres * costPerAcre;
-                totalRevenue += gross;
-            }
-
-            // Wheat calculations
-            if (wheatEnabled.checked) {
-                const acres = parseFloat(document.getElementById('wheatAcres').value) || 0;
-                const yieldBu = parseFloat(document.getElementById('wheatYield').value) || 0;
-                const seed = parseFloat(document.getElementById('wheatSeed').value) || 0;
-                const fert = parseFloat(document.getElementById('wheatFert').value) || 0;
-                const chem = parseFloat(document.getElementById('wheatChem').value) || 0;
-                const other = parseFloat(document.getElementById('wheatOther').value) || 0;
-                const price = parseFloat(document.getElementById('wheatPrice').value) || 0;
-
-                const costPerAcre = seed + fert + chem + other;
-                const breakEven = price > 0 ? costPerAcre / price : 0;
-                const gross = acres * yieldBu * price;
-                const net = gross - (acres * costPerAcre);
-
-                document.getElementById('wheatCostPerAcre').textContent = '$' + costPerAcre.toFixed(0);
-                document.getElementById('wheatBreakEven').textContent = breakEven.toFixed(0) + ' bu';
-                document.getElementById('wheatGross').textContent = '$' + gross.toLocaleString('en-US', {maximumFractionDigits: 0});
-                document.getElementById('wheatNet').textContent = '$' + net.toLocaleString('en-US', {maximumFractionDigits: 0});
-                document.getElementById('wheatNet').className = 'crop-result-value ' + (net >= 0 ? 'profit' : 'loss');
-
-                totalAcres += acres;
-                totalCost += acres * costPerAcre;
-                totalRevenue += gross;
-            }
-
-            // Update summary
-            const totalNet = totalRevenue - totalCost;
-            const avgCostPerAcre = totalAcres > 0 ? totalCost / totalAcres : 0;
-            const netPerAcre = totalAcres > 0 ? totalNet / totalAcres : 0;
-
-            document.getElementById('totalAcres').textContent = totalAcres.toLocaleString('en-US');
-            document.getElementById('totalCost').textContent = '$' + totalCost.toLocaleString('en-US', {maximumFractionDigits: 0});
-            document.getElementById('totalRevenue').textContent = '$' + totalRevenue.toLocaleString('en-US', {maximumFractionDigits: 0});
-            document.getElementById('avgCostPerAcre').textContent = '$' + avgCostPerAcre.toFixed(0);
-            document.getElementById('totalNet').textContent = '$' + totalNet.toLocaleString('en-US', {maximumFractionDigits: 0});
-            document.getElementById('netPerAcre').textContent = '$' + netPerAcre.toFixed(0) + '/ac';
+            // Sensitivity tables
+            buildSensitivity(price);
         }
 
-        function emailPlan() {
-            const subject = encodeURIComponent('My 2025 Crop Plan - YourAgInfo.com');
+        function buildSensitivity(basePrice) {
+            const prices = [
+                Math.max(3.00, basePrice - 0.60),
+                Math.max(3.00, basePrice - 0.20),
+                basePrice + 0.20,
+                basePrice + 0.60
+            ];
 
-            let crops = [];
-            if (cornEnabled.checked) {
-                crops.push(`CORN
-Acres: ${document.getElementById('cornAcres').value}
-Yield: ${document.getElementById('cornYield').value} bu/ac
-Price: ${document.getElementById('cornPriceDisplay').textContent}/bu
-Cost/Acre: ${document.getElementById('cornCostPerAcre').textContent}
-Break-Even: ${document.getElementById('cornBreakEven').textContent}
-Gross Revenue: ${document.getElementById('cornGross').textContent}
-Net Return: ${document.getElementById('cornNet').textContent}`);
-            }
-            if (soyEnabled.checked) {
-                crops.push(`SOYBEANS
-Acres: ${document.getElementById('soyAcres').value}
-Yield: ${document.getElementById('soyYield').value} bu/ac
-Price: ${document.getElementById('soyPriceDisplay').textContent}/bu
-Cost/Acre: ${document.getElementById('soyCostPerAcre').textContent}
-Break-Even: ${document.getElementById('soyBreakEven').textContent}
-Gross Revenue: ${document.getElementById('soyGross').textContent}
-Net Return: ${document.getElementById('soyNet').textContent}`);
-            }
-            if (wheatEnabled.checked) {
-                crops.push(`WHEAT
-Acres: ${document.getElementById('wheatAcres').value}
-Yield: ${document.getElementById('wheatYield').value} bu/ac
-Price: ${document.getElementById('wheatPriceDisplay').textContent}/bu
-Cost/Acre: ${document.getElementById('wheatCostPerAcre').textContent}
-Break-Even: ${document.getElementById('wheatBreakEven').textContent}
-Gross Revenue: ${document.getElementById('wheatGross').textContent}
-Net Return: ${document.getElementById('wheatNet').textContent}`);
+            // Irrigated yields
+            const irrYields = [180, 200, 220, 240, 260];
+            // Dryland yields
+            const dryYields = [50, 65, 80, 100, 120];
+
+            // Set headers
+            for (let i = 0; i < 4; i++) {
+                document.getElementById('irrP' + (i+1)).textContent = '@$' + prices[i].toFixed(2);
+                document.getElementById('dryP' + (i+1)).textContent = '@$' + prices[i].toFixed(2);
             }
 
-            const body = encodeURIComponent(
-`2025 CROP PLAN
-Generated from YourAgInfo.com
-================================
+            // Irrigated body
+            let irrHTML = '';
+            irrYields.forEach(y => {
+                irrHTML += '<tr><td>' + y + ' bu/ac</td>';
+                prices.forEach(p => {
+                    const net = (y * p) - IRR_COST;
+                    const cls = net >= 0 ? 'sens-positive' : 'sens-negative';
+                    irrHTML += '<td class="' + cls + '">' + (net < 0 ? '-' : '') + fmt(net) + '</td>';
+                });
+                irrHTML += '</tr>';
+            });
+            document.getElementById('irrSensBody').innerHTML = irrHTML;
 
-FARM SUMMARY
-------------
-Total Acres: ${document.getElementById('totalAcres').textContent}
-Total Input Cost: ${document.getElementById('totalCost').textContent}
-Projected Revenue: ${document.getElementById('totalRevenue').textContent}
-Average Cost/Acre: ${document.getElementById('avgCostPerAcre').textContent}
-Projected Net: ${document.getElementById('totalNet').textContent}
-Net Per Acre: ${document.getElementById('netPerAcre').textContent}
-
-${crops.join('\n\n')}
-
----
-This is for planning purposes only.
-Questions? Contact Kyle McConnell at (970) 571-1015
-`
-            );
-
-            window.location.href = `mailto:?subject=${subject}&body=${body}`;
+            // Dryland body
+            let dryHTML = '';
+            dryYields.forEach(y => {
+                dryHTML += '<tr><td>' + y + ' bu/ac</td>';
+                prices.forEach(p => {
+                    const net = (y * p) - DRY_COST;
+                    const cls = net >= 0 ? 'sens-positive' : 'sens-negative';
+                    dryHTML += '<td class="' + cls + '">' + (net < 0 ? '-' : '') + fmt(net) + '</td>';
+                });
+                dryHTML += '</tr>';
+            });
+            document.getElementById('drySensBody').innerHTML = dryHTML;
         }
 
-        function printPlan() {
-            window.print();
-        }
+        // Event listeners
+        priceSlider.addEventListener('input', calculate);
+        irrYieldSlider.addEventListener('input', calculate);
+        dryYieldSlider.addEventListener('input', calculate);
 
-        function resetPlan() {
-            // Reset corn
-            document.getElementById('cornAcres').value = 500;
-            document.getElementById('cornYield').value = 180;
-            document.getElementById('cornSeed').value = 128;
-            document.getElementById('cornFert').value = 120;
-            document.getElementById('cornChem').value = 45;
-            document.getElementById('cornOther').value = 250;
-            document.getElementById('cornPrice').value = 4.50;
-            document.getElementById('cornPriceDisplay').textContent = '$4.50';
-            cornEnabled.checked = true;
-            document.getElementById('cornBody').classList.remove('disabled');
-            document.getElementById('cornResults').style.opacity = '1';
-
-            // Reset soybeans
-            document.getElementById('soyAcres').value = 0;
-            document.getElementById('soyYield').value = 45;
-            document.getElementById('soySeed').value = 65;
-            document.getElementById('soyFert').value = 40;
-            document.getElementById('soyChem').value = 35;
-            document.getElementById('soyOther').value = 200;
-            document.getElementById('soyPrice').value = 10.50;
-            document.getElementById('soyPriceDisplay').textContent = '$10.50';
-            soyEnabled.checked = false;
-            document.getElementById('soyBody').classList.add('disabled');
-            document.getElementById('soyResults').style.opacity = '0.4';
-
-            // Reset wheat
-            document.getElementById('wheatAcres').value = 0;
-            document.getElementById('wheatYield').value = 50;
-            document.getElementById('wheatSeed').value = 25;
-            document.getElementById('wheatFert').value = 60;
-            document.getElementById('wheatChem').value = 30;
-            document.getElementById('wheatOther').value = 165;
-            document.getElementById('wheatPrice').value = 6.00;
-            document.getElementById('wheatPriceDisplay').textContent = '$6.00';
-            wheatEnabled.checked = false;
-            document.getElementById('wheatBody').classList.add('disabled');
-            document.getElementById('wheatResults').style.opacity = '0.4';
-
-            calculate();
-        }
-
-        // Initial calculation
+        // Initial calc
         calculate();
     </script>
 </body>
