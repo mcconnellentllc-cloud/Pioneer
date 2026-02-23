@@ -232,6 +232,90 @@
             }
         }
 
+        /* Enrollment Action Cards */
+        .enrollment-actions {
+            padding: 60px 0;
+            background: var(--white);
+        }
+        .enrollment-header {
+            text-align: center;
+            margin-bottom: 36px;
+        }
+        .enrollment-header h2 {
+            font-size: 28px;
+            color: var(--green-dark);
+            margin-bottom: 8px;
+        }
+        .enrollment-header p {
+            font-size: 16px;
+            color: var(--gray-600);
+        }
+        .enrollment-header strong {
+            color: var(--green-dark);
+        }
+        .enrollment-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 32px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        .enrollment-card {
+            background: var(--white);
+            border: 1px solid var(--gray-200);
+            border-radius: var(--radius-lg);
+            padding: 36px 32px;
+            text-align: center;
+            box-shadow: var(--shadow-md);
+            transition: var(--transition);
+        }
+        .enrollment-card:hover {
+            box-shadow: var(--shadow-lg);
+            transform: translateY(-2px);
+        }
+        .enrollment-card-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 56px;
+            height: 56px;
+            background: var(--green-pale);
+            border-radius: 50%;
+            margin-bottom: 20px;
+        }
+        .enrollment-card h3 {
+            font-size: 20px;
+            color: var(--green-dark);
+            margin-bottom: 12px;
+        }
+        .enrollment-card p {
+            font-size: 15px;
+            color: var(--gray-600);
+            line-height: 1.6;
+            margin-bottom: 24px;
+        }
+        .enrollment-card-btn {
+            display: inline-block;
+            padding: 12px 28px;
+            background: var(--green-dark);
+            color: var(--white);
+            font-size: 14px;
+            font-weight: 600;
+            border-radius: var(--radius);
+            text-decoration: none;
+            transition: background 0.2s;
+        }
+        .enrollment-card-btn:hover {
+            background: var(--green-medium);
+            color: var(--white);
+        }
+        @media (max-width: 700px) {
+            .enrollment-grid {
+                grid-template-columns: 1fr;
+                gap: 24px;
+            }
+        }
+
         /* Events Section - Compact */
         .events-compact {
             padding: 60px 0 80px;
@@ -326,6 +410,34 @@
                         <p>Need access? Call to request your member password.</p>
                         <a href="tel:9705711015">(970) 571-1015</a>
                     </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Enrollment Action Cards -->
+    <section class="enrollment-actions">
+        <div class="container">
+            <div class="enrollment-header">
+                <h2>2026 Farm Bill Enrollment</h2>
+                <p>Enrollment deadline: <strong>April 17, 2026</strong></p>
+            </div>
+            <div class="enrollment-grid">
+                <div class="enrollment-card">
+                    <div class="enrollment-card-icon">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#1a472a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/></svg>
+                    </div>
+                    <h3>Create Your Login.gov Account</h3>
+                    <p>You'll need a Login.gov account to access FSA services online. Follow our step-by-step guide to get set up.</p>
+                    <a href="login-gov-guide.html" class="enrollment-card-btn">View Setup Guide</a>
+                </div>
+                <div class="enrollment-card">
+                    <div class="enrollment-card-icon">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#1a472a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+                    </div>
+                    <h3>Submit Your FBA Application</h3>
+                    <p>Step-by-step instructions for completing and submitting your Farm Bill Application through your local FSA office.</p>
+                    <a href="pages/fba-application-guide.html" class="enrollment-card-btn">View Application Guide</a>
                 </div>
             </div>
         </div>
