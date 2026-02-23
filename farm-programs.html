@@ -25,107 +25,118 @@
             max-width: 550px;
         }
 
-        /* Urgent Alert Banner */
-        .urgent-alert {
-            background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
-            padding: 0;
+        /* Action Cards Section */
+        .action-cards {
+            background: var(--green-dark);
+            padding: 40px 0;
         }
-        .urgent-alert-inner {
-            padding: 32px 0;
+        .action-cards-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
         }
-        .urgent-alert-header {
+        .action-card {
+            background: var(--white);
+            border-radius: var(--radius-lg);
+            padding: 32px;
             display: flex;
-            align-items: center;
-            gap: 12px;
-            margin-bottom: 16px;
+            flex-direction: column;
+            transition: var(--transition);
+            text-decoration: none;
+            color: inherit;
+            position: relative;
+            overflow: hidden;
         }
-        .urgent-badge {
-            background: #fef3c7;
-            color: #92400e;
+        .action-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+        }
+        .action-card-logingov::before {
+            background: #2563eb;
+        }
+        .action-card-fba::before {
+            background: var(--gold);
+        }
+        .action-card:hover {
+            box-shadow: 0 12px 40px rgba(0,0,0,0.3);
+            transform: translateY(-4px);
+        }
+        .action-card-badge {
+            display: inline-block;
             font-size: 11px;
             font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 1px;
             padding: 6px 12px;
             border-radius: 4px;
+            margin-bottom: 16px;
+            align-self: flex-start;
         }
-        .urgent-deadline {
-            color: rgba(255,255,255,0.9);
-            font-size: 14px;
+        .action-card-logingov .action-card-badge {
+            background: #dbeafe;
+            color: #1e40af;
+        }
+        .action-card-fba .action-card-badge {
+            background: #fef3c7;
+            color: #92400e;
+        }
+        .action-card h3 {
+            font-size: 22px;
+            margin-bottom: 10px;
+            color: var(--gray-900);
+        }
+        .action-card p {
+            font-size: 15px;
+            line-height: 1.7;
+            color: var(--gray-600);
+            margin-bottom: 20px;
+            flex: 1;
+        }
+        .action-card-meta {
+            font-size: 13px;
             font-weight: 600;
-        }
-        .urgent-alert h2 {
-            font-size: clamp(22px, 4vw, 28px);
-            color: var(--white);
-            margin-bottom: 12px;
-        }
-        .urgent-alert > .container > p,
-        .urgent-alert-inner > p {
-            font-size: 16px;
-            color: rgba(255,255,255,0.85);
-            margin-bottom: 24px;
-            max-width: 700px;
-        }
-        .urgent-steps {
-            background: rgba(255,255,255,0.1);
-            border-radius: var(--radius-lg);
-            padding: 24px 28px;
-            margin-bottom: 24px;
-        }
-        .urgent-steps h3 {
-            font-size: 14px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            color: rgba(255,255,255,0.7);
+            color: var(--gray-400);
             margin-bottom: 16px;
         }
-        .urgent-steps ol {
-            list-style: none;
-            counter-reset: steps;
-            margin: 0;
-            padding: 0;
-        }
-        .urgent-steps li {
-            counter-increment: steps;
-            display: flex;
-            align-items: flex-start;
-            gap: 16px;
-            padding: 12px 0;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
-            color: var(--white);
-            font-size: 15px;
-            line-height: 1.5;
-        }
-        .urgent-steps li:last-child {
-            border-bottom: none;
-            padding-bottom: 0;
-        }
-        .urgent-steps li::before {
-            content: counter(steps);
-            flex-shrink: 0;
-            width: 28px;
-            height: 28px;
-            background: rgba(255,255,255,0.2);
-            border-radius: 50%;
-            display: flex;
+        .action-card-link {
+            display: inline-flex;
             align-items: center;
-            justify-content: center;
-            font-weight: 700;
-            font-size: 13px;
-        }
-        .urgent-steps a {
-            color: #fef3c7;
-            text-decoration: underline;
+            gap: 6px;
+            font-size: 15px;
             font-weight: 600;
+            padding: 12px 24px;
+            border-radius: var(--radius);
+            transition: var(--transition);
         }
-        .urgent-steps a:hover {
+        .action-card-logingov .action-card-link {
+            background: #2563eb;
             color: var(--white);
         }
-        .urgent-note {
-            font-size: 14px;
-            color: rgba(255,255,255,0.7);
-            font-style: italic;
+        .action-card-logingov:hover .action-card-link {
+            background: #1d4ed8;
+        }
+        .action-card-fba .action-card-link {
+            background: var(--green-dark);
+            color: var(--white);
+        }
+        .action-card-fba:hover .action-card-link {
+            background: var(--green-medium);
+        }
+        .action-card-link::after {
+            content: '\2192';
+            transition: var(--transition);
+        }
+        .action-card:hover .action-card-link::after {
+            transform: translateX(4px);
+        }
+        @media (max-width: 700px) {
+            .action-cards-grid {
+                grid-template-columns: 1fr;
+            }
         }
 
         .programs-main {
@@ -423,29 +434,24 @@
         </div>
     </header>
 
-    <!-- Urgent Login.gov Alert -->
-    <section class="urgent-alert">
+    <!-- Action Cards: Login.gov + FBA Enrollment -->
+    <section class="action-cards">
         <div class="container">
-            <div class="urgent-alert-inner">
-                <div class="urgent-alert-header">
-                    <span class="urgent-badge">Action Required</span>
-                    <span class="urgent-deadline">Deadline: February 28, 2026</span>
-                </div>
-                <h2>Verify Your Login.gov Account Before FSA Rollout</h2>
-                <p>FSA is transitioning to Login.gov for all online services. Producers must verify their accounts before February 28 to maintain access to FSA programs and services.</p>
-
-                <div class="urgent-steps">
-                    <h3>Complete These Steps Now</h3>
-                    <ol>
-                        <li><strong>Create a Login.gov account</strong> — Go to <a href="https://login.gov" target="_blank">login.gov</a> and create an account using your email address</li>
-                        <li><strong>Create a Farmers.gov account</strong> — Visit <a href="https://farmers.gov" target="_blank">farmers.gov</a> and register using your Login.gov credentials</li>
-                        <li><strong>Link your accounts</strong> — Connect your Login.gov account to your existing FSA customer records</li>
-                        <li><strong>Verify your identity</strong> — Complete identity verification at your <strong>local FSA office</strong> or <strong>participating Post Office</strong></li>
-                    </ol>
-                </div>
-
-                <p class="urgent-note">Questions? Contact your local FSA office or call Kyle at (970) 571-1015 for assistance.</p>
-                <a href="login-gov-guide.html" style="display:inline-block;margin-top:16px;background:#fef3c7;color:#92400e;padding:12px 24px;border-radius:6px;font-weight:700;font-size:14px;">View Step-by-Step Guide</a>
+            <div class="action-cards-grid">
+                <a href="login-gov-guide.html" class="action-card action-card-logingov">
+                    <span class="action-card-badge">Setup Guide</span>
+                    <h3>Login.gov Account Setup</h3>
+                    <p>Step-by-step instructions to create and verify your Login.gov account for FSA access. Required for all online USDA services.</p>
+                    <span class="action-card-meta">Deadline: February 28, 2026</span>
+                    <span class="action-card-link">View Guide</span>
+                </a>
+                <a href="pages/fba-application-guide.html" class="action-card action-card-fba">
+                    <span class="action-card-badge">Enrollment Open</span>
+                    <h3>FBA Application Guide</h3>
+                    <p>How to review and submit your pre-filled Farmer Bridge Assistance application on farmers.gov. Corn: $44.36/ac | Wheat: $39.35/ac | Sorghum: $48.11/ac.</p>
+                    <span class="action-card-meta">Feb 23 &#8211; Apr 17, 2026</span>
+                    <span class="action-card-link">View Guide</span>
+                </a>
             </div>
         </div>
     </section>
