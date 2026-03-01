@@ -396,6 +396,87 @@
                 grid-template-columns: 1fr;
             }
         }
+
+        /* USDA Online Access Section */
+        .usda-access-section {
+            margin-top: 60px;
+            padding-top: 60px;
+            border-top: 1px solid var(--gray-200);
+        }
+        .usda-access-section h2 {
+            margin-bottom: 12px;
+        }
+        .usda-access-intro {
+            font-size: 16px;
+            color: var(--gray-500);
+            margin-bottom: 28px;
+        }
+        .usda-access-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+        }
+        .usda-access-card {
+            background: var(--white);
+            border: 1px solid var(--gray-200);
+            border-radius: var(--radius-lg);
+            padding: 32px;
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+        }
+        .usda-access-card:hover {
+            border-color: var(--green-dark);
+            box-shadow: var(--shadow-md);
+        }
+        .usda-access-icon {
+            width: 48px;
+            height: 48px;
+            background: var(--green-pale);
+            border-radius: var(--radius);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        .usda-access-icon svg {
+            width: 24px;
+            height: 24px;
+            color: var(--green-dark);
+        }
+        .usda-access-card h4 {
+            font-size: 18px;
+            margin-bottom: 8px;
+            color: var(--gray-800);
+        }
+        .usda-access-card p {
+            font-size: 15px;
+            color: var(--gray-500);
+            line-height: 1.6;
+            margin: 0 0 20px 0;
+            flex: 1;
+        }
+        .usda-access-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--green-dark);
+        }
+        .usda-access-link::after {
+            content: '\2192';
+            transition: var(--transition);
+        }
+        .usda-access-card:hover .usda-access-link::after {
+            transform: translateX(4px);
+        }
+
+        @media (max-width: 700px) {
+            .usda-access-grid {
+                grid-template-columns: 1fr;
+            }
+        }
     </style>
 </head>
 <body>
@@ -558,6 +639,35 @@
                         <h4>Colorado State FSA Committee</h4>
                         <p>Recently appointed by the Trump administration to serve on the state committee overseeing FSA programs in Colorado.</p>
                         <span class="involvement-link">Colorado FSA</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- USDA Online Access -->
+            <div class="usda-access-section">
+                <h2>USDA Online Access</h2>
+                <p class="usda-access-intro">Access your USDA accounts and get help with Login.gov setup.</p>
+                <div class="usda-access-grid">
+                    <a href="login-gov-guide.html" class="usda-access-card">
+                        <div class="usda-access-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                            </svg>
+                        </div>
+                        <h4>Login.gov Help</h4>
+                        <p>Step-by-step guide to creating your Login.gov account for USDA access.</p>
+                        <span class="usda-access-link">View Guide</span>
+                    </a>
+
+                    <a href="https://www.farmers.gov/" target="_blank" class="usda-access-card">
+                        <div class="usda-access-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                        </div>
+                        <h4>Farmers.gov</h4>
+                        <p>Access FSA programs, check payment status, and manage your farm records.</p>
+                        <span class="usda-access-link">Visit Site</span>
                     </a>
                 </div>
             </div>
