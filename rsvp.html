@@ -336,129 +336,20 @@
   </div>
   <div class="form-card" id="formCard">
     <h2>Reserve Your Spot</h2>
-    <form id="rsvpForm">
-      <div class="field-group">
-        <label for="name">Name *</label>
-        <input type="text" id="name" name="name" required placeholder="Full name">
-      </div>
-      <div class="field-group">
-        <label for="phone">Phone *</label>
-        <input type="tel" id="phone" name="phone" required placeholder="(xxx) xxx-xxxx">
-      </div>
-      <div class="field-group">
-        <label for="email">Email</label>
-        <input type="email" id="email" name="email" placeholder="email@example.com">
-      </div>
-      <div class="section-label" style="margin-top: 20px;">Which events will you attend?</div>
-      <div class="check-option" onclick="toggleCheck(this)">
-        <input type="checkbox" name="event_jd" value="yes">
-        <div class="check-content">
-          <div class="check-title">Tue Mar 10 -- John Deere Operations Center</div>
-          <div class="check-detail">2:00 - 3:00 PM</div>
-        </div>
-      </div>
-      <div class="check-option" onclick="toggleCheck(this)">
-        <input type="checkbox" name="event_ai" value="yes">
-        <div class="check-content">
-          <div class="check-title">Wed Mar 11 -- AI Integration for Agriculture</div>
-          <div class="check-detail">2:00 - 3:00 PM</div>
-        </div>
-      </div>
-      <div class="check-option" onclick="toggleCheck(this)">
-        <input type="checkbox" name="event_clip" value="yes">
-        <div class="check-content">
-          <div class="check-title">Thu Mar 12 -- CLIP Insurance & Farm Programs</div>
-          <div class="check-detail">12:00 PM -- Lunch Provided</div>
-        </div>
-      </div>
-      <div class="section-label" style="margin-top: 20px;">Planter Unit Tune-Up</div>
-      <div class="check-option" onclick="toggleCheck(this); togglePlanterFields();">
-        <input type="checkbox" name="planter_tuneup" value="yes" id="planterCheck">
-        <div class="check-content">
-          <div class="check-title">I want to drop off planter units for Servi Tech calibration</div>
-          <div class="check-detail">Drop off anytime prior to Mar 10. Pick up by Friday Mar 13.</div>
-        </div>
-      </div>
-      <div class="planter-details" id="planterDetails">
-        <div class="field-group">
-          <label for="numUnits">How many planter units?</label>
-          <input type="text" id="numUnits" name="num_units" placeholder="e.g. 12">
-        </div>
-        <div class="field-group">
-          <label for="planterModel">Planter make/model (optional)</label>
-          <input type="text" id="planterModel" name="planter_model" placeholder="e.g. JD 1775NT">
-        </div>
-      </div>
-      <button type="submit" class="submit-btn">RSVP Now</button>
-    </form>
-  </div>
-  <div class="success-container" id="successMsg">
-    <h2>You're Registered</h2>
-    <p>We've got your RSVP for Planter Clinic Week.</p>
-    <p>M77 AG Warehouse -- 34549 HWY 59, Haxtun, CO</p>
-    <p>Questions? Call <a href="tel:9705711015" style="color: #2d6a4f;">(970) 571-1015</a></p>
-    <a href="https://youraginfo.com" class="back-link">Back to YourAgInfo.com</a>
+    <iframe
+      class="airtable-embed"
+      src="https://airtable.com/embed/app6OvzCcGIOdRlE9/shr2Ut7j81iht4Y5Y"
+      frameborder="0"
+      onmousewheel=""
+      width="100%"
+      height="533"
+      style="background: transparent; border: 1px solid #ccc;">
+    </iframe>
   </div>
 </div>
 <div class="site-footer">
   <a href="https://youraginfo.com">YourAgInfo.com</a> | McConnell Enterprises<br>
   Copyright 2026 McConnell Enterprises LLC. Haxtun, Colorado.
 </div>
-<script>
-function toggleCheck(el) {
-  const cb = el.querySelector('input[type="checkbox"]');
-  if (event.target !== cb) cb.checked = !cb.checked;
-  el.classList.toggle('selected', cb.checked);
-}
-function togglePlanterFields() {
-  const cb = document.getElementById('planterCheck');
-  const details = document.getElementById('planterDetails');
-  details.classList.toggle('visible', cb.checked);
-}
-document.getElementById('rsvpForm').addEventListener('submit', function(e) {
-  e.preventDefault();
-  const formData = new FormData(this);
-  const data = {};
-  formData.forEach((val, key) => data[key] = val);
-  // Build events list
-  const events = [];
-  if (data.event_jd) events.push('JD Operations Center (Tue)');
-  if (data.event_ai) events.push('AI Integration (Wed)');
-  if (data.event_clip) events.push('CLIP Insurance (Thu)');
-  // FORMAT: This creates a mailto link as fallback
-  // REPLACE with your preferred form handler (Google Forms, Formspree, etc.)
-  const subject = encodeURIComponent('Planter Clinic RSVP - ' + data.name);
-  const body = encodeURIComponent(
-    'Name: ' + data.name + '\n' +
-    'Phone: ' + data.phone + '\n' +
-    'Email: ' + (data.email || 'N/A') + '\n' +
-    'Events: ' + (events.length ? events.join(', ') : 'None selected') + '\n' +
-    'Planter Tune-Up: ' + (data.planter_tuneup ? 'Yes' : 'No') + '\n' +
-    (data.num_units ? 'Units: ' + data.num_units + '\n' : '') +
-    (data.planter_model ? 'Planter: ' + data.planter_model + '\n' : '')
-  );
-  // OPTION A: Mailto fallback (works without backend)
-  // window.location.href = 'mailto:kyle.mcconnell@plantpioneer.com?subject=' + subject + '&body=' + body;
-  // OPTION B: Formspree (free, no backend needed)
-  // Replace YOUR_FORM_ID with your Formspree form ID
-  // fetch('https://formspree.io/f/YOUR_FORM_ID', {
-  //   method: 'POST',
-  //   headers: { 'Content-Type': 'application/json' },
-  //   body: JSON.stringify({
-  //     name: data.name,
-  //     phone: data.phone,
-  //     email: data.email,
-  //     events: events.join(', '),
-  //     planter_tuneup: data.planter_tuneup ? 'Yes' : 'No',
-  //     num_units: data.num_units || '',
-  //     planter_model: data.planter_model || ''
-  //   })
-  // });
-  // Show success (works regardless of handler)
-  document.getElementById('formCard').style.display = 'none';
-  document.getElementById('successMsg').style.display = 'block';
-  window.scrollTo({ top: 0, behavior: 'smooth' });
-});
-</script>
 </body>
 </html>
