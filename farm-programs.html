@@ -488,6 +488,83 @@
                 grid-template-columns: 1fr;
             }
         }
+
+        /* Government Resources Cards */
+        .gov-resources {
+            padding: 60px 0;
+            background: var(--white);
+        }
+        .gov-resources .section-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        .gov-resources .section-header h2 {
+            font-size: 28px;
+            margin-bottom: 8px;
+            color: var(--green-dark);
+        }
+        .gov-resources .section-header p {
+            color: var(--gray-500);
+        }
+        .gov-cards {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .gov-card {
+            background: var(--gray-50);
+            border: 1px solid var(--gray-200);
+            border-radius: var(--radius-lg);
+            padding: 32px;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+        .gov-card:hover {
+            border-color: var(--green-dark);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+            transform: translateY(-2px);
+        }
+        .gov-card-icon {
+            width: 64px;
+            height: 64px;
+            background: var(--green-dark);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            color: var(--white);
+        }
+        .gov-card h3 {
+            font-size: 20px;
+            color: var(--green-dark);
+            margin-bottom: 12px;
+        }
+        .gov-card p {
+            font-size: 14px;
+            color: var(--gray-600);
+            line-height: 1.6;
+            margin-bottom: 16px;
+        }
+        .gov-card-link {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--green-dark);
+        }
+        .gov-card:hover .gov-card-link {
+            text-decoration: underline;
+        }
+        @media (max-width: 600px) {
+            .gov-cards {
+                grid-template-columns: 1fr;
+            }
+        }
     </style>
 </head>
 <body>
