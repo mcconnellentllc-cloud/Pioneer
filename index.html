@@ -263,6 +263,63 @@
             color: var(--gray-500);
         }
 
+        /* Event Hero Banner */
+        .event-hero-banner {
+            background: linear-gradient(135deg, #1b4332 0%, #2d6a4f 100%);
+            border-radius: var(--radius-lg);
+            padding: 40px 32px;
+            text-align: center;
+            margin-bottom: 32px;
+            border: 1px solid #2d6a4f;
+        }
+        .event-hero-banner h2 {
+            font-family: var(--font-heading);
+            color: #f5f0e8;
+            font-size: 32px;
+            margin-bottom: 8px;
+            line-height: 1.2;
+        }
+        .event-hero-banner .dates {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--gold);
+            margin-bottom: 8px;
+        }
+        .event-hero-banner .location {
+            font-size: 14px;
+            color: rgba(255,255,255,0.7);
+        }
+
+        /* Tune-up Banner */
+        .tuneup-banner {
+            background: #e8f0e4;
+            border-left: 4px solid var(--green-dark);
+            border-radius: 0 8px 8px 0;
+            padding: 16px 20px;
+            margin-bottom: 32px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .tuneup-banner strong {
+            color: var(--green-dark);
+            font-size: 15px;
+        }
+        .tuneup-banner p {
+            font-size: 14px;
+            color: #444;
+            margin-top: 4px;
+            line-height: 1.5;
+        }
+        .tuneup-banner a {
+            color: var(--green-dark);
+            font-weight: 600;
+            text-decoration: none;
+        }
+        .tuneup-banner a:hover {
+            text-decoration: underline;
+        }
+
         /* Simple Footer */
         .footer-simple {
             background: var(--green-dark);
@@ -496,35 +553,17 @@
     <!-- Upcoming Events -->
     <section class="events-compact">
         <div class="container">
-            <div class="section-header">
-                <h2>Upcoming Events</h2>
-                <p>Join us at the M77 AG Warehouse in Haxtun</p>
+            <!-- Planter Clinic Week Hero Banner -->
+            <div class="event-hero-banner">
+                <h2>Planter Clinic Week</h2>
+                <div class="dates">March 10-12, 2026</div>
+                <div class="location">M77 AG Warehouse — 34549 HWY 59, Haxtun, CO</div>
             </div>
 
-            <!-- Featured Event: Planter Clinic -->
-            <div class="featured-event">
-                <div class="featured-event-badge">Featured Event</div>
-                <div class="featured-event-content">
-                    <div class="featured-event-main">
-                        <div class="event-dates">
-                            <div class="date-box">
-                                <span class="date-month">MAR</span>
-                                <span class="date-day">10-11</span>
-                            </div>
-                        </div>
-                        <div class="event-details">
-                            <h3>Planter Unit Tune-Up</h3>
-                            <p class="event-provider">Provided by Servi Tech</p>
-                            <p class="event-description">Get your planter units professionally calibrated and ready for the 2026 season. Drop off anytime prior to event, pick up by Friday.</p>
-                            <div class="event-meta">
-                                <span class="event-location">M77 AG Warehouse - 34549 HWY 59, Haxtun</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="featured-event-cta">
-                        <a href="tel:9705711015" class="btn btn-primary">Call to Schedule: 970-571-1015</a>
-                    </div>
-                </div>
+            <!-- Tune-up Banner -->
+            <div class="tuneup-banner">
+                <strong>Planter Unit Tune-Up (March 10-11)</strong>
+                <p>Servi Tech on-site for professional planter unit calibration. Drop off anytime prior to event, pick up by Friday March 14. <a href="tel:9705711015">Call to schedule: 970-571-1015</a></p>
             </div>
 
             <!-- Event Schedule Grid -->
