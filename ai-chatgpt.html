@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Learn how to use ChatGPT to create images, videos, and social media content for your farm business.">
+    <title>ChatGPT AI Guide | YourAgInfo.com</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Source+Serif+4:wght@400;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        .guide-hero {
+            padding: 140px 0 60px;
+            background: linear-gradient(160deg, #064e3b 0%, #10a37f 100%);
+            text-align: center;
+        }
+        .guide-hero h1 {
+            font-size: clamp(32px, 6vw, 48px);
+            color: var(--white);
+            margin-bottom: 12px;
+        }
+        .guide-hero p {
+            font-size: 17px;
+            color: rgba(255,255,255,0.8);
+            max-width: 550px;
+            margin: 0 auto;
+        }
+        .guide-back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--white);
+            opacity: 0.8;
+            margin-bottom: 20px;
+        }
+        .guide-back-link:hover { opacity: 1; }
+
+        .guide-main {
+            padding: 60px 0 100px;
+            background: var(--gray-50);
+        }
+        .guide-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .guide-section {
+            background: var(--white);
+            border: 1px solid var(--gray-200);
+            border-radius: var(--radius-lg);
+            padding: 36px;
+            margin-bottom: 28px;
+        }
+        .guide-section h2 {
+            font-size: 22px;
+            margin-bottom: 16px;
+        }
+        .guide-section h3 {
+            font-size: 18px;
+            margin-bottom: 12px;
+            margin-top: 24px;
+        }
+        .guide-section h3:first-child { margin-top: 0; }
+        .guide-section p {
+            font-size: 15px;
+            line-height: 1.7;
+            color: var(--gray-600);
+            margin-bottom: 12px;
+        }
+        .guide-section ul, .guide-section ol {
+            padding-left: 20px;
+            margin-bottom: 16px;
+        }
+        .guide-section li {
+            font-size: 15px;
+            color: var(--gray-600);
+            line-height: 1.7;
+            margin-bottom: 6px;
+        }
+
+        .step-card {
+            background: var(--gray-50);
+            border: 1px solid var(--gray-200);
+            border-radius: var(--radius);
+            padding: 24px;
+            margin-bottom: 20px;
+        }
+        .step-number {
+            display: inline-block;
+            width: 32px;
+            height: 32px;
+            line-height: 32px;
+            text-align: center;
+            background: #10a37f;
+            color: var(--white);
+            border-radius: 50%;
+            font-size: 14px;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+        .step-card h4 {
+            font-family: var(--font-heading);
+            font-size: 17px;
+            font-weight: 600;
+            color: var(--gray-800);
+            margin-bottom: 10px;
+        }
+        .step-card p {
+            margin-bottom: 8px;
+        }
+
+        .prompt-box {
+            background: #ecfdf5;
+            border: 1px solid #a7f3d0;
+            border-radius: var(--radius);
+            padding: 16px 20px;
+            margin: 12px 0;
+            font-size: 14px;
+            line-height: 1.6;
+            color: #065f46;
+        }
+        .prompt-box strong {
+            display: block;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #047857;
+            margin-bottom: 6px;
+        }
+
+        .response-box {
+            background: #f0f9ff;
+            border: 1px solid #bae6fd;
+            border-radius: var(--radius);
+            padding: 16px 20px;
+            margin: 12px 0;
+            font-size: 14px;
+            line-height: 1.6;
+            color: #0c4a6e;
+        }
+        .response-box strong {
+            display: block;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #0369a1;
+            margin-bottom: 6px;
+        }
+
+        .tip-callout {
+            background: #fffbeb;
+            border: 1px solid #fde68a;
+            border-radius: var(--radius);
+            padding: 16px 20px;
+            margin: 16px 0;
+            font-size: 14px;
+            line-height: 1.6;
+            color: #92400e;
+        }
+        .tip-callout strong {
+            color: #b45309;
+        }
+
+        .cta-box {
+            background: linear-gradient(135deg, #064e3b 0%, #10a37f 100%);
+            border-radius: var(--radius-lg);
+            padding: 36px;
+            text-align: center;
+            margin-top: 28px;
+        }
+        .cta-box h3 {
+            color: var(--white);
+            font-size: 22px;
+            margin-bottom: 12px;
+        }
+        .cta-box p {
+            color: rgba(255,255,255,0.85);
+            margin-bottom: 20px;
+            font-size: 16px;
+        }
+        .cta-btn {
+            display: inline-block;
+            padding: 14px 32px;
+            background: var(--white);
+            color: #065f46;
+            border-radius: var(--radius);
+            font-size: 15px;
+            font-weight: 700;
+            transition: var(--transition);
+        }
+        .cta-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .other-guides {
+            display: flex;
+            gap: 16px;
+            margin-top: 28px;
+        }
+        .other-guide-link {
+            flex: 1;
+            padding: 20px;
+            background: var(--white);
+            border: 1px solid var(--gray-200);
+            border-radius: var(--radius);
+            text-align: center;
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--gray-700);
+            transition: var(--transition);
+        }
+        .other-guide-link:hover {
+            border-color: var(--gray-300);
+            box-shadow: var(--shadow-md);
+        }
+        .other-guide-link span {
+            display: block;
+            font-size: 12px;
+            font-weight: 400;
+            color: var(--gray-400);
+            margin-top: 4px;
+        }
+
+        @media (max-width: 600px) {
+            .guide-section { padding: 24px 20px; }
+            .other-guides { flex-direction: column; }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <a href="index.html" class="logo">
+                <img src="images/logo-nav.svg" alt="YourAgInfo" class="logo-svg">
+                <span class="logo-divider"></span>
+                <span class="logo-subtitle">McConnell Enterprises</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="members.html">Member Dashboard</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <header class="guide-hero">
+        <div class="container">
+            <a href="ai-tools.html" class="guide-back-link">&larr; Back to AI Tools</a>
+            <h1>Getting Started with ChatGPT</h1>
+            <p>Your go-to AI for creating images, videos, and social media content. Build a professional online presence without hiring a marketing agency.</p>
+        </div>
+    </header>
+
+    <main class="guide-main">
+        <div class="container guide-container">
+
+            <!-- What is ChatGPT -->
+            <div class="guide-section">
+                <h2>What Is ChatGPT?</h2>
+                <p>ChatGPT is an AI assistant made by OpenAI. It's probably the most well-known AI tool out there. What makes ChatGPT stand out is its ability to <strong>create images and help with visual content</strong>. It can:</p>
+                <ul>
+                    <li><strong>Generate images</strong> — professional photos, logos, graphics from a text description</li>
+                    <li><strong>Write social media posts</strong> — Facebook, Instagram, X posts with the right tone and length</li>
+                    <li><strong>Create marketing content</strong> — flyers, ad copy, email campaigns</li>
+                    <li><strong>Plan a content calendar</strong> — what to post, when to post it, and why</li>
+                    <li><strong>Help with video ideas</strong> — scripts, shot lists, and concepts for short videos</li>
+                </ul>
+                <p>The free plan lets you do a lot. The paid plan ($20/month) gives you more image generation and the latest features.</p>
+            </div>
+
+            <!-- Getting Started -->
+            <div class="guide-section">
+                <h2>How to Get Started</h2>
+
+                <div class="step-card">
+                    <div class="step-number">1</div>
+                    <h4>Go to ChatGPT</h4>
+                    <p>Open your web browser and go to:</p>
+                    <p><strong style="font-size: 18px; color: #10a37f;">chatgpt.com</strong></p>
+                    <p>There's also a phone app for iPhone and Android — search "ChatGPT" in your app store.</p>
+                </div>
+
+                <div class="step-card">
+                    <div class="step-number">2</div>
+                    <h4>Create a Free Account</h4>
+                    <p>Click "Sign Up" and use your email, Google account, or Apple account. The free plan is enough to get started and try everything out.</p>
+                </div>
+
+                <div class="step-card">
+                    <div class="step-number">3</div>
+                    <h4>Start Creating</h4>
+                    <p>Type what you want in the message box. For images, just describe what you want to see. For text content, describe what you need. ChatGPT understands plain English — no special commands needed.</p>
+                </div>
+            </div>
+
+            <!-- Walkthrough: Social Media Presence -->
+            <div class="guide-section">
+                <h2>Example: Build a Social Media Presence for Your Business</h2>
+                <p>Let's walk through creating a complete social media setup for a small ag business. We'll create images, write posts, and plan a content schedule — all from scratch.</p>
+
+                <div class="step-card">
+                    <div class="step-number">1</div>
+                    <h4>Create a Professional Cover Photo</h4>
+                    <p>Every Facebook business page needs a good cover photo. Let ChatGPT make one for you.</p>
+                    <div class="prompt-box">
+                        <strong>You Type:</strong>
+                        Create a professional Facebook cover photo for a farm services business called "McConnell Enterprises" in Haxtun, Colorado. Show a beautiful wheat field at golden hour with rolling plains in the background. Make it look professional and clean — no text on the image. Wide landscape format.
+                    </div>
+                    <div class="response-box">
+                        <strong>ChatGPT Responds With:</strong>
+                        A high-quality AI-generated image of a golden wheat field at sunset with Colorado plains. You can download it directly and upload it to your Facebook page. If you don't love it, just say "try again with more green" or "make it more dramatic" — ChatGPT will generate a new version.
+                    </div>
+                    <div class="tip-callout">
+                        <strong>Tip:</strong> AI-generated images are great for backgrounds, cover photos, and social media graphics. For photos of your actual equipment or farm, use your phone — those real photos build trust with customers.
+                    </div>
+                </div>
+
+                <div class="step-card">
+                    <div class="step-number">2</div>
+                    <h4>Write a Week of Facebook Posts</h4>
+                    <p>Ask ChatGPT to batch-create a whole week of content.</p>
+                    <div class="prompt-box">
+                        <strong>You Type:</strong>
+                        I run McConnell Enterprises, a Pioneer seed dealership and farm services business in Haxtun, Colorado. Write me 5 Facebook posts for this week. Keep them short, friendly, and professional. Include: one about spring planting prep, one about our Pioneer seed lineup, one asking customers to share their planting pics, one about a farming tip, and one weekend post that's more personal and community-focused. Add relevant hashtags.
+                    </div>
+                    <div class="response-box">
+                        <strong>ChatGPT Responds With:</strong>
+                        Five complete, ready-to-post Facebook posts — each with the right tone, length (2-3 sentences), a call to action, and 3-5 relevant hashtags like #NEColorado #Pioneer #PlantingSeason #Haxtun. Copy, paste, and post — one per day.
+                    </div>
+                </div>
+
+                <div class="step-card">
+                    <div class="step-number">3</div>
+                    <h4>Create Graphics for Your Posts</h4>
+                    <p>Make eye-catching images to go with your posts.</p>
+                    <div class="prompt-box">
+                        <strong>You Type:</strong>
+                        Create a simple, clean graphic that says "Spring Planting Season is Here" with a background of a planter in a corn field. Use green and gold colors. Make it square for Facebook/Instagram.
+                    </div>
+                    <div class="response-box">
+                        <strong>ChatGPT Responds With:</strong>
+                        A professional square graphic with the text and imagery you described. Download it and attach it to your Facebook post. It'll look like you hired a graphic designer.
+                    </div>
+                </div>
+
+                <div class="step-card">
+                    <div class="step-number">4</div>
+                    <h4>Plan Short Video Content</h4>
+                    <p>Video gets the most engagement on social media. ChatGPT can help you plan what to shoot.</p>
+                    <div class="prompt-box">
+                        <strong>You Type:</strong>
+                        I want to start making short videos (30-60 seconds) for our farm's Facebook page. I'm not a video expert — just using my phone. Give me 5 easy video ideas I can film around the farm this month. For each one, tell me: what to film, what to say, and how long it should be. Keep it simple.
+                    </div>
+                    <div class="response-box">
+                        <strong>ChatGPT Responds With:</strong>
+                        Five specific video ideas like: (1) Walk along a planter during spring prep — 30 seconds showing you checking row units, with a caption about getting ready for the season. (2) A 45-second tour of your seed warehouse showing Pioneer bags stacked and ready. (3) A quick sunrise shot from the cab with a "good morning from the farm" message. Each includes exactly what to film and what to say.
+                    </div>
+                </div>
+
+                <div class="step-card">
+                    <div class="step-number">5</div>
+                    <h4>Create a Monthly Content Calendar</h4>
+                    <p>Get organized so you always know what to post.</p>
+                    <div class="prompt-box">
+                        <strong>You Type:</strong>
+                        Create a social media content calendar for my farm business for the month of April. I want to post 3 times per week on Facebook. Mix it up between: product highlights (Pioneer seed), farming tips, community/personal posts, and customer engagement. Give me specific post ideas for each day.
+                    </div>
+                    <div class="response-box">
+                        <strong>ChatGPT Responds With:</strong>
+                        A complete calendar with 12 specific post ideas, one for each Monday/Wednesday/Friday in April. Each entry includes the date, the topic, and a one-line description of what to post. Print it out and check them off as you go.
+                    </div>
+                </div>
+            </div>
+
+            <!-- More Ideas -->
+            <div class="guide-section">
+                <h2>More Things to Try with ChatGPT</h2>
+                <h3>Images &amp; Graphics</h3>
+                <ul>
+                    <li>"Create a logo concept for a custom harvesting business called High Plains Harvesting"</li>
+                    <li>"Make a before-and-after graphic showing a CRP field before and after shredding"</li>
+                    <li>"Generate a professional photo of a John Deere combine in a golden wheat field for my business card"</li>
+                    <li>"Create an image for a Facebook event post about our annual customer appreciation dinner"</li>
+                </ul>
+
+                <h3>Social Media Content</h3>
+                <ul>
+                    <li>"Write 10 Instagram captions for photos I took during wheat harvest"</li>
+                    <li>"Create a Facebook post announcing that we're booking custom planting for spring — make it urgent but friendly"</li>
+                    <li>"Write a Google My Business description for a Pioneer seed dealership in NE Colorado"</li>
+                    <li>"Draft 5 short customer testimonial requests I can text to my best customers"</li>
+                </ul>
+
+                <h3>Business Marketing</h3>
+                <ul>
+                    <li>"Design a one-page flyer for our Pioneer seed plot day — include date, location, free lunch, and what we'll cover"</li>
+                    <li>"Write an email newsletter to send to customers before planting season"</li>
+                    <li>"Create a simple brochure outline for our farm services business"</li>
+                    <li>"Help me write a professional bio for my business Facebook page"</li>
+                </ul>
+            </div>
+
+            <!-- CTA -->
+            <div class="cta-box">
+                <h3>Ready to Try ChatGPT?</h3>
+                <p>Free to start. Create professional images and content in minutes, not hours.</p>
+                <a href="https://chatgpt.com" target="_blank" rel="noopener" class="cta-btn">Go to chatgpt.com &rarr;</a>
+            </div>
+
+            <!-- Other Guides -->
+            <div class="other-guides">
+                <a href="ai-claude.html" class="other-guide-link">
+                    Claude Guide
+                    <span>Planning &amp; writing</span>
+                </a>
+                <a href="ai-grok.html" class="other-guide-link">
+                    Grok Guide
+                    <span>Finding parts &amp; prices</span>
+                </a>
+            </div>
+
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <img src="images/logo-nav.svg" alt="YourAgInfo" class="footer-logo-svg">
+                    <span class="logo-divider"></span>
+                    <span class="logo-subtitle">McConnell Enterprises</span>
+                </div>
+                <p class="footer-location">Haxtun, Colorado</p>
+                <nav class="footer-nav">
+                    <a href="index.html">Home</a>
+                    <a href="members.html">Member Dashboard</a>
+                    <a href="ai-tools.html">AI Tools</a>
+                </nav>
+            </div>
+            <div class="footer-bottom">
+                <p>Copyright 2026 McConnell Enterprises LLC. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/auth.js"></script>
+</body>
+</html>

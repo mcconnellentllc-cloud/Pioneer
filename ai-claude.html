@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Learn how to use Claude AI to create marketing plans, business documents, and more for your farm operation.">
+    <title>Claude AI Guide | YourAgInfo.com</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Source+Serif+4:wght@400;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        .guide-hero {
+            padding: 140px 0 60px;
+            background: linear-gradient(160deg, #78350f 0%, #d97706 100%);
+            text-align: center;
+        }
+        .guide-hero h1 {
+            font-size: clamp(32px, 6vw, 48px);
+            color: var(--white);
+            margin-bottom: 12px;
+        }
+        .guide-hero p {
+            font-size: 17px;
+            color: rgba(255,255,255,0.8);
+            max-width: 550px;
+            margin: 0 auto;
+        }
+        .guide-back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--white);
+            opacity: 0.8;
+            margin-bottom: 20px;
+        }
+        .guide-back-link:hover { opacity: 1; }
+
+        .guide-main {
+            padding: 60px 0 100px;
+            background: var(--gray-50);
+        }
+        .guide-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .guide-section {
+            background: var(--white);
+            border: 1px solid var(--gray-200);
+            border-radius: var(--radius-lg);
+            padding: 36px;
+            margin-bottom: 28px;
+        }
+        .guide-section h2 {
+            font-size: 22px;
+            margin-bottom: 16px;
+        }
+        .guide-section h3 {
+            font-size: 18px;
+            margin-bottom: 12px;
+            margin-top: 24px;
+        }
+        .guide-section h3:first-child { margin-top: 0; }
+        .guide-section p {
+            font-size: 15px;
+            line-height: 1.7;
+            color: var(--gray-600);
+            margin-bottom: 12px;
+        }
+        .guide-section ul, .guide-section ol {
+            padding-left: 20px;
+            margin-bottom: 16px;
+        }
+        .guide-section li {
+            font-size: 15px;
+            color: var(--gray-600);
+            line-height: 1.7;
+            margin-bottom: 6px;
+        }
+
+        .step-card {
+            background: var(--gray-50);
+            border: 1px solid var(--gray-200);
+            border-radius: var(--radius);
+            padding: 24px;
+            margin-bottom: 20px;
+        }
+        .step-number {
+            display: inline-block;
+            width: 32px;
+            height: 32px;
+            line-height: 32px;
+            text-align: center;
+            background: #d97706;
+            color: var(--white);
+            border-radius: 50%;
+            font-size: 14px;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+        .step-card h4 {
+            font-family: var(--font-heading);
+            font-size: 17px;
+            font-weight: 600;
+            color: var(--gray-800);
+            margin-bottom: 10px;
+        }
+        .step-card p {
+            margin-bottom: 8px;
+        }
+
+        .prompt-box {
+            background: #fffbeb;
+            border: 1px solid #fde68a;
+            border-radius: var(--radius);
+            padding: 16px 20px;
+            margin: 12px 0;
+            font-size: 14px;
+            line-height: 1.6;
+            color: #92400e;
+        }
+        .prompt-box strong {
+            display: block;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #b45309;
+            margin-bottom: 6px;
+        }
+
+        .response-box {
+            background: #f0fdf4;
+            border: 1px solid #bbf7d0;
+            border-radius: var(--radius);
+            padding: 16px 20px;
+            margin: 12px 0;
+            font-size: 14px;
+            line-height: 1.6;
+            color: #166534;
+        }
+        .response-box strong {
+            display: block;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #15803d;
+            margin-bottom: 6px;
+        }
+
+        .cta-box {
+            background: linear-gradient(135deg, #78350f 0%, #d97706 100%);
+            border-radius: var(--radius-lg);
+            padding: 36px;
+            text-align: center;
+            margin-top: 28px;
+        }
+        .cta-box h3 {
+            color: var(--white);
+            font-size: 22px;
+            margin-bottom: 12px;
+        }
+        .cta-box p {
+            color: rgba(255,255,255,0.85);
+            margin-bottom: 20px;
+            font-size: 16px;
+        }
+        .cta-btn {
+            display: inline-block;
+            padding: 14px 32px;
+            background: var(--white);
+            color: #92400e;
+            border-radius: var(--radius);
+            font-size: 15px;
+            font-weight: 700;
+            transition: var(--transition);
+        }
+        .cta-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .other-guides {
+            display: flex;
+            gap: 16px;
+            margin-top: 28px;
+        }
+        .other-guide-link {
+            flex: 1;
+            padding: 20px;
+            background: var(--white);
+            border: 1px solid var(--gray-200);
+            border-radius: var(--radius);
+            text-align: center;
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--gray-700);
+            transition: var(--transition);
+        }
+        .other-guide-link:hover {
+            border-color: var(--gray-300);
+            box-shadow: var(--shadow-md);
+        }
+        .other-guide-link span {
+            display: block;
+            font-size: 12px;
+            font-weight: 400;
+            color: var(--gray-400);
+            margin-top: 4px;
+        }
+
+        @media (max-width: 600px) {
+            .guide-section { padding: 24px 20px; }
+            .other-guides { flex-direction: column; }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <a href="index.html" class="logo">
+                <img src="images/logo-nav.svg" alt="YourAgInfo" class="logo-svg">
+                <span class="logo-divider"></span>
+                <span class="logo-subtitle">McConnell Enterprises</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="members.html">Member Dashboard</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <header class="guide-hero">
+        <div class="container">
+            <a href="ai-tools.html" class="guide-back-link">&larr; Back to AI Tools</a>
+            <h1>Getting Started with Claude</h1>
+            <p>Your go-to AI for business planning, writing, and thinking through decisions. Like a smart consultant available 24/7.</p>
+        </div>
+    </header>
+
+    <main class="guide-main">
+        <div class="container guide-container">
+
+            <!-- What is Claude -->
+            <div class="guide-section">
+                <h2>What Is Claude?</h2>
+                <p>Claude is an AI assistant made by Anthropic. You talk to it by typing, just like texting. It's especially good at:</p>
+                <ul>
+                    <li><strong>Business planning</strong> — marketing plans, budgets, proposals</li>
+                    <li><strong>Writing</strong> — emails, letters, social media posts, reports</li>
+                    <li><strong>Analyzing numbers</strong> — cost breakdowns, comparisons, projections</li>
+                    <li><strong>Thinking through decisions</strong> — pros and cons, strategy, options</li>
+                </ul>
+                <p>It's free to start, and you don't need to download anything. Just go to the website and start typing.</p>
+            </div>
+
+            <!-- Getting Started -->
+            <div class="guide-section">
+                <h2>How to Get Started</h2>
+
+                <div class="step-card">
+                    <div class="step-number">1</div>
+                    <h4>Go to Claude</h4>
+                    <p>Open your web browser (Chrome, Safari, Edge — any will work) and go to:</p>
+                    <p><strong style="font-size: 18px; color: #d97706;">claude.ai</strong></p>
+                    <p>You can also use it on your phone — it works on any device.</p>
+                </div>
+
+                <div class="step-card">
+                    <div class="step-number">2</div>
+                    <h4>Create a Free Account</h4>
+                    <p>Click "Sign Up" and enter your email address. You can also sign in with your Google account if you have one. The free plan gives you plenty of use for everyday tasks.</p>
+                </div>
+
+                <div class="step-card">
+                    <div class="step-number">3</div>
+                    <h4>Start a Conversation</h4>
+                    <p>You'll see a text box at the bottom of the screen. Just type what you need, like you're texting someone. Hit Enter or click the Send button.</p>
+                    <p>That's it — there's nothing else to set up. No menus to learn, no buttons to find. Just type and go.</p>
+                </div>
+            </div>
+
+            <!-- Walkthrough: Marketing Plan -->
+            <div class="guide-section">
+                <h2>Example: Create a Marketing Plan for Your Business</h2>
+                <p>Let's walk through a real example — creating a marketing plan for a custom harvesting business. Follow along step by step.</p>
+
+                <div class="step-card">
+                    <div class="step-number">1</div>
+                    <h4>Tell Claude About Your Business</h4>
+                    <p>Start by giving Claude some context. Be specific — the more you share, the better the plan will be.</p>
+                    <div class="prompt-box">
+                        <strong>You Type:</strong>
+                        I run a small custom harvesting and farm services business in Haxtun, Colorado. We do custom combining for wheat, corn, and milo. We also do CRP shredding and some custom planting. Our customers are mostly farmers in Phillips, Sedgwick, and Yuma counties. I want to grow the business and get more customers next year. Can you help me create a simple marketing plan?
+                    </div>
+                    <div class="response-box">
+                        <strong>Claude Responds With:</strong>
+                        A complete marketing plan tailored to your area, including: target audience analysis, recommended marketing channels (local papers, co-op bulletin boards, Facebook), seasonal timing for outreach, budget suggestions, and specific action items for each month.
+                    </div>
+                </div>
+
+                <div class="step-card">
+                    <div class="step-number">2</div>
+                    <h4>Ask Claude to Get More Specific</h4>
+                    <p>Now refine it. Ask follow-up questions — the conversation keeps going.</p>
+                    <div class="prompt-box">
+                        <strong>You Type:</strong>
+                        That's great. Now write me 3 Facebook posts I could use — one for custom harvest season, one for CRP shredding services, and one announcing early booking discounts for spring planting.
+                    </div>
+                    <div class="response-box">
+                        <strong>Claude Responds With:</strong>
+                        Three ready-to-post Facebook posts with professional language, relevant hashtags, and a call to action with your phone number. You can copy and paste them straight to your Facebook page.
+                    </div>
+                </div>
+
+                <div class="step-card">
+                    <div class="step-number">3</div>
+                    <h4>Get a Flyer or Rate Sheet</h4>
+                    <p>Ask Claude to draft written materials you can print or email.</p>
+                    <div class="prompt-box">
+                        <strong>You Type:</strong>
+                        Now write me a one-page rate sheet I can hand out at the co-op. Include custom combining rates for wheat ($28/acre), corn ($38/acre), and milo ($32/acre). Add CRP shredding at $18/acre and custom planting at $22/acre. Include my phone number: (970) 555-1234.
+                    </div>
+                    <div class="response-box">
+                        <strong>Claude Responds With:</strong>
+                        A clean, professional rate sheet layout with all your services, rates, and contact info. You can paste it into Word or Google Docs to print.
+                    </div>
+                </div>
+
+                <div class="step-card">
+                    <div class="step-number">4</div>
+                    <h4>Plan Your Annual Budget</h4>
+                    <p>Claude can help you think through the money side too.</p>
+                    <div class="prompt-box">
+                        <strong>You Type:</strong>
+                        What would be a reasonable marketing budget for a small custom farming business like mine? I don't want to spend much. Give me a plan for under $500 for the whole year.
+                    </div>
+                    <div class="response-box">
+                        <strong>Claude Responds With:</strong>
+                        A month-by-month budget breakdown showing where to spend each dollar — like $50 for boosted Facebook posts in March, $100 for a local newspaper ad before harvest, business cards at Vistaprint for $30, and so on.
+                    </div>
+                </div>
+            </div>
+
+            <!-- More Ideas -->
+            <div class="guide-section">
+                <h2>More Things to Try with Claude</h2>
+                <h3>For Your Farm</h3>
+                <ul>
+                    <li>"Compare the cost of pivot irrigation vs. dryland farming for 160 acres of corn in NE Colorado"</li>
+                    <li>"Write a land lease proposal letter to a landowner for 320 acres of dryland at $35/acre"</li>
+                    <li>"Help me figure out if it makes sense to buy a used combine or keep hiring custom"</li>
+                    <li>"What crop insurance options should I look at for Phillips County?"</li>
+                </ul>
+
+                <h3>For Your Business</h3>
+                <ul>
+                    <li>"Write a professional email to a potential customer about our custom planting services"</li>
+                    <li>"Create a simple business plan for a farm equipment repair service"</li>
+                    <li>"Help me write a quote for custom harvesting 500 acres of wheat"</li>
+                    <li>"What should I charge for CRP shredding to make a 20% margin?"</li>
+                </ul>
+
+                <h3>For Everyday Life</h3>
+                <ul>
+                    <li>"Explain this FSA letter to me in plain English" (paste the letter text)</li>
+                    <li>"Help me draft a response to this email from my landlord"</li>
+                    <li>"Write a recommendation letter for a high school student who worked on my farm"</li>
+                </ul>
+            </div>
+
+            <!-- CTA -->
+            <div class="cta-box">
+                <h3>Ready to Try Claude?</h3>
+                <p>It's free, takes 2 minutes to sign up, and works on your phone or computer.</p>
+                <a href="https://claude.ai" target="_blank" rel="noopener" class="cta-btn">Go to claude.ai &rarr;</a>
+            </div>
+
+            <!-- Other Guides -->
+            <div class="other-guides">
+                <a href="ai-grok.html" class="other-guide-link">
+                    Grok Guide
+                    <span>Finding parts &amp; prices</span>
+                </a>
+                <a href="ai-chatgpt.html" class="other-guide-link">
+                    ChatGPT Guide
+                    <span>Photos &amp; social media</span>
+                </a>
+            </div>
+
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <img src="images/logo-nav.svg" alt="YourAgInfo" class="footer-logo-svg">
+                    <span class="logo-divider"></span>
+                    <span class="logo-subtitle">McConnell Enterprises</span>
+                </div>
+                <p class="footer-location">Haxtun, Colorado</p>
+                <nav class="footer-nav">
+                    <a href="index.html">Home</a>
+                    <a href="members.html">Member Dashboard</a>
+                    <a href="ai-tools.html">AI Tools</a>
+                </nav>
+            </div>
+            <div class="footer-bottom">
+                <p>Copyright 2026 McConnell Enterprises LLC. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/auth.js"></script>
+</body>
+</html>
