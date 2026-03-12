@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Build the most powerful private farm database using AI. Track fields, inputs, yields, equipment, and finances — secured with Google or Microsoft login.">
+    <title>Build Your Farm Database | YourAgInfo.com</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Source+Serif+4:wght@400;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        .guide-hero {
+            padding: 140px 0 60px;
+            background: linear-gradient(160deg, #3b0764 0%, #7c3aed 100%);
+            text-align: center;
+        }
+        .guide-hero h1 {
+            font-size: clamp(28px, 5vw, 44px);
+            color: var(--white);
+            margin-bottom: 12px;
+        }
+        .guide-hero p {
+            font-size: 17px;
+            color: rgba(255,255,255,0.8);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .guide-back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--white);
+            opacity: 0.8;
+            margin-bottom: 20px;
+        }
+        .guide-back-link:hover { opacity: 1; }
+
+        .guide-main {
+            padding: 60px 0 100px;
+            background: var(--gray-50);
+        }
+        .guide-container {
+            max-width: 840px;
+            margin: 0 auto;
+        }
+
+        .guide-section {
+            background: var(--white);
+            border: 1px solid var(--gray-200);
+            border-radius: var(--radius-lg);
+            padding: 36px;
+            margin-bottom: 28px;
+        }
+        .guide-section h2 {
+            font-size: 22px;
+            margin-bottom: 16px;
+        }
+        .guide-section h3 {
+            font-size: 18px;
+            margin-bottom: 12px;
+            margin-top: 28px;
+        }
+        .guide-section h3:first-child { margin-top: 0; }
+        .guide-section p {
+            font-size: 15px;
+            line-height: 1.7;
+            color: var(--gray-600);
+            margin-bottom: 12px;
+        }
+        .guide-section ul, .guide-section ol {
+            padding-left: 20px;
+            margin-bottom: 16px;
+        }
+        .guide-section li {
+            font-size: 15px;
+            color: var(--gray-600);
+            line-height: 1.7;
+            margin-bottom: 6px;
+        }
+
+        .vision-box {
+            background: linear-gradient(135deg, #faf5ff 0%, #f3e8ff 100%);
+            border: 2px solid #c4b5fd;
+            border-radius: var(--radius-lg);
+            padding: 28px;
+            margin: 20px 0;
+        }
+        .vision-box h4 {
+            font-family: var(--font-heading);
+            font-size: 18px;
+            font-weight: 700;
+            color: #5b21b6;
+            margin-bottom: 12px;
+        }
+        .vision-box p {
+            color: #6b21a8;
+            font-size: 15px;
+        }
+        .vision-box ul {
+            padding-left: 20px;
+        }
+        .vision-box li {
+            color: #6b21a8;
+            font-size: 14px;
+            line-height: 1.7;
+            margin-bottom: 4px;
+        }
+
+        .security-box {
+            background: #f0fdf4;
+            border: 2px solid #86efac;
+            border-radius: var(--radius-lg);
+            padding: 28px;
+            margin: 20px 0;
+        }
+        .security-box h4 {
+            font-family: var(--font-heading);
+            font-size: 18px;
+            font-weight: 700;
+            color: #166534;
+            margin-bottom: 12px;
+        }
+        .security-box p {
+            color: #166534;
+            font-size: 14px;
+            line-height: 1.7;
+            margin-bottom: 8px;
+        }
+        .security-box p:last-child { margin-bottom: 0; }
+
+        .analogy-box {
+            background: #eff6ff;
+            border: 1px solid #bfdbfe;
+            border-radius: var(--radius);
+            padding: 20px;
+            margin: 16px 0;
+            font-size: 14px;
+            line-height: 1.7;
+            color: #1e40af;
+        }
+        .analogy-box strong {
+            display: block;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #3b82f6;
+            margin-bottom: 4px;
+        }
+
+        .warning-box {
+            background: #fffbeb;
+            border: 1px solid #fde68a;
+            border-radius: var(--radius);
+            padding: 20px;
+            margin: 16px 0;
+            font-size: 14px;
+            line-height: 1.7;
+            color: #92400e;
+        }
+        .warning-box strong {
+            color: #b45309;
+        }
+
+        .data-modules {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+            margin: 20px 0;
+        }
+        .data-module {
+            padding: 20px;
+            background: var(--gray-50);
+            border: 1px solid var(--gray-200);
+            border-radius: var(--radius);
+        }
+        .data-module-icon {
+            font-size: 24px;
+            margin-bottom: 8px;
+        }
+        .data-module h4 {
+            font-family: var(--font-heading);
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--gray-800);
+            margin-bottom: 8px;
+        }
+        .data-module ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .data-module li {
+            font-size: 13px;
+            color: var(--gray-500);
+            padding: 2px 0;
+            padding-left: 14px;
+            position: relative;
+        }
+        .data-module li::before {
+            content: '\2022';
+            position: absolute;
+            left: 0;
+            color: #7c3aed;
+        }
+
+        .auth-compare {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 20px 0;
+        }
+        .auth-option {
+            padding: 24px;
+            border: 2px solid var(--gray-200);
+            border-radius: var(--radius);
+            text-align: center;
+        }
+        .auth-option h4 {
+            font-family: var(--font-heading);
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--gray-800);
+            margin-bottom: 8px;
+        }
+        .auth-option p {
+            font-size: 13px;
+            color: var(--gray-500);
+            margin-bottom: 12px;
+        }
+        .auth-option ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            text-align: left;
+        }
+        .auth-option li {
+            font-size: 13px;
+            color: var(--gray-600);
+            padding: 3px 0;
+            padding-left: 18px;
+            position: relative;
+        }
+        .auth-option li::before {
+            content: '\2713';
+            position: absolute;
+            left: 0;
+            color: #16a34a;
+            font-weight: 700;
+        }
+
+        .prompt-box {
+            background: #faf5ff;
+            border: 1px solid #ddd6fe;
+            border-radius: var(--radius);
+            padding: 16px 20px;
+            margin: 12px 0;
+            font-size: 14px;
+            line-height: 1.6;
+            color: #5b21b6;
+        }
+        .prompt-box strong {
+            display: block;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #7c3aed;
+            margin-bottom: 6px;
+        }
+
+        .step-card {
+            background: var(--gray-50);
+            border: 1px solid var(--gray-200);
+            border-radius: var(--radius);
+            padding: 24px;
+            margin-bottom: 20px;
+        }
+        .step-number {
+            display: inline-block;
+            width: 32px;
+            height: 32px;
+            line-height: 32px;
+            text-align: center;
+            background: #7c3aed;
+            color: var(--white);
+            border-radius: 50%;
+            font-size: 14px;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+        .step-card h4 {
+            font-family: var(--font-heading);
+            font-size: 17px;
+            font-weight: 600;
+            color: var(--gray-800);
+            margin-bottom: 10px;
+        }
+        .step-card p {
+            margin-bottom: 8px;
+        }
+
+        .cta-box {
+            background: linear-gradient(135deg, #3b0764 0%, #7c3aed 100%);
+            border-radius: var(--radius-lg);
+            padding: 36px;
+            text-align: center;
+            margin-top: 28px;
+        }
+        .cta-box h3 {
+            color: var(--white);
+            font-size: 22px;
+            margin-bottom: 12px;
+        }
+        .cta-box p {
+            color: rgba(255,255,255,0.85);
+            margin-bottom: 20px;
+            font-size: 16px;
+            max-width: 550px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .other-guides {
+            display: flex;
+            gap: 16px;
+            margin-top: 28px;
+        }
+        .other-guide-link {
+            flex: 1;
+            padding: 20px;
+            background: var(--white);
+            border: 1px solid var(--gray-200);
+            border-radius: var(--radius);
+            text-align: center;
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--gray-700);
+            transition: var(--transition);
+        }
+        .other-guide-link:hover {
+            border-color: var(--gray-300);
+            box-shadow: var(--shadow-md);
+        }
+        .other-guide-link span {
+            display: block;
+            font-size: 12px;
+            font-weight: 400;
+            color: var(--gray-400);
+            margin-top: 4px;
+        }
+
+        @media (max-width: 700px) {
+            .guide-section { padding: 24px 20px; }
+            .data-modules { grid-template-columns: 1fr; }
+            .auth-compare { grid-template-columns: 1fr; }
+            .other-guides { flex-direction: column; }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <a href="index.html" class="logo">
+                <img src="images/logo-nav.svg" alt="YourAgInfo" class="logo-svg">
+                <span class="logo-divider"></span>
+                <span class="logo-subtitle">McConnell Enterprises</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="members.html">Member Dashboard</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <header class="guide-hero">
+        <div class="container">
+            <a href="ai-tools.html" class="guide-back-link">&larr; Back to AI Tools</a>
+            <h1>Build Your Own Farm Database</h1>
+            <p>Use AI to build the most powerful, private farm management system you've ever had. Your data, your rules, your competitive advantage.</p>
+        </div>
+    </header>
+
+    <main class="guide-main">
+        <div class="container guide-container">
+
+            <!-- The Vision -->
+            <div class="guide-section">
+                <h2>Imagine This</h2>
+                <p>Imagine you have a private website — one that only <em>you</em> can access — where everything about your operation lives in one place. Not a spreadsheet. Not a pile of papers in a filing cabinet. Not an app some company controls. <strong>Your own system, built exactly the way you think.</strong></p>
+
+                <div class="vision-box">
+                    <h4>What Your Farm Database Could Track</h4>
+                    <ul>
+                        <li>Every field — location, acres, soil type, irrigation, landlord, lease terms</li>
+                        <li>Every input — seed, fertilizer, chemical, rates, costs, dates applied</li>
+                        <li>Every yield — bushels per acre, moisture, test weight, by field, by year</li>
+                        <li>Every piece of equipment — make, model, hours, maintenance history, parts replaced</li>
+                        <li>Every cost — fuel, labor, repairs, insurance, loan payments, rent</li>
+                        <li>Every revenue entry — grain sales, custom work, government payments, crop insurance</li>
+                        <li>Crop plans — what you're planting where, with what inputs, and what it'll cost</li>
+                        <li>Historical comparisons — how did this field do with this hybrid vs. last year's?</li>
+                    </ul>
+                </div>
+
+                <p>All searchable. All sortable. All connected. Ask questions like "What was my average cost per bushel of corn across all irrigated fields in 2025?" and get an instant answer. <strong>No farm management software on the market gives you this much control for this little money.</strong></p>
+            </div>
+
+            <!-- Why Build Your Own -->
+            <div class="guide-section">
+                <h2>Why Build Your Own Instead of Using Granular, Bushel, or FarmLogs?</h2>
+                <ul>
+                    <li><strong>You own your data</strong> — With commercial farm software, your data lives on their servers. If they get bought, go bankrupt, change pricing, or shut down, your data could disappear. With your own database, your data is yours forever.</li>
+                    <li><strong>No subscription trap</strong> — Farm software runs $500-3,000+/year. Your own system costs ~$7-27/month, and you're not locked in.</li>
+                    <li><strong>Built exactly for you</strong> — Commercial tools are designed for the average farmer. Your system tracks what <em>you</em> care about, organized the way <em>you</em> think.</li>
+                    <li><strong>Private and secure</strong> — Your yield data, your financials, your landlord terms — none of it goes through a company that might sell aggregated data or get hacked.</li>
+                    <li><strong>AI-powered analysis</strong> — Connect Claude to your data and ask questions in plain English. No farm software does this yet.</li>
+                </ul>
+
+                <div class="analogy-box">
+                    <strong>Think of it this way</strong>
+                    Using commercial farm software is like renting ground — you farm it, but someone else owns it and sets the terms. Building your own database is like owning the land. More work upfront, but it's yours.
+                </div>
+            </div>
+
+            <!-- Security Section -->
+            <div class="guide-section">
+                <h2>Keeping Your Data Sacred: Security</h2>
+                <p>This is the most important section. Your farm's financial data, yield data, and landlord agreements are sensitive. Here's how to keep them private.</p>
+
+                <h3>Authentication: Google or Microsoft Login</h3>
+                <p>Instead of creating a username and password (which can be guessed, stolen, or forgotten), your farm database uses <strong>OAuth authentication</strong> — signing in with your Google or Microsoft account. Here's why this is better:</p>
+
+                <div class="auth-compare">
+                    <div class="auth-option">
+                        <h4>Google Sign-In</h4>
+                        <p>Use your existing Gmail or Google account</p>
+                        <ul>
+                            <li>Two-factor authentication built in</li>
+                            <li>Google handles password security</li>
+                            <li>One click to sign in</li>
+                            <li>Free to implement</li>
+                            <li>Works on phone and desktop</li>
+                        </ul>
+                    </div>
+                    <div class="auth-option">
+                        <h4>Microsoft Sign-In</h4>
+                        <p>Use your Outlook, Hotmail, or work account</p>
+                        <ul>
+                            <li>Enterprise-grade security</li>
+                            <li>Microsoft handles password security</li>
+                            <li>Familiar if you use Office 365</li>
+                            <li>Free to implement</li>
+                            <li>Works on phone and desktop</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="security-box">
+                    <h4>How This Keeps You Safe</h4>
+                    <p><strong>Only your account can access your data.</strong> When you set up Google or Microsoft authentication, you configure it so that only your specific email address (e.g., john@gmail.com) is allowed in. Nobody else — even if they know the website address — can see anything.</p>
+                    <p><strong>Your password is never stored in your app.</strong> Google/Microsoft handle the login. Your app never sees or stores your password. This means even if someone hacked your Render server, they couldn't find your password — it doesn't exist there.</p>
+                    <p><strong>Two-factor authentication (2FA) comes free.</strong> If you have 2FA enabled on your Google or Microsoft account (and you should), that protection automatically applies to your farm database too.</p>
+                    <p><strong>HTTPS encryption.</strong> Render automatically provides HTTPS (the lock icon in your browser). This means all data between your computer and your database is encrypted — even on public Wi-Fi at the co-op.</p>
+                    <p><strong>MongoDB Atlas security.</strong> Your database on MongoDB Atlas is encrypted at rest (stored encrypted on disk), encrypted in transit (encrypted when moving between servers), and requires authentication to access. It meets the same security standards used by banks and hospitals.</p>
+                </div>
+
+                <div class="warning-box">
+                    <strong>Important:</strong> While this setup is very secure for a personal/family farm database, it's not the same as a bank or medical system. Don't store Social Security numbers, bank account passwords, or other extremely sensitive credentials in any system you build yourself. Use this for farm operations data — fields, yields, costs, plans, equipment — which is exactly what it's designed for.
+                </div>
+            </div>
+
+            <!-- What You Can Build -->
+            <div class="guide-section">
+                <h2>The Modules You Can Build</h2>
+                <p>Think of your farm database as a set of connected modules. Start with one or two, then add more over time. Claude can build each one for you.</p>
+
+                <div class="data-modules">
+                    <div class="data-module">
+                        <div class="data-module-icon">&#x1F33E;</div>
+                        <h4>Field Manager</h4>
+                        <ul>
+                            <li>Field name, legal description, GPS coordinates</li>
+                            <li>Acres, soil type, irrigation type</li>
+                            <li>Landlord, lease terms, rent due dates</li>
+                            <li>FSA farm/tract numbers</li>
+                            <li>Historical crop rotation</li>
+                        </ul>
+                    </div>
+                    <div class="data-module">
+                        <div class="data-module-icon">&#x1F4CA;</div>
+                        <h4>Yield Tracker</h4>
+                        <ul>
+                            <li>Bushels per acre by field and year</li>
+                            <li>Hybrid/variety planted</li>
+                            <li>Moisture, test weight, dockage</li>
+                            <li>Irrigation vs. dryland comparisons</li>
+                            <li>Multi-year trend charts</li>
+                        </ul>
+                    </div>
+                    <div class="data-module">
+                        <div class="data-module-icon">&#x1F4B0;</div>
+                        <h4>Cost Tracker</h4>
+                        <ul>
+                            <li>Input costs per field per year</li>
+                            <li>Fuel, labor, repairs, insurance</li>
+                            <li>Cost per acre and cost per bushel</li>
+                            <li>Breakeven calculations</li>
+                            <li>Year-over-year comparisons</li>
+                        </ul>
+                    </div>
+                    <div class="data-module">
+                        <div class="data-module-icon">&#x1F69C;</div>
+                        <h4>Equipment Log</h4>
+                        <ul>
+                            <li>Make, model, year, serial number</li>
+                            <li>Hours/miles, maintenance schedule</li>
+                            <li>Repair history and parts used</li>
+                            <li>Fuel consumption tracking</li>
+                            <li>Replacement cost estimates</li>
+                        </ul>
+                    </div>
+                    <div class="data-module">
+                        <div class="data-module-icon">&#x1F9EA;</div>
+                        <h4>Input Tracker</h4>
+                        <ul>
+                            <li>Seed — hybrid, population, treatment, cost</li>
+                            <li>Fertilizer — product, rate, date, cost</li>
+                            <li>Chemical — product, rate, timing, cost</li>
+                            <li>Application records for compliance</li>
+                            <li>Inventory on hand</li>
+                        </ul>
+                    </div>
+                    <div class="data-module">
+                        <div class="data-module-icon">&#x1F4C5;</div>
+                        <h4>Crop Planner</h4>
+                        <ul>
+                            <li>What to plant where next year</li>
+                            <li>Projected input costs per field</li>
+                            <li>Revenue projections at target prices</li>
+                            <li>Breakeven analysis before you plant</li>
+                            <li>What-if scenarios</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <p>Each module connects to the others. Your yield tracker knows which fields are in your field manager. Your cost tracker pulls from your input tracker. Everything feeds into your crop planner. <strong>This is the power of a custom database — everything is connected because you designed it that way.</strong></p>
+            </div>
+
+            <!-- How to Build It -->
+            <div class="guide-section">
+                <h2>How to Actually Build It</h2>
+                <p>Here's the roadmap. You don't need to do this all at once — start with one module and grow.</p>
+
+                <div class="step-card">
+                    <div class="step-number">1</div>
+                    <h4>Set Up Your Accounts (30 minutes)</h4>
+                    <p>Create free accounts on GitHub, Render, and MongoDB Atlas. Claude can walk you through each one step by step.</p>
+                    <div class="prompt-box">
+                        <strong>Tell Claude</strong>
+                        "I want to build a private farm database app. Walk me through setting up free accounts on GitHub, Render, and MongoDB Atlas. I'm a complete beginner."
+                    </div>
+                </div>
+
+                <div class="step-card">
+                    <div class="step-number">2</div>
+                    <h4>Build the Foundation (1-2 hours)</h4>
+                    <p>Ask Claude to create the base app with Google/Microsoft authentication. This is the login system and basic structure.</p>
+                    <div class="prompt-box">
+                        <strong>Tell Claude</strong>
+                        "Build me a Node.js web app with MongoDB that uses Google OAuth login. Only allow my email (youremail@gmail.com) to sign in. Set it up so I can deploy it on Render. Include a clean, simple dashboard page."
+                    </div>
+                </div>
+
+                <div class="step-card">
+                    <div class="step-number">3</div>
+                    <h4>Add Your First Module (1-2 hours)</h4>
+                    <p>Start with whatever is most useful. For most farmers, that's the field manager or yield tracker.</p>
+                    <div class="prompt-box">
+                        <strong>Tell Claude</strong>
+                        "Add a Field Manager module to my farm database. I need to add, edit, and delete fields. Each field should have: name, legal description, acres, soil type (sandy loam, clay loam, etc.), irrigation type (pivot, dryland, flood), landlord name, cash rent per acre, and FSA farm number. Show them in a sortable table."
+                    </div>
+                </div>
+
+                <div class="step-card">
+                    <div class="step-number">4</div>
+                    <h4>Deploy to Render (15 minutes)</h4>
+                    <p>Push your code to GitHub, connect Render to your repo, add your MongoDB connection string and Google OAuth keys. Claude will give you the exact steps.</p>
+                    <div class="prompt-box">
+                        <strong>Tell Claude</strong>
+                        "Help me deploy this app to Render. Walk me through connecting to my GitHub repo, setting up environment variables for MongoDB and Google OAuth, and getting it live."
+                    </div>
+                </div>
+
+                <div class="step-card">
+                    <div class="step-number">5</div>
+                    <h4>Keep Adding Modules</h4>
+                    <p>Once the foundation is working, add modules one at a time. Each conversation with Claude builds on what you already have. Over a few weekends, you'll have a complete farm management system.</p>
+                </div>
+            </div>
+
+            <!-- The Power of Your Own Data -->
+            <div class="guide-section">
+                <h2>The Real Power: Asking Questions</h2>
+                <p>Once your data is in the database, you can ask Claude to build dashboards and reports that answer the questions that actually matter to your operation:</p>
+                <ul>
+                    <li>"Show me my average cost per bushel of corn for each field over the last 3 years"</li>
+                    <li>"Which fields have a breakeven above $4.00/bu at current input prices?"</li>
+                    <li>"What's my total rent obligation for 2026, broken down by landlord?"</li>
+                    <li>"Compare yields on fields where I used 32% UAN vs. anhydrous"</li>
+                    <li>"What were my total equipment repair costs by machine last year?"</li>
+                    <li>"Show me a chart of my corn yields trending over 5 years"</li>
+                    <li>"If corn goes to $3.80, which fields are still profitable?"</li>
+                </ul>
+                <p>No farm management app on the market lets you ask custom questions like this. With your own database and Claude, the only limit is what data you've entered.</p>
+
+                <div class="vision-box">
+                    <h4>The Most Powerful Farm Database You've Ever Had</h4>
+                    <p>This isn't an exaggeration. Commercial farm software is built for the average farmer. Your database is built for <strong>your</strong> farm, <strong>your</strong> fields, <strong>your</strong> way of thinking. When you combine a custom database with AI that can analyze it, you have something that didn't exist five years ago — and that most farmers won't have for another ten.</p>
+                    <p>Your data is your competitive advantage. Own it.</p>
+                </div>
+            </div>
+
+            <!-- What It Costs -->
+            <div class="guide-section">
+                <h2>What It Costs</h2>
+                <table style="width: 100%; border-collapse: collapse; font-size: 14px; margin: 16px 0;">
+                    <thead>
+                        <tr>
+                            <th style="background: var(--gray-100); padding: 12px 16px; text-align: left; font-weight: 700; font-size: 13px; color: var(--gray-700); border-bottom: 2px solid var(--gray-200);">Service</th>
+                            <th style="background: var(--gray-100); padding: 12px 16px; text-align: left; font-weight: 700; font-size: 13px; color: var(--gray-700); border-bottom: 2px solid var(--gray-200);">Free Tier</th>
+                            <th style="background: var(--gray-100); padding: 12px 16px; text-align: left; font-weight: 700; font-size: 13px; color: var(--gray-700); border-bottom: 2px solid var(--gray-200);">Recommended</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td style="padding: 12px 16px; border-bottom: 1px solid var(--gray-200); font-weight: 700; color: var(--gray-800);">Claude (AI builder)</td>
+                            <td style="padding: 12px 16px; border-bottom: 1px solid var(--gray-200); color: #16a34a; font-weight: 700;">$0</td>
+                            <td style="padding: 12px 16px; border-bottom: 1px solid var(--gray-200); color: #d97706; font-weight: 600;">$20/mo (Pro — much faster to build)</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 12px 16px; border-bottom: 1px solid var(--gray-200); font-weight: 700; color: var(--gray-800);">GitHub (code storage)</td>
+                            <td style="padding: 12px 16px; border-bottom: 1px solid var(--gray-200); color: #16a34a; font-weight: 700;">$0</td>
+                            <td style="padding: 12px 16px; border-bottom: 1px solid var(--gray-200); color: #16a34a; font-weight: 700;">$0 (free is plenty)</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 12px 16px; border-bottom: 1px solid var(--gray-200); font-weight: 700; color: var(--gray-800);">Render (hosting)</td>
+                            <td style="padding: 12px 16px; border-bottom: 1px solid var(--gray-200); color: #16a34a; font-weight: 700;">$0 (sleeps after 15 min)</td>
+                            <td style="padding: 12px 16px; border-bottom: 1px solid var(--gray-200); color: #d97706; font-weight: 600;">$7/mo (always on, fast)</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 12px 16px; border-bottom: 1px solid var(--gray-200); font-weight: 700; color: var(--gray-800);">MongoDB (database)</td>
+                            <td style="padding: 12px 16px; border-bottom: 1px solid var(--gray-200); color: #16a34a; font-weight: 700;">$0 (512 MB)</td>
+                            <td style="padding: 12px 16px; border-bottom: 1px solid var(--gray-200); color: #16a34a; font-weight: 700;">$0 (enough for years of farm data)</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 12px 16px; font-weight: 700; color: var(--gray-800);">Google/Microsoft Auth</td>
+                            <td style="padding: 12px 16px; color: #16a34a; font-weight: 700;">$0</td>
+                            <td style="padding: 12px 16px; color: #16a34a; font-weight: 700;">$0 (always free)</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p><strong>Total for a working system:</strong> $0 to get started, $27/month for the recommended setup. Compare that to Granular at $1,500+/year or FarmLogs at $500+/year.</p>
+            </div>
+
+            <!-- CTA -->
+            <div class="cta-box">
+                <h3>Ready to Build Your Farm Database?</h3>
+                <p>Start with Claude at claude.ai. Describe your operation, and it'll help you build something that no software company has ever built for you — because it's built <em>by</em> you, <em>for</em> you.</p>
+            </div>
+
+            <!-- Other Guides -->
+            <div class="other-guides">
+                <a href="ai-build-stack.html" class="other-guide-link">
+                    The AI Tech Stack
+                    <span>Understand each tool</span>
+                </a>
+                <a href="ai-static-site.html" class="other-guide-link">
+                    Static Websites
+                    <span>Start with a simple site</span>
+                </a>
+                <a href="ai-claude.html" class="other-guide-link">
+                    Claude Guide
+                    <span>Learn to use Claude</span>
+                </a>
+            </div>
+
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <img src="images/logo-nav.svg" alt="YourAgInfo" class="footer-logo-svg">
+                    <span class="logo-divider"></span>
+                    <span class="logo-subtitle">McConnell Enterprises</span>
+                </div>
+                <p class="footer-location">Haxtun, Colorado</p>
+                <nav class="footer-nav">
+                    <a href="index.html">Home</a>
+                    <a href="members.html">Member Dashboard</a>
+                    <a href="ai-tools.html">AI Tools</a>
+                </nav>
+            </div>
+            <div class="footer-bottom">
+                <p>Copyright 2026 McConnell Enterprises LLC. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/auth.js"></script>
+</body>
+</html>

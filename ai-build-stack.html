@@ -1,0 +1,844 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Learn how to build a website or app using Claude, GitHub, Render, and MongoDB — the modern AI development stack explained for beginners.">
+    <title>Build with AI: The Tech Stack | YourAgInfo.com</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Source+Serif+4:wght@400;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        .guide-hero {
+            padding: 140px 0 60px;
+            background: linear-gradient(160deg, #1e3a5f 0%, #3b82f6 100%);
+            text-align: center;
+        }
+        .guide-hero h1 {
+            font-size: clamp(28px, 5vw, 44px);
+            color: var(--white);
+            margin-bottom: 12px;
+        }
+        .guide-hero p {
+            font-size: 17px;
+            color: rgba(255,255,255,0.8);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .guide-back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--white);
+            opacity: 0.8;
+            margin-bottom: 20px;
+        }
+        .guide-back-link:hover { opacity: 1; }
+
+        .guide-main {
+            padding: 60px 0 100px;
+            background: var(--gray-50);
+        }
+        .guide-container {
+            max-width: 860px;
+            margin: 0 auto;
+        }
+
+        .guide-section {
+            background: var(--white);
+            border: 1px solid var(--gray-200);
+            border-radius: var(--radius-lg);
+            padding: 36px;
+            margin-bottom: 28px;
+        }
+        .guide-section h2 {
+            font-size: 22px;
+            margin-bottom: 16px;
+        }
+        .guide-section h3 {
+            font-size: 18px;
+            margin-bottom: 12px;
+            margin-top: 28px;
+        }
+        .guide-section h3:first-child { margin-top: 0; }
+        .guide-section p {
+            font-size: 15px;
+            line-height: 1.7;
+            color: var(--gray-600);
+            margin-bottom: 12px;
+        }
+        .guide-section ul, .guide-section ol {
+            padding-left: 20px;
+            margin-bottom: 16px;
+        }
+        .guide-section li {
+            font-size: 15px;
+            color: var(--gray-600);
+            line-height: 1.7;
+            margin-bottom: 6px;
+        }
+
+        /* Stack diagram */
+        .stack-flow {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin: 32px 0;
+            padding: 28px 20px;
+            background: var(--gray-50);
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--gray-200);
+        }
+        .stack-item {
+            text-align: center;
+            padding: 16px 20px;
+            background: var(--white);
+            border-radius: var(--radius);
+            border: 2px solid var(--gray-200);
+            min-width: 130px;
+        }
+        .stack-item-icon {
+            font-size: 32px;
+            margin-bottom: 6px;
+        }
+        .stack-item-name {
+            font-family: var(--font-heading);
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--gray-800);
+        }
+        .stack-item-role {
+            font-size: 12px;
+            color: var(--gray-400);
+            margin-top: 2px;
+        }
+        .stack-arrow {
+            font-size: 24px;
+            color: var(--gray-400);
+            font-weight: 700;
+        }
+        .stack-item.claude-item { border-color: #d97706; }
+        .stack-item.github-item { border-color: #333; }
+        .stack-item.render-item { border-color: #46e3b7; }
+        .stack-item.mongo-item { border-color: #00684a; }
+
+        /* Tool detail cards */
+        .tool-detail {
+            background: var(--gray-50);
+            border: 1px solid var(--gray-200);
+            border-radius: var(--radius);
+            padding: 28px;
+            margin-bottom: 24px;
+        }
+        .tool-detail:last-child { margin-bottom: 0; }
+        .tool-detail-header {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 16px;
+        }
+        .tool-detail-icon {
+            font-size: 28px;
+            width: 48px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: var(--radius);
+            flex-shrink: 0;
+        }
+        .tool-detail-icon.claude-bg { background: #fef3c7; }
+        .tool-detail-icon.github-bg { background: #f3f4f6; }
+        .tool-detail-icon.render-bg { background: #ecfdf5; }
+        .tool-detail-icon.mongo-bg { background: #ecfdf5; }
+        .tool-detail-header h4 {
+            font-family: var(--font-heading);
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--gray-800);
+        }
+        .tool-detail-header .tool-detail-subtitle {
+            font-size: 13px;
+            color: var(--gray-400);
+        }
+
+        /* Pricing comparison tables */
+        .pricing-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 16px 0;
+            font-size: 14px;
+        }
+        .pricing-table th {
+            background: var(--gray-100);
+            padding: 12px 16px;
+            text-align: left;
+            font-weight: 700;
+            font-size: 13px;
+            color: var(--gray-700);
+            border-bottom: 2px solid var(--gray-200);
+        }
+        .pricing-table td {
+            padding: 12px 16px;
+            border-bottom: 1px solid var(--gray-200);
+            color: var(--gray-600);
+            vertical-align: top;
+        }
+        .pricing-table tr:last-child td { border-bottom: none; }
+        .price-free {
+            color: #16a34a;
+            font-weight: 700;
+        }
+        .price-paid {
+            color: #d97706;
+            font-weight: 600;
+        }
+        .pricing-table .plan-name {
+            font-weight: 700;
+            color: var(--gray-800);
+        }
+
+        /* Pros and cons */
+        .pros-cons {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin: 16px 0;
+        }
+        .pros, .cons {
+            padding: 16px;
+            border-radius: var(--radius);
+        }
+        .pros {
+            background: #f0fdf4;
+            border: 1px solid #bbf7d0;
+        }
+        .cons {
+            background: #fef2f2;
+            border: 1px solid #fecaca;
+        }
+        .pros h5, .cons h5 {
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
+        .pros h5 { color: #16a34a; }
+        .cons h5 { color: #dc2626; }
+        .pros ul, .cons ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .pros li, .cons li {
+            font-size: 13px;
+            line-height: 1.6;
+            padding: 3px 0;
+            padding-left: 18px;
+            position: relative;
+        }
+        .pros li::before { content: '+'; position: absolute; left: 0; color: #16a34a; font-weight: 700; }
+        .cons li::before { content: '\2212'; position: absolute; left: 0; color: #dc2626; font-weight: 700; }
+
+        /* Analogy callout */
+        .analogy-box {
+            background: #eff6ff;
+            border: 1px solid #bfdbfe;
+            border-radius: var(--radius);
+            padding: 20px;
+            margin: 16px 0;
+            font-size: 14px;
+            line-height: 1.7;
+            color: #1e40af;
+        }
+        .analogy-box strong {
+            display: block;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #3b82f6;
+            margin-bottom: 4px;
+        }
+
+        /* Bottom line box */
+        .bottom-line {
+            background: linear-gradient(135deg, #1e3a5f 0%, #3b82f6 100%);
+            border-radius: var(--radius-lg);
+            padding: 36px;
+            text-align: center;
+            margin-top: 28px;
+        }
+        .bottom-line h3 {
+            color: var(--white);
+            font-size: 22px;
+            margin-bottom: 16px;
+        }
+        .bottom-line p {
+            color: rgba(255,255,255,0.85);
+            font-size: 16px;
+            line-height: 1.7;
+            max-width: 600px;
+            margin: 0 auto 20px;
+        }
+        .bottom-line-costs {
+            display: flex;
+            justify-content: center;
+            gap: 32px;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+        .bottom-line-cost {
+            text-align: center;
+        }
+        .bottom-line-cost .cost-label {
+            display: block;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: rgba(255,255,255,0.6);
+            margin-bottom: 4px;
+        }
+        .bottom-line-cost .cost-amount {
+            font-family: var(--font-heading);
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--white);
+        }
+
+        .other-guides {
+            display: flex;
+            gap: 16px;
+            margin-top: 28px;
+        }
+        .other-guide-link {
+            flex: 1;
+            padding: 20px;
+            background: var(--white);
+            border: 1px solid var(--gray-200);
+            border-radius: var(--radius);
+            text-align: center;
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--gray-700);
+            transition: var(--transition);
+        }
+        .other-guide-link:hover {
+            border-color: var(--gray-300);
+            box-shadow: var(--shadow-md);
+        }
+        .other-guide-link span {
+            display: block;
+            font-size: 12px;
+            font-weight: 400;
+            color: var(--gray-400);
+            margin-top: 4px;
+        }
+
+        @media (max-width: 700px) {
+            .guide-section { padding: 24px 20px; }
+            .stack-flow { flex-direction: column; }
+            .stack-arrow { transform: rotate(90deg); }
+            .pros-cons { grid-template-columns: 1fr; }
+            .other-guides { flex-direction: column; }
+            .bottom-line-costs { flex-direction: column; gap: 16px; }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <a href="index.html" class="logo">
+                <img src="images/logo-nav.svg" alt="YourAgInfo" class="logo-svg">
+                <span class="logo-divider"></span>
+                <span class="logo-subtitle">McConnell Enterprises</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="members.html">Member Dashboard</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <header class="guide-hero">
+        <div class="container">
+            <a href="ai-tools.html" class="guide-back-link">&larr; Back to AI Tools</a>
+            <h1>Build with AI: The Tech Stack</h1>
+            <p>How Claude, GitHub, Render, and MongoDB work together to build a real website or app — and what it costs.</p>
+        </div>
+    </header>
+
+    <main class="guide-main">
+        <div class="container guide-container">
+
+            <!-- Big Picture -->
+            <div class="guide-section">
+                <h2>The Big Picture</h2>
+                <p>You don't need to be a programmer to build a website or app anymore. With the right tools, Claude (the AI) can write the code, and a handful of free services can put it on the internet for the world to see. Here's the stack — the set of tools that work together:</p>
+
+                <div class="stack-flow">
+                    <div class="stack-item claude-item">
+                        <div class="stack-item-icon">&#x2728;</div>
+                        <div class="stack-item-name">Claude</div>
+                        <div class="stack-item-role">Writes the code</div>
+                    </div>
+                    <div class="stack-arrow">&rarr;</div>
+                    <div class="stack-item github-item">
+                        <div class="stack-item-icon">&#x1F4C1;</div>
+                        <div class="stack-item-name">GitHub</div>
+                        <div class="stack-item-role">Stores the code</div>
+                    </div>
+                    <div class="stack-arrow">&rarr;</div>
+                    <div class="stack-item render-item">
+                        <div class="stack-item-icon">&#x1F680;</div>
+                        <div class="stack-item-name">Render</div>
+                        <div class="stack-item-role">Runs the website</div>
+                    </div>
+                    <div class="stack-arrow">&rarr;</div>
+                    <div class="stack-item mongo-item">
+                        <div class="stack-item-icon">&#x1F4BE;</div>
+                        <div class="stack-item-name">MongoDB</div>
+                        <div class="stack-item-role">Stores the data</div>
+                    </div>
+                </div>
+
+                <div class="analogy-box">
+                    <strong>Farm Analogy</strong>
+                    Think of it like building a grain bin. <strong>Claude</strong> is the engineer who draws the plans. <strong>GitHub</strong> is the filing cabinet where you keep the blueprints. <strong>Render</strong> is the concrete pad and the crew that puts it up. <strong>MongoDB</strong> is the grain bin itself — where the actual stuff (data) gets stored. You need all four, but each one does one job.
+                </div>
+            </div>
+
+            <!-- Why This Stack -->
+            <div class="guide-section">
+                <h2>Why These Four Tools?</h2>
+                <p>There are hundreds of options out there, but this combination is popular because:</p>
+                <ul>
+                    <li><strong>They all have free tiers</strong> — you can build and launch a real project for $0</li>
+                    <li><strong>They work together seamlessly</strong> — Render pulls directly from GitHub, Claude knows all of them</li>
+                    <li><strong>They're beginner-friendly</strong> — you don't need to manage servers or understand networking</li>
+                    <li><strong>They scale</strong> — if your project takes off, you can upgrade without starting over</li>
+                </ul>
+                <p>This is the same kind of stack that professional developers use. You're not building on toy tools — these are real, production-grade services.</p>
+            </div>
+
+            <!-- Tool 1: Claude -->
+            <div class="guide-section">
+                <h2>The Stack, Piece by Piece</h2>
+
+                <div class="tool-detail">
+                    <div class="tool-detail-header">
+                        <div class="tool-detail-icon claude-bg">&#x2728;</div>
+                        <div>
+                            <h4>Claude — The Builder</h4>
+                            <div class="tool-detail-subtitle">Made by Anthropic &bull; claude.ai</div>
+                        </div>
+                    </div>
+                    <p><strong>What it does:</strong> Claude writes the actual code for your website or app. You describe what you want in plain English — "build me a customer booking page with a calendar" — and Claude writes the HTML, CSS, JavaScript, and backend code. It can also debug problems, explain code, and make changes.</p>
+                    <p><strong>Why Claude specifically?</strong> Claude is the best AI for code right now. It writes cleaner code than the others, makes fewer mistakes, and can handle complex projects. It also remembers context well, so you can have a long conversation building something without it losing track.</p>
+
+                    <table class="pricing-table">
+                        <thead>
+                            <tr>
+                                <th>Plan</th>
+                                <th>Price</th>
+                                <th>What You Get</th>
+                                <th>Best For</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="plan-name">Free</td>
+                                <td class="price-free">$0/month</td>
+                                <td>Limited messages per day, basic model, standard speed</td>
+                                <td>Trying it out, simple tasks, occasional use</td>
+                            </tr>
+                            <tr>
+                                <td class="plan-name">Pro</td>
+                                <td class="price-paid">$20/month</td>
+                                <td>More messages, access to the most powerful model (Opus), priority access</td>
+                                <td>Regular use, building projects, business tasks</td>
+                            </tr>
+                            <tr>
+                                <td class="plan-name">Max</td>
+                                <td class="price-paid">$100/month</td>
+                                <td>Highest limits, longest conversations, most powerful features</td>
+                                <td>Heavy daily use, large complex projects</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <div class="pros-cons">
+                        <div class="pros">
+                            <h5>Pros</h5>
+                            <ul>
+                                <li>Best code quality of any AI</li>
+                                <li>Excellent at following instructions</li>
+                                <li>Free tier is usable for small projects</li>
+                                <li>Works in your browser — nothing to install</li>
+                            </ul>
+                        </div>
+                        <div class="cons">
+                            <h5>Cons</h5>
+                            <ul>
+                                <li>Free tier has daily message limits</li>
+                                <li>Can't run or test code directly (yet)</li>
+                                <li>You still need to copy code to the right place</li>
+                                <li>Needs good instructions to produce great results</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tool 2: GitHub -->
+                <div class="tool-detail">
+                    <div class="tool-detail-header">
+                        <div class="tool-detail-icon github-bg">&#x1F4C1;</div>
+                        <div>
+                            <h4>GitHub — The Filing Cabinet</h4>
+                            <div class="tool-detail-subtitle">Made by Microsoft &bull; github.com</div>
+                        </div>
+                    </div>
+                    <p><strong>What it does:</strong> GitHub stores your code in the cloud. Think of it as a filing cabinet for your project. Every change you make is tracked and saved, so you can always go back if something breaks. It's also how Render knows what code to put on the internet.</p>
+                    <p><strong>Why you need it:</strong> Without GitHub, your code just lives on your computer. If your laptop dies, it's gone. GitHub keeps it safe, versioned, and shareable. Plus, Render connects directly to GitHub — when you update your code, your website updates automatically.</p>
+
+                    <table class="pricing-table">
+                        <thead>
+                            <tr>
+                                <th>Plan</th>
+                                <th>Price</th>
+                                <th>What You Get</th>
+                                <th>Best For</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="plan-name">Free</td>
+                                <td class="price-free">$0/month</td>
+                                <td>Unlimited public and private repositories, core features, GitHub Pages hosting</td>
+                                <td>Individuals, small projects — this is enough for most people</td>
+                            </tr>
+                            <tr>
+                                <td class="plan-name">Pro</td>
+                                <td class="price-paid">$4/month</td>
+                                <td>Advanced tools, more storage, better support</td>
+                                <td>Professional developers, teams</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <div class="pros-cons">
+                        <div class="pros">
+                            <h5>Pros</h5>
+                            <ul>
+                                <li>Free tier is extremely generous</li>
+                                <li>Industry standard — everyone uses it</li>
+                                <li>Built-in website hosting (GitHub Pages)</li>
+                                <li>Automatic backups of every change</li>
+                            </ul>
+                        </div>
+                        <div class="cons">
+                            <h5>Cons</h5>
+                            <ul>
+                                <li>Learning curve for Git commands</li>
+                                <li>Interface can feel technical at first</li>
+                                <li>Overkill if you just have a simple static site</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="analogy-box">
+                        <strong>Good to Know</strong>
+                        YourAgInfo.com itself is hosted on GitHub Pages (the free hosting that comes with GitHub). For a simple site with no backend or database, GitHub Pages is all you need — you don't even need Render or MongoDB. This site costs $0/month to host.
+                    </div>
+                </div>
+
+                <!-- Tool 3: Render -->
+                <div class="tool-detail">
+                    <div class="tool-detail-header">
+                        <div class="tool-detail-icon render-bg">&#x1F680;</div>
+                        <div>
+                            <h4>Render — The Hosting Service</h4>
+                            <div class="tool-detail-subtitle">render.com</div>
+                        </div>
+                    </div>
+                    <p><strong>What it does:</strong> Render takes your code from GitHub and runs it on the internet so anyone can visit your site. It handles all the server stuff — you don't need to buy hardware, set up networking, or worry about security patches. You connect it to GitHub, and it handles the rest.</p>
+                    <p><strong>Why Render over others?</strong> There are other services like Heroku, Vercel, Netlify, and Railway. Render is popular because it has a real free tier, supports all common languages (Node.js, Python, etc.), and has a clean, simple dashboard. It's also one of the easiest for beginners.</p>
+
+                    <table class="pricing-table">
+                        <thead>
+                            <tr>
+                                <th>Plan</th>
+                                <th>Price</th>
+                                <th>What You Get</th>
+                                <th>Best For</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="plan-name">Free (Static Sites)</td>
+                                <td class="price-free">$0/month</td>
+                                <td>Unlimited static sites, automatic HTTPS, custom domain, auto-deploy from GitHub</td>
+                                <td>Simple websites without a backend</td>
+                            </tr>
+                            <tr>
+                                <td class="plan-name">Free (Web Services)</td>
+                                <td class="price-free">$0/month</td>
+                                <td>750 hours/month of server time, spins down after 15 min of inactivity</td>
+                                <td>Testing and hobby projects</td>
+                            </tr>
+                            <tr>
+                                <td class="plan-name">Starter</td>
+                                <td class="price-paid">$7/month</td>
+                                <td>Always-on server, more RAM and CPU, no spin-down</td>
+                                <td>Real apps and businesses — site loads fast every time</td>
+                            </tr>
+                            <tr>
+                                <td class="plan-name">Standard</td>
+                                <td class="price-paid">$25/month</td>
+                                <td>More power, team features, better performance</td>
+                                <td>Growing businesses, heavier traffic</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <div class="pros-cons">
+                        <div class="pros">
+                            <h5>Pros</h5>
+                            <ul>
+                                <li>True free tier — no credit card needed</li>
+                                <li>Auto-deploys when you update GitHub</li>
+                                <li>Handles HTTPS (security) automatically</li>
+                                <li>Simple dashboard, easy to understand</li>
+                            </ul>
+                        </div>
+                        <div class="cons">
+                            <h5>Cons</h5>
+                            <ul>
+                                <li>Free tier "sleeps" — first load is slow (30-60 sec)</li>
+                                <li>Limited resources on free tier</li>
+                                <li>Paid plans add up if you have multiple services</li>
+                                <li>Less control than a full server</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="analogy-box">
+                        <strong>Alternatives Worth Knowing</strong>
+                        <strong>Vercel</strong> and <strong>Netlify</strong> are similar to Render and also have free tiers. Vercel is great for Next.js sites. Netlify is great for simple sites with forms. <strong>Railway</strong> is another option that some developers prefer. They all do roughly the same job — pick whichever feels easiest.
+                    </div>
+                </div>
+
+                <!-- Tool 4: MongoDB -->
+                <div class="tool-detail">
+                    <div class="tool-detail-header">
+                        <div class="tool-detail-icon mongo-bg">&#x1F4BE;</div>
+                        <div>
+                            <h4>MongoDB — The Database</h4>
+                            <div class="tool-detail-subtitle">mongodb.com</div>
+                        </div>
+                    </div>
+                    <p><strong>What it does:</strong> MongoDB stores the data your app needs to remember — customer names, orders, inventory, login info, form submissions, anything that needs to persist. Without a database, your website forgets everything the moment someone closes their browser.</p>
+                    <p><strong>Why MongoDB?</strong> Traditional databases (like MySQL or PostgreSQL) use rigid tables — imagine a spreadsheet where every column is fixed. MongoDB is more flexible — it stores data like a filing cabinet of documents. This makes it easier for beginners and great for apps where your data structure might change over time.</p>
+
+                    <table class="pricing-table">
+                        <thead>
+                            <tr>
+                                <th>Plan</th>
+                                <th>Price</th>
+                                <th>What You Get</th>
+                                <th>Best For</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="plan-name">Free (M0)</td>
+                                <td class="price-free">$0/month</td>
+                                <td>512 MB storage, shared cluster, basic monitoring, always on</td>
+                                <td>Learning, small apps, side projects — plenty for most small businesses</td>
+                            </tr>
+                            <tr>
+                                <td class="plan-name">Shared (M2/M5)</td>
+                                <td class="price-paid">$9-25/month</td>
+                                <td>2-5 GB storage, better performance, backups</td>
+                                <td>Growing apps that need reliability</td>
+                            </tr>
+                            <tr>
+                                <td class="plan-name">Dedicated (M10+)</td>
+                                <td class="price-paid">$57+/month</td>
+                                <td>Dedicated server, advanced security, full backups, scaling</td>
+                                <td>Serious production apps, larger businesses</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <div class="pros-cons">
+                        <div class="pros">
+                            <h5>Pros</h5>
+                            <ul>
+                                <li>Free tier is always on (no sleeping/spin-down)</li>
+                                <li>512 MB is a lot for small apps (thousands of records)</li>
+                                <li>Flexible — easy to change your data structure</li>
+                                <li>Claude writes MongoDB code very well</li>
+                            </ul>
+                        </div>
+                        <div class="cons">
+                            <h5>Cons</h5>
+                            <ul>
+                                <li>Overkill if you don't need to store user data</li>
+                                <li>Free tier has limited connections</li>
+                                <li>Need to understand basic database concepts</li>
+                                <li>Paid plans get expensive at scale</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="analogy-box">
+                        <strong>Do You Even Need a Database?</strong>
+                        Not always! If your site just displays information (like YourAgInfo.com), you don't need one — the data lives right in the code. You need a database when people need to <em>save</em> things: creating accounts, submitting forms, placing orders, tracking inventory. If nobody is logging in or submitting data, skip it.
+                    </div>
+                </div>
+            </div>
+
+            <!-- What does it cost? -->
+            <div class="guide-section">
+                <h2>What Does It All Cost?</h2>
+
+                <h3>The Free Stack — $0/month</h3>
+                <p>For a small project, hobby site, or proof of concept, you can run everything for free:</p>
+                <ul>
+                    <li>Claude Free — enough messages for building in short sessions</li>
+                    <li>GitHub Free — unlimited repos, free GitHub Pages hosting</li>
+                    <li>Render Free — hosts your app (sleeps after 15 min of no traffic)</li>
+                    <li>MongoDB Free — 512 MB, always on</li>
+                </ul>
+                <p><strong>The catch:</strong> Your Render app will take 30-60 seconds to load after being inactive. Claude's free tier limits how much you can build per day. Fine for testing and learning, not ideal for a real business site customers use daily.</p>
+
+                <h3>The Small Business Stack — ~$27/month</h3>
+                <p>For a real business app that needs to be fast and reliable:</p>
+                <ul>
+                    <li>Claude Pro — $20/month (more messages, better model for coding)</li>
+                    <li>GitHub Free — $0 (free tier is plenty)</li>
+                    <li>Render Starter — $7/month (always-on, fast loading)</li>
+                    <li>MongoDB Free — $0 (512 MB handles most small business needs)</li>
+                </ul>
+                <p><strong>This is the sweet spot for most people.</strong> Your site loads instantly, you can build/maintain it efficiently with Claude Pro, and you're not paying for anything you don't need.</p>
+
+                <h3>The Growth Stack — ~$52+/month</h3>
+                <p>For a busier app with more traffic and data:</p>
+                <ul>
+                    <li>Claude Pro — $20/month</li>
+                    <li>GitHub Free — $0</li>
+                    <li>Render Standard — $25/month</li>
+                    <li>MongoDB Shared — $9/month</li>
+                </ul>
+            </div>
+
+            <!-- When do you need what? -->
+            <div class="guide-section">
+                <h2>Which Pieces Do You Actually Need?</h2>
+                <p>You might not need all four. Here's how to figure it out:</p>
+
+                <table class="pricing-table">
+                    <thead>
+                        <tr>
+                            <th>What You're Building</th>
+                            <th>What You Need</th>
+                            <th>Monthly Cost</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>A simple information website (like YourAgInfo.com)</td>
+                            <td>Claude + GitHub only (use GitHub Pages for free hosting)</td>
+                            <td class="price-free">$0</td>
+                        </tr>
+                        <tr>
+                            <td>A website with forms or a booking page</td>
+                            <td>Claude + GitHub + Render + MongoDB</td>
+                            <td>$0 - $27</td>
+                        </tr>
+                        <tr>
+                            <td>A customer portal with logins</td>
+                            <td>Claude + GitHub + Render + MongoDB</td>
+                            <td>$7 - $27</td>
+                        </tr>
+                        <tr>
+                            <td>An inventory or parts tracker</td>
+                            <td>Claude + GitHub + Render + MongoDB</td>
+                            <td>$7 - $27</td>
+                        </tr>
+                        <tr>
+                            <td>A small e-commerce or order system</td>
+                            <td>Full stack (consider paid MongoDB)</td>
+                            <td>$27 - $52</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Bottom line -->
+            <div class="bottom-line">
+                <h3>The Bottom Line</h3>
+                <p>You can build and launch a real website or app for your business with AI doing the coding. The tools are free to start, and you only pay when you need performance and reliability.</p>
+                <div class="bottom-line-costs">
+                    <div class="bottom-line-cost">
+                        <span class="cost-label">To learn &amp; experiment</span>
+                        <span class="cost-amount">$0</span>
+                    </div>
+                    <div class="bottom-line-cost">
+                        <span class="cost-label">For a real business site</span>
+                        <span class="cost-amount">~$27/mo</span>
+                    </div>
+                    <div class="bottom-line-cost">
+                        <span class="cost-label">For a growing app</span>
+                        <span class="cost-amount">~$52/mo</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Other Guides -->
+            <div class="other-guides">
+                <a href="ai-claude.html" class="other-guide-link">
+                    Claude Guide
+                    <span>Planning &amp; writing</span>
+                </a>
+                <a href="ai-grok.html" class="other-guide-link">
+                    Grok Guide
+                    <span>Finding parts &amp; prices</span>
+                </a>
+                <a href="ai-chatgpt.html" class="other-guide-link">
+                    ChatGPT Guide
+                    <span>Photos &amp; social media</span>
+                </a>
+            </div>
+
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <img src="images/logo-nav.svg" alt="YourAgInfo" class="footer-logo-svg">
+                    <span class="logo-divider"></span>
+                    <span class="logo-subtitle">McConnell Enterprises</span>
+                </div>
+                <p class="footer-location">Haxtun, Colorado</p>
+                <nav class="footer-nav">
+                    <a href="index.html">Home</a>
+                    <a href="members.html">Member Dashboard</a>
+                    <a href="ai-tools.html">AI Tools</a>
+                </nav>
+            </div>
+            <div class="footer-bottom">
+                <p>Copyright 2026 McConnell Enterprises LLC. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/auth.js"></script>
+</body>
+</html>
