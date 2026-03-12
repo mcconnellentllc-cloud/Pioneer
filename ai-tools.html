@@ -187,6 +187,33 @@
         }
         .ai-back-link:hover { opacity: 1; }
 
+        .ai-banner {
+            background: linear-gradient(135deg, #1e3a5f 0%, #3b82f6 100%);
+            border-radius: var(--radius-lg);
+            padding: 28px 36px;
+            text-align: center;
+            margin-bottom: 32px;
+        }
+        .ai-banner p {
+            color: var(--white);
+            font-family: var(--font-heading);
+            font-size: 20px;
+            font-weight: 600;
+            line-height: 1.5;
+            margin: 0;
+        }
+        .ai-banner .ai-banner-sub {
+            font-family: var(--font-body);
+            font-size: 14px;
+            font-weight: 400;
+            color: rgba(255,255,255,0.7);
+            display: block;
+            margin-top: 8px;
+        }
+        .ai-banner-alt {
+            background: linear-gradient(135deg, #065f46 0%, #059669 100%);
+        }
+
         @media (max-width: 900px) {
             .ai-cards { grid-template-columns: 1fr; max-width: 450px; margin-left: auto; margin-right: auto; }
             .ai-tips-grid { grid-template-columns: 1fr; }
@@ -217,6 +244,11 @@
 
     <main class="ai-main">
         <div class="container ai-container">
+
+            <div class="ai-banner">
+                <p>Got a question? Ask AI first. It's faster, smarter, and available 24/7.
+                <span class="ai-banner-sub">AI knows more than anyone you could call — and it never puts you on hold.</span></p>
+            </div>
 
             <div class="ai-intro">
                 <h2>What Is AI and Why Should You Care?</h2>
@@ -259,6 +291,11 @@
                     </div>
                     <span class="ai-card-btn chatgpt-btn">Learn ChatGPT &rarr;</span>
                 </a>
+            </div>
+
+            <div class="ai-banner ai-banner-alt">
+                <p>Stop Googling. Stop calling around. Just ask AI.
+                <span class="ai-banner-sub">Need a part number? A custom rate? A planting date? An equipment manual? AI has the answer in seconds.</span></p>
             </div>
 
             <!-- Build with AI Section -->
@@ -325,6 +362,11 @@
                         <p>AI is a great starting point, but always verify important numbers, dates, and claims — especially for chemical rates, regulations, or legal matters.</p>
                     </div>
                 </div>
+            </div>
+
+            <div class="ai-banner" style="margin-top: 32px;">
+                <p>The smartest advisor you'll ever have is free and available right now.
+                <span class="ai-banner-sub">Whether it's a marketing plan, a part number, or a business decision — AI gives you a better answer, faster, than anyone you could call.</span></p>
             </div>
 
         </div>
