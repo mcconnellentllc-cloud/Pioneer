@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Learn how to use Grok AI to find parts, prices, and real-time information for your farm operation.">
+    <title>Grok AI Guide | YourAgInfo.com</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Source+Serif+4:wght@400;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        .guide-hero {
+            padding: 140px 0 60px;
+            background: linear-gradient(160deg, #111 0%, #374151 100%);
+            text-align: center;
+        }
+        .guide-hero h1 {
+            font-size: clamp(32px, 6vw, 48px);
+            color: var(--white);
+            margin-bottom: 12px;
+        }
+        .guide-hero p {
+            font-size: 17px;
+            color: rgba(255,255,255,0.8);
+            max-width: 550px;
+            margin: 0 auto;
+        }
+        .guide-back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--white);
+            opacity: 0.8;
+            margin-bottom: 20px;
+        }
+        .guide-back-link:hover { opacity: 1; }
+
+        .guide-main {
+            padding: 60px 0 100px;
+            background: var(--gray-50);
+        }
+        .guide-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .guide-section {
+            background: var(--white);
+            border: 1px solid var(--gray-200);
+            border-radius: var(--radius-lg);
+            padding: 36px;
+            margin-bottom: 28px;
+        }
+        .guide-section h2 {
+            font-size: 22px;
+            margin-bottom: 16px;
+        }
+        .guide-section h3 {
+            font-size: 18px;
+            margin-bottom: 12px;
+            margin-top: 24px;
+        }
+        .guide-section h3:first-child { margin-top: 0; }
+        .guide-section p {
+            font-size: 15px;
+            line-height: 1.7;
+            color: var(--gray-600);
+            margin-bottom: 12px;
+        }
+        .guide-section ul, .guide-section ol {
+            padding-left: 20px;
+            margin-bottom: 16px;
+        }
+        .guide-section li {
+            font-size: 15px;
+            color: var(--gray-600);
+            line-height: 1.7;
+            margin-bottom: 6px;
+        }
+
+        .step-card {
+            background: var(--gray-50);
+            border: 1px solid var(--gray-200);
+            border-radius: var(--radius);
+            padding: 24px;
+            margin-bottom: 20px;
+        }
+        .step-number {
+            display: inline-block;
+            width: 32px;
+            height: 32px;
+            line-height: 32px;
+            text-align: center;
+            background: #111;
+            color: var(--white);
+            border-radius: 50%;
+            font-size: 14px;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+        .step-card h4 {
+            font-family: var(--font-heading);
+            font-size: 17px;
+            font-weight: 600;
+            color: var(--gray-800);
+            margin-bottom: 10px;
+        }
+        .step-card p {
+            margin-bottom: 8px;
+        }
+
+        .prompt-box {
+            background: #f5f5f5;
+            border: 1px solid #e5e5e5;
+            border-radius: var(--radius);
+            padding: 16px 20px;
+            margin: 12px 0;
+            font-size: 14px;
+            line-height: 1.6;
+            color: #1f2937;
+        }
+        .prompt-box strong {
+            display: block;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #6b7280;
+            margin-bottom: 6px;
+        }
+
+        .response-box {
+            background: #f0fdf4;
+            border: 1px solid #bbf7d0;
+            border-radius: var(--radius);
+            padding: 16px 20px;
+            margin: 12px 0;
+            font-size: 14px;
+            line-height: 1.6;
+            color: #166534;
+        }
+        .response-box strong {
+            display: block;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #15803d;
+            margin-bottom: 6px;
+        }
+
+        .cta-box {
+            background: linear-gradient(135deg, #111 0%, #374151 100%);
+            border-radius: var(--radius-lg);
+            padding: 36px;
+            text-align: center;
+            margin-top: 28px;
+        }
+        .cta-box h3 {
+            color: var(--white);
+            font-size: 22px;
+            margin-bottom: 12px;
+        }
+        .cta-box p {
+            color: rgba(255,255,255,0.85);
+            margin-bottom: 20px;
+            font-size: 16px;
+        }
+        .cta-btn {
+            display: inline-block;
+            padding: 14px 32px;
+            background: var(--white);
+            color: #111;
+            border-radius: var(--radius);
+            font-size: 15px;
+            font-weight: 700;
+            transition: var(--transition);
+        }
+        .cta-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .other-guides {
+            display: flex;
+            gap: 16px;
+            margin-top: 28px;
+        }
+        .other-guide-link {
+            flex: 1;
+            padding: 20px;
+            background: var(--white);
+            border: 1px solid var(--gray-200);
+            border-radius: var(--radius);
+            text-align: center;
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--gray-700);
+            transition: var(--transition);
+        }
+        .other-guide-link:hover {
+            border-color: var(--gray-300);
+            box-shadow: var(--shadow-md);
+        }
+        .other-guide-link span {
+            display: block;
+            font-size: 12px;
+            font-weight: 400;
+            color: var(--gray-400);
+            margin-top: 4px;
+        }
+
+        @media (max-width: 600px) {
+            .guide-section { padding: 24px 20px; }
+            .other-guides { flex-direction: column; }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <a href="index.html" class="logo">
+                <img src="images/logo-nav.svg" alt="YourAgInfo" class="logo-svg">
+                <span class="logo-divider"></span>
+                <span class="logo-subtitle">McConnell Enterprises</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="members.html">Member Dashboard</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <header class="guide-hero">
+        <div class="container">
+            <a href="ai-tools.html" class="guide-back-link">&larr; Back to AI Tools</a>
+            <h1>Getting Started with Grok</h1>
+            <p>Your go-to AI for finding parts, prices, and real-time information. Like having a mechanic and parts counter guy who knows the whole internet.</p>
+        </div>
+    </header>
+
+    <main class="guide-main">
+        <div class="container guide-container">
+
+            <!-- What is Grok -->
+            <div class="guide-section">
+                <h2>What Is Grok?</h2>
+                <p>Grok is an AI assistant made by xAI (Elon Musk's AI company). It lives inside X (formerly Twitter) but also has its own website. What makes Grok different is that it can <strong>search the internet in real time</strong>. That means it can find:</p>
+                <ul>
+                    <li><strong>Parts and equipment</strong> — specific model numbers, compatibility, who has them in stock</li>
+                    <li><strong>Current prices</strong> — what things actually cost right now, not last year</li>
+                    <li><strong>Local dealers and sellers</strong> — who's near you, what's on their lot</li>
+                    <li><strong>Technical specs</strong> — torque specs, fluid capacities, part numbers, manual info</li>
+                    <li><strong>Recent news and posts</strong> — what people are saying right now on X/Twitter</li>
+                </ul>
+                <p>It's free to use and great for the kind of quick searches farmers need every day.</p>
+            </div>
+
+            <!-- Getting Started -->
+            <div class="guide-section">
+                <h2>How to Get Started</h2>
+
+                <div class="step-card">
+                    <div class="step-number">1</div>
+                    <h4>Go to Grok</h4>
+                    <p>Open your web browser and go to:</p>
+                    <p><strong style="font-size: 18px; color: #111;">grok.com</strong></p>
+                    <p>You can also access Grok through the X (Twitter) app if you have an account.</p>
+                </div>
+
+                <div class="step-card">
+                    <div class="step-number">2</div>
+                    <h4>Sign In or Create Account</h4>
+                    <p>You can sign in with your X (Twitter) account, Google account, or Apple account. If you don't have any of these, you can create a free X account in a couple minutes.</p>
+                </div>
+
+                <div class="step-card">
+                    <div class="step-number">3</div>
+                    <h4>Start Asking Questions</h4>
+                    <p>Type your question in the message box. Grok will search the internet and come back with answers, links, and sources. It's like Google but it actually gives you the answer instead of a list of websites to dig through.</p>
+                </div>
+            </div>
+
+            <!-- Walkthrough: Finding Parts -->
+            <div class="guide-section">
+                <h2>Example: Find Parts for Your Equipment</h2>
+                <p>Let's walk through finding a hydraulic cylinder for an older tractor. This is the kind of thing that can take hours on Google — Grok can do it in seconds.</p>
+
+                <div class="step-card">
+                    <div class="step-number">1</div>
+                    <h4>Describe What You Need</h4>
+                    <p>Be as specific as you can — include the make, model, year, and what the part is for.</p>
+                    <div class="prompt-box">
+                        <strong>You Type:</strong>
+                        I need a hydraulic cylinder for the front-end loader on a 1978 John Deere 4440. The cylinder is leaking and I need to either find a replacement or a rebuild kit. I'm near Haxtun, Colorado. What are my options?
+                    </div>
+                    <div class="response-box">
+                        <strong>Grok Responds With:</strong>
+                        A detailed answer including: the specific cylinder part numbers for that loader model, links to aftermarket suppliers like Hy-Capacity and Surplus Center, rebuild kit options with prices, nearby hydraulic repair shops in Sterling and Fort Morgan, and salvage yards in eastern Colorado that might have them.
+                    </div>
+                </div>
+
+                <div class="step-card">
+                    <div class="step-number">2</div>
+                    <h4>Compare Prices</h4>
+                    <p>Ask Grok to help you shop around.</p>
+                    <div class="prompt-box">
+                        <strong>You Type:</strong>
+                        What's cheaper — buying a new aftermarket cylinder or getting a rebuild kit? Give me rough prices for both options.
+                    </div>
+                    <div class="response-box">
+                        <strong>Grok Responds With:</strong>
+                        A price comparison showing new aftermarket cylinders ($250-400 depending on supplier), rebuild kits ($50-120), and the pros and cons of each option — like how a rebuild is cheaper but takes time, and a new one gets you running faster.
+                    </div>
+                </div>
+
+                <div class="step-card">
+                    <div class="step-number">3</div>
+                    <h4>Find It Locally</h4>
+                    <p>Get Grok to search for what's available near you right now.</p>
+                    <div class="prompt-box">
+                        <strong>You Type:</strong>
+                        Are there any salvage yards or used equipment dealers within 100 miles of Haxtun, CO that might have JD 4440 parts? Also check if anyone on X/Twitter is selling JD 4440 parts.
+                    </div>
+                    <div class="response-box">
+                        <strong>Grok Responds With:</strong>
+                        A list of salvage yards (like those in Sterling, Yuma, or Sidney NE), used equipment dealers, and any relevant posts from X/Twitter where people are selling 4440 parts. Includes addresses and phone numbers.
+                    </div>
+                </div>
+
+                <div class="step-card">
+                    <div class="step-number">4</div>
+                    <h4>Get Technical Help</h4>
+                    <p>Use Grok to look up specs and procedures.</p>
+                    <div class="prompt-box">
+                        <strong>You Type:</strong>
+                        What's the procedure to remove and reinstall the loader cylinder on a JD 4440? Any special tools needed? What hydraulic fluid does it take?
+                    </div>
+                    <div class="response-box">
+                        <strong>Grok Responds With:</strong>
+                        Step-by-step removal procedure, the tools you'll need (probably a 1-1/16" wrench and hydraulic line wrenches), the correct hydraulic fluid spec (Hy-Gard or equivalent), and capacity information.
+                    </div>
+                </div>
+            </div>
+
+            <!-- More Ideas -->
+            <div class="guide-section">
+                <h2>More Things to Try with Grok</h2>
+                <h3>Finding Parts &amp; Equipment</h3>
+                <ul>
+                    <li>"Find a used 12-row Kinze planter for sale within 200 miles of Haxtun, CO"</li>
+                    <li>"What's the part number for the feeder house chain on a Case IH 8230 combine?"</li>
+                    <li>"Where can I get Firestone 380/80R38 tires at the best price? Check online and local dealers."</li>
+                    <li>"Compare prices on John Deere vs. aftermarket air filters for a 9620R"</li>
+                </ul>
+
+                <h3>Technical Questions</h3>
+                <ul>
+                    <li>"What's the engine oil capacity on a Case IH Magnum 340? And what weight oil for Colorado winters?"</li>
+                    <li>"My center pivot is making a grinding noise at the last tower. What should I check first?"</li>
+                    <li>"Troubleshoot: JD S780 combine showing error code 2367. What does it mean and how do I fix it?"</li>
+                </ul>
+
+                <h3>Prices &amp; Markets</h3>
+                <ul>
+                    <li>"What are current cash corn prices at elevators near Haxtun, CO?"</li>
+                    <li>"What's anhydrous ammonia running per ton in eastern Colorado right now?"</li>
+                    <li>"Find me the cheapest diesel fuel within 30 miles of Holyoke, CO"</li>
+                </ul>
+            </div>
+
+            <!-- CTA -->
+            <div class="cta-box">
+                <h3>Ready to Try Grok?</h3>
+                <p>Free to use. Perfect for finding parts, prices, and answers fast.</p>
+                <a href="https://grok.com" target="_blank" rel="noopener" class="cta-btn">Go to grok.com &rarr;</a>
+            </div>
+
+            <!-- Other Guides -->
+            <div class="other-guides">
+                <a href="ai-claude.html" class="other-guide-link">
+                    Claude Guide
+                    <span>Planning &amp; writing</span>
+                </a>
+                <a href="ai-chatgpt.html" class="other-guide-link">
+                    ChatGPT Guide
+                    <span>Photos &amp; social media</span>
+                </a>
+            </div>
+
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <img src="images/logo-nav.svg" alt="YourAgInfo" class="footer-logo-svg">
+                    <span class="logo-divider"></span>
+                    <span class="logo-subtitle">McConnell Enterprises</span>
+                </div>
+                <p class="footer-location">Haxtun, Colorado</p>
+                <nav class="footer-nav">
+                    <a href="index.html">Home</a>
+                    <a href="members.html">Member Dashboard</a>
+                    <a href="ai-tools.html">AI Tools</a>
+                </nav>
+            </div>
+            <div class="footer-bottom">
+                <p>Copyright 2026 McConnell Enterprises LLC. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/auth.js"></script>
+</body>
+</html>
