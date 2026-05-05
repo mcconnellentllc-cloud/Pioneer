@@ -500,130 +500,167 @@
             }
         }
 
-        /* Session Checkboxes for RSVP */
-        .session-list {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-            margin-bottom: 24px;
+        /* Davis Partner Pricing Card */
+        .davis-section {
+            padding: 60px 0;
+            background: var(--gray-100);
         }
-        .session-item {
-            display: flex;
-            align-items: flex-start;
-            gap: 14px;
-            padding: 16px;
-            background: #fafafa;
-            border: 2px solid var(--gray-200);
-            border-radius: var(--radius);
-            cursor: pointer;
-            transition: all 0.15s ease;
+        .davis-card {
+            max-width: 900px;
+            margin: 0 auto;
+            background: var(--white);
+            border-radius: var(--radius-lg);
+            box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+            overflow: hidden;
         }
-        .session-item:hover {
-            border-color: var(--green-dark);
-            background: #f0f7f2;
+        .davis-header {
+            background: linear-gradient(135deg, var(--green-dark) 0%, var(--green-medium) 100%);
+            padding: 32px;
+            text-align: center;
         }
-        .session-item.checked {
-            border-color: var(--green-dark);
-            background: #e8f0e4;
-        }
-        .session-item input[type="checkbox"] {
-            width: 22px;
-            height: 22px;
-            margin-top: 2px;
-            accent-color: var(--green-dark);
-            cursor: pointer;
-            flex-shrink: 0;
-        }
-        .session-info {
-            flex: 1;
-        }
-        .session-day {
-            font-size: 11px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            color: var(--gray-500);
-            margin-bottom: 2px;
-        }
-        .session-name {
-            font-family: var(--font-heading);
-            font-size: 17px;
-            color: var(--green-dark);
-            margin-bottom: 2px;
-        }
-        .session-time {
-            font-size: 13px;
-            font-weight: 600;
-            color: var(--gold);
-            margin-bottom: 4px;
-        }
-        .session-desc {
-            font-size: 12px;
-            color: var(--gray-600);
-            line-height: 1.4;
-        }
-        .lunch-tag {
+        .davis-badge {
             display: inline-block;
             background: var(--gold);
             color: var(--white);
-            font-size: 10px;
-            font-weight: 700;
-            padding: 2px 6px;
-            border-radius: 3px;
-            margin-left: 6px;
-            vertical-align: middle;
-        }
-        .name-section {
-            margin-bottom: 20px;
-        }
-        .name-section label {
-            display: block;
-            font-weight: 600;
-            color: var(--green-dark);
-            margin-bottom: 8px;
-            font-size: 14px;
-        }
-        .name-section input {
-            width: 100%;
-            padding: 14px 16px;
-            font-size: 16px;
-            border: 2px solid var(--gray-200);
-            border-radius: var(--radius);
-            transition: border-color 0.15s ease;
-        }
-        .name-section input:focus {
-            outline: none;
-            border-color: var(--green-dark);
-        }
-        .submit-btn {
-            width: 100%;
-            padding: 16px 24px;
-            background: var(--green-dark);
-            color: var(--white);
-            font-size: 16px;
-            font-weight: 700;
-            border: none;
-            border-radius: var(--radius);
-            cursor: pointer;
-            transition: transform 0.1s ease, box-shadow 0.15s ease;
-        }
-        .submit-btn:hover {
-            transform: translateY(-1px);
-            box-shadow: 0 4px 12px rgba(27, 67, 50, 0.3);
-        }
-        .submit-btn:active {
-            transform: translateY(0);
-        }
-        .resource-link {
-            display: block;
-            margin-top: 8px;
             font-size: 12px;
+            font-weight: 700;
+            padding: 6px 14px;
+            border-radius: 20px;
+            margin-bottom: 12px;
+            letter-spacing: 0.5px;
+        }
+        .davis-header h2 {
+            font-family: var(--font-heading);
+            color: var(--white);
+            font-size: 28px;
+            margin-bottom: 8px;
+        }
+        .davis-header .discount {
+            color: var(--gold);
+            font-size: 20px;
+            font-weight: 700;
+        }
+        .davis-contact {
+            background: #f0f7f2;
+            padding: 24px 32px;
+            text-align: center;
+            border-bottom: 1px solid var(--gray-200);
+        }
+        .davis-contact-name {
+            font-weight: 700;
+            color: var(--green-dark);
+            font-size: 18px;
+            margin-bottom: 8px;
+        }
+        .davis-contact-info {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-bottom: 12px;
+        }
+        .davis-contact-info a {
             color: var(--green-dark);
             text-decoration: none;
-            font-weight: 600;
+            font-weight: 500;
         }
-        .resource-link:hover {
+        .davis-contact-info a:hover {
             text-decoration: underline;
+        }
+        .davis-contact-note {
+            font-size: 13px;
+            color: var(--gray-600);
+            max-width: 500px;
+            margin: 0 auto;
+            line-height: 1.5;
+        }
+        .davis-body {
+            padding: 32px;
+        }
+        .davis-table-title {
+            font-family: var(--font-heading);
+            font-size: 18px;
+            color: var(--green-dark);
+            margin-bottom: 16px;
+        }
+        .davis-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+        }
+        .davis-table th {
+            background: var(--green-dark);
+            color: var(--white);
+            padding: 12px 16px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .davis-table th:last-child {
+            text-align: right;
+        }
+        .davis-table th:nth-child(3) {
+            text-align: right;
+        }
+        .davis-table td {
+            padding: 12px 16px;
+            border-bottom: 1px solid var(--gray-200);
+        }
+        .davis-table tr:last-child td {
+            border-bottom: none;
+        }
+        .davis-table tr:hover {
+            background: #fafafa;
+        }
+        .davis-table .sku {
+            font-family: monospace;
+            color: var(--gray-500);
+            font-size: 12px;
+        }
+        .davis-table .item-name {
+            color: var(--gray-800);
+        }
+        .davis-table .price-list {
+            text-align: right;
+            color: var(--gray-500);
+            text-decoration: line-through;
+        }
+        .davis-table .price-partner {
+            text-align: right;
+            color: var(--green-dark);
+            font-weight: 700;
+        }
+        .davis-footer {
+            padding: 24px 32px;
+            background: var(--gray-100);
+            font-size: 12px;
+            color: var(--gray-600);
+            text-align: center;
+        }
+        .davis-footer a {
+            color: var(--green-dark);
+            font-weight: 600;
+            text-decoration: none;
+        }
+        .davis-footer a:hover {
+            text-decoration: underline;
+        }
+        @media (max-width: 600px) {
+            .davis-header, .davis-contact, .davis-body {
+                padding: 20px;
+            }
+            .davis-table {
+                font-size: 12px;
+            }
+            .davis-table th, .davis-table td {
+                padding: 10px 8px;
+            }
+            .davis-contact-info {
+                flex-direction: column;
+                gap: 8px;
+            }
         }
     </style>
 </head>
@@ -676,93 +713,89 @@
         </div>
     </section>
 
-    <!-- Upcoming Events -->
-    <section class="events-compact">
+    <!-- Davis Weather Stations Partner Pricing -->
+    <section class="davis-section">
         <div class="container">
-            <!-- Planter Clinic Week Hero Banner -->
-            <div class="event-hero-banner">
-                <h2>Planter Clinic Week</h2>
-                <div class="dates">March 10-12, 2026</div>
-                <div class="location">M77 AG Warehouse — 34549 HWY 59, Haxtun, CO</div>
-            </div>
-
-            <!-- Tune-up Banner -->
-            <div class="tuneup-banner">
-                <strong>Planter Unit Tune-Up (March 10-11)</strong>
-                <p>Servi Tech on-site for professional planter unit calibration. Drop off anytime prior to event, pick up by Friday March 14. <a href="tel:9705711015">Call to schedule: 970-571-1015</a></p>
-            </div>
-
-            <!-- RSVP Form with Session Checkboxes -->
-            <div class="rsvp-inline" id="rsvpInline" style="max-width: 600px;">
-                <h3>Reserve Your Spot</h3>
-                <p>Check the sessions you'd like to attend</p>
-                <form id="rsvpInlineForm" action="https://formsubmit.co/info@youraginfo.com" method="POST">
-                    <input type="hidden" name="_subject" value="RSVP: Planter Clinic Week">
-                    <input type="hidden" name="_captcha" value="false">
-                    <input type="hidden" name="_template" value="table">
-                    <input type="hidden" name="_next" value="https://youraginfo.com/?rsvp=success">
-
-                    <div class="session-list">
-                        <label class="session-item">
-                            <input type="checkbox" name="Tuesday - JD Operations Center" value="Attending">
-                            <div class="session-info">
-                                <div class="session-day">Tuesday, March 10</div>
-                                <div class="session-name">John Deere Operations Center</div>
-                                <div class="session-time">2:00 - 3:00 PM</div>
-                                <div class="session-desc">Getting the most from your data. Learn to leverage your precision ag data for better decisions.</div>
-                                <a href="docs/JD_OpsCenter_Granular_Training.pdf" target="_blank" class="resource-link">Training Guide (PDF)</a>
-                            </div>
-                        </label>
-
-                        <label class="session-item">
-                            <input type="checkbox" name="Wednesday - AI Integration" value="Attending">
-                            <div class="session-info">
-                                <div class="session-day">Wednesday, March 11</div>
-                                <div class="session-name">AI Integration for Agriculture</div>
-                                <div class="session-time">2:00 - 3:00 PM</div>
-                                <div class="session-desc">Managing the data constantly streaming in. Practical AI tools for modern farming operations.</div>
-                            </div>
-                        </label>
-
-                        <label class="session-item">
-                            <input type="checkbox" name="Wednesday - Davis Weather Stations" value="Attending">
-                            <div class="session-info">
-                                <div class="session-day">Wednesday, March 11</div>
-                                <div class="session-name">Davis Weather Stations</div>
-                                <div class="session-time">3:00 - 4:00 PM</div>
-                                <div class="session-desc">Learn how to set up and use Davis weather stations for real-time field monitoring and data-driven decisions.</div>
-                            </div>
-                        </label>
-
-                        <label class="session-item">
-                            <input type="checkbox" name="Thursday - CLIP Insurance Lunch" value="Attending">
-                            <div class="session-info">
-                                <div class="session-day">Thursday, March 12</div>
-                                <div class="session-name">CLIP Insurance & Farm Programs <span class="lunch-tag">LUNCH</span></div>
-                                <div class="session-time">12:00 PM</div>
-                                <div class="session-desc">Program updates and enrollment information. Stay current on FSA deadlines and insurance options.</div>
-                            </div>
-                        </label>
-
-                        <label class="session-item">
-                            <input type="checkbox" name="Planter Tune-Up" value="Attending">
-                            <div class="session-info">
-                                <div class="session-day">March 10-11</div>
-                                <div class="session-name">Planter Unit Tune-Up</div>
-                                <div class="session-time">Drop off anytime</div>
-                                <div class="session-desc">Professional calibration by Servi Tech. Drop off prior to event, pick up by Friday.</div>
-                            </div>
-                        </label>
+            <div class="davis-card">
+                <div class="davis-header">
+                    <span class="davis-badge">PARTNER PRICING AVAILABLE</span>
+                    <h2>Davis Weather Stations</h2>
+                    <div class="discount">30% OFF Davis List Price</div>
+                </div>
+                <div class="davis-contact">
+                    <div class="davis-contact-name">Contact Kyle McConnell</div>
+                    <div class="davis-contact-info">
+                        <a href="tel:9705711015">970-571-1015</a>
+                        <a href="mailto:kyle.mcconnell@plantpioneer.com">kyle.mcconnell@plantpioneer.com</a>
                     </div>
-
-                    <div class="name-section">
-                        <label for="rsvpName">Your Name</label>
-                        <input type="text" id="rsvpName" name="Name" placeholder="Enter your name" required>
-                    </div>
-
-                    <button type="submit" class="submit-btn">Submit RSVP</button>
-                </form>
-                <div class="success-msg" id="rsvpSuccess">Thanks! You're registered for Planter Clinic Week.</div>
+                    <p class="davis-contact-note">The Pioneer / Corteva partner discount is only available through an authorized rep. Reach out for a quote, ordering help, or product recommendations.</p>
+                </div>
+                <div class="davis-body">
+                    <h3 class="davis-table-title">Davis Pricing — List vs. Through Kyle (30% off)</h3>
+                    <table class="davis-table">
+                        <thead>
+                            <tr>
+                                <th>SKU</th>
+                                <th>Item</th>
+                                <th>List</th>
+                                <th>Through Kyle</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="sku">6242</td>
+                                <td class="item-name">Vantage Vue Weather Station w/ WeatherLink Console</td>
+                                <td class="price-list">$725.00</td>
+                                <td class="price-partner">$507.50</td>
+                            </tr>
+                            <tr>
+                                <td class="sku">6252</td>
+                                <td class="item-name">Wireless Vantage Pro2 + Standard Radiation Shield + WeatherLink Console</td>
+                                <td class="price-list">$1,035.00</td>
+                                <td class="price-partner">$724.50</td>
+                            </tr>
+                            <tr>
+                                <td class="sku">6262</td>
+                                <td class="item-name">Wireless Vantage Pro2 Plus w/ WeatherLink Console (UV + Solar)</td>
+                                <td class="price-list">$1,610.00</td>
+                                <td class="price-partner">$1,127.00</td>
+                            </tr>
+                            <tr>
+                                <td class="sku">6313</td>
+                                <td class="item-name">WeatherLink Console (standalone)</td>
+                                <td class="price-list">$425.00</td>
+                                <td class="price-partner">$297.50</td>
+                            </tr>
+                            <tr>
+                                <td class="sku">7210</td>
+                                <td class="item-name">AirLink Air Quality Monitor &amp; Temp/Humidity Sensor</td>
+                                <td class="price-list">$235.00</td>
+                                <td class="price-partner">$164.50</td>
+                            </tr>
+                            <tr>
+                                <td class="sku">7717</td>
+                                <td class="item-name">Mounting Pole Kit (Vantage Vue / Vantage Pro2 / EnviroMonitor)</td>
+                                <td class="price-list">$80.00</td>
+                                <td class="price-partner">$56.00</td>
+                            </tr>
+                            <tr>
+                                <td class="sku">7716</td>
+                                <td class="item-name">Mounting Tripod</td>
+                                <td class="price-list">from $175.00</td>
+                                <td class="price-partner">from $122.50</td>
+                            </tr>
+                            <tr>
+                                <td class="sku">1459</td>
+                                <td class="item-name">Air-Dryr 500 Dehumidifier</td>
+                                <td class="price-list">$69.99</td>
+                                <td class="price-partner">$48.99</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="davis-footer">
+                    Prices verified from <a href="https://www.davisinstruments.com" target="_blank">davisinstruments.com</a>. Partner pricing requires order placement through Kyle (Pioneer / Corteva authorized rep).
+                </div>
             </div>
         </div>
     </section>
@@ -797,19 +830,6 @@
                 document.getElementById('password').focus();
             }
         });
-
-        // Toggle checked class on session items
-        document.querySelectorAll('.session-item input[type="checkbox"]').forEach(function(checkbox) {
-            checkbox.addEventListener('change', function() {
-                this.closest('.session-item').classList.toggle('checked', this.checked);
-            });
-        });
-
-        // Check for RSVP success
-        if (window.location.search.includes('rsvp=success')) {
-            document.getElementById('rsvpInlineForm').style.display = 'none';
-            document.getElementById('rsvpSuccess').classList.add('show');
-        }
     </script>
 </body>
 </html>
