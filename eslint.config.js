@@ -1,0 +1,50 @@
+export default [
+    {
+        files: ["**/*.js"],
+        languageOptions: {
+            ecmaVersion: 2022,
+            sourceType: "script",
+            globals: {
+                // Browser globals
+                window: "readonly",
+                document: "readonly",
+                localStorage: "readonly",
+                alert: "readonly",
+                console: "readonly",
+                setTimeout: "readonly",
+                setInterval: "readonly",
+                clearInterval: "readonly",
+                HTMLElement: "readonly",
+                Event: "readonly",
+                // Project globals (data constants loaded via script tags)
+                CROPS: "writable",
+                COSTS: "writable",
+                OPERATIONS: "readonly",
+                FERTILIZER: "readonly",
+                CHEMICALS: "readonly",
+                IRRIGATION: "readonly",
+                SEED: "readonly",
+                OVERHEAD: "readonly",
+                RATE_SOURCES: "readonly",
+                CUSTOM_FARMING_RATES: "readonly",
+                LEASE_RATES: "readonly",
+                // Cross-file functions (defined in data files, used in main.js)
+                getCrop: "readonly",
+                getTotalAcres: "readonly",
+                getIrrigatedAcres: "readonly",
+                getDrylandAcres: "readonly",
+                calculateTotalCostPerAcre: "readonly",
+                calculateBreakeven: "readonly",
+                calculateGrossRevenue: "readonly",
+                calculateNetReturn: "readonly",
+            },
+        },
+        rules: {
+            "no-unused-vars": "warn",
+            "no-undef": "error",
+            "no-redeclare": "warn",
+            "no-constant-binary-expression": "error",
+            "eqeqeq": ["warn", "smart"],
+        },
+    },
+];
