@@ -579,32 +579,32 @@
                         Water Reporter uses your <strong>Granular Insights</strong> field boundaries to display soil moisture maps. This connection is handled by Corteva — you don't need to change anything in your Granular account.
                     </p>
                     <div style="background: #e8f4fc; border-radius: var(--radius); padding: 20px; margin-bottom: 20px; border-left: 4px solid #1f4e79;">
-                        <p style="margin: 0 0 12px; font-weight: 700; color: #1f4e79; font-size: 15px;">Two Separate Connections:</p>
+                        <p style="margin: 0 0 12px; font-weight: 700; color: #1f4e79; font-size: 15px;">Two Separate Connections (Who Does What):</p>
                         <div style="display: flex; flex-direction: column; gap: 12px;">
                             <div style="display: flex; gap: 12px; align-items: flex-start;">
                                 <div style="background: #1f4e79; color: white; width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-weight: 700; font-size: 13px;">1</div>
                                 <div>
-                                    <strong style="color: var(--gray-800);">Valley API Form</strong> — <span style="color: var(--gray-600);">Connects AgSense/Valley 365 pivot telemetry to Corteva (you submit this)</span>
+                                    <strong style="color: var(--gray-800);">Valley API Form</strong> — <span style="color: var(--gray-600);">Grower submits this to connect pivot telemetry</span>
                                 </div>
                             </div>
                             <div style="display: flex; gap: 12px; align-items: flex-start;">
                                 <div style="background: #1f4e79; color: white; width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-weight: 700; font-size: 13px;">2</div>
                                 <div>
-                                    <strong style="color: var(--gray-800);">Granular Connection</strong> — <span style="color: var(--gray-600);">Links your Granular account to Water Reporter (Corteva handles this)</span>
+                                    <strong style="color: var(--gray-800);">Granular + Water Reporter</strong> — <span style="color: var(--gray-600);">Kyle enrolls your operation through Corteva</span>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <p style="margin: 0 0 16px; font-weight: 700; color: var(--green-dark); font-size: 15px;">How Granular Gets Connected:</p>
                     <ol style="margin: 0; padding-left: 20px; font-size: 15px; color: var(--gray-700); line-height: 1.8;">
-                        <li><strong>Your fields are already in Granular</strong> — McConnell Enterprises (68 fields, 6,321 acres)</li>
-                        <li><strong>Contact Kyle or your Corteva rep</strong> — Ask them to link your Granular account to Water Reporter</li>
-                        <li><strong>Corteva connects the accounts</strong> — This is done on Corteva's backend, not in Granular</li>
+                        <li><strong>Set up your fields in Granular Insights</strong> — with accurate boundaries and crop information</li>
+                        <li><strong>Contact Kyle</strong> — He'll enroll your operation in Water Reporter through Corteva Digital Ag</li>
+                        <li><strong>Corteva links the accounts</strong> — This happens on the backend, not in Granular</li>
                         <li><strong>Field boundaries appear in Water Reporter</strong> — Once linked, your field shapes sync automatically</li>
                     </ol>
                     <div style="margin-top: 20px; padding: 16px; background: #fff8e1; border-radius: var(--radius); border-left: 4px solid var(--gold);">
                         <p style="margin: 0; font-size: 14px; color: var(--gray-700);">
-                            <strong style="color: var(--gold);">Important:</strong> You do NOT enter credentials or submit forms in Granular for this connection. The Valley API form you submitted is only for pivot data. The Granular link is a separate request to Corteva — just tell Kyle which Granular account to connect.
+                            <strong style="color: var(--gold);">Important:</strong> You do NOT need to add a "connection" in Granular for Water Reporter. Granular and Water Reporter are both Corteva tools — Kyle handles the enrollment on the Corteva side.
                         </p>
                     </div>
                 </div>
@@ -628,6 +628,11 @@
             <div class="wr-section">
                 <h2 class="wr-h3 wr-h3-green">Connect AgSense 365 to Water Reporter</h2>
                 <div class="wr-section-body" style="padding-bottom: 0;">
+                    <div style="background: #e8f0e4; border-radius: var(--radius); padding: 14px 16px; margin-bottom: 16px; border-left: 4px solid var(--green-dark);">
+                        <p style="margin: 0; font-size: 14px; color: var(--gray-700);">
+                            <strong style="color: var(--green-dark);">Grower Responsibility:</strong> You (the grower) must submit this form yourself to authorize Valley to share your pivot data with Corteva.
+                        </p>
+                    </div>
                     <p style="margin: 0 0 16px; color: var(--gray-700); font-size: 15px; line-height: 1.6;">
                         To get your pivot telemetry data flowing into Water Reporter, you need to connect your <strong>AgSense/Valley 365</strong> account. This requires an API access request that Valley must approve.
                     </p>
@@ -652,7 +657,7 @@
                     <table style="width: 100%; border-collapse: collapse; font-size: 14px; background: #f8f9fa; border-radius: var(--radius); overflow: hidden;">
                         <tr style="border-bottom: 1px solid var(--gray-200);">
                             <td style="padding: 10px 16px; font-weight: 600; color: var(--gray-600); width: 35%;">Company</td>
-                            <td style="padding: 10px 16px; color: var(--gray-800);">M77 Ag</td>
+                            <td style="padding: 10px 16px; color: var(--gray-800);"><em>Your farm or operation name</em></td>
                         </tr>
                         <tr style="border-bottom: 1px solid var(--gray-200);">
                             <td style="padding: 10px 16px; font-weight: 600; color: var(--gray-600);">Data Request</td>
@@ -664,11 +669,11 @@
                         </tr>
                         <tr style="border-bottom: 1px solid var(--gray-200);">
                             <td style="padding: 10px 16px; font-weight: 600; color: var(--gray-600);">Contact Name</td>
-                            <td style="padding: 10px 16px; color: var(--gray-800);">Kyle McConnell</td>
+                            <td style="padding: 10px 16px; color: var(--gray-800);"><em>Your name</em></td>
                         </tr>
                         <tr style="border-bottom: 1px solid var(--gray-200);">
                             <td style="padding: 10px 16px; font-weight: 600; color: var(--gray-600);">Contact Email</td>
-                            <td style="padding: 10px 16px; color: var(--gray-800);">kyle@togoag.com</td>
+                            <td style="padding: 10px 16px; color: var(--gray-800);"><em>Your email</em></td>
                         </tr>
                         <tr>
                             <td style="padding: 10px 16px; font-weight: 600; color: var(--gray-600); vertical-align: top;">API Intent</td>
@@ -678,7 +683,7 @@
                 </div>
                 <div class="wr-section-body" style="padding-top: 12px;">
                     <p style="margin: 0; padding: 16px; background: #fff8e1; border-radius: var(--radius); font-size: 14px; color: var(--gray-700);">
-                        <strong style="color: var(--gold);">Note:</strong> The API approval process may take a few days. Kyle can help you fill out the form and track the approval status.
+                        <strong style="color: var(--gold);">Note:</strong> The API approval process may take a few days. Contact Kyle if you have questions about filling out the form.
                     </p>
                 </div>
             </div>
