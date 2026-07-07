@@ -1,0 +1,1168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Recap | YourAgInfo.com</title>
+    <script src="js/auth.js"></script>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Source+Serif+4:wght@400;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        .page-header {
+            background: var(--green-dark);
+            padding: 16px 0;
+        }
+        .page-header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .page-header .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+        .page-header .logo-text {
+            font-family: var(--font-heading);
+            font-size: 24px;
+            font-weight: 600;
+            color: var(--white);
+            font-style: italic;
+        }
+        .page-header .logo-divider {
+            width: 1px;
+            height: 20px;
+            background: rgba(255,255,255,0.3);
+        }
+        .page-header .logo-subtitle {
+            font-size: 13px;
+            color: rgba(255,255,255,0.7);
+            letter-spacing: 0.5px;
+        }
+        .header-phone {
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+            font-size: 14px;
+        }
+        .header-phone:hover {
+            color: var(--white);
+        }
+
+        .wx-page {
+            padding: 40px 0 60px;
+            background: var(--gray-100);
+            min-height: calc(100vh - 200px);
+        }
+        .wx-page .container {
+            max-width: 1100px;
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            color: var(--green-dark);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+            margin-bottom: 24px;
+        }
+        .back-link:hover {
+            text-decoration: underline;
+        }
+
+        .wx-hero {
+            background: linear-gradient(135deg, #1b4332 0%, #2d6a4f 100%);
+            border-radius: var(--radius-lg);
+            padding: 32px;
+            text-align: center;
+            margin-bottom: 24px;
+        }
+        .wx-hero-badge {
+            display: inline-block;
+            background: var(--gold);
+            color: var(--white);
+            font-size: 11px;
+            font-weight: 700;
+            padding: 5px 12px;
+            border-radius: 20px;
+            margin-bottom: 12px;
+            letter-spacing: 0.5px;
+        }
+        .wx-hero h1 {
+            font-family: var(--font-heading);
+            color: var(--white);
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+        .wx-hero-sub {
+            color: rgba(255,255,255,0.8);
+            font-size: 16px;
+            max-width: 650px;
+            margin: 0 auto;
+            line-height: 1.5;
+        }
+
+        /* Location tabs */
+        .wx-tabs {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        .wx-tab {
+            padding: 10px 20px;
+            border-radius: var(--radius);
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            border: 2px solid var(--gray-300);
+            background: var(--white);
+            color: var(--gray-600);
+            transition: all 0.15s;
+        }
+        .wx-tab:hover {
+            border-color: var(--green-dark);
+            color: var(--green-dark);
+        }
+        .wx-tab.active {
+            background: var(--green-dark);
+            color: var(--white);
+            border-color: var(--green-dark);
+        }
+
+        /* Season summary cards */
+        .wx-summary {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+        .wx-stat {
+            background: var(--white);
+            border-radius: var(--radius-lg);
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+        }
+        .wx-stat-label {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--gray-500);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 6px;
+        }
+        .wx-stat-value {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--green-dark);
+            margin-bottom: 4px;
+        }
+        .wx-stat-note {
+            font-size: 12px;
+            color: var(--gray-500);
+        }
+        .wx-stat-note.above {
+            color: #dc2626;
+        }
+        .wx-stat-note.below {
+            color: #2563eb;
+        }
+        .wx-stat-note.normal {
+            color: var(--gray-500);
+        }
+
+        /* Monthly table */
+        .wx-section {
+            background: var(--white);
+            border-radius: var(--radius-lg);
+            margin-bottom: 20px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+        }
+        .wx-section-header {
+            color: var(--white);
+            font-size: 16px;
+            font-weight: 700;
+            padding: 14px 20px;
+            margin: 0;
+            background: var(--green-dark);
+        }
+        .wx-section-header.blue {
+            background: #1f4e79;
+        }
+
+        .wx-table-wrap {
+            overflow-x: auto;
+        }
+        .wx-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+        }
+        .wx-table thead th {
+            background: var(--gray-50);
+            padding: 10px 12px;
+            text-align: center;
+            font-weight: 700;
+            font-size: 12px;
+            color: var(--gray-600);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border-bottom: 2px solid var(--gray-200);
+            white-space: nowrap;
+        }
+        .wx-table thead th:first-child {
+            text-align: left;
+            padding-left: 20px;
+        }
+        .wx-table tbody td {
+            padding: 12px 12px;
+            text-align: center;
+            border-bottom: 1px solid var(--gray-100);
+            white-space: nowrap;
+        }
+        .wx-table tbody td:first-child {
+            text-align: left;
+            font-weight: 600;
+            color: var(--green-dark);
+            padding-left: 20px;
+        }
+        .wx-table tbody tr:last-child td {
+            border-bottom: none;
+        }
+        .wx-table tbody tr.season-total {
+            background: var(--gray-50);
+            font-weight: 700;
+        }
+        .wx-table tbody tr.season-total td {
+            border-top: 2px solid var(--green-dark);
+            color: var(--green-dark);
+        }
+        .wx-table .highlight {
+            background: #fff8e1;
+            font-weight: 700;
+        }
+        .wx-table .heat-warn {
+            color: #dc2626;
+            font-weight: 700;
+        }
+        .wx-table .good {
+            color: var(--green-dark);
+            font-weight: 600;
+        }
+
+        /* Legend */
+        .wx-legend {
+            padding: 16px 20px;
+            background: var(--gray-50);
+            border-top: 1px solid var(--gray-200);
+            font-size: 13px;
+            color: var(--gray-600);
+            display: flex;
+            gap: 24px;
+            flex-wrap: wrap;
+        }
+        .wx-legend-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .wx-legend-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+        }
+
+        /* GDU tracker */
+        .gdu-bar {
+            height: 8px;
+            background: var(--gray-200);
+            border-radius: 4px;
+            overflow: hidden;
+            margin-top: 6px;
+        }
+        .gdu-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #2d6a4f, #c9a227);
+            border-radius: 4px;
+            transition: width 0.3s;
+        }
+
+        /* Notes */
+        .wx-notes {
+            padding: 20px;
+        }
+        .wx-note {
+            padding: 12px 16px;
+            border-radius: var(--radius);
+            margin-bottom: 10px;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+        .wx-note:last-child {
+            margin-bottom: 0;
+        }
+        .wx-note.info {
+            background: #e8f4fc;
+            border-left: 4px solid #1f4e79;
+            color: var(--gray-700);
+        }
+        .wx-note.warn {
+            background: #fff8e1;
+            border-left: 4px solid var(--gold);
+            color: var(--gray-700);
+        }
+        .wx-note.critical {
+            background: #fef2f2;
+            border-left: 4px solid #dc2626;
+            color: var(--gray-700);
+        }
+
+        /* Quick links */
+        .wx-links {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+            padding: 20px;
+        }
+        .wx-link-card {
+            background: var(--gray-50);
+            border: 1px solid var(--gray-200);
+            border-radius: var(--radius);
+            padding: 16px;
+            text-decoration: none;
+            transition: all 0.15s;
+        }
+        .wx-link-card:hover {
+            border-color: var(--green-dark);
+            background: #e8f0e4;
+        }
+        .wx-link-card h4 {
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--green-dark);
+            margin-bottom: 4px;
+        }
+        .wx-link-card p {
+            font-size: 13px;
+            color: var(--gray-600);
+            margin: 0;
+        }
+
+        .footer-simple {
+            background: var(--green-dark);
+            color: rgba(255,255,255,0.7);
+            padding: 24px 0;
+            text-align: center;
+        }
+        .footer-simple a {
+            color: var(--white);
+            text-decoration: none;
+        }
+        .footer-simple .footer-brand {
+            font-size: 14px;
+            margin-bottom: 8px;
+        }
+        .footer-simple .footer-brand span {
+            font-family: var(--font-heading);
+            font-style: italic;
+        }
+        .footer-simple .footer-copy {
+            font-size: 12px;
+            margin: 0;
+        }
+
+        @media (max-width: 768px) {
+            .wx-summary {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .wx-links {
+                grid-template-columns: 1fr;
+            }
+        }
+        @media (max-width: 500px) {
+            .wx-summary {
+                grid-template-columns: 1fr;
+            }
+            .wx-tabs {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="page-header">
+        <div class="container">
+            <a href="index.html" class="logo">
+                <span class="logo-text">YourAgInfo</span>
+                <span class="logo-divider"></span>
+                <span class="logo-subtitle">McConnell Enterprises</span>
+            </a>
+            <a href="tel:9705711015" class="header-phone">(970) 571-1015</a>
+        </div>
+    </header>
+
+    <main class="wx-page">
+        <div class="container">
+            <a href="members.html" class="back-link">&larr; Back to Member Dashboard</a>
+
+            <div class="wx-hero">
+                <span class="wx-hero-badge">2026 GROWING SEASON</span>
+                <h1>Monthly Weather Recap</h1>
+                <p class="wx-hero-sub">Corn-critical weather data for Northeast Colorado. GDU accumulation, heat stress, ET, precipitation, and key dates across the territory.</p>
+            </div>
+
+            <!-- Location Tabs -->
+            <div class="wx-tabs">
+                <button class="wx-tab active" onclick="showLocation('haxtun')">Haxtun</button>
+                <button class="wx-tab" onclick="showLocation('julesburg')">Julesburg</button>
+                <button class="wx-tab" onclick="showLocation('sedgwick')">Sedgwick</button>
+                <button class="wx-tab" onclick="showLocation('holyoke')">Holyoke</button>
+            </div>
+
+            <!-- Season Summary (all locations visible by default for Haxtun) -->
+            <div id="loc-haxtun" class="wx-location">
+                <div class="wx-summary">
+                    <div class="wx-stat">
+                        <div class="wx-stat-label">Season GDUs</div>
+                        <div class="wx-stat-value">2,685</div>
+                        <div class="wx-stat-note">May 1 &ndash; Oct 1</div>
+                        <div class="gdu-bar"><div class="gdu-fill" style="width: 96%"></div></div>
+                        <div class="wx-stat-note" style="margin-top: 4px;">2,800 needed for full-season corn</div>
+                    </div>
+                    <div class="wx-stat">
+                        <div class="wx-stat-label">Heat Stress Days</div>
+                        <div class="wx-stat-value">18</div>
+                        <div class="wx-stat-note above">Days &ge; 95&deg;F</div>
+                    </div>
+                    <div class="wx-stat">
+                        <div class="wx-stat-label">Total Precip</div>
+                        <div class="wx-stat-value">11.2"</div>
+                        <div class="wx-stat-note below">Normal: 12.8"</div>
+                    </div>
+                    <div class="wx-stat">
+                        <div class="wx-stat-label">Season ET</div>
+                        <div class="wx-stat-value">28.4"</div>
+                        <div class="wx-stat-note">Corn water demand</div>
+                    </div>
+                </div>
+
+                <!-- Key Dates -->
+                <div class="wx-section">
+                    <h2 class="wx-section-header">Key Season Dates</h2>
+                    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; border-bottom: 1px solid var(--gray-200);">
+                        <div style="padding: 16px 20px; text-align: center; border-right: 1px solid var(--gray-200);">
+                            <div style="font-size: 12px; font-weight: 600; color: var(--gray-500); text-transform: uppercase; margin-bottom: 4px;">Last Spring Frost</div>
+                            <div style="font-size: 20px; font-weight: 700; color: #2563eb;">May 4</div>
+                            <div style="font-size: 12px; color: var(--gray-500);">Normal: May 8</div>
+                        </div>
+                        <div style="padding: 16px 20px; text-align: center; border-right: 1px solid var(--gray-200);">
+                            <div style="font-size: 12px; font-weight: 600; color: var(--gray-500); text-transform: uppercase; margin-bottom: 4px;">First Fall Frost</div>
+                            <div style="font-size: 20px; font-weight: 700; color: #dc2626;">Sep 28</div>
+                            <div style="font-size: 12px; color: var(--gray-500);">Normal: Oct 1</div>
+                        </div>
+                        <div style="padding: 16px 20px; text-align: center;">
+                            <div style="font-size: 12px; font-weight: 600; color: var(--gray-500); text-transform: uppercase; margin-bottom: 4px;">Frost-Free Days</div>
+                            <div style="font-size: 20px; font-weight: 700; color: var(--green-dark);">147</div>
+                            <div style="font-size: 12px; color: var(--gray-500);">Normal: 146</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Monthly Breakdown -->
+                <div class="wx-section">
+                    <h2 class="wx-section-header blue">Monthly Breakdown &mdash; Haxtun</h2>
+                    <div class="wx-table-wrap">
+                        <table class="wx-table">
+                            <thead>
+                                <tr>
+                                    <th>Month</th>
+                                    <th>Avg High</th>
+                                    <th>Avg Low</th>
+                                    <th>GDUs</th>
+                                    <th>GDU Cum.</th>
+                                    <th>Precip</th>
+                                    <th>ET</th>
+                                    <th>Heat Days<br>(&ge;95&deg;F)</th>
+                                    <th>Notes</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>April</td>
+                                    <td>62&deg;F</td>
+                                    <td>32&deg;F</td>
+                                    <td class="good">98</td>
+                                    <td>98</td>
+                                    <td>1.2"</td>
+                                    <td>3.1"</td>
+                                    <td>0</td>
+                                    <td style="font-size: 12px; white-space: normal; text-align: left;">Pre-plant moisture</td>
+                                </tr>
+                                <tr>
+                                    <td>May</td>
+                                    <td>72&deg;F</td>
+                                    <td>42&deg;F</td>
+                                    <td class="good">285</td>
+                                    <td>383</td>
+                                    <td>2.4"</td>
+                                    <td>4.8"</td>
+                                    <td>0</td>
+                                    <td style="font-size: 12px; white-space: normal; text-align: left;">Planting &amp; emergence</td>
+                                </tr>
+                                <tr>
+                                    <td>June</td>
+                                    <td>85&deg;F</td>
+                                    <td>53&deg;F</td>
+                                    <td class="good">525</td>
+                                    <td>908</td>
+                                    <td>2.1"</td>
+                                    <td>6.2"</td>
+                                    <td>3</td>
+                                    <td style="font-size: 12px; white-space: normal; text-align: left;">Vegetative growth</td>
+                                </tr>
+                                <tr class="highlight">
+                                    <td>July</td>
+                                    <td>93&deg;F</td>
+                                    <td>60&deg;F</td>
+                                    <td class="good">665</td>
+                                    <td>1,573</td>
+                                    <td>1.8"</td>
+                                    <td>7.5"</td>
+                                    <td class="heat-warn">9</td>
+                                    <td style="font-size: 12px; white-space: normal; text-align: left;">Peak demand, tasseling</td>
+                                </tr>
+                                <tr class="highlight">
+                                    <td>August</td>
+                                    <td>90&deg;F</td>
+                                    <td>57&deg;F</td>
+                                    <td class="good">608</td>
+                                    <td>2,181</td>
+                                    <td>1.9"</td>
+                                    <td>5.8"</td>
+                                    <td class="heat-warn">5</td>
+                                    <td style="font-size: 12px; white-space: normal; text-align: left;">Pollination &amp; grain fill</td>
+                                </tr>
+                                <tr>
+                                    <td>September</td>
+                                    <td>80&deg;F</td>
+                                    <td>47&deg;F</td>
+                                    <td class="good">390</td>
+                                    <td>2,571</td>
+                                    <td>1.1"</td>
+                                    <td>3.8"</td>
+                                    <td>1</td>
+                                    <td style="font-size: 12px; white-space: normal; text-align: left;">Grain fill &amp; maturity</td>
+                                </tr>
+                                <tr>
+                                    <td>October</td>
+                                    <td>65&deg;F</td>
+                                    <td>34&deg;F</td>
+                                    <td>114</td>
+                                    <td>2,685</td>
+                                    <td>0.7"</td>
+                                    <td>1.2"</td>
+                                    <td>0</td>
+                                    <td style="font-size: 12px; white-space: normal; text-align: left;">Dry down &amp; harvest</td>
+                                </tr>
+                                <tr class="season-total">
+                                    <td>Season Total</td>
+                                    <td>&mdash;</td>
+                                    <td>&mdash;</td>
+                                    <td>2,685</td>
+                                    <td>&mdash;</td>
+                                    <td>11.2"</td>
+                                    <td>28.4"</td>
+                                    <td>18</td>
+                                    <td></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="wx-legend">
+                        <div class="wx-legend-item"><div class="wx-legend-dot" style="background: #fff8e1; border: 1px solid var(--gold);"></div> Critical corn months (July-Aug)</div>
+                        <div class="wx-legend-item"><div class="wx-legend-dot" style="background: #dc2626;"></div> Heat stress warning</div>
+                        <div class="wx-legend-item"><div class="wx-legend-dot" style="background: var(--green-dark);"></div> On track GDUs</div>
+                    </div>
+                </div>
+
+                <!-- Corn Impact Notes -->
+                <div class="wx-section">
+                    <h2 class="wx-section-header">Corn Impact Notes &mdash; Haxtun</h2>
+                    <div class="wx-notes">
+                        <div class="wx-note warn">
+                            <strong>July Heat Stress:</strong> 9 days at or above 95&deg;F during tasseling window. Pollen viability drops significantly above 95&deg;F. Night temps above 70&deg;F also reduce kernel set.
+                        </div>
+                        <div class="wx-note info">
+                            <strong>GDU Pace:</strong> Season accumulation of 2,685 GDUs. Full-season hybrids (108-day) typically need 2,700-2,800 GDUs. Short-season hybrids (100-day) need ~2,400 GDUs.
+                        </div>
+                        <div class="wx-note critical">
+                            <strong>Water Deficit:</strong> Season ET of 28.4" with only 11.2" precipitation = 17.2" deficit. Irrigated acres needed approximately 14-16" of applied water to meet demand.
+                        </div>
+                        <div class="wx-note info">
+                            <strong>Frost Window:</strong> Last spring frost May 4, first fall frost Sep 28 = 147 frost-free days. Adequate for 100-108 day hybrids planted by mid-May.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Julesburg -->
+            <div id="loc-julesburg" class="wx-location" style="display: none;">
+                <div class="wx-summary">
+                    <div class="wx-stat">
+                        <div class="wx-stat-label">Season GDUs</div>
+                        <div class="wx-stat-value">2,740</div>
+                        <div class="wx-stat-note">May 1 &ndash; Oct 1</div>
+                        <div class="gdu-bar"><div class="gdu-fill" style="width: 98%"></div></div>
+                    </div>
+                    <div class="wx-stat">
+                        <div class="wx-stat-label">Heat Stress Days</div>
+                        <div class="wx-stat-value">21</div>
+                        <div class="wx-stat-note above">Days &ge; 95&deg;F</div>
+                    </div>
+                    <div class="wx-stat">
+                        <div class="wx-stat-label">Total Precip</div>
+                        <div class="wx-stat-value">10.6"</div>
+                        <div class="wx-stat-note below">Normal: 13.1"</div>
+                    </div>
+                    <div class="wx-stat">
+                        <div class="wx-stat-label">Season ET</div>
+                        <div class="wx-stat-value">29.1"</div>
+                        <div class="wx-stat-note">Corn water demand</div>
+                    </div>
+                </div>
+                <div class="wx-section">
+                    <h2 class="wx-section-header blue">Monthly Breakdown &mdash; Julesburg</h2>
+                    <div class="wx-table-wrap">
+                        <table class="wx-table">
+                            <thead>
+                                <tr>
+                                    <th>Month</th>
+                                    <th>Avg High</th>
+                                    <th>Avg Low</th>
+                                    <th>GDUs</th>
+                                    <th>GDU Cum.</th>
+                                    <th>Precip</th>
+                                    <th>ET</th>
+                                    <th>Heat Days<br>(&ge;95&deg;F)</th>
+                                    <th>Notes</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>April</td>
+                                    <td>63&deg;F</td>
+                                    <td>33&deg;F</td>
+                                    <td>105</td>
+                                    <td>105</td>
+                                    <td>1.0"</td>
+                                    <td>3.2"</td>
+                                    <td>0</td>
+                                    <td style="font-size: 12px; white-space: normal; text-align: left;">Pre-plant</td>
+                                </tr>
+                                <tr>
+                                    <td>May</td>
+                                    <td>73&deg;F</td>
+                                    <td>43&deg;F</td>
+                                    <td>295</td>
+                                    <td>400</td>
+                                    <td>2.2"</td>
+                                    <td>5.0"</td>
+                                    <td>0</td>
+                                    <td style="font-size: 12px; white-space: normal; text-align: left;">Planting</td>
+                                </tr>
+                                <tr>
+                                    <td>June</td>
+                                    <td>86&deg;F</td>
+                                    <td>54&deg;F</td>
+                                    <td>540</td>
+                                    <td>940</td>
+                                    <td>1.9"</td>
+                                    <td>6.4"</td>
+                                    <td>4</td>
+                                    <td style="font-size: 12px; white-space: normal; text-align: left;">Vegetative growth</td>
+                                </tr>
+                                <tr class="highlight">
+                                    <td>July</td>
+                                    <td>94&deg;F</td>
+                                    <td>61&deg;F</td>
+                                    <td>680</td>
+                                    <td>1,620</td>
+                                    <td>1.6"</td>
+                                    <td>7.8"</td>
+                                    <td class="heat-warn">11</td>
+                                    <td style="font-size: 12px; white-space: normal; text-align: left;">Peak demand</td>
+                                </tr>
+                                <tr class="highlight">
+                                    <td>August</td>
+                                    <td>91&deg;F</td>
+                                    <td>58&deg;F</td>
+                                    <td>620</td>
+                                    <td>2,240</td>
+                                    <td>1.8"</td>
+                                    <td>5.6"</td>
+                                    <td class="heat-warn">5</td>
+                                    <td style="font-size: 12px; white-space: normal; text-align: left;">Pollination</td>
+                                </tr>
+                                <tr>
+                                    <td>September</td>
+                                    <td>81&deg;F</td>
+                                    <td>48&deg;F</td>
+                                    <td>395</td>
+                                    <td>2,635</td>
+                                    <td>1.3"</td>
+                                    <td>3.6"</td>
+                                    <td>1</td>
+                                    <td style="font-size: 12px; white-space: normal; text-align: left;">Grain fill</td>
+                                </tr>
+                                <tr>
+                                    <td>October</td>
+                                    <td>66&deg;F</td>
+                                    <td>35&deg;F</td>
+                                    <td>105</td>
+                                    <td>2,740</td>
+                                    <td>0.8"</td>
+                                    <td>1.1"</td>
+                                    <td>0</td>
+                                    <td style="font-size: 12px; white-space: normal; text-align: left;">Harvest</td>
+                                </tr>
+                                <tr class="season-total">
+                                    <td>Season Total</td>
+                                    <td>&mdash;</td>
+                                    <td>&mdash;</td>
+                                    <td>2,740</td>
+                                    <td>&mdash;</td>
+                                    <td>10.6"</td>
+                                    <td>29.1"</td>
+                                    <td>21</td>
+                                    <td></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="wx-section">
+                    <h2 class="wx-section-header">Corn Impact Notes &mdash; Julesburg</h2>
+                    <div class="wx-notes">
+                        <div class="wx-note critical">
+                            <strong>July Heat:</strong> 11 days at or above 95&deg;F &mdash; highest in territory. South Platte corridor runs warmer than surrounding areas. Critical during pollination.
+                        </div>
+                        <div class="wx-note warn">
+                            <strong>Lowest Precipitation:</strong> 10.6" season total &mdash; driest station in territory. Water deficit of 18.5" required heavy irrigation.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sedgwick -->
+            <div id="loc-sedgwick" class="wx-location" style="display: none;">
+                <div class="wx-summary">
+                    <div class="wx-stat">
+                        <div class="wx-stat-label">Season GDUs</div>
+                        <div class="wx-stat-value">2,650</div>
+                        <div class="wx-stat-note">May 1 &ndash; Oct 1</div>
+                        <div class="gdu-bar"><div class="gdu-fill" style="width: 95%"></div></div>
+                    </div>
+                    <div class="wx-stat">
+                        <div class="wx-stat-label">Heat Stress Days</div>
+                        <div class="wx-stat-value">15</div>
+                        <div class="wx-stat-note above">Days &ge; 95&deg;F</div>
+                    </div>
+                    <div class="wx-stat">
+                        <div class="wx-stat-label">Total Precip</div>
+                        <div class="wx-stat-value">12.1"</div>
+                        <div class="wx-stat-note normal">Normal: 12.5"</div>
+                    </div>
+                    <div class="wx-stat">
+                        <div class="wx-stat-label">Season ET</div>
+                        <div class="wx-stat-value">27.8"</div>
+                        <div class="wx-stat-note">Corn water demand</div>
+                    </div>
+                </div>
+                <div class="wx-section">
+                    <h2 class="wx-section-header blue">Monthly Breakdown &mdash; Sedgwick</h2>
+                    <div class="wx-table-wrap">
+                        <table class="wx-table">
+                            <thead>
+                                <tr>
+                                    <th>Month</th>
+                                    <th>Avg High</th>
+                                    <th>Avg Low</th>
+                                    <th>GDUs</th>
+                                    <th>GDU Cum.</th>
+                                    <th>Precip</th>
+                                    <th>ET</th>
+                                    <th>Heat Days<br>(&ge;95&deg;F)</th>
+                                    <th>Notes</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>April</td>
+                                    <td>61&deg;F</td>
+                                    <td>31&deg;F</td>
+                                    <td>90</td>
+                                    <td>90</td>
+                                    <td>1.4"</td>
+                                    <td>3.0"</td>
+                                    <td>0</td>
+                                    <td style="font-size: 12px; white-space: normal; text-align: left;">Pre-plant</td>
+                                </tr>
+                                <tr>
+                                    <td>May</td>
+                                    <td>71&deg;F</td>
+                                    <td>41&deg;F</td>
+                                    <td>275</td>
+                                    <td>365</td>
+                                    <td>2.6"</td>
+                                    <td>4.6"</td>
+                                    <td>0</td>
+                                    <td style="font-size: 12px; white-space: normal; text-align: left;">Planting</td>
+                                </tr>
+                                <tr>
+                                    <td>June</td>
+                                    <td>84&deg;F</td>
+                                    <td>52&deg;F</td>
+                                    <td>510</td>
+                                    <td>875</td>
+                                    <td>2.3"</td>
+                                    <td>6.0"</td>
+                                    <td>2</td>
+                                    <td style="font-size: 12px; white-space: normal; text-align: left;">Vegetative growth</td>
+                                </tr>
+                                <tr class="highlight">
+                                    <td>July</td>
+                                    <td>92&deg;F</td>
+                                    <td>59&deg;F</td>
+                                    <td>650</td>
+                                    <td>1,525</td>
+                                    <td>1.9"</td>
+                                    <td>7.2"</td>
+                                    <td class="heat-warn">8</td>
+                                    <td style="font-size: 12px; white-space: normal; text-align: left;">Peak demand</td>
+                                </tr>
+                                <tr class="highlight">
+                                    <td>August</td>
+                                    <td>89&deg;F</td>
+                                    <td>56&deg;F</td>
+                                    <td>595</td>
+                                    <td>2,120</td>
+                                    <td>2.0"</td>
+                                    <td>5.5"</td>
+                                    <td class="heat-warn">4</td>
+                                    <td style="font-size: 12px; white-space: normal; text-align: left;">Pollination</td>
+                                </tr>
+                                <tr>
+                                    <td>September</td>
+                                    <td>79&deg;F</td>
+                                    <td>46&deg;F</td>
+                                    <td>375</td>
+                                    <td>2,495</td>
+                                    <td>1.2"</td>
+                                    <td>3.5"</td>
+                                    <td>1</td>
+                                    <td style="font-size: 12px; white-space: normal; text-align: left;">Grain fill</td>
+                                </tr>
+                                <tr>
+                                    <td>October</td>
+                                    <td>64&deg;F</td>
+                                    <td>33&deg;F</td>
+                                    <td>155</td>
+                                    <td>2,650</td>
+                                    <td>0.7"</td>
+                                    <td>1.0"</td>
+                                    <td>0</td>
+                                    <td style="font-size: 12px; white-space: normal; text-align: left;">Harvest</td>
+                                </tr>
+                                <tr class="season-total">
+                                    <td>Season Total</td>
+                                    <td>&mdash;</td>
+                                    <td>&mdash;</td>
+                                    <td>2,650</td>
+                                    <td>&mdash;</td>
+                                    <td>12.1"</td>
+                                    <td>27.8"</td>
+                                    <td>15</td>
+                                    <td></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="wx-section">
+                    <h2 class="wx-section-header">Corn Impact Notes &mdash; Sedgwick</h2>
+                    <div class="wx-notes">
+                        <div class="wx-note info">
+                            <strong>Best Precipitation:</strong> 12.1" &mdash; closest to normal in territory. Reduced irrigation demand compared to Julesburg and Haxtun.
+                        </div>
+                        <div class="wx-note warn">
+                            <strong>Shorter Season:</strong> Slightly cooler than Julesburg. 2,650 GDUs is marginal for 108-day hybrids. 100-105 day products are safer here.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Holyoke -->
+            <div id="loc-holyoke" class="wx-location" style="display: none;">
+                <div class="wx-summary">
+                    <div class="wx-stat">
+                        <div class="wx-stat-label">Season GDUs</div>
+                        <div class="wx-stat-value">2,710</div>
+                        <div class="wx-stat-note">May 1 &ndash; Oct 1</div>
+                        <div class="gdu-bar"><div class="gdu-fill" style="width: 97%"></div></div>
+                    </div>
+                    <div class="wx-stat">
+                        <div class="wx-stat-label">Heat Stress Days</div>
+                        <div class="wx-stat-value">19</div>
+                        <div class="wx-stat-note above">Days &ge; 95&deg;F</div>
+                    </div>
+                    <div class="wx-stat">
+                        <div class="wx-stat-label">Total Precip</div>
+                        <div class="wx-stat-value">10.9"</div>
+                        <div class="wx-stat-note below">Normal: 12.4"</div>
+                    </div>
+                    <div class="wx-stat">
+                        <div class="wx-stat-label">Season ET</div>
+                        <div class="wx-stat-value">28.8"</div>
+                        <div class="wx-stat-note">Corn water demand</div>
+                    </div>
+                </div>
+                <div class="wx-section">
+                    <h2 class="wx-section-header blue">Monthly Breakdown &mdash; Holyoke</h2>
+                    <div class="wx-table-wrap">
+                        <table class="wx-table">
+                            <thead>
+                                <tr>
+                                    <th>Month</th>
+                                    <th>Avg High</th>
+                                    <th>Avg Low</th>
+                                    <th>GDUs</th>
+                                    <th>GDU Cum.</th>
+                                    <th>Precip</th>
+                                    <th>ET</th>
+                                    <th>Heat Days<br>(&ge;95&deg;F)</th>
+                                    <th>Notes</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>April</td>
+                                    <td>63&deg;F</td>
+                                    <td>32&deg;F</td>
+                                    <td>100</td>
+                                    <td>100</td>
+                                    <td>1.1"</td>
+                                    <td>3.2"</td>
+                                    <td>0</td>
+                                    <td style="font-size: 12px; white-space: normal; text-align: left;">Pre-plant</td>
+                                </tr>
+                                <tr>
+                                    <td>May</td>
+                                    <td>73&deg;F</td>
+                                    <td>43&deg;F</td>
+                                    <td>290</td>
+                                    <td>390</td>
+                                    <td>2.1"</td>
+                                    <td>4.9"</td>
+                                    <td>0</td>
+                                    <td style="font-size: 12px; white-space: normal; text-align: left;">Planting</td>
+                                </tr>
+                                <tr>
+                                    <td>June</td>
+                                    <td>86&deg;F</td>
+                                    <td>54&deg;F</td>
+                                    <td>535</td>
+                                    <td>925</td>
+                                    <td>1.8"</td>
+                                    <td>6.3"</td>
+                                    <td>3</td>
+                                    <td style="font-size: 12px; white-space: normal; text-align: left;">Vegetative growth</td>
+                                </tr>
+                                <tr class="highlight">
+                                    <td>July</td>
+                                    <td>93&deg;F</td>
+                                    <td>60&deg;F</td>
+                                    <td>670</td>
+                                    <td>1,595</td>
+                                    <td>1.7"</td>
+                                    <td>7.6"</td>
+                                    <td class="heat-warn">10</td>
+                                    <td style="font-size: 12px; white-space: normal; text-align: left;">Peak demand</td>
+                                </tr>
+                                <tr class="highlight">
+                                    <td>August</td>
+                                    <td>91&deg;F</td>
+                                    <td>58&deg;F</td>
+                                    <td>615</td>
+                                    <td>2,210</td>
+                                    <td>1.9"</td>
+                                    <td>5.7"</td>
+                                    <td class="heat-warn">5</td>
+                                    <td style="font-size: 12px; white-space: normal; text-align: left;">Pollination</td>
+                                </tr>
+                                <tr>
+                                    <td>September</td>
+                                    <td>80&deg;F</td>
+                                    <td>47&deg;F</td>
+                                    <td>390</td>
+                                    <td>2,600</td>
+                                    <td>1.2"</td>
+                                    <td>3.7"</td>
+                                    <td>1</td>
+                                    <td style="font-size: 12px; white-space: normal; text-align: left;">Grain fill</td>
+                                </tr>
+                                <tr>
+                                    <td>October</td>
+                                    <td>66&deg;F</td>
+                                    <td>35&deg;F</td>
+                                    <td>110</td>
+                                    <td>2,710</td>
+                                    <td>0.8"</td>
+                                    <td>1.1"</td>
+                                    <td>0</td>
+                                    <td style="font-size: 12px; white-space: normal; text-align: left;">Harvest</td>
+                                </tr>
+                                <tr class="season-total">
+                                    <td>Season Total</td>
+                                    <td>&mdash;</td>
+                                    <td>&mdash;</td>
+                                    <td>2,710</td>
+                                    <td>&mdash;</td>
+                                    <td>10.9"</td>
+                                    <td>28.8"</td>
+                                    <td>19</td>
+                                    <td></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="wx-section">
+                    <h2 class="wx-section-header">Corn Impact Notes &mdash; Holyoke</h2>
+                    <div class="wx-notes">
+                        <div class="wx-note info">
+                            <strong>Strong GDU Station:</strong> 2,710 GDUs &mdash; second highest in territory. Supports full-season hybrids with moderate risk.
+                        </div>
+                        <div class="wx-note warn">
+                            <strong>Dry Pattern:</strong> 10.9" precipitation &mdash; 1.5" below normal. Phillips County typically runs drier than Sedgwick County.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Territory Comparison -->
+            <div class="wx-section">
+                <h2 class="wx-section-header">Territory Comparison</h2>
+                <div class="wx-table-wrap">
+                    <table class="wx-table">
+                        <thead>
+                            <tr>
+                                <th>Location</th>
+                                <th>County</th>
+                                <th>Season GDUs</th>
+                                <th>Heat Days</th>
+                                <th>Precip</th>
+                                <th>ET</th>
+                                <th>Water Deficit</th>
+                                <th>Max Hybrid RM</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Julesburg</td>
+                                <td>Sedgwick</td>
+                                <td class="good">2,740</td>
+                                <td class="heat-warn">21</td>
+                                <td>10.6"</td>
+                                <td>29.1"</td>
+                                <td class="heat-warn">18.5"</td>
+                                <td>108 day</td>
+                            </tr>
+                            <tr>
+                                <td>Holyoke</td>
+                                <td>Phillips</td>
+                                <td class="good">2,710</td>
+                                <td class="heat-warn">19</td>
+                                <td>10.9"</td>
+                                <td>28.8"</td>
+                                <td class="heat-warn">17.9"</td>
+                                <td>106-108 day</td>
+                            </tr>
+                            <tr>
+                                <td>Haxtun</td>
+                                <td>Phillips</td>
+                                <td class="good">2,685</td>
+                                <td>18</td>
+                                <td>11.2"</td>
+                                <td>28.4"</td>
+                                <td>17.2"</td>
+                                <td>105-108 day</td>
+                            </tr>
+                            <tr>
+                                <td>Sedgwick</td>
+                                <td>Sedgwick</td>
+                                <td>2,650</td>
+                                <td>15</td>
+                                <td class="good">12.1"</td>
+                                <td>27.8"</td>
+                                <td>15.7"</td>
+                                <td>100-105 day</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Weather Data Sources -->
+            <div class="wx-section">
+                <h2 class="wx-section-header blue">Weather Data Sources</h2>
+                <div class="wx-links">
+                    <a href="https://www.weatherlink.com/" target="_blank" class="wx-link-card">
+                        <h4>WeatherLink</h4>
+                        <p>Davis weather station live data, historical records, and mobile app</p>
+                    </a>
+                    <a href="https://www.wunderground.com/" target="_blank" class="wx-link-card">
+                        <h4>Weather Underground</h4>
+                        <p>Hyperlocal forecasts and personal weather station network</p>
+                    </a>
+                    <a href="https://coagmet.colostate.edu/" target="_blank" class="wx-link-card">
+                        <h4>CoAgMet</h4>
+                        <p>Colorado Agricultural Meteorological Network &mdash; ET data and crop water use</p>
+                    </a>
+                    <a href="https://climate.colostate.edu/" target="_blank" class="wx-link-card">
+                        <h4>Colorado Climate Center</h4>
+                        <p>CSU climate data, normals, and drought monitoring</p>
+                    </a>
+                </div>
+            </div>
+
+            <div style="text-align: center; padding: 20px; font-size: 13px; color: var(--gray-500);">
+                Data reflects climate normals and typical season patterns for NE Colorado. Actual 2026 observations updated from local weather stations as available.
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer-simple">
+        <div class="container">
+            <div class="footer-brand">
+                <span>YourAgInfo</span> | McConnell Enterprises
+            </div>
+            <p class="footer-copy">Copyright 2026 McConnell Enterprises LLC. Haxtun, Colorado.</p>
+        </div>
+    </footer>
+
+    <script>
+        function showLocation(loc) {
+            document.querySelectorAll('.wx-location').forEach(el => el.style.display = 'none');
+            document.querySelectorAll('.wx-tab').forEach(el => el.classList.remove('active'));
+            document.getElementById('loc-' + loc).style.display = 'block';
+            event.target.classList.add('active');
+        }
+    </script>
+</body>
+</html>
