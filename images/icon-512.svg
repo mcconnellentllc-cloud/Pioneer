@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512">
+  <rect width="512" height="512" rx="64" fill="#1a472a"/>
+  <text x="256" y="280" text-anchor="middle" font-family="Georgia, serif" font-size="160" font-weight="bold" font-style="italic" fill="#c9a227">YAI</text>
+  <text x="256" y="380" text-anchor="middle" font-family="Arial, sans-serif" font-size="42" fill="rgba(255,255,255,0.7)" letter-spacing="5">YOURAGINFO</text>
+</svg>

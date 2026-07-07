@@ -19,11 +19,88 @@
     <meta name="twitter:image" content="https://youraginfo.com/images/pioneer-100-family.jpg">
 
     <title>YourAgInfo.com | McConnell Enterprises - Haxtun, CO</title>
+
+    <!-- PWA -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#1a472a">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="YourAgInfo">
+    <link rel="apple-touch-icon" href="images/icon-192.svg">
+
     <link rel="stylesheet" href="css/style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Source+Serif+4:wght@400;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
+        /* Weather Banners */
+        .weather-banners {
+            position: relative;
+            z-index: 10;
+        }
+        .weather-banner {
+            padding: 10px 0;
+            text-align: center;
+            font-size: 14px;
+            font-weight: 600;
+        }
+        .weather-banner a {
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .weather-banner .banner-icon {
+            font-size: 18px;
+        }
+        .weather-banner .banner-cta {
+            font-weight: 700;
+            margin-left: 8px;
+            padding: 3px 10px;
+            border-radius: 4px;
+            font-size: 12px;
+            letter-spacing: 0.5px;
+        }
+        .weather-banner .banner-app {
+            font-size: 12px;
+            font-weight: 400;
+            opacity: 0.8;
+            margin-left: 12px;
+        }
+        .banner-weatherlink {
+            background: #0077c8;
+            color: var(--white);
+        }
+        .banner-weatherlink a {
+            color: var(--white);
+        }
+        .banner-weatherlink .banner-cta {
+            background: rgba(255,255,255,0.2);
+            color: var(--white);
+        }
+        .banner-wunderground {
+            background: #2b2b2b;
+            color: #f5f5f5;
+        }
+        .banner-wunderground a {
+            color: #f5f5f5;
+        }
+        .banner-wunderground .banner-cta {
+            background: #4caf50;
+            color: var(--white);
+        }
+        @media (max-width: 600px) {
+            .weather-banner {
+                font-size: 12px;
+                padding: 8px 12px;
+            }
+            .weather-banner .banner-app {
+                display: block;
+                margin-left: 0;
+                margin-top: 4px;
+            }
+        }
+
         /* Simple Header */
         .simple-header {
             background: var(--green-dark);
@@ -502,6 +579,26 @@
     </style>
 </head>
 <body>
+    <!-- Weather Banners -->
+    <div class="weather-banners">
+        <div class="weather-banner banner-weatherlink">
+            <a href="https://www.weatherlink.com/" target="_blank">
+                <span class="banner-icon">&#9748;</span>
+                <span><strong>WeatherLink</strong> &mdash; Davis Weather Station Live Data</span>
+                <span class="banner-cta">VIEW NOW</span>
+                <span class="banner-app">Download App: <strong>iOS</strong> &amp; <strong>Android</strong> &mdash; Search "WeatherLink"</span>
+            </a>
+        </div>
+        <div class="weather-banner banner-wunderground">
+            <a href="https://www.wunderground.com/" target="_blank">
+                <span class="banner-icon">&#127326;</span>
+                <span><strong>Weather Underground</strong> &mdash; Hyperlocal Forecasts &amp; PWS Network</span>
+                <span class="banner-cta">VIEW NOW</span>
+                <span class="banner-app">Download App: <strong>iOS</strong> &amp; <strong>Android</strong> &mdash; Search "Weather Underground"</span>
+            </a>
+        </div>
+    </div>
+
     <!-- Simple Header -->
     <header class="simple-header">
         <div class="container">
@@ -580,6 +677,11 @@
                 document.getElementById('password').focus();
             }
         });
+
+        // Register Service Worker for PWA
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('sw.js');
+        }
     </script>
 </body>
 </html>

@@ -1,0 +1,24 @@
+{
+  "name": "YourAgInfo - McConnell Enterprises",
+  "short_name": "YourAgInfo",
+  "description": "Agricultural resources for McConnell Enterprises customers in Northeastern Colorado",
+  "start_url": "/index.html",
+  "display": "standalone",
+  "background_color": "#1a472a",
+  "theme_color": "#1a472a",
+  "orientation": "any",
+  "icons": [
+    {
+      "src": "images/icon-192.svg",
+      "sizes": "192x192",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "images/icon-512.svg",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
