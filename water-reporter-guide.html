@@ -1,0 +1,755 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Water Reporter Grower Guide | YourAgInfo.com</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Source+Serif+4:wght@400;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        .page-header {
+            background: var(--green-dark);
+            padding: 16px 0;
+        }
+        .page-header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .page-header .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+        .page-header .logo-text {
+            font-family: var(--font-heading);
+            font-size: 24px;
+            font-weight: 600;
+            color: var(--white);
+            font-style: italic;
+        }
+        .page-header .logo-divider {
+            width: 1px;
+            height: 20px;
+            background: rgba(255,255,255,0.3);
+        }
+        .page-header .logo-subtitle {
+            font-size: 13px;
+            color: rgba(255,255,255,0.7);
+            letter-spacing: 0.5px;
+        }
+        .header-phone {
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+            font-size: 14px;
+        }
+        .header-phone:hover {
+            color: var(--white);
+        }
+
+        .guide-page {
+            padding: 40px 0 60px;
+            background: var(--gray-100);
+            min-height: calc(100vh - 200px);
+        }
+        .guide-page .container {
+            max-width: 900px;
+        }
+
+        /* Hero */
+        .guide-hero {
+            background: linear-gradient(135deg, #1f4e79 0%, #2d6a8f 100%);
+            border-radius: var(--radius-lg);
+            padding: 40px 32px;
+            text-align: center;
+            margin-bottom: 24px;
+        }
+        .guide-hero-badge {
+            display: inline-block;
+            background: #4da6ff;
+            color: var(--white);
+            font-size: 11px;
+            font-weight: 700;
+            padding: 5px 12px;
+            border-radius: 20px;
+            margin-bottom: 12px;
+            letter-spacing: 0.5px;
+        }
+        .guide-hero h1 {
+            font-family: var(--font-heading);
+            color: var(--white);
+            font-size: 36px;
+            margin-bottom: 12px;
+        }
+        .guide-hero-sub {
+            color: rgba(255,255,255,0.85);
+            font-size: 17px;
+            max-width: 620px;
+            margin: 0 auto 24px;
+            line-height: 1.5;
+        }
+        .guide-hero-cta {
+            display: inline-block;
+            background: var(--white);
+            color: #1f4e79;
+            padding: 12px 28px;
+            border-radius: var(--radius);
+            font-weight: 700;
+            text-decoration: none;
+            transition: transform 0.15s;
+        }
+        .guide-hero-cta:hover {
+            transform: translateY(-2px);
+        }
+
+        /* TOC */
+        .guide-toc {
+            background: var(--white);
+            border-radius: var(--radius-lg);
+            padding: 24px 28px;
+            margin-bottom: 24px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+        }
+        .guide-toc h2 {
+            font-size: 16px;
+            color: var(--green-dark);
+            margin-bottom: 12px;
+        }
+        .guide-toc ol {
+            margin: 0;
+            padding-left: 20px;
+            columns: 2;
+            column-gap: 32px;
+        }
+        .guide-toc li {
+            padding: 4px 0;
+            font-size: 14px;
+        }
+        .guide-toc a {
+            color: #1f4e79;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .guide-toc a:hover {
+            text-decoration: underline;
+        }
+
+        /* Sections */
+        .g-section {
+            background: var(--white);
+            border-radius: var(--radius-lg);
+            margin-bottom: 20px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+        }
+        .g-header {
+            color: var(--white);
+            font-size: 18px;
+            font-weight: 700;
+            padding: 16px 24px;
+            margin: 0;
+        }
+        .g-header-blue { background: #1f4e79; }
+        .g-header-green { background: var(--green-dark); }
+        .g-header-gold { background: #8b6914; }
+        .g-body {
+            padding: 24px;
+        }
+        .g-body p {
+            font-size: 15px;
+            color: var(--gray-700);
+            line-height: 1.7;
+            margin: 0 0 16px;
+        }
+        .g-body p:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Numbered steps */
+        .g-steps {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            counter-reset: gstep;
+        }
+        .g-steps li {
+            position: relative;
+            padding: 14px 0 14px 56px;
+            font-size: 15px;
+            min-height: 40px;
+            border-bottom: 1px solid var(--gray-100);
+            line-height: 1.6;
+            color: var(--gray-700);
+        }
+        .g-steps li:last-child { border-bottom: none; }
+        .g-steps li::before {
+            counter-increment: gstep;
+            content: counter(gstep);
+            position: absolute;
+            left: 0;
+            top: 12px;
+            width: 38px;
+            height: 38px;
+            background: #1f4e79;
+            color: var(--white);
+            font-weight: 700;
+            font-size: 16px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+        }
+        .g-steps a {
+            color: #1f4e79;
+            font-weight: 600;
+        }
+        .g-steps strong {
+            color: var(--gray-800);
+        }
+
+        /* Data definitions */
+        .g-def {
+            border: 1px solid var(--gray-200);
+            border-radius: var(--radius);
+            margin-bottom: 12px;
+            overflow: hidden;
+        }
+        .g-def:last-child { margin-bottom: 0; }
+        .g-def-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 14px 18px;
+            background: var(--gray-50);
+            cursor: pointer;
+        }
+        .g-def-header h4 {
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--gray-800);
+            margin: 0;
+        }
+        .g-def-header .g-def-tag {
+            font-size: 11px;
+            font-weight: 700;
+            padding: 3px 10px;
+            border-radius: 12px;
+            letter-spacing: 0.5px;
+        }
+        .g-def-tag.critical { background: #fef2f2; color: #dc2626; }
+        .g-def-tag.important { background: #fff8e1; color: #8b6914; }
+        .g-def-tag.info { background: #e8f4fc; color: #1f4e79; }
+        .g-def-body {
+            padding: 14px 18px;
+            font-size: 14px;
+            color: var(--gray-600);
+            line-height: 1.7;
+            border-top: 1px solid var(--gray-200);
+        }
+        .g-def-body strong {
+            color: var(--gray-800);
+        }
+
+        /* Callouts */
+        .g-callout {
+            padding: 16px 20px;
+            border-radius: var(--radius);
+            margin: 16px 0;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+        .g-callout:last-child { margin-bottom: 0; }
+        .g-callout.tip {
+            background: #e8f0e4;
+            border-left: 4px solid var(--green-dark);
+            color: var(--gray-700);
+        }
+        .g-callout.warn {
+            background: #fff8e1;
+            border-left: 4px solid var(--gold);
+            color: var(--gray-700);
+        }
+        .g-callout.alert {
+            background: #fef2f2;
+            border-left: 4px solid #dc2626;
+            color: var(--gray-700);
+        }
+        .g-callout.info {
+            background: #e8f4fc;
+            border-left: 4px solid #1f4e79;
+            color: var(--gray-700);
+        }
+
+        /* Color scale */
+        .color-scale {
+            display: flex;
+            border-radius: var(--radius);
+            overflow: hidden;
+            margin: 16px 0;
+        }
+        .color-swatch {
+            flex: 1;
+            padding: 14px 8px;
+            text-align: center;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        /* Footer */
+        .footer-simple {
+            background: var(--green-dark);
+            color: rgba(255,255,255,0.7);
+            padding: 24px 0;
+            text-align: center;
+        }
+        .footer-simple a {
+            color: var(--white);
+            text-decoration: none;
+        }
+        .footer-simple .footer-brand {
+            font-size: 14px;
+            margin-bottom: 8px;
+        }
+        .footer-simple .footer-brand span {
+            font-family: var(--font-heading);
+            font-style: italic;
+        }
+        .footer-simple .footer-copy {
+            font-size: 12px;
+            margin: 0;
+        }
+
+        @media (max-width: 600px) {
+            .guide-toc ol { columns: 1; }
+            .color-scale { flex-direction: column; }
+        }
+    </style>
+</head>
+<body>
+    <header class="page-header">
+        <div class="container">
+            <a href="index.html" class="logo">
+                <span class="logo-text">YourAgInfo</span>
+                <span class="logo-divider"></span>
+                <span class="logo-subtitle">McConnell Enterprises</span>
+            </a>
+            <a href="tel:9705711015" class="header-phone">(970) 571-1015</a>
+        </div>
+    </header>
+
+    <main class="guide-page">
+        <div class="container">
+
+            <div class="guide-hero">
+                <span class="guide-hero-badge">CORTEVA DECISION SCIENCE</span>
+                <h1>Water Reporter</h1>
+                <p class="guide-hero-sub">Your complete guide to daily soil moisture monitoring, irrigation scheduling, and getting the most out of every inch of water.</p>
+                <a href="https://wreporter.pd.research.corteva.com/" target="_blank" class="guide-hero-cta">Open Water Reporter &rarr;</a>
+            </div>
+
+            <!-- Table of Contents -->
+            <div class="guide-toc">
+                <h2>What's in This Guide</h2>
+                <ol>
+                    <li><a href="#what-is">What is Water Reporter?</a></li>
+                    <li><a href="#getting-started">Getting Started</a></li>
+                    <li><a href="#connect-telemetry">Connecting Your Pivot Telemetry</a></li>
+                    <li><a href="#dashboard">Reading the Dashboard</a></li>
+                    <li><a href="#numbers">What the Numbers Mean</a></li>
+                    <li><a href="#color-map">Understanding the Color Map</a></li>
+                    <li><a href="#rainfall">How to Add Rainfall</a></li>
+                    <li><a href="#irrigation">Irrigation Tracking</a></li>
+                    <li><a href="#daily-use">Daily Workflow</a></li>
+                    <li><a href="#troubleshooting">Troubleshooting</a></li>
+                </ol>
+            </div>
+
+            <!-- 1. What is Water Reporter -->
+            <div class="g-section" id="what-is">
+                <h2 class="g-header g-header-blue">1. What is Water Reporter?</h2>
+                <div class="g-body">
+                    <p>Water Reporter is Corteva's irrigation decision tool. It combines <strong>satellite imagery</strong>, <strong>weather data</strong>, <strong>pivot telemetry</strong>, and <strong>crop models</strong> to give you a daily picture of soil moisture across every field.</p>
+                    <p>Instead of guessing when to run your pivots, Water Reporter shows you:</p>
+                    <ul style="margin: 0 0 16px; padding-left: 20px; font-size: 15px; color: var(--gray-700); line-height: 1.8;">
+                        <li>How much water is in the soil <strong>right now</strong></li>
+                        <li>How fast the crop is using it (<strong>daily ET</strong>)</li>
+                        <li>When you'll hit stress levels if you don't irrigate</li>
+                        <li>How much to apply and <strong>where in the field</strong> needs it most</li>
+                        <li>Whether rain is coming that could delay your next set</li>
+                    </ul>
+                    <div class="g-callout tip">
+                        <strong>Free for Pioneer customers.</strong> Water Reporter is available at no additional cost through your Pioneer rep. It works with Valley/AgSense and Lindsay/FieldNET pivot systems.
+                    </div>
+                </div>
+            </div>
+
+            <!-- 2. Getting Started -->
+            <div class="g-section" id="getting-started">
+                <h2 class="g-header g-header-green">2. Getting Started</h2>
+                <div class="g-body">
+                    <p>Here's what you need to get set up:</p>
+                </div>
+                <ol class="g-steps" style="padding: 0 24px 24px;">
+                    <li><strong>Be a Pioneer customer</strong> &mdash; Water Reporter is a Corteva tool available through Pioneer</li>
+                    <li><strong>Have your fields in Granular Insights</strong> &mdash; Field boundaries need to be set up with accurate crop information. If you don't have a Granular account, your rep can help</li>
+                    <li><strong>Have pivot telemetry</strong> &mdash; AgSense/Valley 365 or FieldNET. This feeds your irrigation data into the system automatically</li>
+                    <li><strong>Contact your Pioneer rep</strong> &mdash; They'll enroll your operation through Corteva and get your fields connected. Call <a href="tel:9705711015">970-571-1015</a></li>
+                    <li><strong>Receive your login</strong> &mdash; You'll get credentials for <a href="https://wreporter.pd.research.corteva.com/" target="_blank">wreporter.pd.research.corteva.com</a></li>
+                </ol>
+            </div>
+
+            <!-- 3. Connecting Pivot Telemetry -->
+            <div class="g-section" id="connect-telemetry">
+                <h2 class="g-header g-header-blue">3. Connecting Your Pivot Telemetry</h2>
+                <div class="g-body">
+                    <p>Water Reporter needs your pivot data to track irrigation. There are two platforms:</p>
+
+                    <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin-bottom: 20px;">
+                        <div style="background: #e8f0e4; padding: 16px; border-radius: var(--radius); border-left: 4px solid var(--green-dark);">
+                            <strong style="color: var(--green-dark); font-size: 15px;">AgSense / Valley 365</strong><br>
+                            <span style="font-size: 13px; color: var(--gray-600);">Valley &amp; Valmont center pivots</span>
+                        </div>
+                        <div style="background: #e8f4fc; padding: 16px; border-radius: var(--radius); border-left: 4px solid #1f4e79;">
+                            <strong style="color: #1f4e79; font-size: 15px;">FieldNET</strong><br>
+                            <span style="font-size: 13px; color: var(--gray-600);">Lindsay &amp; Zimmatic center pivots</span>
+                        </div>
+                    </div>
+
+                    <p style="font-weight: 700; color: var(--green-dark);">For AgSense / Valley 365 Users:</p>
+                    <p>You have two options to connect:</p>
+                </div>
+
+                <div class="g-body" style="padding-top: 0;">
+                    <div style="background: var(--gray-50); border-radius: var(--radius); padding: 16px; margin-bottom: 16px;">
+                        <p style="margin: 0 0 8px; font-weight: 700; color: var(--green-dark);">Option A &mdash; Quick Method (AgSense Settings)</p>
+                        <ol style="margin: 0; padding-left: 20px; font-size: 14px; color: var(--gray-700); line-height: 1.8;">
+                            <li>Log into <a href="https://www.agsense365.com/" target="_blank" style="color: #1f4e79; font-weight: 600;">agsense365.com</a></li>
+                            <li>Go to <strong>Settings</strong></li>
+                            <li>Click the <strong>API Partners</strong> tab</li>
+                            <li>Check the box next to <strong>"Granular Ag"</strong></li>
+                            <li>Save &mdash; data syncs overnight</li>
+                        </ol>
+                    </div>
+
+                    <div style="background: var(--gray-50); border-radius: var(--radius); padding: 16px; margin-bottom: 16px;">
+                        <p style="margin: 0 0 8px; font-weight: 700; color: var(--green-dark);">Option B &mdash; Valley API Request Form</p>
+                        <ol style="margin: 0; padding-left: 20px; font-size: 14px; color: var(--gray-700); line-height: 1.8;">
+                            <li>Go to the <a href="https://forms.monday.com/forms/b0f3de4501389e9dc99b118d82228eaa?r=use1" target="_blank" style="color: #1f4e79; font-weight: 600;">Valley API Request Form</a></li>
+                            <li>Fill in your <strong>Company</strong> name (your farm/operation)</li>
+                            <li>Select <strong>Data Request</strong>: "AgSense/Valley 365"</li>
+                            <li>Select <strong>How many accounts</strong>: typically "Single Account"</li>
+                            <li>Enter your <strong>Contact Name</strong> and <strong>Email</strong></li>
+                            <li>For <strong>API Intent</strong>, paste:</li>
+                        </ol>
+                        <div style="background: var(--white); border: 1px solid var(--gray-200); border-radius: var(--radius); padding: 14px; margin: 8px 0 0 20px; font-size: 14px; line-height: 1.6; color: var(--gray-700); user-select: all; cursor: text;">Connect AgSense/Valley 365 pivot telemetry data to Corteva Water Reporter for real-time soil moisture monitoring and irrigation scheduling. The integration will allow daily soil water reports using pivot location, run times, and application data combined with weather and crop information to optimize irrigation decisions across our operation.</div>
+                        <p style="margin: 8px 0 0 20px; font-size: 12px; color: var(--gray-500);">Click the box to select all text, then Ctrl+C (or Cmd+C) to copy</p>
+                    </div>
+
+                    <div class="g-callout tip">
+                        <strong>Recommendation:</strong> Try Option A first &mdash; it's faster. The checkbox in AgSense Settings is the simplest way to enable the connection. Option B is the formal request if Option A doesn't work for your account.
+                    </div>
+                </div>
+            </div>
+
+            <!-- 4. Reading the Dashboard -->
+            <div class="g-section" id="dashboard">
+                <h2 class="g-header g-header-green">4. Reading the Dashboard</h2>
+                <div class="g-body">
+                    <p>When you log in, you'll see your operation with all enrolled fields. Here's what you're looking at:</p>
+
+                    <div class="g-def">
+                        <div class="g-def-header">
+                            <h4>Field Map View</h4>
+                            <span class="g-def-tag info">MAIN VIEW</span>
+                        </div>
+                        <div class="g-def-body">
+                            Each field is color-coded by soil moisture level. <strong>Green = adequate moisture.</strong> <strong>Yellow = getting dry.</strong> <strong>Red = needs water now.</strong> Click any field to see detailed data for that specific location.
+                        </div>
+                    </div>
+
+                    <div class="g-def">
+                        <div class="g-def-header">
+                            <h4>Field Detail View</h4>
+                            <span class="g-def-tag info">CLICK A FIELD</span>
+                        </div>
+                        <div class="g-def-body">
+                            Shows the soil moisture profile, recent irrigation history, weather data, and the irrigation recommendation. This is where you make your watering decisions. The <strong>time series chart</strong> shows moisture trending over the past 7-14 days so you can see whether you're gaining or losing ground.
+                        </div>
+                    </div>
+
+                    <div class="g-def">
+                        <div class="g-def-header">
+                            <h4>Weather Panel</h4>
+                            <span class="g-def-tag info">FORECAST</span>
+                        </div>
+                        <div class="g-def-body">
+                            Shows the 7-day forecast for your field location. Includes <strong>rainfall probability</strong>, <strong>high/low temps</strong>, <strong>wind</strong>, and <strong>projected ET</strong>. Use this to decide if you can wait for rain or need to irrigate now.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 5. What the Numbers Mean -->
+            <div class="g-section" id="numbers">
+                <h2 class="g-header g-header-blue">5. What the Numbers Mean</h2>
+                <div class="g-body">
+                    <p>Water Reporter shows several key metrics. Here's what each one means and why it matters for your irrigation decisions:</p>
+
+                    <div class="g-def">
+                        <div class="g-def-header">
+                            <h4>Plant Available Water (PAW)</h4>
+                            <span class="g-def-tag critical">MOST IMPORTANT</span>
+                        </div>
+                        <div class="g-def-body">
+                            <strong>What it is:</strong> The amount of water in the soil that the crop can actually access, expressed as a percentage (0-100%) or in inches.<br><br>
+                            <strong>What it means:</strong><br>
+                            &bull; <strong>100% PAW</strong> = Field capacity. Soil is holding all the water it can. No irrigation needed.<br>
+                            &bull; <strong>50-100%</strong> = Adequate. Crop has plenty of water. Monitor but no action needed.<br>
+                            &bull; <strong>30-50%</strong> = Getting dry. Start planning your next irrigation set.<br>
+                            &bull; <strong>Below 30%</strong> = Stress zone. Crop is pulling hard. Irrigate soon.<br>
+                            &bull; <strong>Below 15%</strong> = Yield loss happening. Water immediately.<br><br>
+                            <strong>For corn:</strong> Keep PAW above 50% during tasseling and pollination (VT-R1). This is when corn uses 0.30-0.35 inches per day. Dropping below 50% PAW during pollination can cost 5-8% yield per day of stress.
+                        </div>
+                    </div>
+
+                    <div class="g-def">
+                        <div class="g-def-header">
+                            <h4>Evapotranspiration (ET)</h4>
+                            <span class="g-def-tag critical">DAILY WATER USE</span>
+                        </div>
+                        <div class="g-def-body">
+                            <strong>What it is:</strong> How much water the crop and soil lose each day through evaporation and plant transpiration, measured in inches per day.<br><br>
+                            <strong>Typical corn ET rates by growth stage:</strong><br>
+                            &bull; <strong>Emergence (V1-V4):</strong> 0.05-0.10 in/day<br>
+                            &bull; <strong>Vegetative (V6-V12):</strong> 0.15-0.25 in/day<br>
+                            &bull; <strong>Late vegetative (V14-VT):</strong> 0.25-0.30 in/day<br>
+                            &bull; <strong>Tasseling/Pollination (VT-R1):</strong> 0.30-0.35 in/day (peak demand)<br>
+                            &bull; <strong>Grain fill (R2-R4):</strong> 0.25-0.30 in/day<br>
+                            &bull; <strong>Late grain fill (R5-R6):</strong> 0.15-0.20 in/day<br>
+                            &bull; <strong>Maturity:</strong> 0.05-0.10 in/day<br><br>
+                            <strong>How to use it:</strong> ET tells you how fast the tank is draining. If ET is 0.30 in/day and you applied 1 inch, that application lasts about 3 days before you're back where you started. On hot, windy days ET can spike to 0.40+ in/day.
+                        </div>
+                    </div>
+
+                    <div class="g-def">
+                        <div class="g-def-header">
+                            <h4>Soil Water Deficit</h4>
+                            <span class="g-def-tag important">INCHES NEEDED</span>
+                        </div>
+                        <div class="g-def-body">
+                            <strong>What it is:</strong> How many inches of water you'd need to bring the soil back to field capacity.<br><br>
+                            <strong>Example:</strong> If your deficit shows 2.5 inches and your pivot applies 0.75 inches per pass, you need about 3 passes to fill back up. But you don't always need to get back to 100% &mdash; getting back to 60-70% PAW is usually fine during mid-season.<br><br>
+                            <strong>Rule of thumb:</strong> Don't let the deficit exceed 3 inches during reproductive stages. You can't catch up once you fall behind during pollination.
+                        </div>
+                    </div>
+
+                    <div class="g-def">
+                        <div class="g-def-header">
+                            <h4>Growing Degree Units (GDUs)</h4>
+                            <span class="g-def-tag info">CROP STAGING</span>
+                        </div>
+                        <div class="g-def-body">
+                            <strong>What it is:</strong> A measure of heat accumulation that drives crop development. Calculated daily as: (Daily High + Daily Low) / 2 - 50, with the high capped at 86&deg;F and the low floored at 50&deg;F.<br><br>
+                            <strong>Why it matters:</strong> Water Reporter uses GDUs to estimate what growth stage your corn is in, which determines the crop coefficient used to calculate ET. A corn plant at VT uses water completely differently than one at V6.<br><br>
+                            <strong>Key corn GDU milestones:</strong><br>
+                            &bull; Emergence: ~120 GDUs<br>
+                            &bull; V6 (6-leaf): ~475 GDUs<br>
+                            &bull; V12 (12-leaf): ~870 GDUs<br>
+                            &bull; VT (tassel): ~1,135 GDUs<br>
+                            &bull; R1 (silking): ~1,200 GDUs<br>
+                            &bull; R6 (black layer): ~2,700 GDUs<br><br>
+                            Full-season hybrids (108 day) need approximately 2,700-2,800 GDUs to reach maturity. NE Colorado typically accumulates 2,650-2,740 GDUs per season.
+                        </div>
+                    </div>
+
+                    <div class="g-def">
+                        <div class="g-def-header">
+                            <h4>Effective Precipitation</h4>
+                            <span class="g-def-tag important">RAIN THAT COUNTS</span>
+                        </div>
+                        <div class="g-def-body">
+                            <strong>What it is:</strong> Not all rainfall reaches the root zone. Light showers may evaporate before soaking in. Heavy downpours may run off. Water Reporter calculates the amount of rain that actually enters the soil and becomes available to the crop.<br><br>
+                            <strong>General rule:</strong><br>
+                            &bull; Rain events under 0.10 inches &mdash; mostly evaporates, minimal benefit<br>
+                            &bull; 0.10 - 0.50 inches &mdash; partially effective (50-70% reaches roots)<br>
+                            &bull; 0.50 - 1.00 inches &mdash; mostly effective (70-90%)<br>
+                            &bull; Over 1.00 inches &mdash; some runoff likely, effectiveness drops<br><br>
+                            Water Reporter adjusts for this automatically, but if you notice your soil moisture didn't respond to a rain event you logged, this is probably why.
+                        </div>
+                    </div>
+
+                    <div class="g-def">
+                        <div class="g-def-header">
+                            <h4>Water Use Efficiency (WUE)</h4>
+                            <span class="g-def-tag info">SEASON METRIC</span>
+                        </div>
+                        <div class="g-def-body">
+                            <strong>What it is:</strong> Bushels of grain produced per inch of total water (irrigation + effective precipitation). Measured at the end of the season.<br><br>
+                            <strong>Corn benchmark:</strong> Good water use efficiency for irrigated corn in NE Colorado is 8-10 bushels per inch. If you're making 200 bu/acre with 22 total inches of water, your WUE is about 9.1 bu/inch &mdash; that's solid.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 6. Color Map -->
+            <div class="g-section" id="color-map">
+                <h2 class="g-header g-header-green">6. Understanding the Color Map</h2>
+                <div class="g-body">
+                    <p>The satellite-based soil moisture map uses colors to show water availability across each field. Here's what the colors mean:</p>
+
+                    <div class="color-scale">
+                        <div class="color-swatch" style="background: #1a5fb4; color: white;">Wet<br>90-100%</div>
+                        <div class="color-swatch" style="background: #26a269; color: white;">Good<br>70-90%</div>
+                        <div class="color-swatch" style="background: #57e389; color: #1a3a1a;">Adequate<br>50-70%</div>
+                        <div class="color-swatch" style="background: #f9f06b; color: #5e4600;">Drying<br>30-50%</div>
+                        <div class="color-swatch" style="background: #ff7800; color: white;">Dry<br>15-30%</div>
+                        <div class="color-swatch" style="background: #c01c28; color: white;">Stress<br>&lt;15%</div>
+                    </div>
+
+                    <div class="g-callout warn">
+                        <strong>Watch for variability within a field.</strong> If one corner shows yellow while the rest is green, that area has different soil (sandier, shallower topsoil, or a knob). Water Reporter helps you see where your pivot is under-applying. Consider adjusting nozzle packages or speed in those zones.
+                    </div>
+
+                    <p><strong>How the map updates:</strong> Satellite imagery refreshes every 1-3 days depending on cloud cover. Weather data and ET calculations update daily. If it's been cloudy, the map may show the last clear-sky reading with modeled estimates for the days since.</p>
+                </div>
+            </div>
+
+            <!-- 7. Adding Rainfall -->
+            <div class="g-section" id="rainfall">
+                <h2 class="g-header g-header-blue">7. How to Add Rainfall</h2>
+                <div class="g-body">
+                    <p>Water Reporter uses weather station data for rainfall, but local rain can vary significantly from what the nearest station recorded. You can manually enter rainfall for more accurate soil moisture tracking:</p>
+                </div>
+                <ol class="g-steps" style="padding: 0 24px 12px;">
+                    <li>Open the <strong>field</strong> you want to update</li>
+                    <li>Look for the <strong>rainfall/precipitation</strong> input area (usually near the irrigation log or weather panel)</li>
+                    <li>Select the <strong>date</strong> the rain occurred</li>
+                    <li>Enter the <strong>amount in inches</strong> &mdash; use your rain gauge, not the weather forecast. If you measured 0.65 inches at your home gauge, enter 0.65</li>
+                    <li><strong>Save</strong> &mdash; Water Reporter will recalculate soil moisture using your actual reading</li>
+                </ol>
+                <div class="g-body" style="padding-top: 0;">
+                    <div class="g-callout tip">
+                        <strong>Pro Tip:</strong> Keep a rain gauge near each pivot or at least one per farm. Thunderstorm rain can vary by an inch or more across a quarter section. The closest weather station may be 10+ miles away and completely missed your storm.
+                    </div>
+                    <div class="g-callout warn">
+                        <strong>Don't skip light rains.</strong> Even 0.15-0.20 inches helps reset the surface and reduces the next day's evaporation. It may not show on the map, but it adds up over a week. Enter everything you measure.
+                    </div>
+                    <div class="g-callout info">
+                        <strong>After heavy rain (1"+):</strong> Wait 24 hours before checking the map. Water Reporter needs time to account for drainage and runoff. The soil moisture reading the day after a big rain may overstate what's actually available to the crop until excess water drains below the root zone.
+                    </div>
+                </div>
+            </div>
+
+            <!-- 8. Irrigation Tracking -->
+            <div class="g-section" id="irrigation">
+                <h2 class="g-header g-header-green">8. Irrigation Tracking</h2>
+                <div class="g-body">
+                    <p><strong>If your pivot telemetry is connected</strong> (AgSense or FieldNET), Water Reporter automatically records:</p>
+                    <ul style="margin: 0 0 16px; padding-left: 20px; font-size: 15px; color: var(--gray-700); line-height: 1.8;">
+                        <li>When the pivot started and stopped</li>
+                        <li>How far around the circle it ran (degrees)</li>
+                        <li>Estimated application amount (based on speed and nozzle package)</li>
+                        <li>Time to complete the circle at current speed</li>
+                    </ul>
+                    <p>This data feeds directly into the soil moisture model. You don't need to log irrigation manually if telemetry is working.</p>
+
+                    <div class="g-callout tip">
+                        <strong>Verify your application rate.</strong> If Water Reporter thinks your pivot applies 0.75 inches per pass but you know it's actually closer to 0.60, the soil moisture estimates will drift. Check your pivot's nozzle chart against what Water Reporter shows. Tell your rep if there's a mismatch so the model can be calibrated.
+                    </div>
+
+                    <div class="g-callout warn">
+                        <strong>Manual irrigation entry:</strong> If you irrigate from a well or flood and don't have telemetry, you'll need to manually log each irrigation event (date, field, and inches applied). Otherwise Water Reporter won't know about the water you put on.
+                    </div>
+                </div>
+            </div>
+
+            <!-- 9. Daily Workflow -->
+            <div class="g-section" id="daily-use">
+                <h2 class="g-header g-header-blue">9. Daily Workflow</h2>
+                <div class="g-body">
+                    <p>Here's how to use Water Reporter as part of your daily routine:</p>
+                </div>
+                <ol class="g-steps" style="padding: 0 24px 12px;">
+                    <li><strong>Morning check (5 min)</strong> &mdash; Open Water Reporter and scan the map. Look for any fields turning yellow or orange. These need attention today or tomorrow</li>
+                    <li><strong>Check the forecast</strong> &mdash; Is rain expected? If there's a 60%+ chance of 0.50+ inches in the next 48 hours, you might delay a set. But don't gamble during pollination &mdash; irrigate anyway</li>
+                    <li><strong>Review ET</strong> &mdash; Note today's ET rate. If it's above 0.30 in/day and climbing, your pivots need to be running. A pivot applying 0.75 in/pass at 0.30 daily ET only buys you 2.5 days</li>
+                    <li><strong>Plan irrigation sets</strong> &mdash; Prioritize fields with the lowest PAW, especially those in reproductive stages (VT through R4). A corn field at VT with 35% PAW is more urgent than a V8 field at 40% PAW</li>
+                    <li><strong>Log any manual rainfall</strong> &mdash; If it rained overnight at specific fields, enter gauge readings. This keeps the model accurate</li>
+                    <li><strong>End of week</strong> &mdash; Compare the week's irrigation applied vs. ET. Are you keeping up? Are you falling behind on any fields? Adjust your schedule for next week</li>
+                </ol>
+                <div class="g-body" style="padding-top: 0;">
+                    <div class="g-callout alert">
+                        <strong>2026 Drought Season:</strong> With Phillips, Sedgwick, and Yuma Counties in Extreme Drought (D3) and precipitation running at half of normal, every irrigation decision matters. Water Reporter is especially valuable this year &mdash; don't waste a pass on a field that doesn't need it when another field is at 25% PAW.
+                    </div>
+                </div>
+            </div>
+
+            <!-- 10. Troubleshooting -->
+            <div class="g-section" id="troubleshooting">
+                <h2 class="g-header g-header-gold">10. Troubleshooting</h2>
+                <div class="g-body">
+                    <div class="g-def">
+                        <div class="g-def-header">
+                            <h4>"My irrigation isn't showing up"</h4>
+                        </div>
+                        <div class="g-def-body">
+                            Check your AgSense/FieldNET connection. In AgSense 365, go to Settings &rarr; API Partners and make sure "Granular Ag" is checked. Data syncs overnight, so irrigation from today won't appear until tomorrow. If it still doesn't show after 48 hours, contact your Pioneer rep.
+                        </div>
+                    </div>
+                    <div class="g-def">
+                        <div class="g-def-header">
+                            <h4>"The soil moisture doesn't match what I see in the field"</h4>
+                        </div>
+                        <div class="g-def-body">
+                            This usually means the model needs calibration. Common causes: incorrect application rate for your nozzle package, unlogged rainfall, or the soil type in the model doesn't match your field. Report the discrepancy to your rep so they can adjust the model inputs.
+                        </div>
+                    </div>
+                    <div class="g-def">
+                        <div class="g-def-header">
+                            <h4>"The map hasn't updated in days"</h4>
+                        </div>
+                        <div class="g-def-body">
+                            Satellite imagery depends on clear skies. During extended cloudy periods, the map may show the last clear-sky observation. ET calculations and weather data still update daily, so the <strong>soil moisture numbers</strong> and <strong>recommendations</strong> are still current even if the visual map is a few days old.
+                        </div>
+                    </div>
+                    <div class="g-def">
+                        <div class="g-def-header">
+                            <h4>"I can't log in"</h4>
+                        </div>
+                        <div class="g-def-body">
+                            Water Reporter is at <a href="https://wreporter.pd.research.corteva.com/" target="_blank" style="color: #1f4e79; font-weight: 600;">wreporter.pd.research.corteva.com</a>. If your credentials don't work, contact your Pioneer rep or Corteva Digital Ag Support at <strong>(800) 233-7333</strong> or <a href="mailto:digitalagsupport@corteva.com" style="color: #1f4e79; font-weight: 600;">digitalagsupport@corteva.com</a>.
+                        </div>
+                    </div>
+                    <div class="g-def">
+                        <div class="g-def-header">
+                            <h4>"A field is missing from my dashboard"</h4>
+                        </div>
+                        <div class="g-def-body">
+                            Field boundaries come from Granular Insights. Make sure the field exists in your Granular account with accurate boundaries. If it's there but not in Water Reporter, your rep needs to enroll it through Corteva's field registration tool.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Contact -->
+            <div class="g-section" style="text-align: center; padding: 32px;">
+                <h3 style="font-family: var(--font-heading); font-size: 22px; color: var(--green-dark); margin-bottom: 12px;">Questions?</h3>
+                <p style="color: var(--gray-600); margin-bottom: 20px; font-size: 15px; max-width: 450px; margin-left: auto; margin-right: auto;">Contact your Pioneer rep for help with enrollment, field setup, or reading your reports.</p>
+                <a href="tel:9705711015" style="display: inline-block; background: var(--green-dark); color: var(--white); padding: 14px 28px; border-radius: var(--radius); font-weight: 700; text-decoration: none;">Call (970) 571-1015</a>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer-simple">
+        <div class="container">
+            <div class="footer-brand">
+                <span>YourAgInfo</span> | McConnell Enterprises
+            </div>
+            <p class="footer-copy">Copyright 2026 McConnell Enterprises LLC. Haxtun, Colorado.</p>
+        </div>
+    </footer>
+</body>
+</html>
