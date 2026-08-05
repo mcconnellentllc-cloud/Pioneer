@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Davis Weather Stations - Partner Pricing | YourAgInfo.com</title>
+    <title>Davis Weather Stations - Setup Guide & Partner Pricing | YourAgInfo.com</title>
     <script src="js/auth.js"></script>
     <link rel="stylesheet" href="css/style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -313,8 +313,139 @@
             margin: 0;
         }
 
+        /* Setup guide divider */
+        .yai-guide-divider {
+            text-align: center;
+            margin: 40px 0 32px;
+            position: relative;
+        }
+        .yai-guide-divider::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: var(--gray-300);
+        }
+        .yai-guide-divider span {
+            position: relative;
+            background: var(--gray-100);
+            padding: 0 20px;
+            font-family: var(--font-heading);
+            font-size: 26px;
+            font-weight: 700;
+            color: var(--green-dark);
+        }
+
+        /* Tip/note callouts */
+        .yai-tip {
+            background: #e8f4e8;
+            border-left: 4px solid var(--green-dark);
+            padding: 14px 18px;
+            margin: 0;
+            font-size: 14px;
+            line-height: 1.6;
+            color: var(--gray-800);
+        }
+        .yai-tip strong {
+            color: var(--green-dark);
+        }
+        .yai-tip-blue {
+            background: #e6f0fa;
+            border-left-color: #1f4e79;
+        }
+        .yai-tip-blue strong {
+            color: #1f4e79;
+        }
+        .yai-tip-gold {
+            background: #fff8e1;
+            border-left-color: var(--gold);
+        }
+        .yai-tip-gold strong {
+            color: #b8860b;
+        }
+
+        /* Step sub-notes */
+        .yai-steps .step-note {
+            display: block;
+            font-size: 13px;
+            color: var(--gray-500);
+            margin-top: 4px;
+            font-style: italic;
+        }
+
+        /* App store buttons */
+        .yai-app-links {
+            display: flex;
+            gap: 12px;
+            padding: 16px 20px;
+            flex-wrap: wrap;
+        }
+        .yai-app-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 18px;
+            background: var(--green-dark);
+            color: var(--white);
+            text-decoration: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            transition: opacity 0.15s;
+        }
+        .yai-app-link:hover {
+            opacity: 0.85;
+        }
+        .yai-app-link-blue {
+            background: #1f4e79;
+        }
+
+        /* Section intro text */
+        .yai-section-intro {
+            padding: 16px 20px 0;
+            font-size: 14px;
+            line-height: 1.6;
+            color: var(--gray-600);
+        }
+        .yai-section-intro strong {
+            color: var(--gray-800);
+        }
+
+        /* Placement grid */
+        .yai-placement-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1px;
+            background: var(--gray-200);
+            margin: 0;
+        }
+        .yai-placement-item {
+            background: var(--white);
+            padding: 16px 20px;
+        }
+        .yai-placement-item h4 {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--green-dark);
+            margin: 0 0 6px;
+        }
+        .yai-placement-item p {
+            font-size: 13px;
+            color: var(--gray-600);
+            line-height: 1.5;
+            margin: 0;
+        }
+        .yai-placement-item p strong {
+            color: var(--gray-800);
+        }
+
         /* Mobile */
         @media (max-width: 600px) {
+            .yai-placement-grid {
+                grid-template-columns: 1fr;
+            }
             .yai-contact-head {
                 font-size: 22px;
             }
@@ -414,8 +545,8 @@
 
             <!-- Contact Kyle -->
             <div class="yai-contact">
-                <div class="yai-contact-label">PARTNER PRICING AVAILABLE — 30% OFF DAVIS LIST</div>
-                <h1 class="yai-contact-head">Contact Kyle McConnell</h1>
+                <div class="yai-contact-label">SETUP GUIDE + PARTNER PRICING — 30% OFF DAVIS LIST</div>
+                <h1 class="yai-contact-head">Davis Weather Stations</h1>
                 <div class="yai-contact-lines">
                     <a href="tel:+19705711015">970-571-1015</a>
                     <span class="yai-sep">·</span>
@@ -517,9 +648,140 @@
                 </table>
             </div>
 
-            <!-- Share Steps -->
+            <!-- =============================== -->
+            <!-- SETUP GUIDE -->
+            <!-- =============================== -->
+            <div class="yai-guide-divider">
+                <span>Setup Guide</span>
+            </div>
+
+            <!-- Step 1: Which Station -->
             <div class="yai-section">
-                <h2 class="yai-h3 yai-h3-green">Share a Davis station to the Corteva Weather Pillar</h2>
+                <h2 class="yai-h3 yai-h3-green">Step 1 — Pick the right station</h2>
+                <p class="yai-section-intro">For agriculture, you need the <strong>solar radiation sensor</strong> — it drives ET (evapotranspiration) calculations. That means you want the <strong>Vantage Pro2 Plus</strong>, not the standard Vantage Pro2.</p>
+                <table class="yai-rows">
+                    <tr>
+                        <td class="yai-label">Recommended</td>
+                        <td class="yai-value"><a href="https://www.davisinstruments.com/products/wireless-vantage-pro2-plus-with-uv-solar-radiation-sensors-and-weatherlink-console">Vantage Pro2 Plus + WeatherLink Console (SKU 6262)</a> — includes UV &amp; solar radiation sensors, wireless, plus the Console for WiFi and display</td>
+                    </tr>
+                    <tr>
+                        <td class="yai-label">Budget option</td>
+                        <td class="yai-value"><a href="https://www.davisinstruments.com/products/wireless-vantage-pro2-weather-station-with-standard-radiation-shield-and-weatherlink-console">Vantage Pro2 + WeatherLink Console (SKU 6252)</a> — no solar/UV sensors, so no ET data. Fine for basic weather.</td>
+                    </tr>
+                    <tr>
+                        <td class="yai-label">Already own a station?</td>
+                        <td class="yai-value">You only need the <a href="https://www.davisinstruments.com/products/weatherlink-console">WeatherLink Console (SKU 6313)</a> to get your existing Vantage Pro2 or Vue online.</td>
+                    </tr>
+                </table>
+                <div class="yai-tip yai-tip-gold">
+                    <strong>Partner pricing:</strong> Order through Kyle for 30% off Davis list — see pricing table above. The Vantage Pro2 Plus bundle drops from $1,610 to $1,127.
+                </div>
+            </div>
+
+            <!-- Step 2: Mount the Station -->
+            <div class="yai-section">
+                <h2 class="yai-h3 yai-h3-blue">Step 2 — Mount the station</h2>
+                <p class="yai-section-intro">Sensor placement directly affects your data quality. For accurate ET and rainfall, follow these guidelines.</p>
+                <div class="yai-placement-grid">
+                    <div class="yai-placement-item">
+                        <h4>Overall Height</h4>
+                        <p>Mount the sensor suite at <strong>5 to 6 feet</strong> above ground. Easy to maintain, accurate temperature/humidity readings.</p>
+                    </div>
+                    <div class="yai-placement-item">
+                        <h4>Wind Sensor</h4>
+                        <p>Mount the anemometer at <strong>6 feet (2 meters)</strong> — this is the reference height for the Penman-Monteith ET equation. Can be up to 40 ft away using the included cable.</p>
+                    </div>
+                    <div class="yai-placement-item">
+                        <h4>Rain Gauge</h4>
+                        <p>Needs <strong>open sky</strong> above — no branches or overhangs. Keep it at least <strong>4x the height</strong> of any nearby obstruction away (20 ft building = 80 ft minimum distance).</p>
+                    </div>
+                    <div class="yai-placement-item">
+                        <h4>Solar Radiation Sensor</h4>
+                        <p>Needs <strong>clear view of the sky</strong> from horizon to horizon. Keep the lens clean — dust and bird droppings degrade ET accuracy.</p>
+                    </div>
+                </div>
+                <div class="yai-tip">
+                    <strong>For ag:</strong> Install over well-irrigated, mowed grass if possible. Avoid pavement, buildings, or anything that creates a heat island. The station should be representative of your actual field conditions.
+                </div>
+            </div>
+
+            <!-- Step 3: Power up the Console -->
+            <div class="yai-section">
+                <h2 class="yai-h3 yai-h3-green">Step 3 — Set up the WeatherLink Console</h2>
+                <p class="yai-section-intro">The WeatherLink Console is the brains — it receives wireless data from the outdoor sensors, displays it on a color touchscreen, and uploads everything to the cloud over WiFi.</p>
+                <ol class="yai-steps">
+                    <li>Plug the Console into a <strong>USB power source</strong> (standard phone charger works). It has a backup battery for outages.</li>
+                    <li>On first power-up, the Console walks you through an <strong>on-screen setup wizard</strong>.</li>
+                    <li>Connect to your <strong>WiFi network</strong> (2.4 GHz only — most routers support this).
+                        <span class="step-note">The Console can show local sensor data without WiFi, but WiFi is required for cloud uploads and app access.</span>
+                    </li>
+                    <li>Tap <strong>"Add stations and sensors"</strong> on the Console screen.</li>
+                    <li>Select the <strong>transmitter ID</strong> that matches your outdoor sensor suite (check the label inside the transmitter shelter if needed).</li>
+                    <li>Choose <strong>"Vantage Pro2 sensor suite"</strong> (or Vantage Vue if that's what you have).</li>
+                    <li>Select your <strong>Vantage Pro2 package type</strong> from the list and check the sensors you have installed.</li>
+                    <li>Select your <strong>rain collector type</strong> — choose <strong>0.01"</strong> (standard US).</li>
+                    <li>Give your station a <strong>name</strong> (e.g., "McConnell Home Quarter").</li>
+                    <li>Data should appear on the Console screen within a couple of minutes. You're receiving locally.</li>
+                </ol>
+            </div>
+
+            <!-- Step 4: WeatherLink Account -->
+            <div class="yai-section">
+                <h2 class="yai-h3 yai-h3-blue">Step 4 — Create your WeatherLink account &amp; register</h2>
+                <ol class="yai-steps">
+                    <li>Go to <a href="https://www.weatherlink.com/">weatherlink.com</a> and click <strong>"Sign Up Free"</strong>.</li>
+                    <li>Enter your name, email, and a password. Follow the email verification prompt.</li>
+                    <li>Once logged in, click the green <strong>"Add Devices"</strong> button at the top of the page.</li>
+                    <li>Follow the prompts to link your Console — enter the <strong>Device ID</strong> shown on the Console screen.
+                        <span class="step-note">On the Console: tap the gear icon, then "About" to find the Device ID.</span>
+                    </li>
+                    <li>Your station data should start appearing on <a href="https://www.weatherlink.com/">weatherlink.com</a> within minutes.</li>
+                </ol>
+                <div class="yai-tip yai-tip-blue">
+                    <strong>Free vs. Pro:</strong> The free Basic plan uploads every 15 minutes and gives you current conditions, charts, and third-party uploads. The Pro plan ($3.95/month) uploads every 1–5 minutes and adds data download and advanced charting.
+                </div>
+            </div>
+
+            <!-- Step 5: Get the App -->
+            <div class="yai-section">
+                <h2 class="yai-h3 yai-h3-green">Step 5 — Download the WeatherLink app</h2>
+                <p class="yai-section-intro">View your station data on your phone from anywhere. When you're on the <strong>same WiFi</strong> as the Console, the app updates every 2.5 seconds — you can watch wind gusts in real time.</p>
+                <div class="yai-app-links">
+                    <a href="https://apps.apple.com/app/weatherlink/id1304504954" class="yai-app-link" target="_blank" rel="noopener">
+                        &#63743;&ensp;iPhone / iPad
+                    </a>
+                    <a href="https://play.google.com/store/apps/details?id=com.davisinstruments.weatherlink" class="yai-app-link yai-app-link-blue" target="_blank" rel="noopener">
+                        &#9654;&ensp;Android
+                    </a>
+                </div>
+            </div>
+
+            <!-- Step 6: Weather Underground -->
+            <div class="yai-section">
+                <h2 class="yai-h3 yai-h3-blue">Step 6 — Connect to Weather Underground</h2>
+                <p class="yai-section-intro">Get your station on the Weather Underground map so neighbors, other growers, and the public can see your local conditions. This also feeds your data into the Weather Underground app and forecasts.</p>
+                <ol class="yai-steps">
+                    <li>Go to <a href="https://www.wunderground.com/signup">wunderground.com/signup</a> and create a free account (or log in if you have one).</li>
+                    <li>Go to <a href="https://www.wunderground.com/personal-weather-station/mypws">My Weather Stations</a> and click <strong>"Add a New PWS"</strong>.</li>
+                    <li>Use the map to <strong>pinpoint your station's exact location</strong> — drag the marker to where the station is physically installed.</li>
+                    <li>Enter your station's <strong>actual elevation</strong> in the field provided.</li>
+                    <li>Fill in the station details and click <strong>"Submit"</strong>.</li>
+                    <li>You'll receive a <strong>Station ID</strong> (looks like KCOHAXT##) and a <strong>Station Key</strong>. <strong>Write both down.</strong>
+                        <span class="step-note">You'll need these in the next step. The Station Key is case-sensitive.</span>
+                    </li>
+                    <li>Now go to <a href="https://www.weatherlink.com/">weatherlink.com</a> and log in.</li>
+                    <li>Click <strong>"Share &amp; Uploads"</strong> in the top menu, then click <strong>"Upload"</strong>.</li>
+                    <li>Click <strong>"Add Upload"</strong> and select <strong>"Weather Underground"</strong> from the dropdown.</li>
+                    <li>Enter your <strong>Station ID</strong> and <strong>Station Key</strong>. Type them manually — copy/paste can add invisible spaces that break it.
+                        <span class="step-note">Double-check: don't confuse the letter O with zero, or lowercase L with the number 1.</span>
+                    </li>
+                    <li>Save. Your data should appear on Weather Underground within the hour at <strong>wunderground.com/dashboard/pws/YOUR_STATION_ID</strong>.</li>
+                </ol>
+            </div>
+
+            <!-- Step 7: Corteva Share -->
+            <div class="yai-section">
+                <h2 class="yai-h3 yai-h3-green">Step 7 — Share to the Corteva Weather Pillar</h2>
                 <ol class="yai-steps">
                     <li>Log in at <a href="https://www.weatherlink.com/">https://www.weatherlink.com/</a></li>
                     <li>Click the <strong>Station</strong> icon</li>
@@ -530,13 +792,32 @@
                 </ol>
             </div>
 
+            <!-- =============================== -->
+            <!-- RESOURCES & SUPPORT -->
+            <!-- =============================== -->
+            <div class="yai-guide-divider">
+                <span>Resources &amp; Support</span>
+            </div>
+
             <!-- Resources -->
             <div class="yai-section">
                 <h2 class="yai-h3 yai-h3-blue">Product pages, videos &amp; data sheets</h2>
                 <table class="yai-rows">
                     <tr>
+                        <td class="yai-label"><a href="https://www.davisinstruments.com/products/weatherlink-console">WeatherLink Console</a></td>
+                        <td class="yai-value"><a href="https://www.davisinstruments.com/products/weatherlink-console">davisinstruments.com — WeatherLink Console</a></td>
+                    </tr>
+                    <tr>
                         <td class="yai-label"><a href="https://www.davisinstruments.com/pages/vantage-pro2">Vantage Pro2 weather station</a></td>
                         <td class="yai-value"><a href="https://www.davisinstruments.com/pages/vantage-pro2">davisinstruments.com/pages/vantage-pro2</a></td>
+                    </tr>
+                    <tr>
+                        <td class="yai-label"><a href="https://www.davisinstruments.com/collections/vantage-pro2-plus">Vantage Pro2 Plus collection</a></td>
+                        <td class="yai-value"><a href="https://www.davisinstruments.com/collections/vantage-pro2-plus">davisinstruments.com — Pro2 Plus (with solar/UV)</a></td>
+                    </tr>
+                    <tr>
+                        <td class="yai-label"><a href="https://www.davisinstruments.com/collections/agriculture-products">Agriculture-Focused Products</a></td>
+                        <td class="yai-value"><a href="https://www.davisinstruments.com/collections/agriculture-products">davisinstruments.com/collections/agriculture-products</a></td>
                     </tr>
                     <tr>
                         <td class="yai-label"><a href="https://www.davisinstruments.com/pages/enviromonitor">EnviroMonitor farm sensor platform</a></td>
@@ -545,10 +826,6 @@
                     <tr>
                         <td class="yai-label"><a href="https://www.davisinstruments.com/pages/mobilize">Mobilize app</a></td>
                         <td class="yai-value"><a href="https://www.davisinstruments.com/pages/mobilize">davisinstruments.com/pages/mobilize</a></td>
-                    </tr>
-                    <tr>
-                        <td class="yai-label"><a href="https://www.davisinstruments.com/collections/agriculture-products">Agriculture-Focused Products (shop)</a></td>
-                        <td class="yai-value"><a href="https://www.davisinstruments.com/collections/agriculture-products">davisinstruments.com/collections/agriculture-products</a></td>
                     </tr>
                     <tr>
                         <td class="yai-label"><a href="https://cdn.shopify.com/s/files/1/0515/5992/3873/files/Davis-Instruments_Ag-Weather-Solution_Buying-Guide_012022.pdf">Davis Ag Buyer's Guide (PDF)</a></td>
@@ -569,6 +846,33 @@
                     <tr>
                         <td class="yai-label"><a href="https://youtu.be/woQjIe1efm8">EnviroMonitor Configuration App Overview</a></td>
                         <td class="yai-value"><a href="https://youtu.be/woQjIe1efm8">youtu.be/woQjIe1efm8</a></td>
+                    </tr>
+                </table>
+            </div>
+
+            <!-- Support -->
+            <div class="yai-section">
+                <h2 class="yai-h3 yai-h3-green">Need help?</h2>
+                <table class="yai-rows">
+                    <tr>
+                        <td class="yai-label">Kyle McConnell</td>
+                        <td class="yai-value"><a href="tel:+19705711015">(970) 571-1015</a> &middot; <a href="mailto:kyle.mcconnell@plantpioneer.com">kyle.mcconnell@plantpioneer.com</a><br>Partner pricing, ordering, product recommendations</td>
+                    </tr>
+                    <tr>
+                        <td class="yai-label">Davis customer service</td>
+                        <td class="yai-value"><a href="tel:+18006783669">(800) 678-3669</a> &middot; <a href="mailto:orders@davisinstruments.com">orders@davisinstruments.com</a><br>Hardware troubleshooting, replacement parts, warranty</td>
+                    </tr>
+                    <tr>
+                        <td class="yai-label">Davis support articles</td>
+                        <td class="yai-value"><a href="https://support.davisinstruments.com">support.davisinstruments.com</a></td>
+                    </tr>
+                    <tr>
+                        <td class="yai-label">WeatherLink help</td>
+                        <td class="yai-value"><a href="https://www.weatherlink.com/">weatherlink.com</a> — account, uploads, app issues</td>
+                    </tr>
+                    <tr>
+                        <td class="yai-label">Weather Underground PWS help</td>
+                        <td class="yai-value"><a href="https://www.wunderground.com/pws/installation-guide">wunderground.com/pws/installation-guide</a></td>
                     </tr>
                 </table>
             </div>
