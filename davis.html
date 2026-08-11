@@ -789,6 +789,107 @@
             </div>
 
             <!-- =============================== -->
+            <!-- TROUBLESHOOTING -->
+            <!-- =============================== -->
+            <div class="yai-guide-divider">
+                <span>Troubleshooting</span>
+            </div>
+
+            <!-- Signal Problems -->
+            <div class="yai-section">
+                <h2 class="yai-h3 yai-h3-green">How to tell if your station is losing signal</h2>
+                <p class="yai-section-intro">The outdoor sensor suite (ISS) transmits wirelessly to the Console every 2.5 seconds. When that signal weakens or drops, here's what you'll see.</p>
+                <table class="yai-rows">
+                    <tr>
+                        <td class="yai-label">Dashes (--) on display</td>
+                        <td class="yai-value">Where you'd normally see temperature, humidity, wind, etc., you see <strong>dashes instead of numbers</strong>. This is the most obvious sign &mdash; the Console hasn't received data for 10+ minutes.</td>
+                    </tr>
+                    <tr>
+                        <td class="yai-label">"X" flashing</td>
+                        <td class="yai-value"><strong>Normal.</strong> An X flashes each time the Console successfully receives a data packet. If you see this, your signal is fine.</td>
+                    </tr>
+                    <tr>
+                        <td class="yai-label">"R" displayed</td>
+                        <td class="yai-value"><strong>Reacquire mode.</strong> The Console is trying to re-establish connection after 20 consecutive missed packets. It will try for up to 10 minutes.</td>
+                    </tr>
+                    <tr>
+                        <td class="yai-label">"L" displayed</td>
+                        <td class="yai-value"><strong>Lost mode.</strong> The Console gave up trying and is sleeping for 15 minutes before it retries. If you see "L", you have a real signal problem.</td>
+                    </tr>
+                    <tr>
+                        <td class="yai-label">"Low battery transmitter&nbsp;1"</td>
+                        <td class="yai-value">The ISS backup battery (CR-123A) needs replacement. A weak battery means the transmitter can't send a strong signal, especially at night when the solar panel isn't charging.</td>
+                    </tr>
+                    <tr>
+                        <td class="yai-label">WeatherLink Health tab</td>
+                        <td class="yai-value">On <a href="https://www.weatherlink.com/">weatherlink.com</a> or the app, check the <strong>Health</strong> tab. RSSI (signal strength) is color-coded: <strong style="color: #2a7e2a;">Green</strong> = good (better than &minus;90 dBm), <strong style="color: #b8860b;">Yellow</strong> = weak (&minus;90 to &minus;99 dBm), <strong style="color: #c01c28;">Red</strong> = poor (worse than &minus;99 dBm). Also shows packet reception percentage since midnight.</td>
+                    </tr>
+                </table>
+            </div>
+
+            <!-- Checking Signal Strength -->
+            <div class="yai-section">
+                <h2 class="yai-h3 yai-h3-blue">Check signal strength on the Console</h2>
+                <ol class="yai-steps">
+                    <li>Press and hold <strong>TEMP</strong>, then press <strong>HUM</strong> to enter Diagnostic Mode.</li>
+                    <li>Press <strong>2ND</strong>, then press <strong>CHILL</strong> (Wind Chill) to open the Reception Diagnostic Screen.</li>
+                    <li>Look at <strong>signal strength</strong> (top right) &mdash; values between 20 and 60. Higher is better.
+                        <span class="step-note">If it shows dashes, the most recent packet was missed.</span>
+                    </li>
+                    <li>Check <strong>background noise</strong> &mdash; also 5 to 60. Signal strength needs to be higher than noise for clear reception.</li>
+                    <li>Check <strong>reception percentage</strong> &mdash; should be 95%+. The bar graph shows daily reception over the last 24 days.</li>
+                    <li>Check <strong>resync count</strong> &mdash; a high number means chronic signal problems.</li>
+                </ol>
+                <div class="yai-tip yai-tip-blue">
+                    <strong>WeatherLink Console (6313):</strong> Tap the gear icon, then Device Information. It shows RSSI in dBm for each transmitter. Tap any transmitter line for detailed reception data.
+                </div>
+            </div>
+
+            <!-- Common Causes -->
+            <div class="yai-section">
+                <h2 class="yai-h3 yai-h3-green">Common causes of weak signal</h2>
+                <div class="yai-placement-grid">
+                    <div class="yai-placement-item">
+                        <h4>Distance</h4>
+                        <p>Rated for <strong>1,000 ft line of sight</strong>, but real-world range through walls is only <strong>200&ndash;400 ft</strong>. Metal buildings cut it even further.</p>
+                    </div>
+                    <div class="yai-placement-item">
+                        <h4>Metal Obstructions</h4>
+                        <p>Metal roofing, siding, window frames, barns, and silos block signal. Each wall the signal passes through weakens it. <strong>Metal buildings are the worst.</strong></p>
+                    </div>
+                    <div class="yai-placement-item">
+                        <h4>RF Interference</h4>
+                        <p><strong>900 MHz cordless phones</strong> are the most common culprit. Also older baby monitors, other weather stations, and some wireless routers near the Console.</p>
+                    </div>
+                    <div class="yai-placement-item">
+                        <h4>Low ISS Battery</h4>
+                        <p>The CR-123A backup battery powers the transmitter when solar isn't enough (night, cloudy days, winter). <strong>A weak battery = weak signal, especially at night.</strong> Replace every 2 years.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Fixes -->
+            <div class="yai-section">
+                <h2 class="yai-h3 yai-h3-blue">Fixes &amp; solutions</h2>
+                <ol class="yai-steps">
+                    <li><strong>Move the Console closer to a window</strong> facing the ISS &mdash; glass is mostly transparent to the radio signal. A windowsill on the side facing the station is the easiest fix.</li>
+                    <li><strong>Get the Console higher</strong> &mdash; second floor or higher shelf. Signal travels better above ground clutter.</li>
+                    <li><strong>Reduce wall penetrations</strong> &mdash; arrange the signal path so it goes through a window or fewer walls. Avoid routing through metal buildings entirely.</li>
+                    <li><strong>Check antenna alignment</strong> &mdash; both antennas (Console and ISS) should be vertical and parallel. If the ISS is on a hill above the Console, try both horizontal.</li>
+                    <li><strong>Kill the interference</strong> &mdash; move 900 MHz cordless phones, wireless routers, and other electronics away from the Console. Check background noise in diagnostic mode.</li>
+                    <li><strong>Replace the ISS battery</strong> &mdash; open the SIM box (white box with the solar panel), swap the CR-123A lithium battery. Inspect for corrosion on the contacts while it's open.
+                        <span class="step-note">Davis part number 8415. Battery warning may not clear until midnight.</span>
+                    </li>
+                    <li><strong>Add a Davis Wireless Repeater</strong> (SKU 7627) &mdash; receives the ISS signal, boosts it, and retransmits it. Solar powered. Adds up to 1,000 ft per hop. You can chain up to 4 repeaters.
+                        <span class="step-note">~$495&ndash;$575. Contact Kyle for partner pricing.</span>
+                    </li>
+                </ol>
+                <div class="yai-tip yai-tip-gold">
+                    <strong>Night-only signal loss?</strong> That usually means the ISS battery is dying. The solar panel keeps the transmitter running during the day, but at night the backup battery takes over &mdash; and if it's weak, the transmitter drops out. Replace the CR-123A and the problem should clear up.
+                </div>
+            </div>
+
+            <!-- =============================== -->
             <!-- RESOURCES & SUPPORT -->
             <!-- =============================== -->
             <div class="yai-guide-divider">
