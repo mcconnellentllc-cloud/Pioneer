@@ -1,0 +1,818 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Pioneer Hundred Years — A Century of Innovation in Seed Science, 1926-2026. From Henry A. Wallace's first hybrid to today's world-record yields.">
+
+    <meta property="og:title" content="A Century of Innovation | Pioneer 1926-2026">
+    <meta property="og:description" content="100 years of Pioneer — from the first hybrid seed corn to world-record yields. Celebrating a century of innovation.">
+    <meta property="og:image" content="https://youraginfo.com/images/pioneer-100-family.jpg">
+    <meta property="og:url" content="https://youraginfo.com/pioneer-100.html">
+    <meta property="og:type" content="article">
+
+    <title>A Century of Innovation | Pioneer 1926–2026</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Source+Serif+4:wght@400;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --p-green: #1a472a;
+            --p-green-light: #2d6b3f;
+            --p-gold: #c9a227;
+            --p-gold-light: #f5e6b8;
+            --p-ink: #1e2a22;
+            --p-body: #3a4a3e;
+            --p-muted: #6b7c6f;
+            --p-ground: #faf8f3;
+            --p-white: #ffffff;
+            --p-line: #d4ddd6;
+            --p-card: #ffffff;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Source Serif 4', Georgia, serif;
+            background: var(--p-ground);
+            color: var(--p-body);
+            line-height: 1.65;
+        }
+
+        /* ── Top bar ── */
+        .p100-topbar {
+            background: var(--p-green);
+            padding: 14px 0;
+        }
+        .p100-topbar .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .p100-topbar a {
+            color: rgba(255,255,255,0.85);
+            text-decoration: none;
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+        }
+        .p100-topbar a:hover { color: #fff; }
+        .p100-topbar .tb-brand {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-size: 20px;
+            color: #fff;
+            font-weight: 600;
+        }
+
+        /* ── Hero ── */
+        .p100-hero {
+            position: relative;
+            min-height: 520px;
+            display: flex;
+            align-items: flex-end;
+            overflow: hidden;
+            background: var(--p-green);
+        }
+        .p100-hero-img {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center 20%;
+            opacity: 0.35;
+        }
+        .p100-hero-content {
+            position: relative;
+            z-index: 2;
+            padding: 60px 0 50px;
+            width: 100%;
+        }
+        .p100-hero-content .container {
+            max-width: 900px;
+        }
+        .p100-eyebrow {
+            font-family: 'Inter', sans-serif;
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--p-gold);
+            margin-bottom: 12px;
+        }
+        .p100-hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(36px, 7vw, 60px);
+            font-weight: 700;
+            color: #fff;
+            line-height: 1.1;
+            margin-bottom: 16px;
+            text-wrap: balance;
+        }
+        .p100-hero h1 em {
+            font-style: italic;
+            color: var(--p-gold-light);
+        }
+        .p100-hero-sub {
+            font-size: 18px;
+            color: rgba(255,255,255,0.8);
+            max-width: 560px;
+            line-height: 1.6;
+        }
+        .p100-hero-stat {
+            display: inline-flex;
+            align-items: baseline;
+            gap: 24px;
+            margin-top: 28px;
+            padding: 16px 24px;
+            background: rgba(0,0,0,0.25);
+            border-radius: 6px;
+            backdrop-filter: blur(4px);
+        }
+        .p100-hero-stat div {
+            text-align: center;
+        }
+        .p100-hero-stat .stat-num {
+            font-family: 'Playfair Display', serif;
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--p-gold);
+            display: block;
+        }
+        .p100-hero-stat .stat-label {
+            font-family: 'Inter', sans-serif;
+            font-size: 11px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.65);
+        }
+
+        /* ── Section intro ── */
+        .p100-intro {
+            padding: 56px 0 32px;
+            text-align: center;
+        }
+        .p100-intro .container {
+            max-width: 680px;
+        }
+        .p100-intro p {
+            font-size: 18px;
+            line-height: 1.7;
+            color: var(--p-body);
+        }
+        .p100-intro p strong {
+            color: var(--p-green);
+        }
+
+        /* ── Timeline ── */
+        .p100-timeline {
+            padding: 20px 0 60px;
+        }
+        .p100-timeline .container {
+            max-width: 800px;
+            position: relative;
+        }
+        .tl-line {
+            position: absolute;
+            left: 54px;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: linear-gradient(to bottom, var(--p-gold), var(--p-green) 8%, var(--p-green) 92%, var(--p-gold));
+            border-radius: 2px;
+        }
+
+        /* Era dividers */
+        .tl-era {
+            position: relative;
+            padding: 40px 0 20px 0;
+            text-align: center;
+        }
+        .tl-era-label {
+            display: inline-block;
+            background: var(--p-green);
+            color: var(--p-gold-light);
+            font-family: 'Inter', sans-serif;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 2.5px;
+            text-transform: uppercase;
+            padding: 8px 24px;
+            border-radius: 20px;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Timeline entry */
+        .tl-entry {
+            position: relative;
+            padding: 0 0 6px 96px;
+            min-height: 80px;
+        }
+        .tl-year {
+            position: absolute;
+            left: 0;
+            top: 2px;
+            width: 110px;
+            text-align: center;
+        }
+        .tl-year-badge {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 46px;
+            height: 46px;
+            border-radius: 50%;
+            background: var(--p-green);
+            color: #fff;
+            font-family: 'Inter', sans-serif;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 0.3px;
+            position: relative;
+            z-index: 2;
+            border: 3px solid var(--p-ground);
+            box-shadow: 0 0 0 2px var(--p-green);
+        }
+        .tl-year-badge-gold {
+            background: var(--p-gold);
+            box-shadow: 0 0 0 2px var(--p-gold);
+            color: var(--p-ink);
+        }
+        .tl-year-badge-local {
+            background: #fff;
+            box-shadow: 0 0 0 2px var(--p-green);
+            color: var(--p-green);
+        }
+        .tl-year-text {
+            display: none;
+        }
+
+        .tl-card {
+            background: var(--p-card);
+            border-radius: 8px;
+            padding: 22px 26px;
+            margin-bottom: 16px;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+            border-left: 4px solid var(--p-green);
+        }
+        .tl-card-gold {
+            border-left-color: var(--p-gold);
+        }
+        .tl-card-local {
+            border-left-color: var(--p-gold);
+            background: #fffdf6;
+        }
+
+        .tl-card h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--p-ink);
+            line-height: 1.25;
+            margin-bottom: 4px;
+        }
+        .tl-card .tl-date {
+            font-family: 'Inter', sans-serif;
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--p-green);
+            letter-spacing: 0.5px;
+            margin-bottom: 8px;
+        }
+        .tl-card-gold .tl-date {
+            color: #9a7b0a;
+        }
+        .tl-card p {
+            font-size: 15px;
+            line-height: 1.65;
+            color: var(--p-body);
+            margin: 0;
+        }
+        .tl-card p + p {
+            margin-top: 8px;
+        }
+        .tl-card .tl-detail {
+            font-family: 'Inter', sans-serif;
+            font-size: 13px;
+            color: var(--p-muted);
+            margin-top: 8px;
+            line-height: 1.5;
+        }
+        .tl-card .tl-local-tag {
+            display: inline-block;
+            font-family: 'Inter', sans-serif;
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: #9a7b0a;
+            background: var(--p-gold-light);
+            padding: 3px 10px;
+            border-radius: 3px;
+            margin-bottom: 8px;
+        }
+        .tl-card .tl-sign-tag {
+            display: inline-block;
+            font-family: 'Inter', sans-serif;
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: var(--p-green);
+            background: #e4f0e7;
+            padding: 3px 10px;
+            border-radius: 3px;
+            margin-bottom: 8px;
+        }
+
+        /* ── Yield chart ── */
+        .yield-bar {
+            display: flex;
+            align-items: flex-end;
+            gap: 6px;
+            margin: 14px 0 6px;
+            height: 80px;
+        }
+        .yield-col {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-end;
+            height: 100%;
+        }
+        .yield-col .yb {
+            width: 100%;
+            max-width: 48px;
+            border-radius: 4px 4px 0 0;
+            transition: height 0.3s;
+        }
+        .yield-col .yl {
+            font-family: 'Inter', sans-serif;
+            font-size: 10px;
+            color: var(--p-muted);
+            margin-top: 4px;
+            text-align: center;
+            line-height: 1.2;
+        }
+        .yield-col .yv {
+            font-family: 'Inter', sans-serif;
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--p-ink);
+            margin-bottom: 3px;
+        }
+
+        /* ── Seedbag image section ── */
+        .p100-seedbag {
+            padding: 40px 0;
+            text-align: center;
+        }
+        .p100-seedbag img {
+            max-width: 500px;
+            width: 100%;
+            border-radius: 10px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+        }
+
+        /* ── Field Day CTA ── */
+        .p100-cta {
+            background: var(--p-green);
+            padding: 56px 0;
+            text-align: center;
+        }
+        .p100-cta .container {
+            max-width: 640px;
+        }
+        .p100-cta .cta-eyebrow {
+            font-family: 'Inter', sans-serif;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--p-gold);
+            margin-bottom: 14px;
+        }
+        .p100-cta h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(28px, 5vw, 40px);
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 16px;
+            text-wrap: balance;
+        }
+        .p100-cta p {
+            font-size: 17px;
+            color: rgba(255,255,255,0.8);
+            line-height: 1.65;
+            margin-bottom: 28px;
+        }
+        .p100-cta .cta-contact {
+            display: inline-flex;
+            flex-direction: column;
+            gap: 6px;
+            align-items: center;
+        }
+        .p100-cta .cta-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 20px;
+            font-weight: 600;
+            font-style: italic;
+            color: var(--p-gold-light);
+        }
+        .p100-cta .cta-details {
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            color: rgba(255,255,255,0.7);
+        }
+        .p100-cta .cta-details a {
+            color: #fff;
+            text-decoration: none;
+        }
+        .p100-cta .cta-details a:hover {
+            text-decoration: underline;
+        }
+        .p100-cta .cta-site {
+            display: inline-block;
+            margin-top: 16px;
+            padding: 12px 28px;
+            background: var(--p-gold);
+            color: var(--p-ink);
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            font-weight: 700;
+            text-decoration: none;
+            border-radius: 6px;
+        }
+        .p100-cta .cta-site:hover {
+            opacity: 0.9;
+        }
+
+        /* ── Footer ── */
+        .p100-footer {
+            background: #142118;
+            padding: 24px 0;
+            text-align: center;
+            color: rgba(255,255,255,0.45);
+            font-family: 'Inter', sans-serif;
+            font-size: 12px;
+        }
+        .p100-footer a {
+            color: rgba(255,255,255,0.65);
+            text-decoration: none;
+        }
+
+        /* ── Responsive ── */
+        @media (max-width: 640px) {
+            .p100-hero { min-height: 420px; }
+            .p100-hero-stat {
+                flex-direction: column;
+                gap: 12px;
+                padding: 14px 20px;
+            }
+            .p100-hero-stat div {
+                display: flex;
+                align-items: baseline;
+                gap: 8px;
+            }
+            .tl-line { left: 22px; }
+            .tl-year { width: 46px; }
+            .tl-year-badge {
+                width: 38px;
+                height: 38px;
+                font-size: 10px;
+            }
+            .tl-entry { padding-left: 58px; }
+            .tl-card { padding: 18px 18px; }
+            .tl-card h3 { font-size: 17px; }
+            .yield-bar { height: 60px; }
+            .p100-seedbag img { max-width: 340px; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Top Bar -->
+    <header class="p100-topbar">
+        <div class="container">
+            <a href="index.html" class="tb-brand">YourAgInfo</a>
+            <a href="tel:9705711015">(970) 571-1015</a>
+        </div>
+    </header>
+
+    <!-- Hero -->
+    <section class="p100-hero">
+        <img src="images/pioneer-100-family.jpg" alt="Pioneer Hundred Years — Celebrating One Hundred Years" class="p100-hero-img">
+        <div class="p100-hero-content">
+            <div class="container">
+                <div class="p100-eyebrow">1926 &ndash; 2026</div>
+                <h1>A Century of <em>Innovation</em></h1>
+                <p class="p100-hero-sub">From Henry&nbsp;A.&nbsp;Wallace's first hybrid seed corn to world-record yields&nbsp;&mdash; 100 years of Pioneer.</p>
+                <div class="p100-hero-stat">
+                    <div>
+                        <span class="stat-num">100</span>
+                        <span class="stat-label">Years</span>
+                    </div>
+                    <div>
+                        <span class="stat-num">600%</span>
+                        <span class="stat-label">Yield Increase</span>
+                    </div>
+                    <div>
+                        <span class="stat-num">70+</span>
+                        <span class="stat-label">Countries</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Intro -->
+    <section class="p100-intro">
+        <div class="container">
+            <p>One seed can change the farm. One farmer can change the world. What started as a small Iowa company selling the first commercially available hybrid seed corn has grown into the <strong>No.&nbsp;1 corn and soybean brand in the United States</strong>. This is the story of how Pioneer got here.</p>
+        </div>
+    </section>
+
+    <!-- Timeline -->
+    <section class="p100-timeline">
+        <div class="container">
+            <div class="tl-line"></div>
+
+            <!-- ═══ PRE-PIONEER ═══ -->
+            <div class="tl-era">
+                <span class="tl-era-label">The Origin of Corn</span>
+            </div>
+
+            <div class="tl-entry">
+                <div class="tl-year"><span class="tl-year-badge tl-year-badge-gold">7000 BC</span></div>
+                <div class="tl-card tl-card-gold">
+                    <span class="tl-sign-tag">Plot Tour Sign</span>
+                    <h3>Teosinte</h3>
+                    <div class="tl-date">~7,000 BC &middot; Pre-Pioneer</div>
+                    <p>Grows wild in Mesoamerica. The closest known wild relative of corn &mdash; despite looking nothing alike, teosinte and corn are nearly identical genetically. Bushy plants with many tillers, small triangle-shaped seeds enclosed in hard shells, crude ears on every branch.</p>
+                    <p>Over thousands of years, indigenous farmers selectively bred teosinte into the corn we know today &mdash; one of the most remarkable feats of plant domestication in human history.</p>
+                </div>
+            </div>
+
+            <!-- ═══ FOUNDING ERA ═══ -->
+            <div class="tl-era">
+                <span class="tl-era-label">The Beginning</span>
+            </div>
+
+            <div class="tl-entry">
+                <div class="tl-year"><span class="tl-year-badge">1924</span></div>
+                <div class="tl-card">
+                    <h3>Copper Cross</h3>
+                    <div class="tl-date">1924</div>
+                    <p>Henry A. Wallace develops a hybrid called Copper Cross &mdash; a cross between Leaming and Bloody Butcher open-pollinated varieties &mdash; that wins the Iowa State Corn Yield Test. It proves that hybrid vigor can translate to the field. The commercial seed corn industry is about to be born.</p>
+                </div>
+            </div>
+
+            <div class="tl-entry">
+                <div class="tl-year"><span class="tl-year-badge tl-year-badge-gold">1926</span></div>
+                <div class="tl-card tl-card-gold">
+                    <h3>Hi-Bred Corn Company Founded</h3>
+                    <div class="tl-date">April 20, 1926 &middot; Johnston, Iowa</div>
+                    <p>Henry A. Wallace, his brother James, and a small group of partners incorporate the Hi-Bred Corn Company &mdash; the first business in the world created specifically for developing and marketing hybrid seed corn. Wallace is 37 years old.</p>
+                    <p class="tl-detail">At this time, hybrid corn adoption is near zero. Farmers save their own open-pollinated seed. U.S. average corn yield: about 26 bu/acre.</p>
+                </div>
+            </div>
+
+            <div class="tl-entry">
+                <div class="tl-year"><span class="tl-year-badge">1933</span></div>
+                <div class="tl-card">
+                    <h3>Wallace Joins the Cabinet</h3>
+                    <div class="tl-date">1933</div>
+                    <p>Henry A. Wallace leaves Iowa for Washington, D.C. to serve as Franklin D. Roosevelt's Secretary of Agriculture. He turns day-to-day management of the company over to associates, but the foundation he built &mdash; research-driven hybrid development &mdash; continues to drive the company forward.</p>
+                </div>
+            </div>
+
+            <div class="tl-entry">
+                <div class="tl-year"><span class="tl-year-badge">1935</span></div>
+                <div class="tl-card">
+                    <h3>"Pioneer" Added to the Name</h3>
+                    <div class="tl-date">1935</div>
+                    <p>The company becomes Pioneer Hi-Bred, reinforcing its identity as an innovator. Hybrid corn adoption in Iowa stands at just 6% of planted acres &mdash; but the tide is turning fast.</p>
+                    <p class="tl-detail">By 1938, Iowa hybrid adoption hits 50%. By 1942, it reaches nearly 100%. The hybrid revolution is complete in just 16 years.</p>
+                </div>
+            </div>
+
+            <!-- ═══ MID-CENTURY ═══ -->
+            <div class="tl-era">
+                <span class="tl-era-label">Growth &amp; Global Reach</span>
+            </div>
+
+            <div class="tl-entry">
+                <div class="tl-year"><span class="tl-year-badge">1941</span></div>
+                <div class="tl-card">
+                    <h3>Vice President of the United States</h3>
+                    <div class="tl-date">1941&ndash;1945</div>
+                    <p>Henry A. Wallace becomes the 33rd Vice President of the United States, serving under FDR. A seed corn breeder from Iowa now holds the second-highest office in the nation. The company he founded continues to grow under professional management.</p>
+                </div>
+            </div>
+
+            <div class="tl-entry">
+                <div class="tl-year"><span class="tl-year-badge">1940s</span></div>
+                <div class="tl-card">
+                    <h3>Feeding the War Effort</h3>
+                    <div class="tl-date">1940s</div>
+                    <p>During World War II, Pioneer develops high-yielding hybrids that help secure the nation's food supply during global shortages. By 1949, Pioneer reaches one million units in annual sales &mdash; a major commercial milestone.</p>
+                </div>
+            </div>
+
+            <div class="tl-entry">
+                <div class="tl-year"><span class="tl-year-badge tl-year-badge-local">1960</span></div>
+                <div class="tl-card tl-card-local">
+                    <span class="tl-local-tag">McConnell Enterprises</span>
+                    <h3>Harold McConnell Joins Pioneer</h3>
+                    <div class="tl-date">1960 &middot; Haxtun, Colorado</div>
+                    <p>A Pioneer rep named Morse Johnson comes to Haxtun looking for someone to sell seed in the area. A local tells him to "go talk to McConnell, north of town." Morse finds Harold on his farm, busy getting steers ready for the county fair. Harold accepts the position &mdash; and later calls it "the best decision of my life."</p>
+                    <p class="tl-detail">The McConnell family's relationship with Pioneer begins. It will span three generations and more than six decades.</p>
+                </div>
+            </div>
+
+            <div class="tl-entry">
+                <div class="tl-year"><span class="tl-year-badge tl-year-badge-gold">1964</span></div>
+                <div class="tl-card tl-card-gold">
+                    <h3>The Iconic Trapezoid</h3>
+                    <div class="tl-date">1964</div>
+                    <p>Pioneer introduces its iconic trapezoid logo &mdash; shaped like a flower and the symbol for infinity, representing constant vigor and unending growth through continuous research. That same year, seed bags transition from cloth to the now-familiar gold and white paper design.</p>
+                    <p class="tl-detail">The trapezoid becomes one of the most recognized symbols in agriculture, unchanged for over 60 years.</p>
+                </div>
+            </div>
+
+            <div class="tl-entry">
+                <div class="tl-year"><span class="tl-year-badge">1970</span></div>
+                <div class="tl-card">
+                    <h3>Pioneer Hi-Bred International</h3>
+                    <div class="tl-date">1970</div>
+                    <p>"International" is added to the name as Pioneer establishes joint ventures in Australia, Argentina, and South Africa. The company that started in a single Iowa county now serves farmers across the globe. By the late 1980s, Pioneer operates in 32 countries.</p>
+                </div>
+            </div>
+
+            <div class="tl-entry">
+                <div class="tl-year"><span class="tl-year-badge">1973</span></div>
+                <div class="tl-card">
+                    <h3>Pioneer Goes Public</h3>
+                    <div class="tl-date">1973</div>
+                    <p>Pioneer Hi-Bred International conducts its first public stock offering. The company also expands aggressively beyond corn into soybeans, wheat, sunflower, canola, and alfalfa throughout the 1970s.</p>
+                </div>
+            </div>
+
+            <!-- ═══ MODERN ERA ═══ -->
+            <div class="tl-era">
+                <span class="tl-era-label">The Modern Era</span>
+            </div>
+
+            <div class="tl-entry">
+                <div class="tl-year"><span class="tl-year-badge">1999</span></div>
+                <div class="tl-card">
+                    <h3>DuPont Acquires Pioneer</h3>
+                    <div class="tl-date">October 1, 1999</div>
+                    <p>DuPont completes its acquisition of Pioneer Hi-Bred International in a $7.7 billion transaction. Pioneer becomes a wholly owned subsidiary with access to DuPont's deep research resources while maintaining its identity, brand, and farmer-first culture.</p>
+                </div>
+            </div>
+
+            <div class="tl-entry">
+                <div class="tl-year"><span class="tl-year-badge tl-year-badge-local">2000</span></div>
+                <div class="tl-card tl-card-local">
+                    <span class="tl-local-tag">McConnell Enterprises</span>
+                    <h3>Rick McConnell Becomes President</h3>
+                    <div class="tl-date">September 2000</div>
+                    <p>Richard L. McConnell &mdash; Harold's son, raised on the family farm in Haxtun &mdash; is appointed President of Pioneer Hi-Bred International and Vice President of DuPont. The farm boy from northeast Colorado now leads the world's largest seed company. Twenty-six of his 30 years with Pioneer were spent in R&amp;D.</p>
+                </div>
+            </div>
+
+            <div class="tl-entry">
+                <div class="tl-year"><span class="tl-year-badge">2003</span></div>
+                <div class="tl-card">
+                    <h3>Herculex Insect Protection</h3>
+                    <div class="tl-date">2003</div>
+                    <p>Pioneer launches Herculex, its first biotech trait platform for corn, providing above- and below-ground insect protection. A collaboration with Dow AgroSciences, it marks Pioneer's entry into the trait era &mdash; seeds that protect themselves.</p>
+                </div>
+            </div>
+
+            <div class="tl-entry">
+                <div class="tl-year"><span class="tl-year-badge">2019</span></div>
+                <div class="tl-card">
+                    <h3>Corteva Agriscience</h3>
+                    <div class="tl-date">June 1, 2019</div>
+                    <p>Following the Dow-DuPont merger, Corteva Agriscience spins off as an independent, publicly traded company. Pioneer remains the flagship global seed brand. For the first time since the DuPont acquisition, Pioneer's parent company is a pure-play agriculture company.</p>
+                </div>
+            </div>
+
+            <!-- ═══ TODAY ═══ -->
+            <div class="tl-era">
+                <span class="tl-era-label">World Records &amp; the Next Century</span>
+            </div>
+
+            <div class="tl-entry">
+                <div class="tl-year"><span class="tl-year-badge tl-year-badge-gold">2023</span></div>
+                <div class="tl-card tl-card-gold">
+                    <span class="tl-sign-tag">Plot Tour Sign &middot; P14830</span>
+                    <h3>623.89 Bushels Per Acre</h3>
+                    <div class="tl-date">2023 &middot; P14830 (2011&ndash;Present Platform)</div>
+                    <p>David Hula of Charles City, Virginia sets a new world corn yield record at 623.89 bu/acre using Pioneer genetics &mdash; more than 24 times the yield when the company was founded. The P14830 family delivers strong roots, stalk strength, drought tolerance, and fast grain dry-down.</p>
+
+                    <div class="yield-bar">
+                        <div class="yield-col">
+                            <span class="yv">26</span>
+                            <div class="yb" style="height: 8%; background: var(--p-gold-light);"></div>
+                            <span class="yl">1926</span>
+                        </div>
+                        <div class="yield-col">
+                            <span class="yv">55</span>
+                            <div class="yb" style="height: 16%; background: #b8d4a8;"></div>
+                            <span class="yl">1960</span>
+                        </div>
+                        <div class="yield-col">
+                            <span class="yv">95</span>
+                            <div class="yb" style="height: 26%; background: #7dba6a;"></div>
+                            <span class="yl">1980</span>
+                        </div>
+                        <div class="yield-col">
+                            <span class="yv">138</span>
+                            <div class="yb" style="height: 38%; background: #4a9a50;"></div>
+                            <span class="yl">2000</span>
+                        </div>
+                        <div class="yield-col">
+                            <span class="yv">177</span>
+                            <div class="yb" style="height: 48%; background: #2d7a34;"></div>
+                            <span class="yl">2023 avg</span>
+                        </div>
+                        <div class="yield-col">
+                            <span class="yv">624</span>
+                            <div class="yb" style="height: 100%; background: var(--p-gold);"></div>
+                            <span class="yl">2023 record</span>
+                        </div>
+                    </div>
+                    <p class="tl-detail">U.S. average corn yield &mdash; bu/acre. Record is David Hula's Pioneer plot in Virginia.</p>
+                </div>
+            </div>
+
+            <div class="tl-entry">
+                <div class="tl-year"><span class="tl-year-badge">2024</span></div>
+                <div class="tl-card">
+                    <span class="tl-sign-tag">Plot Tour Sign &middot; P13777Q</span>
+                    <h3>Vorceed Enlist</h3>
+                    <div class="tl-date">2024 &middot; P13777Q (2011&ndash;Present Platform)</div>
+                    <p>The Vorceed Enlist platform represents the most advanced corn trait stack Pioneer has ever commercialized. P13777Q delivers single-bag integrated refuge with multiple modes of action for above- and below-ground insects, plus tolerance to four herbicide active ingredients: 2,4-D choline, FOPs, glufosinate, and glyphosate.</p>
+                    <p class="tl-detail">Industry-leading yield performance. Excellent tar spot resistance. Average U.S. corn yield in 2024: 179.3 bu/acre &mdash; a new national record. Pioneer also sets a world soybean record at 218.29 bu/acre.</p>
+                </div>
+            </div>
+
+            <div class="tl-entry">
+                <div class="tl-year"><span class="tl-year-badge tl-year-badge-gold">2026</span></div>
+                <div class="tl-card tl-card-gold">
+                    <h3>A Hundred Years</h3>
+                    <div class="tl-date">April 20, 2026 &middot; Johnston, Iowa</div>
+                    <p>Pioneer celebrates its centennial at the Corteva Global Seed Business Center in Johnston, Iowa &mdash; the same community where Henry Wallace incorporated the Hi-Bred Corn Company 100 years earlier. David Wallace Douglas, Wallace's grandson, donates $100,000 to fund more than 100,000 meals for the Food Bank of Iowa.</p>
+                    <p>Pioneer is the No.&nbsp;1 corn and soybean brand in the U.S. by market share. U.S. corn yields have increased nearly 600% since the company's founding.</p>
+                </div>
+            </div>
+
+            <div class="tl-entry">
+                <div class="tl-year"><span class="tl-year-badge tl-year-badge-gold">2026+</span></div>
+                <div class="tl-card tl-card-gold">
+                    <span class="tl-sign-tag">Plot Tour Sign</span>
+                    <h3>Future Innovations</h3>
+                    <div class="tl-date">2026 and Beyond</div>
+                    <p><strong>Yield &amp; Yield Stability Trait:</strong> Proprietary genetic technology developed by Corteva to improve yield and yield stability under optimal growing, various soil types, and challenging seasons. Confers tolerance to important glufosinate alternatives.</p>
+                    <p><strong>Multi-Disease Resistance Trait:</strong> Gene-editing-enabled product with resistance to three key corn diseases for initial introduction. Broad-spectrum "in the seed" control helps growers manage year-to-year disease risk with design simplicity that allows rapid deployment across all bands and market segments. Field protection under even extremely high disease pressure.</p>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Seedbag Image -->
+    <section class="p100-seedbag">
+        <img src="images/pioneer-100-seedbag.jpg" alt="Pioneer Celebrating One Hundred Years — The One That Started It All" loading="lazy">
+    </section>
+
+    <!-- Field Day CTA -->
+    <section class="p100-cta">
+        <div class="container">
+            <div class="cta-eyebrow">McConnell Enterprises &middot; Haxtun, Colorado</div>
+            <h2>Three Generations of Pioneer in Northeast Colorado</h2>
+            <p>The McConnell family has represented Pioneer in Phillips, Sedgwick, Logan, and Yuma counties since 1960. From Harold's handshake agreement on a Haxtun farm to the third generation today &mdash; 65 years of partnership with the growers who feed the world.</p>
+            <div class="cta-contact">
+                <span class="cta-name">Kyle McConnell</span>
+                <span class="cta-details">
+                    <a href="tel:9705711015">(970) 571-1015</a> &middot;
+                    <a href="mailto:kyle.mcconnell@plantpioneer.com">kyle.mcconnell@plantpioneer.com</a>
+                </span>
+            </div>
+            <a href="https://youraginfo.com" class="cta-site">youraginfo.com</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="p100-footer">
+        <div class="container">
+            <p>&copy; 2026 McConnell Enterprises LLC &middot; Haxtun, Colorado &middot; <a href="index.html">youraginfo.com</a></p>
+        </div>
+    </footer>
+</body>
+</html>
