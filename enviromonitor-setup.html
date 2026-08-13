@@ -1,0 +1,823 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EnviroMonitor Installation Guide | YourAgInfo.com</title>
+    <script src="js/auth.js"></script>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Source+Serif+4:wght@400;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        .page-header {
+            background: var(--green-dark);
+            padding: 16px 0;
+        }
+        .page-header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .page-header .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+        .page-header .logo-text {
+            font-family: var(--font-heading);
+            font-size: 24px;
+            font-weight: 600;
+            color: var(--white);
+            font-style: italic;
+        }
+        .page-header .logo-divider {
+            width: 1px;
+            height: 20px;
+            background: rgba(255,255,255,0.3);
+        }
+        .page-header .logo-subtitle {
+            font-size: 13px;
+            color: rgba(255,255,255,0.7);
+            letter-spacing: 0.5px;
+        }
+        .header-phone {
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .em-hero {
+            background: linear-gradient(160deg, #0d2818 0%, var(--green-dark) 50%, #1a472a 100%);
+            padding: 120px 0 60px;
+            text-align: center;
+            color: var(--white);
+        }
+        .em-hero h1 {
+            font-size: clamp(28px, 5vw, 42px);
+            color: var(--white);
+            margin-bottom: 10px;
+            line-height: 1.15;
+        }
+        .em-hero .subtitle {
+            font-size: 16px;
+            color: rgba(255,255,255,0.7);
+            max-width: 520px;
+            margin: 0 auto 28px;
+        }
+
+        .em-order-summary {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 12px;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        .em-order-item {
+            background: rgba(255,255,255,0.08);
+            border: 1px solid rgba(255,255,255,0.12);
+            border-radius: 10px;
+            padding: 16px;
+            text-align: center;
+        }
+        .em-order-item .qty {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--gold);
+            line-height: 1;
+        }
+        .em-order-item .label {
+            font-size: 13px;
+            color: rgba(255,255,255,0.75);
+            margin-top: 4px;
+        }
+        .em-order-item .sku {
+            font-size: 11px;
+            color: rgba(255,255,255,0.4);
+            margin-top: 2px;
+        }
+
+        .em-content {
+            padding: 48px 0 80px;
+            background: var(--gray-50);
+        }
+        .em-content .container {
+            max-width: 780px;
+        }
+
+        .em-section {
+            margin-bottom: 40px;
+        }
+        .em-section-header {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 20px;
+        }
+        .em-step-badge {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            background: var(--green-dark);
+            color: var(--white);
+            font-size: 16px;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+        .em-section-header h2 {
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--green-dark);
+            margin: 0;
+        }
+
+        .em-card {
+            background: var(--white);
+            border: 1px solid var(--gray-200);
+            border-radius: 12px;
+            padding: 28px 32px;
+            margin-bottom: 16px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+        }
+        .em-card h3 {
+            font-size: 17px;
+            font-weight: 700;
+            color: var(--green-dark);
+            margin-bottom: 12px;
+        }
+        .em-card p, .em-card li {
+            font-size: 14.5px;
+            line-height: 1.7;
+            color: var(--gray-600);
+        }
+        .em-card ol, .em-card ul {
+            padding-left: 22px;
+            margin: 10px 0;
+        }
+        .em-card ol li, .em-card ul li {
+            padding: 3px 0;
+        }
+        .em-card strong {
+            color: var(--green-dark);
+        }
+
+        .em-tip {
+            background: #f0f7f1;
+            border-left: 4px solid var(--green-dark);
+            border-radius: 0 8px 8px 0;
+            padding: 14px 18px;
+            margin: 16px 0 4px;
+            font-size: 13.5px;
+            line-height: 1.6;
+            color: var(--gray-600);
+        }
+        .em-tip strong {
+            color: var(--green-dark);
+        }
+        .em-tip-blue {
+            background: #eef5fc;
+            border-left-color: #1f4e79;
+        }
+        .em-tip-blue strong {
+            color: #1f4e79;
+        }
+        .em-tip-gold {
+            background: #fff8e1;
+            border-left-color: var(--gold);
+        }
+        .em-tip-gold strong {
+            color: #9a7b0a;
+        }
+
+        .em-checklist {
+            list-style: none;
+            padding: 0;
+            margin: 12px 0 0;
+        }
+        .em-checklist li {
+            position: relative;
+            padding: 6px 0 6px 28px;
+            font-size: 14.5px;
+            line-height: 1.6;
+        }
+        .em-checklist li::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 10px;
+            width: 16px;
+            height: 16px;
+            border: 2px solid var(--gray-300);
+            border-radius: 3px;
+        }
+
+        .em-table-wrap {
+            overflow-x: auto;
+            margin: 14px 0;
+        }
+        .em-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+        }
+        .em-table th {
+            background: var(--green-dark);
+            color: var(--white);
+            padding: 10px 14px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 12.5px;
+            letter-spacing: 0.3px;
+            text-transform: uppercase;
+        }
+        .em-table td {
+            padding: 10px 14px;
+            border-bottom: 1px solid var(--gray-200);
+            color: var(--gray-600);
+        }
+        .em-table tr:last-child td {
+            border-bottom: none;
+        }
+        .em-table .em-highlight {
+            background: #f0f7f1;
+            font-weight: 600;
+            color: var(--green-dark);
+        }
+
+        .em-app-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 14px;
+            margin: 16px 0;
+        }
+        .em-app-card {
+            background: var(--gray-50);
+            border: 1px solid var(--gray-200);
+            border-radius: 10px;
+            padding: 18px 20px;
+        }
+        .em-app-card h4 {
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--green-dark);
+            margin-bottom: 6px;
+        }
+        .em-app-card p {
+            font-size: 13px;
+            line-height: 1.55;
+            color: var(--gray-500);
+            margin: 0;
+        }
+        .em-app-card .em-app-links {
+            margin-top: 8px;
+            display: flex;
+            gap: 10px;
+        }
+        .em-app-card .em-app-links a {
+            font-size: 12px;
+            font-weight: 600;
+            color: #1f4e79;
+            text-decoration: none;
+        }
+        .em-app-card .em-app-links a:hover {
+            text-decoration: underline;
+        }
+
+        .em-led-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 10px;
+            margin: 14px 0;
+        }
+        .em-led {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            padding: 10px 14px;
+            background: var(--gray-50);
+            border-radius: 8px;
+        }
+        .em-led-dot {
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+        .em-led-blue { background: #3b82f6; }
+        .em-led-green { background: #22c55e; }
+        .em-led-red { background: #ef4444; }
+        .em-led p {
+            font-size: 13px;
+            line-height: 1.5;
+            color: var(--gray-600);
+            margin: 0;
+        }
+
+        .em-divider {
+            border: none;
+            border-top: 2px solid var(--gray-200);
+            margin: 48px 0;
+        }
+
+        .em-footer {
+            text-align: center;
+            padding: 32px 0;
+            border-top: 1px solid var(--gray-200);
+        }
+        .em-footer p {
+            font-size: 13px;
+            color: var(--gray-500);
+            margin-bottom: 6px;
+        }
+        .em-footer a {
+            color: var(--green-dark);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        @media (max-width: 600px) {
+            .em-card { padding: 22px 20px; }
+            .em-order-summary { grid-template-columns: 1fr; }
+            .em-app-grid { grid-template-columns: 1fr; }
+            .em-led-grid { grid-template-columns: 1fr; }
+            .em-hero { padding: 100px 0 48px; }
+        }
+    </style>
+</head>
+<body>
+    <header class="page-header">
+        <div class="container">
+            <a href="members.html" class="logo">
+                <span class="logo-text">YourAgInfo</span>
+                <span class="logo-divider"></span>
+                <span class="logo-subtitle">Member Dashboard</span>
+            </a>
+            <a href="tel:9705711015" class="header-phone">(970) 571-1015</a>
+        </div>
+    </header>
+
+    <section class="em-hero">
+        <div class="container">
+            <h1>EnviroMonitor Installation Guide</h1>
+            <p class="subtitle">Step-by-step setup for your Gateway, sensor suites, and the apps that put field data on your phone.</p>
+            <div class="em-order-summary">
+                <div class="em-order-item">
+                    <div class="qty">7</div>
+                    <div class="label">EnviroMonitor Gateway LTE</div>
+                    <div class="sku">SKU 6803</div>
+                </div>
+                <div class="em-order-item">
+                    <div class="qty">7</div>
+                    <div class="label">Cabled VP2 Plus Sensor Suite</div>
+                    <div class="sku">SKU 6327C</div>
+                </div>
+                <div class="em-order-item">
+                    <div class="qty">3</div>
+                    <div class="label">Wireless VP2 Sensor Suite</div>
+                    <div class="sku">SKU 6322</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="em-content">
+        <div class="container">
+
+            <!-- BEFORE YOU START -->
+            <div class="em-section">
+                <div class="em-section-header">
+                    <h2>Before You Start</h2>
+                </div>
+                <div class="em-card">
+                    <h3>What You Need</h3>
+                    <ul class="em-checklist">
+                        <li>Smartphone with Bluetooth (iPhone or Android)</li>
+                        <li>EnviroMonitor app installed (download before heading to the field)</li>
+                        <li>Free WeatherLink account (create in the app or at weatherlink.com)</li>
+                        <li>Credit card for activation fee and annual service plan</li>
+                        <li>Mounting poles or existing structures at each field location</li>
+                        <li>Phillips-head screwdriver</li>
+                        <li>Adequate cellular coverage at each Gateway location</li>
+                    </ul>
+                    <div class="em-tip">
+                        <strong>Download the apps first.</strong> Get the EnviroMonitor app on your phone while you still have WiFi. You will need it to activate each Gateway via Bluetooth in the field.
+                    </div>
+                </div>
+            </div>
+
+            <!-- STEP 1: DOWNLOAD APPS -->
+            <div class="em-section">
+                <div class="em-section-header">
+                    <span class="em-step-badge">1</span>
+                    <h2>Download the Apps</h2>
+                </div>
+                <div class="em-card">
+                    <p>You will use three Davis apps. Each does a different job.</p>
+                    <div class="em-app-grid">
+                        <div class="em-app-card">
+                            <h4>EnviroMonitor</h4>
+                            <p>Setup and configuration. Activates Gateways, adds Nodes and sensors, manages your mesh network.</p>
+                            <div class="em-app-links">
+                                <a href="https://apps.apple.com/app/enviromonitor/id1126498498" target="_blank" rel="noopener">iPhone</a>
+                                <a href="https://play.google.com/store/apps/details?id=com.davisinstruments.enviromonitor" target="_blank" rel="noopener">Android</a>
+                            </div>
+                        </div>
+                        <div class="em-app-card">
+                            <h4>WeatherLink</h4>
+                            <p>Live weather data. Current conditions, charts, and history from all your stations.</p>
+                            <div class="em-app-links">
+                                <a href="https://apps.apple.com/app/weatherlink/id1304504954" target="_blank" rel="noopener">iPhone</a>
+                                <a href="https://play.google.com/store/apps/details?id=com.davisinstruments.weatherlink" target="_blank" rel="noopener">Android</a>
+                            </div>
+                        </div>
+                        <div class="em-app-card">
+                            <h4>Mobilize</h4>
+                            <p>Agriculture decisions. Irrigation alerts, frost warnings, GDD tracking, and field views.</p>
+                            <div class="em-app-links">
+                                <a href="https://apps.apple.com/app/davis-mobilize/id1166181536" target="_blank" rel="noopener">iPhone</a>
+                                <a href="https://play.google.com/store/apps/details?id=com.davisinstruments.mobilize" target="_blank" rel="noopener">Android</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="em-tip-blue em-tip">
+                        <strong>All three apps use the same WeatherLink account.</strong> Create one account and use it across all apps. You can share access with your entire team from the EnviroMonitor app.
+                    </div>
+                </div>
+            </div>
+
+            <!-- STEP 2: ACTIVATE GATEWAY -->
+            <div class="em-section">
+                <div class="em-section-header">
+                    <span class="em-step-badge">2</span>
+                    <h2>Activate the Gateway</h2>
+                </div>
+                <div class="em-card">
+                    <h3>Power Up &amp; Connect</h3>
+                    <p>Each Gateway is solar-powered with a built-in 5-watt panel and rechargeable 6-volt backup battery. No AC power needed.</p>
+                    <ol>
+                        <li>Unbox the Gateway and verify all mounting hardware is included</li>
+                        <li>Plug the main power cable into the jack to power up the Gateway</li>
+                        <li>The <strong>blue LED</strong> will begin flashing &mdash; this means Bluetooth is ready to pair</li>
+                        <li>Open the <strong>EnviroMonitor app</strong> on your phone (Bluetooth must be on)</li>
+                        <li>Log in with your WeatherLink account (or tap <strong>Sign Up</strong> to create one)</li>
+                        <li>Tap <strong>Add Gateway</strong> and bring your phone close to the unit</li>
+                        <li>The app will connect via Bluetooth and walk you through activation</li>
+                        <li>Select your <strong>update interval</strong> (how often data uploads via cellular)</li>
+                        <li>Pay the one-time <strong>activation fee</strong> (~$35) and select your <strong>annual service plan</strong></li>
+                    </ol>
+
+                    <h3 style="margin-top: 20px;">LED Indicators</h3>
+                    <div class="em-led-grid">
+                        <div class="em-led">
+                            <div class="em-led-dot em-led-blue"></div>
+                            <p><strong>Blue flashing:</strong> Bluetooth ready to pair with your phone</p>
+                        </div>
+                        <div class="em-led">
+                            <div class="em-led-dot em-led-blue" style="box-shadow: 0 0 0 3px rgba(59,130,246,0.3);"></div>
+                            <p><strong>Blue solid:</strong> Successfully connected to your phone</p>
+                        </div>
+                        <div class="em-led">
+                            <div class="em-led-dot em-led-green"></div>
+                            <p><strong>Cell LED green:</strong> Good cellular coverage &mdash; data will upload</p>
+                        </div>
+                        <div class="em-led">
+                            <div class="em-led-dot em-led-red"></div>
+                            <p><strong>Cell LED red:</strong> Poor cellular coverage &mdash; try relocating</p>
+                        </div>
+                    </div>
+                    <div class="em-tip">
+                        <strong>Repeat for all 7 Gateways.</strong> Each one gets its own activation. All Gateways live under the same WeatherLink account, so you manage everything from one login.
+                    </div>
+                </div>
+
+                <div class="em-card">
+                    <h3>Annual Service Plans</h3>
+                    <p>Each Gateway requires a service plan for LTE cellular connectivity. The plan includes data upload, WeatherLink Cloud storage, and WeatherLink Pro features. No separate cell carrier contract needed.</p>
+                    <div class="em-table-wrap">
+                        <table class="em-table">
+                            <thead>
+                                <tr>
+                                    <th>Update Interval</th>
+                                    <th>Annual Cost / Gateway</th>
+                                    <th>7 Gateways / Year</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Every 1 minute</td>
+                                    <td>$440</td>
+                                    <td>$3,080</td>
+                                </tr>
+                                <tr class="em-highlight">
+                                    <td><strong>Every 5 minutes</strong></td>
+                                    <td><strong>$320</strong></td>
+                                    <td><strong>$2,240</strong></td>
+                                </tr>
+                                <tr>
+                                    <td>Every 15 minutes</td>
+                                    <td>$260</td>
+                                    <td>$1,820</td>
+                                </tr>
+                                <tr>
+                                    <td>Every 60 minutes</td>
+                                    <td>$200</td>
+                                    <td>$1,400</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="em-tip-gold em-tip">
+                        <strong>5-minute is the sweet spot for agriculture.</strong> Fast enough for irrigation and frost decisions. 1-minute is overkill for most field applications and costs $840/year more across all 7 gateways.
+                    </div>
+                </div>
+            </div>
+
+            <!-- STEP 3: MOUNT THE GATEWAY -->
+            <div class="em-section">
+                <div class="em-section-header">
+                    <span class="em-step-badge">3</span>
+                    <h2>Mount the Gateway</h2>
+                </div>
+                <div class="em-card">
+                    <h3>Placement Guidelines</h3>
+                    <ul>
+                        <li><strong>Height:</strong> Mount above the crop canopy for best cellular and mesh network signal</li>
+                        <li><strong>Solar panel:</strong> Orient to face south for maximum sun exposure</li>
+                        <li><strong>Spacing:</strong> Keep the Gateway and any cabled sensor suite at least <strong>4 feet apart</strong> on the pole so the ISS doesn't shadow the Gateway's solar panel at midday</li>
+                        <li><strong>Cellular:</strong> Verify the cell LED shows green after power-up. If it blinks red, the location has poor coverage &mdash; try higher or move to a different spot</li>
+                    </ul>
+                    <div class="em-tip">
+                        <strong>Long-range antenna upgrade available.</strong> The Gateway comes with a standard dipole antenna. Upgrading to a long-range antenna extends mesh network range from 1,000 ft up to <strong>10,000 ft (3,000 m)</strong>. Remove the smoky plastic cover with a Phillips screwdriver, unscrew the stock antenna, and attach the long-range replacement.
+                    </div>
+                </div>
+            </div>
+
+            <!-- STEP 4: CONNECT CABLED VP2 PLUS -->
+            <div class="em-section">
+                <div class="em-section-header">
+                    <span class="em-step-badge">4</span>
+                    <h2>Connect Cabled Sensor Suites (6327C)</h2>
+                </div>
+                <div class="em-card">
+                    <h3>Cabled VP2 Plus &rarr; Gateway Direct Connection</h3>
+                    <p>Your 7 cabled VP2 Plus sensor suites connect <strong>directly to the Gateway</strong> &mdash; no Node required. Each Gateway gets one cabled ISS.</p>
+                    <ol>
+                        <li>Remove the plug from one of the cable entry holes in the bottom of the Gateway housing</li>
+                        <li>Run the <strong>100-foot RJ11 cable</strong> from the sensor suite up through the hole</li>
+                        <li>Plug the RJ11 connector into the <strong>ISS cable jack</strong> on the Gateway board</li>
+                        <li>Mount the sensor suite on a pole at least <strong>4 feet away</strong> from the Gateway</li>
+                        <li>The Gateway will immediately begin receiving data &mdash; updates every <strong>2.5 seconds</strong></li>
+                    </ol>
+
+                    <h3 style="margin-top: 20px;">What the 6327C Measures</h3>
+                    <div class="em-table-wrap">
+                        <table class="em-table">
+                            <thead>
+                                <tr>
+                                    <th>Sensor</th>
+                                    <th>What It Reads</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr><td>Temperature &amp; Humidity</td><td>Outside temp, humidity in passive radiation shield</td></tr>
+                                <tr><td>Anemometer</td><td>Wind speed, gusts, and direction</td></tr>
+                                <tr><td>Rain Gauge</td><td>Rainfall rate, daily total, storm total (AeroCone collector)</td></tr>
+                                <tr><td>UV Sensor</td><td>UV index &mdash; crop stress monitoring</td></tr>
+                                <tr><td>Solar Radiation</td><td>Solar energy &mdash; critical for ET calculations</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <h3 style="margin-top: 20px;">Sensor Suite Mounting</h3>
+                    <ul>
+                        <li><strong>Temperature/humidity:</strong> 5&ndash;6 feet above ground in the radiation shield</li>
+                        <li><strong>Anemometer:</strong> Ideally 30 ft above ground for standard readings; crop-canopy height is fine for microclimate monitoring</li>
+                        <li><strong>Rain gauge:</strong> Unobstructed from trees and buildings &mdash; the AeroCone collector sits at ~4.6 ft when the temp sensor is at standard height</li>
+                        <li><strong>UV &amp; solar sensors:</strong> Must have an unobstructed sky view &mdash; no shadows from structures or trees</li>
+                    </ul>
+                    <div class="em-tip-blue em-tip">
+                        <strong>Cabled ISS = no wireless interference.</strong> The 100-foot cable provides a rock-solid, interference-free connection. Ideal when the sensor suite is close to the Gateway.
+                    </div>
+                </div>
+            </div>
+
+            <!-- STEP 5: CONNECT WIRELESS VP2 -->
+            <div class="em-section">
+                <div class="em-section-header">
+                    <span class="em-step-badge">5</span>
+                    <h2>Connect Wireless Sensor Suites (6322)</h2>
+                </div>
+                <div class="em-card">
+                    <h3>Wireless VP2 Range &amp; Placement</h3>
+                    <p>Your 3 wireless VP2 sensor suites transmit at <strong>902&ndash;928 MHz</strong> using frequency-hopping spread spectrum (FHSS). They need to be within range of a Gateway or Node.</p>
+
+                    <div class="em-table-wrap">
+                        <table class="em-table">
+                            <thead>
+                                <tr>
+                                    <th>Condition</th>
+                                    <th>Expected Range</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr><td>Line of sight (open field)</td><td>1,000 ft (300 m)</td></tr>
+                                <tr><td>Above crop canopy (corn/sorghum)</td><td>1,700&ndash;2,000 ft</td></tr>
+                                <tr><td>Through buildings/obstructions</td><td>200&ndash;400 ft</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <h3 style="margin-top: 20px;">Transmitter ID Setup</h3>
+                    <p>Each wireless ISS uses a transmitter ID (1&ndash;8) to identify itself. If multiple wireless units are in range of the same Gateway, each must have a <strong>unique ID</strong>.</p>
+                    <ol>
+                        <li>The default transmitter ID is <strong>1</strong></li>
+                        <li>Set unique IDs using the <strong>DIP switches</strong> on the ISS circuit board</li>
+                        <li>For your 3 units, set them to IDs <strong>1, 2, and 3</strong></li>
+                        <li>Register each ID in the EnviroMonitor app when adding the sensor</li>
+                    </ol>
+                    <div class="em-tip">
+                        <strong>Need more range?</strong> Add EnviroMonitor Nodes (SKU 6810) between the wireless ISS and the Gateway to relay data through the mesh network. Nodes can extend your reach across large fields.
+                    </div>
+                </div>
+            </div>
+
+            <!-- STEP 6: VERIFY DATA -->
+            <div class="em-section">
+                <div class="em-section-header">
+                    <span class="em-step-badge">6</span>
+                    <h2>Verify Data is Flowing</h2>
+                </div>
+                <div class="em-card">
+                    <h3>Check Each Station</h3>
+                    <ol>
+                        <li>Open the <strong>EnviroMonitor app</strong> and confirm all Gateways show as online</li>
+                        <li>For each Gateway, verify sensor data is populating (temperature, wind, rain)</li>
+                        <li>Open <strong>WeatherLink.com</strong> in a browser and confirm your stations appear with live data</li>
+                        <li>Open the <strong>WeatherLink app</strong> on your phone &mdash; all stations should show current conditions</li>
+                        <li>Open the <strong>Mobilize app</strong> and set up your field views</li>
+                    </ol>
+                    <div class="em-tip">
+                        <strong>Data takes a few minutes to appear</strong> on WeatherLink.com after activation. If a station doesn't show up after 15 minutes, check the cellular LED on the Gateway and verify the cable/wireless connections.
+                    </div>
+                </div>
+            </div>
+
+            <!-- STEP 7: MOBILIZE SETUP -->
+            <div class="em-section">
+                <div class="em-section-header">
+                    <span class="em-step-badge">7</span>
+                    <h2>Set Up Mobilize for Agriculture</h2>
+                </div>
+                <div class="em-card">
+                    <h3>Mobilize: Your Field Decision App</h3>
+                    <p>Mobilize turns raw weather data into actionable farm intelligence. Set it up once and it runs automatically.</p>
+
+                    <h3 style="margin-top: 16px;">Create Field Views</h3>
+                    <ol>
+                        <li>Open Mobilize and log in with your WeatherLink account</li>
+                        <li>Tap <strong>Add Field</strong> and draw your field boundary on the map</li>
+                        <li>Assign the nearest weather station to each field</li>
+                        <li>Select your crop type for each field</li>
+                    </ol>
+
+                    <h3 style="margin-top: 16px;">What Mobilize Tracks</h3>
+                    <div class="em-app-grid">
+                        <div class="em-app-card">
+                            <h4>Irrigation</h4>
+                            <p>ET data, past and forecast rain, irrigation scheduling alerts. Know when and where to water.</p>
+                        </div>
+                        <div class="em-app-card">
+                            <h4>Frost Alerts</h4>
+                            <p>Set temperature thresholds. Get an alert when it's time to head to the field and intervene.</p>
+                        </div>
+                        <div class="em-app-card">
+                            <h4>Growing Degree Days</h4>
+                            <p>Track GDD against custom targets by crop type. 7-day GDD forecast included.</p>
+                        </div>
+                        <div class="em-app-card">
+                            <h4>Pest Management</h4>
+                            <p>Timely risk reports on pest damage so you can act before crops are harmed. (Pro+ subscription)</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <hr class="em-divider">
+
+            <!-- EXPANDING YOUR SYSTEM -->
+            <div class="em-section">
+                <div class="em-section-header">
+                    <h2>Expanding Your System</h2>
+                </div>
+                <div class="em-card">
+                    <h3>Add Soil Moisture, Leaf Wetness &amp; More</h3>
+                    <p>The EnviroMonitor system scales far beyond weather data. Additional sensors connect to <strong>EnviroMonitor Nodes (SKU 6810)</strong> &mdash; each Node supports 4 sensors and communicates through the mesh network.</p>
+
+                    <div class="em-table-wrap">
+                        <table class="em-table">
+                            <thead>
+                                <tr>
+                                    <th>Sensor Type</th>
+                                    <th>Use Case</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr><td>Soil moisture probes</td><td>Irrigation scheduling by soil depth</td></tr>
+                                <tr><td>Soil temperature</td><td>Planting readiness, germination tracking</td></tr>
+                                <tr><td>Leaf wetness</td><td>Disease pressure, spray timing</td></tr>
+                                <tr><td>Flow meters</td><td>Water usage monitoring per pivot</td></tr>
+                                <tr><td>Pressure switches</td><td>Pivot operation alerts</td></tr>
+                                <tr><td>Salinity sensors</td><td>Soil health monitoring</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <h3 style="margin-top: 16px;">System Capacity</h3>
+                    <ul>
+                        <li>Up to <strong>32 Nodes</strong> per Gateway</li>
+                        <li>Up to <strong>4 sensors</strong> per Node</li>
+                        <li><strong>128 sensors</strong> per Gateway maximum</li>
+                        <li>Your 7-Gateway deployment: up to <strong>896 sensor connections</strong></li>
+                    </ul>
+                    <div class="em-tip-gold em-tip">
+                        <strong>Third-party sensors are supported.</strong> The EnviroMonitor system works with Davis sensors and many third-party options, including John Deere soil moisture probes. Ask Kyle about adding sensors to your system.
+                    </div>
+                </div>
+            </div>
+
+            <!-- INVESTMENT SUMMARY -->
+            <div class="em-section">
+                <div class="em-section-header">
+                    <h2>Investment Summary</h2>
+                </div>
+                <div class="em-card">
+                    <div class="em-table-wrap">
+                        <table class="em-table">
+                            <thead>
+                                <tr>
+                                    <th>Item</th>
+                                    <th>Qty</th>
+                                    <th>Unit</th>
+                                    <th>Total</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>EnviroMonitor Gateway LTE (6803)</td>
+                                    <td>7</td>
+                                    <td>$1,095</td>
+                                    <td>$7,665</td>
+                                </tr>
+                                <tr>
+                                    <td>Cabled VP2 Plus (6327C)</td>
+                                    <td>7</td>
+                                    <td>$1,200</td>
+                                    <td>$8,400</td>
+                                </tr>
+                                <tr>
+                                    <td>Wireless VP2 (6322)</td>
+                                    <td>3</td>
+                                    <td>$735</td>
+                                    <td>$2,205</td>
+                                </tr>
+                                <tr class="em-highlight">
+                                    <td><strong>Hardware Total</strong></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td><strong>$18,270</strong></td>
+                                </tr>
+                                <tr>
+                                    <td>Activation fees (one-time)</td>
+                                    <td>7</td>
+                                    <td>~$35</td>
+                                    <td>~$245</td>
+                                </tr>
+                                <tr>
+                                    <td>Annual service (5-min interval)</td>
+                                    <td>7</td>
+                                    <td>$320/yr</td>
+                                    <td>$2,240/yr</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SUPPORT -->
+            <div class="em-footer">
+                <p>Questions about your EnviroMonitor system?</p>
+                <p>Call Kyle McConnell at <a href="tel:9705711015">(970) 571-1015</a></p>
+                <p style="margin-top: 12px;">Davis Support: <a href="tel:18006783669">(800) 678-3669</a></p>
+                <p style="margin-top: 12px;"><a href="members.html">&larr; Back to Dashboard</a></p>
+            </div>
+
+        </div>
+    </section>
+</body>
+</html>
