@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="How to create a free WeatherLink account, sign in, and find local weather stations near you.">
+
+    <meta property="og:title" content="WeatherLink Setup Guide | YourAgInfo">
+    <meta property="og:description" content="Create a free WeatherLink account, sign in, and find local weather stations. Step-by-step guide for farm staff.">
+    <meta property="og:url" content="https://youraginfo.com/weatherlink-setup.html">
+    <meta property="og:type" content="article">
+
+    <title>WeatherLink Setup | YourAgInfo</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --ink: #1e2a22;
+            --body: #3a4a3e;
+            --muted: #6b7c6f;
+            --border: #d4ddd6;
+            --ground: #f6f8f6;
+            --card: #ffffff;
+            --green: #1a472a;
+            --green-light: #e8f0e4;
+            --blue: #1f4e79;
+            --blue-light: #e6f0fa;
+            --gold: #c9a227;
+            --gold-light: #fff8e1;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', -apple-system, 'Segoe UI', Helvetica, sans-serif;
+            background: var(--ground);
+            color: var(--body);
+            line-height: 1.65;
+            padding: 0;
+        }
+
+        .top-bar {
+            background: var(--green);
+            padding: 14px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .top-bar a {
+            color: rgba(255,255,255,0.85);
+            text-decoration: none;
+            font-size: 14px;
+        }
+        .top-bar .brand {
+            font-weight: 700;
+            font-size: 16px;
+            color: #fff;
+        }
+
+        .wrap {
+            max-width: 640px;
+            margin: 0 auto;
+            padding: 32px 20px 60px;
+        }
+
+        h1 {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--ink);
+            line-height: 1.2;
+            margin-bottom: 6px;
+        }
+        .subtitle {
+            font-size: 15px;
+            color: var(--muted);
+            margin-bottom: 32px;
+        }
+
+        /* Step cards */
+        .step {
+            background: var(--card);
+            border-radius: 10px;
+            padding: 24px 28px;
+            margin-bottom: 16px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            position: relative;
+            border-left: 4px solid var(--green);
+        }
+        .step-blue { border-left-color: var(--blue); }
+        .step-gold { border-left-color: var(--gold); }
+
+        .step-num {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: var(--green);
+            color: #fff;
+            font-size: 14px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+        .step-blue .step-num { background: var(--blue); }
+        .step-gold .step-num { background: var(--gold); color: var(--ink); }
+
+        .step h2 {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--ink);
+            margin-bottom: 10px;
+        }
+        .step p {
+            font-size: 14px;
+            line-height: 1.65;
+            margin-bottom: 10px;
+        }
+        .step p:last-child { margin-bottom: 0; }
+
+        .step ol {
+            padding-left: 20px;
+            margin: 10px 0;
+        }
+        .step ol li {
+            font-size: 14px;
+            line-height: 1.65;
+            padding: 4px 0;
+        }
+
+        .step a {
+            color: var(--blue);
+            font-weight: 600;
+            text-decoration: none;
+        }
+        .step a:hover { text-decoration: underline; }
+
+        /* Big link button */
+        .link-btn {
+            display: block;
+            text-align: center;
+            padding: 16px;
+            background: var(--green);
+            color: #fff;
+            font-size: 16px;
+            font-weight: 700;
+            text-decoration: none;
+            border-radius: 8px;
+            margin: 8px 0 6px;
+        }
+        .link-btn:hover { opacity: 0.9; }
+        .link-btn-blue { background: var(--blue); }
+
+        .link-sub {
+            text-align: center;
+            font-size: 12px;
+            color: var(--muted);
+        }
+
+        /* Tip boxes */
+        .tip {
+            background: var(--green-light);
+            border-left: 3px solid var(--green);
+            padding: 12px 16px;
+            border-radius: 0 6px 6px 0;
+            font-size: 13px;
+            line-height: 1.6;
+            margin-top: 12px;
+        }
+        .tip strong { color: var(--green); }
+        .tip-blue {
+            background: var(--blue-light);
+            border-left-color: var(--blue);
+        }
+        .tip-blue strong { color: var(--blue); }
+        .tip-gold {
+            background: var(--gold-light);
+            border-left-color: var(--gold);
+        }
+        .tip-gold strong { color: #9a7b0a; }
+
+        /* Station finder features */
+        .features {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin: 14px 0 6px;
+        }
+        .feature {
+            background: var(--ground);
+            border-radius: 6px;
+            padding: 12px 14px;
+        }
+        .feature h4 {
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--ink);
+            margin-bottom: 4px;
+        }
+        .feature p {
+            font-size: 12px;
+            color: var(--muted);
+            line-height: 1.5;
+            margin: 0;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 24px 20px;
+            font-size: 12px;
+            color: var(--muted);
+            border-top: 1px solid var(--border);
+            margin-top: 20px;
+        }
+        .footer a {
+            color: var(--green);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        @media (max-width: 480px) {
+            h1 { font-size: 24px; }
+            .step { padding: 20px 20px; }
+            .features { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <header class="top-bar">
+        <a href="index.html" class="brand">YourAgInfo</a>
+        <a href="tel:9705711015">(970) 571-1015</a>
+    </header>
+
+    <div class="wrap">
+        <h1>WeatherLink Setup</h1>
+        <p class="subtitle">Create a free account, sign in, and find weather stations near you. Takes about 3 minutes.</p>
+
+        <!-- Step 1 -->
+        <div class="step">
+            <div class="step-num">1</div>
+            <h2>Download the App</h2>
+            <p>Get the free WeatherLink app on your phone. You can also use the website, but the app is faster for checking conditions in the field.</p>
+            <a href="https://apps.apple.com/app/weatherlink/id1304504954" class="link-btn" target="_blank" rel="noopener">Download for iPhone</a>
+            <a href="https://play.google.com/store/apps/details?id=com.davisinstruments.weatherlink" class="link-btn link-btn-blue" target="_blank" rel="noopener">Download for Android</a>
+            <p class="link-sub">Free &mdash; no subscription required</p>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="step step-blue">
+            <div class="step-num">2</div>
+            <h2>Create Your Account</h2>
+            <ol>
+                <li>Open the app (or go to <a href="https://www.weatherlink.com/">weatherlink.com</a>)</li>
+                <li>Tap <strong>Sign Up Free</strong></li>
+                <li>Enter your name, email, and a password</li>
+                <li>Check your email and verify your account</li>
+            </ol>
+            <div class="tip tip-blue">
+                <strong>You don't need to own a station</strong> to create an account. Anyone can sign up for free and browse nearby stations.
+            </div>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="step">
+            <div class="step-num">3</div>
+            <h2>Sign In</h2>
+            <p>Open the app and sign in with the email and password you just created. On the website, go to:</p>
+            <a href="https://www.weatherlink.com/" class="link-btn" target="_blank" rel="noopener">weatherlink.com</a>
+        </div>
+
+        <!-- Step 4 -->
+        <div class="step step-blue">
+            <div class="step-num">4</div>
+            <h2>Find Stations Near You</h2>
+            <p>Once signed in, use the <strong>map view</strong> to browse weather stations in your area. Every green dot is a station sharing live data.</p>
+            <ol>
+                <li>Tap the <strong>map icon</strong> (or "Explore" on the website)</li>
+                <li>Zoom into your area &mdash; each dot is a live weather station</li>
+                <li>Tap a station to see its <strong>current conditions</strong> &mdash; temp, humidity, wind, rain, barometric pressure</li>
+                <li>Tap the <strong>star</strong> to add it to your favorites for quick access later</li>
+            </ol>
+            <div class="tip">
+                <strong>Look for stations near your fields.</strong> Conditions can vary a lot across even 10 miles in NE Colorado. Favorite the stations closest to where you farm.
+            </div>
+        </div>
+
+        <!-- Step 5 -->
+        <div class="step step-gold">
+            <div class="step-num">5</div>
+            <h2>What You Can See</h2>
+            <p>Every station shows live data. Stations with solar/UV sensors (like a Vantage Pro2 Plus) also show ET &mdash; critical for irrigation decisions.</p>
+            <div class="features">
+                <div class="feature">
+                    <h4>Temperature</h4>
+                    <p>Current, high, low &mdash; updated every 2.5 seconds on local WiFi</p>
+                </div>
+                <div class="feature">
+                    <h4>Wind</h4>
+                    <p>Speed, gusts, direction &mdash; real-time</p>
+                </div>
+                <div class="feature">
+                    <h4>Rain</h4>
+                    <p>Daily total, rain rate, storm total</p>
+                </div>
+                <div class="feature">
+                    <h4>ET</h4>
+                    <p>Evapotranspiration &mdash; daily crop water use (Pro2 Plus stations only)</p>
+                </div>
+            </div>
+            <div class="tip tip-gold">
+                <strong>Ask Kyle about getting your own station.</strong> Partner pricing is 30% off Davis list price. A Vantage Pro2 Plus with WeatherLink Console runs $1,127 through Kyle vs. $1,610 retail.
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>Questions? Call Kyle McConnell at <a href="tel:9705711015">(970) 571-1015</a></p>
+            <p style="margin-top: 6px;"><a href="https://youraginfo.com">youraginfo.com</a> &middot; McConnell Enterprises &middot; Haxtun, CO</p>
+        </div>
+    </div>
+</body>
+</html>

@@ -234,6 +234,63 @@
             color: var(--gold);
         }
 
+        /* Shareable link card */
+        .share-card {
+            background: #f0f7f1;
+            border: 1px dashed var(--green-dark);
+            border-radius: var(--radius-lg);
+            padding: 16px 20px;
+            margin-top: -8px;
+            margin-bottom: 12px;
+        }
+        .share-card-label {
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            color: var(--green-dark);
+            margin-bottom: 6px;
+        }
+        .share-card p {
+            font-size: 13px;
+            color: var(--gray-600);
+            margin-bottom: 8px;
+            line-height: 1.5;
+        }
+        .share-card-link {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .share-card-url {
+            flex: 1;
+            background: var(--white);
+            border: 1px solid var(--gray-300);
+            border-radius: var(--radius);
+            padding: 10px 14px;
+            font-size: 13px;
+            font-family: 'SFMono-Regular', Consolas, monospace;
+            color: var(--green-dark);
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        .share-card-btn {
+            background: var(--green-dark);
+            color: var(--white);
+            border: none;
+            border-radius: var(--radius);
+            padding: 10px 16px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: var(--transition);
+        }
+        .share-card-btn:hover {
+            background: var(--green-medium);
+        }
+
         /* Markets Widget in Dashboard */
         .dashboard-markets {
             background: var(--white);
@@ -501,6 +558,14 @@
                             <p>Step-by-step setup guide — mounting, WeatherLink, Weather Underground, and the app. Plus 30% off Davis list price through partner pricing.</p>
                             <span class="tool-link">Setup Guide &amp; Pricing</span>
                         </a>
+                        <div class="share-card">
+                            <div class="share-card-label">Send to Your Staff</div>
+                            <p>Quick guide for anyone to set up a free WeatherLink account and find nearby stations. No password needed — text or email this link.</p>
+                            <div class="share-card-link">
+                                <div class="share-card-url" id="wl-share-url">youraginfo.com/weatherlink-setup.html</div>
+                                <button class="share-card-btn" onclick="navigator.clipboard.writeText('https://youraginfo.com/weatherlink-setup.html').then(()=>{this.textContent='Copied!';setTimeout(()=>{this.textContent='Copy Link'},2000)})">Copy Link</button>
+                            </div>
+                        </div>
                         <a href="https://agcompanyb2c.b2clogin.com/agcompanyb2c.onmicrosoft.com/oauth2/v2.0/authorize?p=B2C_1_Pioneer_PROD&client_id=efee0769-edcb-42fe-a278-e347b9017e72&nonce=nzoqrkecqmcthemhkaub&redirect_uri=https%3A%2F%2Fwww.pioneer.com%2Fus%2Fredirect.html&scope=https%3A%2F%2Fagcompanyb2c.onmicrosoft.com%2Fapiprod%2Fwrite%20https%3A%2F%2Fagcompanyb2c.onmicrosoft.com%2Fapiprod%2Fread%20offline_access%20openid&response_type=code+id_token&prompt=login&ui_locales=en&response_mode=query"
                            class="tool-card" target="_blank" rel="noopener">
                             <h3>Pioneer Account</h3>
