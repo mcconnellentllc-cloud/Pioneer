@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Annual Golf Day & Pioneer Customer Appreciation Dinner — Thursday, August 20 at F&H Golf Course, Fleming, CO. All expenses paid. McConnell Enterprises.">
+
+    <meta property="og:title" content="Annual Golf Day & Customer Appreciation Dinner | McConnell Enterprises">
+    <meta property="og:description" content="Thursday, August 20 — Golf from 2 PM, Steak Dinner at 7 PM. F&H Golf Course, Fleming, CO. Everything is on us.">
+    <meta property="og:url" content="https://youraginfo.com/golf-day.html">
+    <meta property="og:type" content="website">
+
+    <title>Annual Golf Day & Pioneer Customer Appreciation Dinner | McConnell Enterprises</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --green-900: #0f3d2e;
+            --green-700: #14543f;
+            --green-300: #a9d6bf;
+            --gold: #e8c76a;
+            --gold-dark: #c9a343;
+            --cream: #f7f5ef;
+            --page: #f2f0ea;
+            --ink: #2c2c2c;
+            --ink-soft: #5a5a5a;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            background: var(--page);
+            color: var(--ink);
+            font-family: 'Inter', -apple-system, 'Segoe UI', Helvetica, sans-serif;
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+        .wrap {
+            max-width: 760px;
+            margin: 0 auto;
+            background: #fff;
+            box-shadow: 0 2px 24px rgba(0,0,0,0.07);
+        }
+        .centennial {
+            background: var(--green-900);
+            color: var(--gold);
+            text-align: center;
+            padding: 14px 20px;
+            font-size: 12px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+        .hero {
+            background: var(--green-700);
+            color: #fff;
+            text-align: center;
+            padding: 56px 28px 52px;
+        }
+        .hero .eyebrow {
+            font-size: 12px;
+            letter-spacing: 2.5px;
+            text-transform: uppercase;
+            color: var(--green-300);
+            margin: 0 0 18px;
+            font-weight: 600;
+        }
+        .hero h1 {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-weight: 400;
+            font-size: clamp(34px, 7vw, 54px);
+            line-height: 1.08;
+            margin: 0;
+        }
+        .hero h2 {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-weight: 400;
+            font-size: clamp(18px, 3.6vw, 26px);
+            line-height: 1.3;
+            margin: 14px 0 0;
+            color: var(--gold);
+        }
+        .datechip {
+            display: inline-block;
+            margin-top: 28px;
+            background: var(--gold);
+            color: var(--green-900);
+            padding: 12px 30px;
+            font-size: 15px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+        }
+        .body {
+            padding: 44px 40px 8px;
+        }
+        .body p {
+            font-size: 17px;
+            margin: 0 0 18px;
+            color: var(--ink);
+        }
+        .body p.lead {
+            font-size: 19px;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2px;
+            background: #e4e0d5;
+            margin: 34px 0 0;
+        }
+        .cell {
+            background: var(--cream);
+            padding: 26px 24px;
+        }
+        .cell.full {
+            grid-column: 1 / -1;
+        }
+        .cell .label {
+            font-size: 11px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: #7a8f84;
+            font-weight: 700;
+            margin: 0 0 8px;
+        }
+        .cell .big {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 21px;
+            line-height: 1.25;
+            color: var(--green-700);
+            margin: 0 0 6px;
+        }
+        .cell .sub {
+            font-size: 15px;
+            color: var(--ink-soft);
+            margin: 0;
+        }
+        .strip {
+            background: var(--green-900);
+            color: #fff;
+            text-align: center;
+            padding: 30px 28px;
+            margin-top: 2px;
+        }
+        .strip .headline {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 26px;
+            margin: 0 0 10px;
+        }
+        .strip .items {
+            font-size: 13px;
+            letter-spacing: 2px;
+            color: var(--gold);
+            text-transform: uppercase;
+            font-weight: 600;
+            margin: 0;
+        }
+        .rsvp {
+            text-align: center;
+            padding: 46px 40px 20px;
+        }
+        .rsvp h3 {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-weight: 400;
+            font-size: 30px;
+            color: var(--green-700);
+            margin: 0 0 8px;
+        }
+        .rsvp p {
+            font-size: 16px;
+            color: var(--ink-soft);
+            margin: 0 0 26px;
+        }
+        .btn {
+            display: inline-block;
+            background: var(--gold);
+            color: var(--green-900);
+            padding: 18px 46px;
+            font-size: 20px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-decoration: none;
+            border: 2px solid var(--gold);
+            transition: background 0.15s, color 0.15s;
+        }
+        .btn:hover {
+            background: var(--green-900);
+            color: var(--gold);
+        }
+        .btn.secondary {
+            background: transparent;
+            color: var(--green-700);
+            border-color: var(--green-700);
+            font-size: 16px;
+            padding: 14px 34px;
+            margin-top: 14px;
+        }
+        .btn.secondary:hover {
+            background: var(--green-700);
+            color: #fff;
+        }
+        .fineprint {
+            text-align: center;
+            font-size: 14px;
+            color: #818181;
+            padding: 16px 40px 46px;
+            margin: 0;
+        }
+        footer {
+            background: var(--green-700);
+            color: #fff;
+            text-align: center;
+            padding: 36px 30px;
+        }
+        footer .name {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 23px;
+            margin: 0 0 6px;
+        }
+        footer .years {
+            font-size: 12px;
+            letter-spacing: 2.5px;
+            text-transform: uppercase;
+            color: var(--green-300);
+            margin: 0 0 16px;
+            font-weight: 600;
+        }
+        footer a {
+            color: var(--gold);
+            font-size: 16px;
+            text-decoration: none;
+            border-bottom: 1px solid rgba(232,199,106,0.4);
+        }
+        footer .phone {
+            font-size: 14px;
+            color: var(--green-300);
+            margin: 8px 0 0;
+        }
+        @media (max-width: 620px) {
+            .body { padding: 34px 24px 8px; }
+            .grid { grid-template-columns: 1fr; }
+            .rsvp { padding: 38px 24px 16px; }
+            .btn { display: block; padding: 18px 20px; }
+            .fineprint { padding: 16px 24px 38px; }
+        }
+    </style>
+</head>
+<body>
+<div class="wrap">
+
+    <div class="centennial">Celebrating 100 Years in Business</div>
+
+    <section class="hero">
+        <p class="eyebrow">McConnell Enterprises Invites You</p>
+        <h1>Annual Golf Day</h1>
+        <h2>&amp; Pioneer Customer Appreciation Dinner</h2>
+        <span class="datechip">Thursday, August 20</span>
+    </section>
+
+    <section class="body">
+        <p class="lead">One hundred years is a long time to stay in business &mdash; and it only happens because of the growers, families, and neighbors who keep choosing us.</p>
+        <p>So this year we're going all out. Come play a round, or just come eat. Show up when it works for you and stay as long as you like. <strong>Everything is on us.</strong></p>
+
+        <div class="grid">
+            <div class="cell full">
+                <p class="label">Where</p>
+                <p class="big">F&amp;H Golf Course</p>
+                <p class="sub">43355 County Road 30, Fleming, CO 80728</p>
+            </div>
+            <div class="cell">
+                <p class="label">Golf</p>
+                <p class="big">Open play from 2:00 PM</p>
+                <p class="sub">No tee times, no format, no pressure. Come as you wish and play as much or as little as you want.</p>
+            </div>
+            <div class="cell">
+                <p class="label">Dinner</p>
+                <p class="big">Served at 7:00 PM</p>
+                <p class="sub">Steak, potatoes, smoked mac and cheese, vegetables, cheesecake, and drinks.</p>
+            </div>
+        </div>
+
+        <div class="strip">
+            <p class="headline">All expenses paid.</p>
+            <p class="items">Golf &nbsp;&bull;&nbsp; Dinner &nbsp;&bull;&nbsp; Drinks &nbsp;&bull;&nbsp; Prizes &amp; Gifts</p>
+        </div>
+    </section>
+
+    <section class="rsvp">
+        <h3>Let us know you're coming</h3>
+        <p>RSVPs are appreciated so we cook enough steak.</p>
+        <a class="btn" href="tel:+19705711015">RSVP &mdash; Call or Text Kyle</a>
+        <br>
+        <a class="btn secondary" href="tel:+19705711015">970-571-1015</a>
+        <br>
+        <a class="btn secondary" href="https://www.google.com/maps/search/?api=1&amp;query=43355+County+Road+30+Fleming+CO+80728">Get Directions</a>
+    </section>
+
+    <p class="fineprint">Questions or last-minute plans? Text Kyle at 970-571-1015. Walk-ins are always welcome.</p>
+
+    <footer>
+        <p class="name">McConnell Enterprises</p>
+        <p class="years">1926 &ndash; 2026 &nbsp;&bull;&nbsp; 100 Years</p>
+        <a href="https://www.youraginfo.com">youraginfo.com</a>
+        <p class="phone">970-571-1015</p>
+    </footer>
+
+</div>
+</body>
+</html>

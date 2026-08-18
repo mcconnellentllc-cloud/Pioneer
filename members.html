@@ -234,6 +234,105 @@
             color: var(--gold);
         }
 
+        /* Golf Day Event Banner */
+        .event-banner-dash {
+            background: linear-gradient(135deg, #0f3d2e 0%, #14543f 100%);
+            border-radius: var(--radius-lg);
+            padding: 36px 40px;
+            margin-bottom: 36px;
+            display: flex;
+            align-items: center;
+            gap: 32px;
+            text-decoration: none;
+            color: #fff;
+            border: 2px solid #e8c76a;
+            transition: box-shadow 0.2s;
+        }
+        .event-banner-dash:hover {
+            box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+        }
+        .event-banner-dash .event-left {
+            flex: 1;
+        }
+        .event-banner-dash .event-tag {
+            display: inline-block;
+            background: #e8c76a;
+            color: #0f3d2e;
+            font-size: 10px;
+            font-weight: 800;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            padding: 4px 12px;
+            border-radius: 3px;
+            margin-bottom: 12px;
+        }
+        .event-banner-dash h3 {
+            font-family: var(--font-heading);
+            font-size: 26px;
+            font-weight: 600;
+            color: #fff;
+            margin-bottom: 6px;
+            line-height: 1.2;
+        }
+        .event-banner-dash .event-subtitle {
+            font-size: 16px;
+            color: #e8c76a;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+        .event-banner-dash .event-details {
+            font-size: 14px;
+            color: rgba(255,255,255,0.75);
+            line-height: 1.5;
+        }
+        .event-banner-dash .event-right {
+            text-align: center;
+            flex-shrink: 0;
+        }
+        .event-banner-dash .event-date-box {
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(232,199,106,0.3);
+            border-radius: 10px;
+            padding: 18px 24px;
+        }
+        .event-banner-dash .event-day-name {
+            font-size: 12px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: #a9d6bf;
+            font-weight: 600;
+        }
+        .event-banner-dash .event-day-num {
+            font-size: 42px;
+            font-weight: 700;
+            color: #e8c76a;
+            line-height: 1;
+            margin: 4px 0;
+        }
+        .event-banner-dash .event-month {
+            font-size: 14px;
+            font-weight: 600;
+            color: rgba(255,255,255,0.8);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+        .event-banner-dash .event-cta {
+            display: inline-block;
+            margin-top: 12px;
+            font-size: 13px;
+            font-weight: 700;
+            color: #e8c76a;
+            letter-spacing: 1px;
+        }
+        @media (max-width: 600px) {
+            .event-banner-dash {
+                flex-direction: column;
+                text-align: center;
+                padding: 28px 24px;
+                gap: 20px;
+            }
+        }
+
         /* Shareable link card */
         .share-card {
             background: #f0f7f1;
@@ -479,6 +578,24 @@
                     <h2>Welcome Back</h2>
                     <button class="logout-btn" onclick="handleLogout()">Sign Out</button>
                 </div>
+
+                <!-- Golf Day Event Banner -->
+                <a href="golf-day.html" class="event-banner-dash">
+                    <div class="event-left">
+                        <span class="event-tag">You're Invited</span>
+                        <h3>Annual Golf Day &amp; Customer Appreciation Dinner</h3>
+                        <p class="event-subtitle">F&amp;H Golf Course &mdash; Fleming, CO</p>
+                        <p class="event-details">Golf from 2:00 PM &nbsp;&bull;&nbsp; Steak Dinner at 7:00 PM &nbsp;&bull;&nbsp; All expenses paid &nbsp;&bull;&nbsp; Prizes &amp; Gifts</p>
+                    </div>
+                    <div class="event-right">
+                        <div class="event-date-box">
+                            <div class="event-day-name">Thursday</div>
+                            <div class="event-day-num">20</div>
+                            <div class="event-month">August</div>
+                        </div>
+                        <span class="event-cta">View Details &rarr;</span>
+                    </div>
+                </a>
 
                 <!-- Pioneer Performance Data -->
                 <div class="dashboard-section">

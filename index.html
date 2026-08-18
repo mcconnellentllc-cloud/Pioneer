@@ -33,6 +33,59 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Source+Serif+4:wght@400;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
+        /* Golf Day Event Banner */
+        .event-topbar {
+            background: linear-gradient(135deg, #0f3d2e 0%, #14543f 100%);
+            padding: 0;
+        }
+        .event-topbar a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+            padding: 16px 20px;
+            text-decoration: none;
+            color: #fff;
+            transition: background 0.15s;
+        }
+        .event-topbar a:hover {
+            background: rgba(255,255,255,0.06);
+        }
+        .event-topbar .event-badge {
+            background: #e8c76a;
+            color: #0f3d2e;
+            font-size: 10px;
+            font-weight: 800;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            padding: 5px 12px;
+            border-radius: 3px;
+            flex-shrink: 0;
+        }
+        .event-topbar .event-text {
+            font-size: 15px;
+            font-weight: 600;
+        }
+        .event-topbar .event-text strong {
+            color: #e8c76a;
+        }
+        .event-topbar .event-arrow {
+            font-size: 18px;
+            color: #a9d6bf;
+            flex-shrink: 0;
+        }
+        @media (max-width: 600px) {
+            .event-topbar a {
+                flex-wrap: wrap;
+                gap: 8px;
+                padding: 14px 16px;
+                text-align: center;
+            }
+            .event-topbar .event-text {
+                font-size: 13px;
+            }
+        }
+
         /* Weather Banners */
         .weather-banners {
             position: relative;
@@ -579,6 +632,15 @@
     </style>
 </head>
 <body>
+    <!-- Golf Day Event Banner -->
+    <div class="event-topbar">
+        <a href="golf-day.html">
+            <span class="event-badge">Event</span>
+            <span class="event-text">Annual Golf Day &amp; Customer Appreciation Dinner &mdash; <strong>Thursday, August 20</strong> &mdash; F&amp;H Golf Course, Fleming</span>
+            <span class="event-arrow">&rarr;</span>
+        </a>
+    </div>
+
     <!-- Weather Banners -->
     <div class="weather-banners">
         <div class="weather-banner banner-weatherlink">
