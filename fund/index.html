@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Grow with M.E. Fund | Your Ag Info</title>
+<meta name="description" content="Every bag you plant earns credit back. Since 2021, the Grow with M.E. Fund has put more than $81,000 back on customer accounts at ToGo Ag.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bitter:wght@500;700&family=Archivo:wght@400;500;600&family=Archivo+Narrow:wght@600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#14251C;
+    --ink-soft:#4A5B50;
+    --paper:#E7E9E0;
+    --card:#F5F6F0;
+    --gold:#C8930E;
+    --green:#1D4A31;
+    --rule:#C3C8BA;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0; background:var(--paper); color:var(--ink);
+    font-family:"Archivo",system-ui,sans-serif; font-size:17px; line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:1020px;margin:0 auto;padding:0 22px}
+  a{color:var(--green)}
+
+  /* ---- eyebrow ---- */
+  .eyebrow{
+    font-family:"Archivo Narrow",sans-serif; text-transform:uppercase;
+    letter-spacing:.16em; font-size:13px; color:var(--ink-soft);
+  }
+
+  header.masthead{padding:44px 0 10px}
+  header.masthead h1{
+    font-family:"Bitter",Georgia,serif; font-weight:700;
+    font-size:clamp(34px,6vw,58px); line-height:1.02; margin:10px 0 14px;
+    letter-spacing:-.01em;
+  }
+  header.masthead p.lede{max-width:56ch;margin:0;color:var(--ink-soft);font-size:19px}
+
+  /* ---- the ticket: settlement stub for the whole program ---- */
+  .ticket{
+    background:var(--card); margin:38px 0 10px; padding:30px 30px 26px;
+    border:1px solid var(--rule); position:relative;
+    box-shadow:0 1px 0 rgba(20,37,28,.06);
+  }
+  .ticket::after{
+    content:""; position:absolute; left:0; right:0; bottom:-9px; height:9px;
+    background:radial-gradient(circle at 6px -3px, transparent 6px, var(--card) 6.5px);
+    background-size:14px 9px; background-repeat:repeat-x;
+    border-left:1px solid var(--rule); border-right:1px solid var(--rule);
+    -webkit-mask-image:linear-gradient(#000,#000);
+  }
+  .ticket-head{
+    display:flex; justify-content:space-between; align-items:baseline;
+    gap:16px; flex-wrap:wrap; border-bottom:2px solid var(--ink); padding-bottom:10px;
+  }
+  .ticket-head strong{font-family:"Bitter",serif;font-size:19px;letter-spacing:.01em}
+
+  table.ledger{width:100%;border-collapse:collapse;margin-top:4px}
+  table.ledger th{
+    font-family:"Archivo Narrow",sans-serif; text-transform:uppercase;
+    letter-spacing:.1em; font-size:12px; color:var(--ink-soft);
+    text-align:right; font-weight:600; padding:12px 0 8px;
+  }
+  table.ledger th:first-child{text-align:left}
+  table.ledger td{
+    padding:9px 0; border-top:1px solid var(--rule); text-align:right;
+    font-variant-numeric:tabular-nums; font-size:17px;
+  }
+  table.ledger td:first-child{text-align:left;font-family:"Bitter",serif;font-weight:500}
+  .bar{display:block;height:5px;background:var(--gold);margin-top:6px;max-width:100%}
+  .open{color:var(--ink-soft);font-size:13px;font-family:"Archivo Narrow",sans-serif;
+        text-transform:uppercase;letter-spacing:.08em}
+  tr.total td{
+    border-top:2px solid var(--ink); padding-top:14px;
+    font-weight:600; font-size:20px; font-family:"Bitter",serif;
+  }
+
+  /* ---- three facts ---- */
+  .facts{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--rule);
+         margin:34px 0 6px;border:1px solid var(--rule)}
+  .fact{background:var(--paper);padding:22px 20px}
+  .fact .n{font-family:"Bitter",serif;font-weight:700;font-size:clamp(26px,4.2vw,36px);
+           line-height:1.05;font-variant-numeric:tabular-nums}
+  .fact .l{color:var(--ink-soft);font-size:14.5px;margin-top:7px}
+
+  /* ---- balance callout / cross-link to Square ---- */
+  .balance{
+    background:var(--green); color:#F0F2EA; margin:40px 0;
+    padding:34px 30px; display:flex; gap:26px; justify-content:space-between;
+    align-items:center; flex-wrap:wrap;
+  }
+  .balance h2{font-family:"Bitter",serif;font-size:26px;margin:0 0 8px}
+  .balance p{margin:0;max-width:48ch;color:#C9D4C7}
+  .btn{
+    display:inline-block; background:var(--gold); color:#22190A; text-decoration:none;
+    font-weight:600; padding:15px 26px; white-space:nowrap;
+    border:2px solid var(--gold); transition:background .15s,color .15s;
+  }
+  .btn:hover,.btn:focus-visible{background:transparent;color:var(--gold)}
+  .btn.ghost{background:transparent;color:var(--green);border-color:var(--green)}
+  .btn.ghost:hover,.btn.ghost:focus-visible{background:var(--green);color:var(--card)}
+  a:focus-visible,.btn:focus-visible{outline:3px solid var(--gold);outline-offset:3px}
+
+  /* ---- how it works ---- */
+  .how{margin:48px 0}
+  .how h2{font-family:"Bitter",serif;font-size:28px;margin:0 0 20px}
+  .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:26px}
+  .step h3{font-family:"Bitter",serif;font-size:18px;margin:0 0 6px}
+  .step p{margin:0;color:var(--ink-soft);font-size:16px}
+  .step{border-top:3px solid var(--gold);padding-top:14px}
+
+  footer.sites{border-top:1px solid var(--rule);margin-top:52px;padding:30px 0 60px;
+               display:flex;gap:30px;flex-wrap:wrap;justify-content:space-between;
+               color:var(--ink-soft);font-size:15px}
+  footer.sites a{font-weight:600}
+  .note{font-size:13.5px;color:var(--ink-soft);margin-top:14px}
+
+  @media (max-width:720px){
+    .facts,.steps{grid-template-columns:1fr}
+    .ticket{padding:24px 18px 22px}
+    table.ledger td,table.ledger th{font-size:15px}
+  }
+  .rise{opacity:0;transform:translateY(8px);animation:rise .5s ease forwards}
+  @keyframes rise{to{opacity:1;transform:none}}
+  @media (prefers-reduced-motion:reduce){.rise{animation:none;opacity:1;transform:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="masthead">
+    <div class="eyebrow">M77 Ag &middot; ToGo Ag &middot; McConnell Enterprises LLC</div>
+    <h1>Grow with M.E. Fund</h1>
+    <p class="lede">Every bag of seed you plant with us earns credit back to your account &mdash; spend it at the counter, put it toward a kid's tuition, or send it to a cause you care about.</p>
+  </header>
+
+  <!-- ============================================================
+       LEDGER — update these six rows each year from
+       Grow_with_ME_Fund_Master_2021-2026.xlsx, tab "Summary by Year".
+       The .bar width is that year's dollars ÷ 15,582.50 (the 2021 high) × 100%.
+       ============================================================ -->
+  <section class="ticket rise" aria-labelledby="ledger-head">
+    <div class="ticket-head">
+      <strong id="ledger-head">Fund Ledger</strong>
+      <span class="eyebrow">2021 &ndash; 2026 &middot; Seasons Recorded</span>
+    </div>
+    <table class="ledger">
+      <thead>
+        <tr><th scope="col">Season</th><th scope="col">Bags</th><th scope="col">Earned Back</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>2021</td><td>11,330</td><td>$15,582<span class="bar" style="width:100%"></span></td></tr>
+        <tr><td>2022</td><td>11,273</td><td>$15,241<span class="bar" style="width:97.8%"></span></td></tr>
+        <tr><td>2023</td><td>10,975</td><td>$14,685<span class="bar" style="width:94.2%"></span></td></tr>
+        <tr><td>2024</td><td>10,477</td><td>$13,740<span class="bar" style="width:88.2%"></span></td></tr>
+        <tr><td>2025</td><td>9,714</td><td>$10,557<span class="bar" style="width:67.8%"></span></td></tr>
+        <tr><td>2026 <span class="open">Season open</span></td><td>9,578</td><td>$11,329<span class="bar" style="width:72.7%"></span></td></tr>
+        <tr class="total"><td>Six seasons</td><td>63,347</td><td>$81,136</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <div class="facts">
+    <div class="fact"><div class="n">$133,000</div><div class="l">Total credit earned by customers since the fund began, counting balances carried in before 2021.</div></div>
+    <div class="fact"><div class="n">$60,809</div><div class="l">Loaded onto customer cards right now, waiting to be spent.</div></div>
+    <div class="fact"><div class="n">30</div><div class="l">Farms holding a card as of August 2026.</div></div>
+  </div>
+  <p class="note">Figures come from the fund ledger kept by McConnell Enterprises LLC, updated after each season's seed settlement. Balances shown are as of the 2026 book; the 2026 season's earnings post at settlement.</p>
+
+  <section class="balance">
+    <div>
+      <h2>Check what's on your card</h2>
+      <p>Your fund balance lives on a ToGo Ag gift card. Look it up, spend it online, or reload it any time.</p>
+    </div>
+    <div>
+      <a class="btn" href="https://www.togoag.com">Go to togoag.com</a>
+    </div>
+  </section>
+
+  <section class="how">
+    <h2>How it works</h2>
+    <div class="steps">
+      <div class="step">
+        <h3>Plant the seed</h3>
+        <p>Credit is earned per bag on every unit booked through us. Bags are tallied at settlement, so what you plant this spring shows up on the fall statement.</p>
+      </div>
+      <div class="step">
+        <h3>It stacks up</h3>
+        <p>Balances roll forward year over year. Nothing expires and nothing is lost if you don't spend it &mdash; several accounts have been building since before 2021.</p>
+      </div>
+      <div class="step">
+        <h3>Spend it your way</h3>
+        <p>Take it at the ToGo Ag counter, put it against coats and gear, direct it to a college fund, or send it to the hospital foundation or a local cause. Your call.</p>
+      </div>
+    </div>
+  </section>
+
+  <footer class="sites">
+    <div>
+      <div class="eyebrow">Questions on your balance</div>
+      Call Kyle &mdash; <a href="tel:19705711015">970-571-1015</a>
+    </div>
+    <div>
+      <div class="eyebrow">Our sites</div>
+      <a href="https://youraginfo.com">youraginfo.com</a> &middot; agronomy, hybrid data, farm programs<br>
+      <a href="https://www.togoag.com">togoag.com</a> &middot; the store, gift cards, online orders
+    </div>
+  </footer>
+
+</div>
+</body>
+</html>
