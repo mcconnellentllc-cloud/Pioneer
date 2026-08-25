@@ -1,0 +1,896 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="The easiest way to build a website or app with AI — using Claude, GitHub, Vercel, and Airtable. No coding background needed.">
+    <title>The Easy Stack: Vercel + Airtable | YourAgInfo.com</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Source+Serif+4:wght@400;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        .guide-hero {
+            padding: 140px 0 60px;
+            background: linear-gradient(160deg, #065f46 0%, #10b981 100%);
+            text-align: center;
+        }
+        .guide-hero h1 {
+            font-size: clamp(28px, 5vw, 44px);
+            color: var(--white);
+            margin-bottom: 12px;
+        }
+        .guide-hero p {
+            font-size: 17px;
+            color: rgba(255,255,255,0.8);
+            max-width: 620px;
+            margin: 0 auto;
+        }
+        .guide-back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--white);
+            opacity: 0.8;
+            margin-bottom: 20px;
+        }
+        .guide-back-link:hover { opacity: 1; }
+
+        .guide-main {
+            padding: 60px 0 100px;
+            background: var(--gray-50);
+        }
+        .guide-container {
+            max-width: 860px;
+            margin: 0 auto;
+        }
+
+        .guide-section {
+            background: var(--white);
+            border: 1px solid var(--gray-200);
+            border-radius: var(--radius-lg);
+            padding: 36px;
+            margin-bottom: 28px;
+        }
+        .guide-section h2 {
+            font-size: 22px;
+            margin-bottom: 16px;
+        }
+        .guide-section h3 {
+            font-size: 18px;
+            margin-bottom: 12px;
+            margin-top: 28px;
+        }
+        .guide-section h3:first-child { margin-top: 0; }
+        .guide-section p {
+            font-size: 15px;
+            line-height: 1.7;
+            color: var(--gray-600);
+            margin-bottom: 12px;
+        }
+        .guide-section ul, .guide-section ol {
+            padding-left: 20px;
+            margin-bottom: 16px;
+        }
+        .guide-section li {
+            font-size: 15px;
+            color: var(--gray-600);
+            line-height: 1.7;
+            margin-bottom: 6px;
+        }
+
+        .stack-flow {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin: 32px 0;
+            padding: 28px 20px;
+            background: var(--gray-50);
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--gray-200);
+        }
+        .stack-item {
+            text-align: center;
+            padding: 16px 20px;
+            background: var(--white);
+            border-radius: var(--radius);
+            border: 2px solid var(--gray-200);
+            min-width: 130px;
+        }
+        .stack-item-icon {
+            font-size: 32px;
+            margin-bottom: 6px;
+        }
+        .stack-item-name {
+            font-family: var(--font-heading);
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--gray-800);
+        }
+        .stack-item-role {
+            font-size: 12px;
+            color: var(--gray-400);
+            margin-top: 2px;
+        }
+        .stack-arrow {
+            font-size: 24px;
+            color: var(--gray-400);
+            font-weight: 700;
+        }
+        .stack-item.claude-item { border-color: #d97706; }
+        .stack-item.github-item { border-color: #333; }
+        .stack-item.vercel-item { border-color: #000; }
+        .stack-item.airtable-item { border-color: #18bfff; }
+
+        .tool-detail {
+            background: var(--gray-50);
+            border: 1px solid var(--gray-200);
+            border-radius: var(--radius);
+            padding: 28px;
+            margin-bottom: 24px;
+        }
+        .tool-detail:last-child { margin-bottom: 0; }
+        .tool-detail-header {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 16px;
+        }
+        .tool-detail-icon {
+            font-size: 28px;
+            width: 48px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: var(--radius);
+            flex-shrink: 0;
+        }
+        .tool-detail-icon.vercel-bg { background: #f3f4f6; }
+        .tool-detail-icon.airtable-bg { background: #e0f7ff; }
+        .tool-detail-header h4 {
+            font-family: var(--font-heading);
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--gray-800);
+        }
+        .tool-detail-header .tool-detail-subtitle {
+            font-size: 13px;
+            color: var(--gray-400);
+        }
+
+        .pricing-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 16px 0;
+            font-size: 14px;
+        }
+        .pricing-table th {
+            background: var(--gray-100);
+            padding: 12px 16px;
+            text-align: left;
+            font-weight: 700;
+            font-size: 13px;
+            color: var(--gray-700);
+            border-bottom: 2px solid var(--gray-200);
+        }
+        .pricing-table td {
+            padding: 12px 16px;
+            border-bottom: 1px solid var(--gray-200);
+            color: var(--gray-600);
+            vertical-align: top;
+        }
+        .pricing-table tr:last-child td { border-bottom: none; }
+        .price-free {
+            color: #16a34a;
+            font-weight: 700;
+        }
+        .price-paid {
+            color: #d97706;
+            font-weight: 600;
+        }
+        .pricing-table .plan-name {
+            font-weight: 700;
+            color: var(--gray-800);
+        }
+
+        .pros-cons {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin: 16px 0;
+        }
+        .pros, .cons {
+            padding: 16px;
+            border-radius: var(--radius);
+        }
+        .pros {
+            background: #f0fdf4;
+            border: 1px solid #bbf7d0;
+        }
+        .cons {
+            background: #fef2f2;
+            border: 1px solid #fecaca;
+        }
+        .pros h5, .cons h5 {
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
+        .pros h5 { color: #16a34a; }
+        .cons h5 { color: #dc2626; }
+        .pros ul, .cons ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .pros li, .cons li {
+            font-size: 13px;
+            line-height: 1.6;
+            padding: 3px 0;
+            padding-left: 18px;
+            position: relative;
+        }
+        .pros li::before { content: '+'; position: absolute; left: 0; color: #16a34a; font-weight: 700; }
+        .cons li::before { content: '\2212'; position: absolute; left: 0; color: #dc2626; font-weight: 700; }
+
+        .analogy-box {
+            background: #ecfdf5;
+            border: 1px solid #a7f3d0;
+            border-radius: var(--radius);
+            padding: 20px;
+            margin: 16px 0;
+            font-size: 14px;
+            line-height: 1.7;
+            color: #065f46;
+        }
+        .analogy-box strong {
+            display: block;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #10b981;
+            margin-bottom: 4px;
+        }
+
+        .compare-box {
+            background: #fefce8;
+            border: 1px solid #fde68a;
+            border-radius: var(--radius);
+            padding: 20px;
+            margin: 16px 0;
+            font-size: 14px;
+            line-height: 1.7;
+            color: #78350f;
+        }
+        .compare-box strong {
+            display: block;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #d97706;
+            margin-bottom: 4px;
+        }
+
+        .assistant-demo {
+            background: var(--gray-50);
+            border: 2px solid #18bfff;
+            border-radius: var(--radius-lg);
+            padding: 28px;
+            margin: 20px 0;
+        }
+        .assistant-demo h4 {
+            font-family: var(--font-heading);
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--gray-800);
+            margin-bottom: 16px;
+        }
+        .chat-bubble {
+            padding: 14px 18px;
+            border-radius: 12px;
+            margin-bottom: 12px;
+            font-size: 14px;
+            line-height: 1.6;
+            max-width: 85%;
+        }
+        .chat-bubble:last-child { margin-bottom: 0; }
+        .chat-user {
+            background: #18bfff;
+            color: #fff;
+            margin-left: auto;
+            border-bottom-right-radius: 4px;
+        }
+        .chat-ai {
+            background: var(--white);
+            border: 1px solid var(--gray-200);
+            color: var(--gray-700);
+            border-bottom-left-radius: 4px;
+        }
+        .chat-label {
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 6px;
+        }
+        .chat-user .chat-label { color: rgba(255,255,255,0.8); }
+        .chat-ai .chat-label { color: #18bfff; }
+
+        .step-cards {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+            margin: 20px 0;
+        }
+        .step-card {
+            background: var(--white);
+            border: 1px solid var(--gray-200);
+            border-radius: var(--radius);
+            padding: 20px;
+            text-align: center;
+        }
+        .step-card .step-num {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 32px;
+            height: 32px;
+            background: #18bfff;
+            color: #fff;
+            border-radius: 50%;
+            font-weight: 700;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+        .step-card h5 {
+            font-family: var(--font-heading);
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--gray-800);
+            margin-bottom: 6px;
+        }
+        .step-card p {
+            font-size: 13px;
+            color: var(--gray-500);
+            line-height: 1.5;
+            margin: 0;
+        }
+
+        .bottom-line {
+            background: linear-gradient(135deg, #065f46 0%, #10b981 100%);
+            border-radius: var(--radius-lg);
+            padding: 36px;
+            text-align: center;
+            margin-top: 28px;
+        }
+        .bottom-line h3 {
+            color: var(--white);
+            font-size: 22px;
+            margin-bottom: 16px;
+        }
+        .bottom-line p {
+            color: rgba(255,255,255,0.85);
+            font-size: 16px;
+            line-height: 1.7;
+            max-width: 600px;
+            margin: 0 auto 20px;
+        }
+        .bottom-line-costs {
+            display: flex;
+            justify-content: center;
+            gap: 32px;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+        .bottom-line-cost {
+            text-align: center;
+        }
+        .bottom-line-cost .cost-label {
+            display: block;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: rgba(255,255,255,0.6);
+            margin-bottom: 4px;
+        }
+        .bottom-line-cost .cost-amount {
+            font-family: var(--font-heading);
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--white);
+        }
+
+        .other-guides {
+            display: flex;
+            gap: 16px;
+            margin-top: 28px;
+        }
+        .other-guide-link {
+            flex: 1;
+            padding: 20px;
+            background: var(--white);
+            border: 1px solid var(--gray-200);
+            border-radius: var(--radius);
+            text-align: center;
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--gray-700);
+            transition: var(--transition);
+        }
+        .other-guide-link:hover {
+            border-color: var(--gray-300);
+            box-shadow: var(--shadow-md);
+        }
+        .other-guide-link span {
+            display: block;
+            font-size: 12px;
+            font-weight: 400;
+            color: var(--gray-400);
+            margin-top: 4px;
+        }
+
+        @media (max-width: 700px) {
+            .guide-section { padding: 24px 20px; }
+            .stack-flow { flex-direction: column; }
+            .stack-arrow { transform: rotate(90deg); }
+            .pros-cons { grid-template-columns: 1fr; }
+            .other-guides { flex-direction: column; }
+            .bottom-line-costs { flex-direction: column; gap: 16px; }
+            .step-cards { grid-template-columns: 1fr; }
+            .chat-bubble { max-width: 100%; }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <a href="index.html" class="logo">
+                <img src="images/logo-nav.svg" alt="YourAgInfo" class="logo-svg">
+                <span class="logo-divider"></span>
+                <span class="logo-subtitle">McConnell Enterprises</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="members.html">Member Dashboard</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <header class="guide-hero">
+        <div class="container">
+            <a href="ai-tools.html" class="guide-back-link">&larr; Back to AI Tools</a>
+            <h1>The Easy Stack: Vercel + Airtable</h1>
+            <p>A simpler way to build with AI. Vercel hosts your site, Airtable replaces the database &mdash; and its built-in AI assistant does most of the work for you.</p>
+        </div>
+    </header>
+
+    <main class="guide-main">
+        <div class="container guide-container">
+
+            <!-- Big Picture -->
+            <div class="guide-section">
+                <h2>The Easier Way to Build</h2>
+                <p>The <a href="ai-build-stack.html">full tech stack</a> (Claude + GitHub + Render + MongoDB) is powerful, but it can feel like a lot if you're just getting started. This version swaps in two tools that are significantly easier to use &mdash; <strong>Vercel</strong> for hosting and <strong>Airtable</strong> for your data &mdash; without giving up anything that matters for a small business project.</p>
+
+                <div class="stack-flow">
+                    <div class="stack-item claude-item">
+                        <div class="stack-item-icon">&#x2728;</div>
+                        <div class="stack-item-name">Claude</div>
+                        <div class="stack-item-role">Writes the code</div>
+                    </div>
+                    <div class="stack-arrow">&rarr;</div>
+                    <div class="stack-item github-item">
+                        <div class="stack-item-icon">&#x1F4C1;</div>
+                        <div class="stack-item-name">GitHub</div>
+                        <div class="stack-item-role">Stores the code</div>
+                    </div>
+                    <div class="stack-arrow">&rarr;</div>
+                    <div class="stack-item vercel-item">
+                        <div class="stack-item-icon">&#x25B2;</div>
+                        <div class="stack-item-name">Vercel</div>
+                        <div class="stack-item-role">Hosts the site</div>
+                    </div>
+                    <div class="stack-arrow">&rarr;</div>
+                    <div class="stack-item airtable-item">
+                        <div class="stack-item-icon">&#x1F4CA;</div>
+                        <div class="stack-item-name">Airtable</div>
+                        <div class="stack-item-role">Stores the data</div>
+                    </div>
+                </div>
+
+                <div class="analogy-box">
+                    <strong>Farm Analogy</strong>
+                    Same idea, different equipment. <strong>Claude</strong> is still the engineer who draws the plans. <strong>GitHub</strong> is still the filing cabinet. But now <strong>Vercel</strong> is the crew that puts things up &mdash; they're faster and the site never sleeps (no waiting 30 seconds for it to wake up). And <strong>Airtable</strong> is like swapping a custom-welded grain bin for a pre-built one with labels on every door. You can see exactly what's inside without learning any commands.
+                </div>
+
+                <div class="compare-box">
+                    <strong>How Is This Different from the Full Stack?</strong>
+                    The <a href="ai-build-stack.html">full stack page</a> covers Render + MongoDB. Those are more powerful but harder to learn. <strong>Vercel</strong> replaces Render with faster deploys and no free-tier sleep. <strong>Airtable</strong> replaces MongoDB with a spreadsheet-like interface and an AI assistant that builds your database for you. If Render + MongoDB is a stick shift, Vercel + Airtable is an automatic.
+                </div>
+            </div>
+
+            <!-- Vercel -->
+            <div class="guide-section">
+                <h2>The Tools</h2>
+
+                <div class="tool-detail">
+                    <div class="tool-detail-header">
+                        <div class="tool-detail-icon vercel-bg">&#x25B2;</div>
+                        <div>
+                            <h4>Vercel &mdash; The Hosting Service</h4>
+                            <div class="tool-detail-subtitle">vercel.com</div>
+                        </div>
+                    </div>
+                    <p><strong>What it does:</strong> Vercel takes your code from GitHub and puts it on the internet. Same job as Render, but it's faster to set up and your site never goes to sleep on the free tier. Push code to GitHub, and Vercel updates your live site in seconds &mdash; automatically.</p>
+                    <p><strong>Why Vercel instead of Render?</strong> Vercel's free tier doesn't spin down after 15 minutes of inactivity. That means your site loads fast every time &mdash; no waiting 30-60 seconds for it to wake up. The deploy previews are also great: every time you push a change, Vercel gives you a preview URL so you can check it before it goes live.</p>
+
+                    <table class="pricing-table">
+                        <thead>
+                            <tr>
+                                <th>Plan</th>
+                                <th>Price</th>
+                                <th>What You Get</th>
+                                <th>Best For</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="plan-name">Hobby</td>
+                                <td class="price-free">$0/month</td>
+                                <td>Unlimited sites, auto-deploy from GitHub, HTTPS, custom domains, no spin-down</td>
+                                <td>Personal projects, small business sites, learning</td>
+                            </tr>
+                            <tr>
+                                <td class="plan-name">Pro</td>
+                                <td class="price-paid">$20/month</td>
+                                <td>Team features, more bandwidth, advanced analytics, faster builds</td>
+                                <td>Growing businesses, team collaboration</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <div class="pros-cons">
+                        <div class="pros">
+                            <h5>Pros</h5>
+                            <ul>
+                                <li>Free tier never sleeps &mdash; site loads instantly</li>
+                                <li>Automatic deploy previews on every push</li>
+                                <li>Incredibly fast &mdash; built on a global edge network</li>
+                                <li>Works great with any site (static, React, Next.js)</li>
+                            </ul>
+                        </div>
+                        <div class="cons">
+                            <h5>Cons</h5>
+                            <ul>
+                                <li>Free tier is for non-commercial &mdash; businesses should use Pro ($20/mo)</li>
+                                <li>Backend functions (serverless) have execution limits on free tier</li>
+                                <li>Less flexible than Render for full-server apps</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="analogy-box">
+                        <strong>Getting Started with Vercel</strong>
+                        Sign up at vercel.com with your GitHub account. Click "Add New Project," pick your GitHub repo, and click Deploy. That's it &mdash; three clicks and your site is live. Every time you push to GitHub after that, Vercel automatically updates the site.
+                    </div>
+                </div>
+
+                <!-- Airtable -->
+                <div class="tool-detail">
+                    <div class="tool-detail-header">
+                        <div class="tool-detail-icon airtable-bg">&#x1F4CA;</div>
+                        <div>
+                            <h4>Airtable &mdash; The Easier Database</h4>
+                            <div class="tool-detail-subtitle">airtable.com</div>
+                        </div>
+                    </div>
+                    <p><strong>What it does:</strong> Airtable stores your data &mdash; customer info, inventory, field records, orders, anything &mdash; in a format that looks and feels like a spreadsheet. But underneath, it's a real database with an API your website can read and write to. You don't need to learn MongoDB commands, SQL queries, or any database language. If you can use Excel or Google Sheets, you can use Airtable.</p>
+                    <p><strong>Why Airtable instead of MongoDB?</strong> MongoDB is a "real" database that developers love, but it's invisible &mdash; you interact with it entirely through code. Airtable lets you <em>see</em> your data in a spreadsheet view, edit it by clicking cells, sort and filter with buttons, and build forms and reports without writing a line of code. It's the difference between managing data in a terminal window and managing it in a spreadsheet.</p>
+
+                    <table class="pricing-table">
+                        <thead>
+                            <tr>
+                                <th>Plan</th>
+                                <th>Price</th>
+                                <th>What You Get</th>
+                                <th>Best For</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="plan-name">Free</td>
+                                <td class="price-free">$0/month</td>
+                                <td>Unlimited bases, 1,000 records per base, 1 GB attachments, 100 automations/month</td>
+                                <td>Small projects, learning, simple tracking</td>
+                            </tr>
+                            <tr>
+                                <td class="plan-name">Team</td>
+                                <td class="price-paid">$20/user/mo</td>
+                                <td>50,000 records per base, 20 GB attachments, 25,000 automations/month, advanced views</td>
+                                <td>Real business use, growing data needs</td>
+                            </tr>
+                            <tr>
+                                <td class="plan-name">Business</td>
+                                <td class="price-paid">$45/user/mo</td>
+                                <td>125,000 records, advanced permissions, admin controls, premium integrations</td>
+                                <td>Larger operations, multiple team members</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <div class="pros-cons">
+                        <div class="pros">
+                            <h5>Pros</h5>
+                            <ul>
+                                <li>Looks like a spreadsheet &mdash; zero learning curve</li>
+                                <li>Built-in AI assistant does the hard work for you</li>
+                                <li>Forms, calendars, galleries, and reports built in</li>
+                                <li>Automations replace code you'd otherwise have to write</li>
+                            </ul>
+                        </div>
+                        <div class="cons">
+                            <h5>Cons</h5>
+                            <ul>
+                                <li>Free tier limited to 1,000 records per base</li>
+                                <li>Paid plans charge per user, adds up with teams</li>
+                                <li>Not as flexible as MongoDB for complex data relationships</li>
+                                <li>API rate limits can slow down high-traffic apps</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Airtable AI Assistant -->
+            <div class="guide-section">
+                <h2>The Airtable AI Assistant</h2>
+                <p>This is the reason Airtable is so much easier. Airtable has a built-in AI assistant that understands plain English. You tell it what you want to track, and it builds the database for you &mdash; tables, columns, field types, and all. No coding, no schema design, no guessing what field type to pick.</p>
+
+                <h3>What the Assistant Can Do</h3>
+                <ul>
+                    <li><strong>Create entire bases from a description</strong> &mdash; "I need to track my cattle herd: tag number, breed, pasture, vaccination dates, and weight" and it builds the whole thing</li>
+                    <li><strong>Add and modify fields</strong> &mdash; "Add a column for calving date and make it a date field"</li>
+                    <li><strong>Write formulas</strong> &mdash; "Calculate the profit per acre based on yield and price" and it writes the formula for you</li>
+                    <li><strong>Create views</strong> &mdash; "Show me only the fields that haven't been planted yet, sorted by size"</li>
+                    <li><strong>Build automations</strong> &mdash; "Send me an email whenever a maintenance record is overdue"</li>
+                    <li><strong>Summarize and analyze data</strong> &mdash; "What's the average yield per hybrid across all my corn fields?"</li>
+                    <li><strong>Clean up messy data</strong> &mdash; "Standardize all the county names to title case"</li>
+                </ul>
+
+                <div class="assistant-demo">
+                    <h4>Example Conversation with the Airtable Assistant</h4>
+
+                    <div class="chat-bubble chat-user">
+                        <div class="chat-label">You</div>
+                        I want to track all my equipment. Each piece needs: name, type (tractor, planter, sprayer, etc.), year, make, model, purchase price, current value, hours, and last service date.
+                    </div>
+                    <div class="chat-bubble chat-ai">
+                        <div class="chat-label">Airtable AI</div>
+                        I've created an "Equipment" table with the following fields: Name (text), Type (single select with options: Tractor, Planter, Sprayer, Combine, Truck, Trailer, Other), Year (number), Make (text), Model (text), Purchase Price (currency), Current Value (currency), Hours (number), and Last Service Date (date). I also added a formula field "Depreciation" that calculates Purchase Price minus Current Value. Would you like me to add anything else?
+                    </div>
+                    <div class="chat-bubble chat-user">
+                        <div class="chat-label">You</div>
+                        Add a field that shows days since last service. And create a view that only shows equipment where it's been more than 90 days.
+                    </div>
+                    <div class="chat-bubble chat-ai">
+                        <div class="chat-label">Airtable AI</div>
+                        Done. I've added "Days Since Service" as a formula field that calculates the number of days between Last Service Date and today. I've also created a filtered view called "Service Overdue (90+ Days)" that only shows records where Days Since Service is greater than 90, sorted by days overdue (highest first).
+                    </div>
+                    <div class="chat-bubble chat-user">
+                        <div class="chat-label">You</div>
+                        Now set up an automation: when Days Since Service hits 90, send me an email reminder.
+                    </div>
+                    <div class="chat-bubble chat-ai">
+                        <div class="chat-label">Airtable AI</div>
+                        I've created an automation called "Service Reminder." It checks daily for any equipment where Days Since Service reaches 90 and sends an email to your account with the equipment name, hours, and last service date. You can test it now or let it run on schedule.
+                    </div>
+                </div>
+
+                <p>That entire equipment tracking system &mdash; with formulas, filtered views, and email alerts &mdash; was built by having a conversation. No code. No database commands. Just telling Airtable what you want in plain English.</p>
+            </div>
+
+            <!-- How to Use the Airtable Assistant -->
+            <div class="guide-section">
+                <h2>How to Use the Airtable Assistant</h2>
+
+                <div class="step-cards">
+                    <div class="step-card">
+                        <div class="step-num">1</div>
+                        <h5>Sign Up</h5>
+                        <p>Go to airtable.com and create a free account. No credit card required.</p>
+                    </div>
+                    <div class="step-card">
+                        <div class="step-num">2</div>
+                        <h5>Create a Base</h5>
+                        <p>Click "Start from scratch" or describe what you need and let the AI build it for you.</p>
+                    </div>
+                    <div class="step-card">
+                        <div class="step-num">3</div>
+                        <h5>Talk to the AI</h5>
+                        <p>Click the AI button and describe what you want in plain English. It handles the rest.</p>
+                    </div>
+                </div>
+
+                <h3>Tips for Getting Good Results</h3>
+                <ul>
+                    <li><strong>Describe your data like you're explaining it to a person.</strong> "I raise cattle and I need to track each animal by tag number, breed, age, pasture location, and vet records" is plenty.</li>
+                    <li><strong>Ask for one thing at a time.</strong> Build the table first, then add formulas, then set up automations. Doing it all at once can get confusing.</li>
+                    <li><strong>Use the "try again" option.</strong> If the AI's first attempt isn't right, tell it what to change. It learns from the conversation.</li>
+                    <li><strong>Ask it to explain.</strong> "Why did you make that a single select instead of a text field?" helps you learn how databases work.</li>
+                    <li><strong>Let it write your formulas.</strong> Instead of learning formula syntax, just say "calculate the cost per bushel" and it writes the formula for you.</li>
+                </ul>
+
+                <h3>Ideas for Your Farm or Business</h3>
+                <ul>
+                    <li><strong>Field tracker</strong> &mdash; fields, crops, planting dates, inputs applied, yields, revenue per acre</li>
+                    <li><strong>Equipment log</strong> &mdash; service records, hours, upcoming maintenance, depreciation</li>
+                    <li><strong>Customer / contact list</strong> &mdash; names, phone numbers, orders, notes, last contact date</li>
+                    <li><strong>Inventory system</strong> &mdash; parts, chemicals, seed on hand, reorder points</li>
+                    <li><strong>Custom harvest tracker</strong> &mdash; customers, fields, acres, rates, invoicing status</li>
+                    <li><strong>Grain marketing log</strong> &mdash; contracts, bushels, prices, delivery dates, settlements</li>
+                </ul>
+
+                <div class="analogy-box">
+                    <strong>The Power Move</strong>
+                    Use <strong>Claude</strong> to plan what your database should look like. Ask Claude: "I need to track all my farm equipment &mdash; what fields should I include?" Claude gives you a thorough list. Then take that list to the <strong>Airtable assistant</strong> and tell it to build it. Two AI assistants working together &mdash; Claude plans, Airtable builds.
+                </div>
+            </div>
+
+            <!-- Connecting Airtable to Your Website -->
+            <div class="guide-section">
+                <h2>Connecting Airtable to a Website</h2>
+                <p>Airtable has a full API &mdash; meaning your Vercel-hosted website can pull data from Airtable and display it, or write data back when someone fills out a form. Claude can write the code to do this.</p>
+
+                <h3>How It Works</h3>
+                <ol>
+                    <li><strong>Build your data in Airtable</strong> &mdash; tables, fields, records, all through the visual interface or AI assistant</li>
+                    <li><strong>Get your API key</strong> &mdash; go to airtable.com/create/tokens and create a personal access token</li>
+                    <li><strong>Ask Claude to write the code</strong> &mdash; "Write me a Next.js page that reads my Equipment table from Airtable and displays it as a list"</li>
+                    <li><strong>Push to GitHub</strong> &mdash; Vercel auto-deploys the updated site</li>
+                    <li><strong>Your live site now shows real data from Airtable</strong> &mdash; update a cell in Airtable and it shows up on the site</li>
+                </ol>
+
+                <div class="analogy-box">
+                    <strong>Key Benefit</strong>
+                    With this setup, non-technical people can update the website's data by editing an Airtable spreadsheet. No code changes needed. Change a price in Airtable, and the website shows the new price automatically. That's not possible with MongoDB unless you build an admin dashboard &mdash; which takes a lot more work.
+                </div>
+            </div>
+
+            <!-- Cost comparison -->
+            <div class="guide-section">
+                <h2>What Does It Cost?</h2>
+
+                <h3>The Free Stack &mdash; $0/month</h3>
+                <ul>
+                    <li>Claude Free &mdash; limited messages per day</li>
+                    <li>GitHub Free &mdash; unlimited repos</li>
+                    <li>Vercel Hobby &mdash; unlimited sites, no spin-down, always fast</li>
+                    <li>Airtable Free &mdash; 1,000 records per base, 100 automations/month</li>
+                </ul>
+                <p><strong>Good for:</strong> Learning, building a proof of concept, or running a very small project. The 1,000-record limit on Airtable is the main ceiling.</p>
+
+                <h3>The Small Business Stack &mdash; ~$40/month</h3>
+                <ul>
+                    <li>Claude Pro &mdash; $20/month</li>
+                    <li>GitHub Free &mdash; $0</li>
+                    <li>Vercel Hobby or Pro &mdash; $0-20/month</li>
+                    <li>Airtable Team &mdash; $20/month (1 user, 50,000 records)</li>
+                </ul>
+                <p><strong>Good for:</strong> A real business app with plenty of room for data, automations, and reliable hosting.</p>
+
+                <div class="compare-box">
+                    <strong>Compared to the Full Stack</strong>
+                    The Render + MongoDB stack can be cheaper at scale ($7/month Render + free MongoDB = $27/month total with Claude Pro). The Vercel + Airtable stack costs a bit more ($40/month at the Team tier) but saves you hours of development time because Airtable's visual interface and AI assistant replace work you'd otherwise need to code by hand or pay a developer for.
+                </div>
+            </div>
+
+            <!-- When to use which -->
+            <div class="guide-section">
+                <h2>Which Stack Should You Pick?</h2>
+
+                <table class="pricing-table">
+                    <thead>
+                        <tr>
+                            <th>If You&hellip;</th>
+                            <th>Use This</th>
+                            <th>Why</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Just want an information website (no database at all)</td>
+                            <td>Claude + GitHub Pages</td>
+                            <td>Free, simplest possible setup</td>
+                        </tr>
+                        <tr>
+                            <td>Want a website <em>and</em> need to track data, but hate coding</td>
+                            <td><strong>Vercel + Airtable</strong> (this page)</td>
+                            <td>Airtable's visual interface and AI make it easy</td>
+                        </tr>
+                        <tr>
+                            <td>Want maximum control and the cheapest hosting at scale</td>
+                            <td><a href="ai-build-stack.html">Render + MongoDB</a></td>
+                            <td>More powerful, but steeper learning curve</td>
+                        </tr>
+                        <tr>
+                            <td>Just need a database, no website yet</td>
+                            <td>Airtable alone</td>
+                            <td>Skip the website entirely and manage everything in Airtable</td>
+                        </tr>
+                        <tr>
+                            <td>Building something complex (e-commerce, real-time data, many users)</td>
+                            <td><a href="ai-build-stack.html">Render + MongoDB</a></td>
+                            <td>Airtable's API limits won't handle heavy traffic</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Bottom line -->
+            <div class="bottom-line">
+                <h3>The Bottom Line</h3>
+                <p>If the full tech stack feels intimidating, start here. Vercel is faster and simpler than Render. Airtable is a database you can actually see and touch. And the Airtable AI assistant turns plain English into a working system.</p>
+                <div class="bottom-line-costs">
+                    <div class="bottom-line-cost">
+                        <span class="cost-label">To learn &amp; build</span>
+                        <span class="cost-amount">$0</span>
+                    </div>
+                    <div class="bottom-line-cost">
+                        <span class="cost-label">For a real business</span>
+                        <span class="cost-amount">~$40/mo</span>
+                    </div>
+                    <div class="bottom-line-cost">
+                        <span class="cost-label">Time saved</span>
+                        <span class="cost-amount">Hours</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Other Guides -->
+            <div class="other-guides">
+                <a href="ai-build-stack.html" class="other-guide-link">
+                    Full Tech Stack
+                    <span>Render + MongoDB</span>
+                </a>
+                <a href="ai-static-site.html" class="other-guide-link">
+                    Static Sites
+                    <span>Free &amp; simple</span>
+                </a>
+                <a href="ai-farm-database.html" class="other-guide-link">
+                    Farm Database
+                    <span>Track your operation</span>
+                </a>
+            </div>
+
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <img src="images/logo-nav.svg" alt="YourAgInfo" class="footer-logo-svg">
+                    <span class="logo-divider"></span>
+                    <span class="logo-subtitle">McConnell Enterprises</span>
+                </div>
+                <p class="footer-location">Haxtun, Colorado</p>
+                <nav class="footer-nav">
+                    <a href="index.html">Home</a>
+                    <a href="members.html">Member Dashboard</a>
+                    <a href="ai-tools.html">AI Tools</a>
+                </nav>
+            </div>
+            <div class="footer-bottom">
+                <p>Copyright 2026 McConnell Enterprises LLC. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/auth.js"></script>
+</body>
+</html>
