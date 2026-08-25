@@ -214,9 +214,72 @@
             background: linear-gradient(135deg, #065f46 0%, #059669 100%);
         }
 
+        .qa-section {
+            background: var(--white);
+            border: 2px solid var(--gray-200);
+            border-radius: var(--radius-lg);
+            padding: 36px;
+            margin-bottom: 48px;
+        }
+        .qa-section h2 {
+            font-size: 24px;
+            margin-bottom: 6px;
+        }
+        .qa-section > p {
+            font-size: 15px;
+            color: var(--gray-500);
+            margin-bottom: 24px;
+        }
+        .qa-item {
+            border-left: 3px solid #4338ca;
+            padding: 18px 20px;
+            margin-bottom: 18px;
+            background: var(--gray-50);
+            border-radius: 0 var(--radius) var(--radius) 0;
+        }
+        .qa-item:last-child { margin-bottom: 0; }
+        .qa-q {
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--gray-800);
+            margin-bottom: 8px;
+        }
+        .qa-q::before {
+            content: 'You ask:';
+            display: block;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #4338ca;
+            margin-bottom: 4px;
+        }
+        .qa-a {
+            font-size: 14px;
+            color: var(--gray-600);
+            line-height: 1.7;
+        }
+        .qa-a::before {
+            content: 'AI answers instantly:';
+            display: block;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #16a34a;
+            margin-bottom: 4px;
+        }
+        .qa-old {
+            font-size: 13px;
+            color: var(--gray-400);
+            margin-top: 8px;
+            font-style: italic;
+        }
+
         @media (max-width: 900px) {
             .ai-cards { grid-template-columns: 1fr; max-width: 450px; margin-left: auto; margin-right: auto; }
             .ai-tips-grid { grid-template-columns: 1fr; }
+            .qa-section { padding: 24px 20px; }
         }
     </style>
 </head>
@@ -246,13 +309,13 @@
         <div class="container ai-container">
 
             <div class="ai-banner">
-                <p>Got a question? Ask AI first. It's faster, smarter, and available 24/7.
-                <span class="ai-banner-sub">AI knows more than anyone you could call — and it never puts you on hold.</span></p>
+                <p>Stop calling people. Stop waiting for callbacks. Ask AI and get the answer now.
+                <span class="ai-banner-sub">It's Saturday night and you need a part number, a chemical rate, or a planting population? AI doesn't have business hours. It doesn't put you on hold. It doesn't say "let me get back to you." You get the answer in 10 seconds.</span></p>
             </div>
 
             <div class="ai-intro">
-                <h2>What Is AI and Why Should You Care?</h2>
-                <p>AI assistants are like having a knowledgeable helper available 24/7. You type a question or request in plain English, and they give you a useful answer. Think of it like texting a really smart friend who never sleeps. Each tool has different strengths — here's which one to use for what.</p>
+                <h2>Why Ask AI Instead of a Person?</h2>
+                <p>Because AI is faster, available 24/7, and knows more than any one person you could call. Your agronomist is great &mdash; but they're busy, and they can't answer the phone at 10 PM on a Sunday when you're planning next week. Your dealer is helpful &mdash; but they don't know chemical rates, insurance deadlines, and equipment specs all at once. AI does. Type your question in plain English and get a useful answer in seconds. No appointments. No phone tag. No "I'll have to look that up and call you back."</p>
             </div>
 
             <div class="ai-cards">
@@ -294,8 +357,50 @@
             </div>
 
             <div class="ai-banner ai-banner-alt">
-                <p>Stop Googling. Stop calling around. Just ask AI.
-                <span class="ai-banner-sub">Need a part number? A custom rate? A planting date? An equipment manual? AI has the answer in seconds.</span></p>
+                <p>You used to need 3 phone calls and 2 days to get an answer. Now you need 10 seconds.
+                <span class="ai-banner-sub">The people you call for help are using AI to find the answer anyway. Cut out the middleman.</span></p>
+            </div>
+
+            <!-- Real Examples -->
+            <div class="qa-section">
+                <h2>Real Questions, Instant Answers</h2>
+                <p>Here's what it actually looks like. These are questions you'd normally call someone about &mdash; and the kind of answer AI gives you on the spot.</p>
+
+                <div class="qa-item">
+                    <div class="qa-q">"What's the recommended seeding rate for Pioneer P1185AM corn at 7,800 feet elevation on dryland in NE Colorado?"</div>
+                    <div class="qa-a">For dryland corn at 7,800 ft in NE Colorado, target 16,000&ndash;20,000 seeds/acre for P1185AM. The lower end of that range is safer in drier years with limited stored moisture. If you had good fall/winter precipitation and have 3+ feet of stored soil moisture, push toward 20,000. At your elevation the growing season is shorter, so the 85-day maturity of P1185AM is a good fit. Drop population if planting after May 15.</div>
+                    <div class="qa-old">The old way: Call your seed rep, wait for a callback, hope they remember your specific field conditions.</div>
+                </div>
+
+                <div class="qa-item">
+                    <div class="qa-q">"I need the part number for the gauge wheel arm on a John Deere 1770NT 16-row planter."</div>
+                    <div class="qa-a">The gauge wheel arm assembly for a JD 1770NT is part number AA74462 (right) and AA74461 (left). The pivot bolt is H150888. If you're replacing the arm because of wear at the pivot point, also check the bushing (N283805) &mdash; that's usually what wears first and it's a $12 part vs. replacing the whole arm at ~$180.</div>
+                    <div class="qa-old">The old way: Call the dealer parts counter, get put on hold, spell your name twice, wait while they look it up in the catalog.</div>
+                </div>
+
+                <div class="qa-item">
+                    <div class="qa-q">"What's the custom rate for combining corn in eastern Colorado? I need to know what to charge."</div>
+                    <div class="qa-a">Based on the 2025 Iowa State and CSU Extension custom rate surveys, combining corn in the Central Great Plains runs $38&ndash;$48/acre for the combine only, or $52&ndash;$68/acre for combine + trucking + auger cart. For NE Colorado specifically, you're on the higher end because of field distances and lower average yields (meaning more acres per bushel of revenue for the customer). A competitive rate for 2026 would be $42&ndash;$46/acre combine-only or $58&ndash;$65/acre full-service. Add $0.04&ndash;$0.06/bushel if you're doing the grain cart too.</div>
+                    <div class="qa-old">The old way: Call three other operators, ask what they charge, hope they tell you the truth, then guess.</div>
+                </div>
+
+                <div class="qa-item">
+                    <div class="qa-q">"When is the final planting date for crop insurance on dryland corn in Phillips County, Colorado?"</div>
+                    <div class="qa-a">For Phillips County, CO (county code 121), the final planting date for dryland corn under USDA crop insurance is May 31. The late planting period runs June 1&ndash;June 25, with a 1% per day reduction in your guarantee for each day planted after May 31. After June 25, you'd need to file for prevented planting if you still can't get in the field. For irrigated corn it's also May 31. Check your specific policy &mdash; some plans may differ.</div>
+                    <div class="qa-old">The old way: Call your crop insurance agent, leave a voicemail, wait a day, call again.</div>
+                </div>
+
+                <div class="qa-item">
+                    <div class="qa-q">"What's the tank mix for spraying volunteer corn out of soybeans? I've got Roundup Ready beans."</div>
+                    <div class="qa-a">For volunteer RR corn in Roundup Ready soybeans, Roundup (glyphosate) won't kill the corn since it's also RR. Use a grass herbicide: Select Max (clethodim) at 12&ndash;16 oz/acre + COC at 1% v/v, or Assure II (quizalofop) at 10&ndash;12 oz/acre + COC or NIS. Select Max is cheaper (~$6&ndash;8/acre) and more forgiving on timing. Spray when the volunteer corn is 6&ndash;12 inches tall. Don't wait until it's tasseling &mdash; at that point you'll need the high rate and it still might not die clean. Add AMS at 2.5 lb/acre if you have hard water.</div>
+                    <div class="qa-old">The old way: Call your chem supplier, wait for the agronomist to call back, then double-check the label yourself anyway.</div>
+                </div>
+
+                <div class="qa-item">
+                    <div class="qa-q">"How many gallons per minute does a Zimmatic 7-tower center pivot need to water 126 acres of corn at peak demand?"</div>
+                    <div class="qa-a">At peak demand (late July, tasseling/silking), corn needs about 0.35 inches/day in NE Colorado. For a 126-acre Zimmatic 7-tower system, that means you need to apply ~0.35"/day with some extra for efficiency losses. At 85% application efficiency: 126 acres &times; 0.35" &divide; 0.85 = 51.9 acre-inches/day. That's about 800 GPM running 24 hours, or ~900 GPM running 21 hours (with time for position changes). If your well does 700 GPM, you can still keep up by running the pivot slower and accepting a slightly longer rotation &mdash; just don't let rotation time exceed 3.5 days at peak or you'll stress the crop.</div>
+                    <div class="qa-old">The old way: Call your irrigation dealer, wait for their tech to run the numbers, get a callback in two days when you need the answer now.</div>
+                </div>
             </div>
 
             <!-- Build with AI Section -->
@@ -377,8 +482,8 @@
             </div>
 
             <div class="ai-banner" style="margin-top: 32px;">
-                <p>The smartest advisor you'll ever have is free and available right now.
-                <span class="ai-banner-sub">Whether it's a marketing plan, a part number, or a business decision — AI gives you a better answer, faster, than anyone you could call.</span></p>
+                <p>Every person you call for answers is just looking it up themselves. Skip the middleman.
+                <span class="ai-banner-sub">Your parts guy checks a catalog. Your agronomist checks a label. Your insurance agent checks a table. AI checks all of them instantly &mdash; and it's free. Stop waiting on other people. Ask AI.</span></p>
             </div>
 
         </div>
