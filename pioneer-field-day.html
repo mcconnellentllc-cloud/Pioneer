@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Pioneer Century of Innovation Field Day — Thursday, August 6, 2026. Plot tour, lunch, and 100 years of Pioneer history at UNL West Research in North Platte, NE.">
+
+    <meta property="og:title" content="Century of Innovation Field Day | Pioneer">
+    <meta property="og:description" content="Thursday, August 6 — Plot tour from 10:30 AM, lunch at 12:30 PM. UNL West Research, North Platte, NE. RSVP by July 23.">
+    <meta property="og:url" content="https://youraginfo.com/pioneer-field-day.html">
+    <meta property="og:type" content="website">
+
+    <title>Century of Innovation Field Day | Pioneer 100 Years</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --pioneer-green: #2d6a1e;
+            --pioneer-green-dark: #1e4a14;
+            --pioneer-gold: #c9a227;
+            --pioneer-red: #b22222;
+            --cream: #f7f5ef;
+            --page: #f2f0ea;
+            --ink: #2c2c2c;
+            --ink-soft: #5a5a5a;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            background: var(--page);
+            color: var(--ink);
+            font-family: 'Inter', -apple-system, 'Segoe UI', Helvetica, sans-serif;
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+        .wrap {
+            max-width: 760px;
+            margin: 0 auto;
+            background: #fff;
+            box-shadow: 0 2px 24px rgba(0,0,0,0.07);
+        }
+
+        .centennial-bar {
+            background: var(--pioneer-green-dark);
+            color: var(--pioneer-gold);
+            text-align: center;
+            padding: 14px 20px;
+            font-size: 12px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            font-weight: 700;
+        }
+
+        .hero {
+            background: linear-gradient(160deg, var(--pioneer-green-dark) 0%, var(--pioneer-green) 100%);
+            color: #fff;
+            text-align: center;
+            padding: 56px 28px 52px;
+        }
+        .hero .eyebrow {
+            font-size: 12px;
+            letter-spacing: 2.5px;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.65);
+            margin: 0 0 18px;
+            font-weight: 600;
+        }
+        .hero h1 {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-weight: 700;
+            font-size: clamp(30px, 6.5vw, 50px);
+            line-height: 1.08;
+            margin: 0;
+        }
+        .hero h2 {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-weight: 400;
+            font-size: clamp(18px, 3.5vw, 26px);
+            line-height: 1.3;
+            margin: 14px 0 0;
+            color: var(--pioneer-gold);
+        }
+        .datechip {
+            display: inline-block;
+            margin-top: 28px;
+            background: var(--pioneer-gold);
+            color: var(--pioneer-green-dark);
+            padding: 12px 30px;
+            font-size: 15px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+        }
+
+        .body {
+            padding: 44px 40px 8px;
+        }
+        .body p {
+            font-size: 17px;
+            margin: 0 0 18px;
+            color: var(--ink);
+        }
+        .body p.lead {
+            font-size: 19px;
+        }
+        .body p.lead strong {
+            color: var(--pioneer-green);
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2px;
+            background: #ddd9cc;
+            margin: 34px 0 0;
+        }
+        .cell {
+            background: var(--cream);
+            padding: 26px 24px;
+        }
+        .cell.full {
+            grid-column: 1 / -1;
+        }
+        .cell .label {
+            font-size: 11px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: #7a8f7a;
+            font-weight: 700;
+            margin: 0 0 8px;
+        }
+        .cell .big {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 21px;
+            line-height: 1.25;
+            color: var(--pioneer-green);
+            margin: 0 0 6px;
+        }
+        .cell .sub {
+            font-size: 15px;
+            color: var(--ink-soft);
+            margin: 0;
+        }
+
+        .schedule {
+            margin: 34px 0 0;
+        }
+        .schedule h3 {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 22px;
+            color: var(--pioneer-green);
+            margin-bottom: 16px;
+        }
+        .sched-row {
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+            padding: 14px 0;
+            border-bottom: 1px solid #e8e4da;
+        }
+        .sched-row:last-child { border-bottom: none; }
+        .sched-time {
+            flex-shrink: 0;
+            width: 110px;
+            font-weight: 700;
+            font-size: 15px;
+            color: var(--pioneer-green);
+        }
+        .sched-desc {
+            font-size: 15px;
+            color: var(--ink);
+        }
+
+        .topics {
+            background: var(--pioneer-green-dark);
+            color: #fff;
+            text-align: center;
+            padding: 32px 28px;
+            margin-top: 2px;
+        }
+        .topics h3 {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 24px;
+            margin: 0 0 16px;
+        }
+        .topic-pills {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+        }
+        .topic-pill {
+            background: rgba(255,255,255,0.12);
+            border: 1px solid rgba(255,255,255,0.2);
+            padding: 8px 18px;
+            font-size: 14px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        .parking-note {
+            background: #fef9ec;
+            border: 1px solid #f0e4c0;
+            padding: 22px 24px;
+            margin: 34px 0 0;
+            display: flex;
+            gap: 14px;
+            align-items: flex-start;
+        }
+        .parking-icon {
+            font-size: 24px;
+            flex-shrink: 0;
+        }
+        .parking-note p {
+            font-size: 15px;
+            color: var(--ink);
+            margin: 0;
+        }
+        .parking-note strong {
+            color: var(--pioneer-green);
+        }
+
+        .rsvp {
+            text-align: center;
+            padding: 46px 40px 20px;
+        }
+        .rsvp h3 {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-weight: 400;
+            font-size: 30px;
+            color: var(--pioneer-green);
+            margin: 0 0 8px;
+        }
+        .rsvp p {
+            font-size: 16px;
+            color: var(--ink-soft);
+            margin: 0 0 10px;
+        }
+        .rsvp .deadline {
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--pioneer-red);
+            margin-bottom: 26px;
+        }
+        .btn {
+            display: inline-block;
+            background: var(--pioneer-green);
+            color: #fff;
+            padding: 18px 46px;
+            font-size: 20px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-decoration: none;
+            border: 2px solid var(--pioneer-green);
+            transition: background 0.15s, color 0.15s;
+        }
+        .btn:hover {
+            background: var(--pioneer-green-dark);
+            border-color: var(--pioneer-green-dark);
+        }
+        .btn.secondary {
+            background: transparent;
+            color: var(--pioneer-green);
+            border-color: var(--pioneer-green);
+            font-size: 16px;
+            padding: 14px 34px;
+            margin-top: 14px;
+        }
+        .btn.secondary:hover {
+            background: var(--pioneer-green);
+            color: #fff;
+        }
+
+        .quote-block {
+            background: var(--cream);
+            border-left: 4px solid var(--pioneer-gold);
+            padding: 24px 28px;
+            margin: 34px 0 0;
+        }
+        .quote-block p {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 18px;
+            font-style: italic;
+            line-height: 1.5;
+            color: var(--ink);
+            margin: 0 0 8px;
+        }
+        .quote-block cite {
+            font-family: 'Inter', sans-serif;
+            font-size: 13px;
+            font-style: normal;
+            color: var(--ink-soft);
+            letter-spacing: 0.5px;
+        }
+
+        .fineprint {
+            text-align: center;
+            font-size: 14px;
+            color: #818181;
+            padding: 16px 40px 46px;
+            margin: 0;
+        }
+
+        footer {
+            background: var(--pioneer-green);
+            color: #fff;
+            text-align: center;
+            padding: 36px 30px;
+        }
+        footer .name {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 23px;
+            margin: 0 0 6px;
+        }
+        footer .years {
+            font-size: 12px;
+            letter-spacing: 2.5px;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.6);
+            margin: 0 0 16px;
+            font-weight: 600;
+        }
+        footer a {
+            color: var(--pioneer-gold);
+            font-size: 16px;
+            text-decoration: none;
+            border-bottom: 1px solid rgba(201,162,39,0.4);
+        }
+        footer .phone {
+            font-size: 14px;
+            color: rgba(255,255,255,0.6);
+            margin: 8px 0 0;
+        }
+
+        @media (max-width: 620px) {
+            .body { padding: 34px 24px 8px; }
+            .grid { grid-template-columns: 1fr; }
+            .rsvp { padding: 38px 24px 16px; }
+            .btn { display: block; padding: 18px 20px; }
+            .fineprint { padding: 16px 24px 38px; }
+            .sched-row { flex-direction: column; gap: 4px; }
+            .sched-time { width: auto; }
+            .parking-note { flex-direction: column; }
+        }
+    </style>
+</head>
+<body>
+<div class="wrap">
+
+    <div class="centennial-bar">Pioneer &bull; 100 Years of Innovation &bull; 1926 &ndash; 2026</div>
+
+    <section class="hero">
+        <p class="eyebrow">You're Invited</p>
+        <h1>Century of Innovation</h1>
+        <h2>Field Day &amp; Plot Tour</h2>
+        <span class="datechip">Thursday, August 6, 2026</span>
+    </section>
+
+    <section class="body">
+        <p class="lead"><strong>One hundred starts with one:</strong> with one farmer, one seed and one season. One hundred years ago, Henry A. Wallace and the founders of Pioneer revolutionized farming by commercializing hybrid seed corn. Today, the Pioneer brand honors their legacy with our relentless pursuit of what's next.</p>
+        <p>To celebrate a century of innovation, we're bringing together what was, what's now and what's next to recognize all the moments that add up to one big milestone. <strong>Because one changes everything.</strong></p>
+
+        <div class="grid">
+            <div class="cell full">
+                <p class="label">Location</p>
+                <p class="big">UNL West Research</p>
+                <p class="sub">402 W State Farm Rd, North Platte, NE 69101</p>
+            </div>
+            <div class="cell">
+                <p class="label">Time</p>
+                <p class="big">10:00 AM &ndash; 2:00 PM</p>
+                <p class="sub">Central Time</p>
+            </div>
+            <div class="cell">
+                <p class="label">Lunch</p>
+                <p class="big">12:30 &ndash; 1:30 PM</p>
+                <p class="sub">Served at Mid-Plains Community College</p>
+            </div>
+        </div>
+
+        <div class="schedule">
+            <h3>Schedule</h3>
+            <div class="sched-row">
+                <div class="sched-time">10:00 AM</div>
+                <div class="sched-desc">Doors open &mdash; check in, shuttle to tour site</div>
+            </div>
+            <div class="sched-row">
+                <div class="sched-time">10:30 AM</div>
+                <div class="sched-desc">Plot tour begins</div>
+            </div>
+            <div class="sched-row">
+                <div class="sched-time">12:30 PM</div>
+                <div class="sched-desc">Lunch served at Mid-Plains Community College</div>
+            </div>
+            <div class="sched-row">
+                <div class="sched-time">2:00 PM</div>
+                <div class="sched-desc">Event wraps up</div>
+            </div>
+        </div>
+    </section>
+
+    <section class="topics">
+        <h3>Session Topics</h3>
+        <div class="topic-pills">
+            <span class="topic-pill">History of Pioneer</span>
+            <span class="topic-pill">UNL/Pioneer Research Team</span>
+            <span class="topic-pill">Soybean Plot</span>
+            <span class="topic-pill">Corn Plot</span>
+            <span class="topic-pill">Century of Innovation Plot</span>
+        </div>
+    </section>
+
+    <section class="body">
+        <div class="parking-note">
+            <div class="parking-icon">&#x1F697;</div>
+            <div>
+                <p><strong>Parking is at Mid-Plains Community College</strong> &mdash; 601 W State Farm Rd, North Platte, NE 69101. A shuttle will run between the parking area and the tour location. No need to park at the research station.</p>
+            </div>
+        </div>
+
+        <div class="quote-block">
+            <p>"To celebrate a century of innovation, we're bringing together what was, what's now and what's next to recognize all the moments that add up to one big milestone."</p>
+            <cite>Pioneer &bull; Corteva Agriscience</cite>
+        </div>
+    </section>
+
+    <section class="rsvp">
+        <h3>RSVP</h3>
+        <p>Let your Pioneer sales rep know you're coming.</p>
+        <p class="deadline">Please RSVP by Thursday, July 23rd</p>
+        <a class="btn" href="tel:+19705711015">Call or Text Kyle &mdash; 970-571-1015</a>
+        <br>
+        <a class="btn secondary" href="https://www.google.com/maps/search/?api=1&amp;query=402+W+State+Farm+Rd+North+Platte+NE+69101">Get Directions to UNL West Research</a>
+        <br>
+        <a class="btn secondary" href="https://www.google.com/maps/search/?api=1&amp;query=601+W+State+Farm+Rd+North+Platte+NE+69101">Get Directions to Parking</a>
+    </section>
+
+    <p class="fineprint">Presented by Pioneer and Corteva Agriscience. All trademarks are the property of their respective owners. &copy; 2026 Corteva.</p>
+
+    <footer>
+        <p class="name">McConnell Enterprises</p>
+        <p class="years">Your Local Pioneer Sales Rep</p>
+        <a href="https://www.youraginfo.com">youraginfo.com</a>
+        <p class="phone">Kyle McConnell &mdash; 970-571-1015</p>
+    </footer>
+
+</div>
+</body>
+</html>
