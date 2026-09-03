@@ -27,7 +27,7 @@ HTML page → loads data/*.js (constants) → js/main.js processes & renders →
 
 ### Authentication
 
-Simple localStorage-based session. A single shared password (`Pioneer100$`) sets `localStorage.memberAuth = 'true'`. Protected pages include `js/auth.js` which redirects unauthenticated visitors to `members.html`.
+Simple localStorage-based session. A single shared password (`mcconnell`, case-insensitive) sets `localStorage.memberAuth = 'true'`. Protected pages include `js/auth.js` which redirects unauthenticated visitors to `members.html`.
 
 ## Directory Structure
 

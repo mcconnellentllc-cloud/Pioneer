@@ -833,7 +833,7 @@
 
     <script>
         // Simple member access
-        const MEMBER_PASSWORD = 'Pioneer100$';
+        const MEMBER_PASSWORD = 'mcconnell';
 
         // Check if already logged in on page load
         document.addEventListener('DOMContentLoaded', function() {
@@ -848,7 +848,7 @@
             const password = document.getElementById('password').value;
             const errorEl = document.getElementById('loginError');
 
-            if (password === MEMBER_PASSWORD) {
+            if (password.toLowerCase() === MEMBER_PASSWORD) {
                 localStorage.setItem('memberAuth', 'true');
                 incrementVisitorCount();
                 showDashboard();
