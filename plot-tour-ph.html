@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Late Season Plot Tour — pH Tolerance Plot, Yuma County, CO. Pioneer hybrid pH observations by Kyle McConnell, McConnell Enterprises.">
+    <title>pH Tolerance Plot Tour — Yuma County, CO | McConnell Enterprises</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --pioneer-green: #2d6a1e;
+            --pioneer-green-dark: #1e4a14;
+            --pioneer-gold: #c9a227;
+            --cream: #f7f5ef;
+            --page: #f2f0ea;
+            --ink: #2c2c2c;
+            --ink-soft: #5a5a5a;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            background: var(--page);
+            color: var(--ink);
+            font-family: 'Inter', -apple-system, 'Segoe UI', Helvetica, sans-serif;
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+        .wrap {
+            max-width: 800px;
+            margin: 0 auto;
+            background: #fff;
+            box-shadow: 0 2px 24px rgba(0,0,0,0.07);
+        }
+        .topbar {
+            background: var(--pioneer-green-dark);
+            color: var(--pioneer-gold);
+            text-align: center;
+            padding: 12px 20px;
+            font-size: 11px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            font-weight: 700;
+        }
+        .hero {
+            background: linear-gradient(160deg, var(--pioneer-green-dark) 0%, var(--pioneer-green) 100%);
+            color: #fff;
+            text-align: center;
+            padding: 48px 28px 44px;
+        }
+        .hero .eyebrow {
+            font-size: 12px;
+            letter-spacing: 2.5px;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.6);
+            margin: 0 0 14px;
+            font-weight: 600;
+        }
+        .hero h1 {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-weight: 700;
+            font-size: clamp(28px, 6vw, 44px);
+            line-height: 1.1;
+            margin: 0;
+        }
+        .hero h2 {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-weight: 400;
+            font-size: clamp(17px, 3.5vw, 24px);
+            color: var(--pioneer-gold);
+            margin: 10px 0 0;
+        }
+        .hero .meta-row {
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+            flex-wrap: wrap;
+            margin-top: 24px;
+        }
+        .hero .meta-chip {
+            background: rgba(255,255,255,0.12);
+            border: 1px solid rgba(255,255,255,0.2);
+            padding: 8px 18px;
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+        .plot-info {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2px;
+            background: #ddd9cc;
+        }
+        .plot-info .cell {
+            background: var(--cream);
+            padding: 20px 22px;
+            text-align: center;
+        }
+        .plot-info .label {
+            font-size: 10px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: #7a8f7a;
+            font-weight: 700;
+            margin: 0 0 6px;
+        }
+        .plot-info .val {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 18px;
+            color: var(--pioneer-green);
+        }
+        .ph-legend {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            flex-wrap: wrap;
+            padding: 18px 28px;
+            background: var(--cream);
+            border-bottom: 2px solid var(--page);
+        }
+        .ph-legend .chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+        .ph-legend .dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+        }
+        .dot-strong { background: #2e7d32; }
+        .dot-good { background: #66bb6a; }
+        .dot-avg { background: #ffa726; }
+        .dot-poor { background: #ef5350; }
+        .hybrid-card {
+            border-bottom: 2px solid var(--page);
+        }
+        .hybrid-card:last-child { border-bottom: none; }
+        .hybrid-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 22px 32px 0;
+        }
+        .hybrid-name {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--pioneer-green);
+        }
+        .hybrid-num {
+            font-size: 12px;
+            font-weight: 700;
+            color: #fff;
+            background: var(--pioneer-green);
+            width: 28px;
+            height: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+        .hybrid-notes {
+            padding: 10px 32px 24px;
+        }
+        .hybrid-notes p {
+            font-size: 15px;
+            color: var(--ink);
+            margin: 0;
+            line-height: 1.65;
+        }
+        .hybrid-tag {
+            display: inline-block;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            padding: 3px 10px;
+            margin-top: 10px;
+            border-radius: 3px;
+        }
+        .tag-strong { background: #e8f5e9; color: #2e7d32; }
+        .tag-good { background: #f1f8e9; color: #558b2f; }
+        .tag-avg { background: #fff3e0; color: #e65100; }
+        .tag-poor { background: #fce4ec; color: #c62828; }
+        .tag-conditional { background: #e3f2fd; color: #1565c0; }
+        .tag-winner { background: #fff8e1; color: #f57f17; }
+        .disclaimer {
+            background: var(--cream);
+            border-top: 2px solid var(--page);
+            padding: 20px 32px;
+            font-size: 13px;
+            color: var(--ink-soft);
+            font-style: italic;
+        }
+        footer {
+            background: var(--pioneer-green);
+            color: #fff;
+            text-align: center;
+            padding: 32px 28px;
+        }
+        footer .name {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 22px;
+            margin: 0 0 4px;
+        }
+        footer .sub {
+            font-size: 12px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.6);
+            font-weight: 600;
+            margin: 0 0 12px;
+        }
+        footer a {
+            color: var(--pioneer-gold);
+            font-size: 15px;
+            text-decoration: none;
+            border-bottom: 1px solid rgba(201,162,39,0.4);
+        }
+        footer .phone {
+            font-size: 14px;
+            color: rgba(255,255,255,0.6);
+            margin: 6px 0 0;
+        }
+        @media (max-width: 600px) {
+            .plot-info { grid-template-columns: 1fr; }
+            .hybrid-header { padding: 18px 20px 0; }
+            .hybrid-notes { padding: 10px 20px 20px; }
+            .disclaimer { padding: 18px 20px; }
+            .ph-legend { gap: 10px; padding: 14px 20px; }
+        }
+    </style>
+</head>
+<body>
+<div class="wrap">
+
+    <div class="topbar">McConnell Enterprises &bull; Pioneer Plot Tour &bull; 2026</div>
+
+    <section class="hero">
+        <p class="eyebrow">Late Season &mdash; pH Tolerance Plot</p>
+        <h1>pH Plot</h1>
+        <h2>Yuma County, Colorado</h2>
+        <div class="meta-row">
+            <span class="meta-chip">24 Hybrids</span>
+            <span class="meta-chip">pH Tolerance Evaluation</span>
+        </div>
+    </section>
+
+    <div class="plot-info">
+        <div class="cell">
+            <p class="label">Hybrids</p>
+            <p class="val">24</p>
+        </div>
+        <div class="cell">
+            <p class="label">Tour Date</p>
+            <p class="val">Oct 8, 2026</p>
+        </div>
+    </div>
+
+    <div class="ph-legend">
+        <span class="chip"><span class="dot dot-strong"></span> Strong pH Play</span>
+        <span class="chip"><span class="dot dot-good"></span> Good on pH</span>
+        <span class="chip"><span class="dot dot-avg"></span> Average</span>
+        <span class="chip"><span class="dot dot-poor"></span> Not for pH</span>
+    </div>
+
+    <div class="hybrids">
+
+        <div class="hybrid-card">
+            <div class="hybrid-header">
+                <span class="hybrid-name">P96567</span>
+                <span class="hybrid-num">1</span>
+            </div>
+            <div class="hybrid-notes">
+                <p>Average pH.</p>
+                <span class="hybrid-tag tag-avg">Average pH</span>
+            </div>
+        </div>
+
+        <div class="hybrid-card">
+            <div class="hybrid-header">
+                <span class="hybrid-name">P99491</span>
+                <span class="hybrid-num">2</span>
+            </div>
+            <div class="hybrid-notes">
+                <p>Not recommended for pH.</p>
+                <span class="hybrid-tag tag-poor">Not Recommended</span>
+            </div>
+        </div>
+
+        <div class="hybrid-card">
+            <div class="hybrid-header">
+                <span class="hybrid-name">P9698</span>
+                <span class="hybrid-num">3</span>
+            </div>
+            <div class="hybrid-notes">
+                <p>A little better on the pH.</p>
+                <span class="hybrid-tag tag-avg">Slightly Better</span>
+            </div>
+        </div>
+
+        <div class="hybrid-card">
+            <div class="hybrid-header">
+                <span class="hybrid-name">P02405</span>
+                <span class="hybrid-num">4</span>
+            </div>
+            <div class="hybrid-notes">
+                <p>Average in pH. The tops will white out and blow off.</p>
+                <span class="hybrid-tag tag-avg">Average pH</span>
+            </div>
+        </div>
+
+        <div class="hybrid-card">
+            <div class="hybrid-header">
+                <span class="hybrid-name">P03115</span>
+                <span class="hybrid-num">5</span>
+            </div>
+            <div class="hybrid-notes">
+                <p>Doesn&rsquo;t look great. But will produce in pH. Not really a pH play.</p>
+                <span class="hybrid-tag tag-avg">Will Produce</span>
+            </div>
+        </div>
+
+        <div class="hybrid-card">
+            <div class="hybrid-header">
+                <span class="hybrid-name">P03357</span>
+                <span class="hybrid-num">6</span>
+            </div>
+            <div class="hybrid-notes">
+                <p>Great on pH. Big strength for this hybrid.</p>
+                <span class="hybrid-tag tag-strong">Great on pH</span>
+            </div>
+        </div>
+
+        <div class="hybrid-card">
+            <div class="hybrid-header">
+                <span class="hybrid-name">P03802</span>
+                <span class="hybrid-num">7</span>
+            </div>
+            <div class="hybrid-notes">
+                <p>Good pH.</p>
+                <span class="hybrid-tag tag-good">Good pH</span>
+            </div>
+        </div>
+
+        <div class="hybrid-card">
+            <div class="hybrid-header">
+                <span class="hybrid-name">P04651</span>
+                <span class="hybrid-num">8</span>
+            </div>
+            <div class="hybrid-notes">
+                <p>Not good on pH.</p>
+                <span class="hybrid-tag tag-poor">Not Good on pH</span>
+            </div>
+        </div>
+
+        <div class="hybrid-card">
+            <div class="hybrid-header">
+                <span class="hybrid-name">P05081</span>
+                <span class="hybrid-num">9</span>
+            </div>
+            <div class="hybrid-notes">
+                <p>Color wise is not good but will develop a good ear.</p>
+                <span class="hybrid-tag tag-conditional">Develops Good Ear</span>
+            </div>
+        </div>
+
+        <div class="hybrid-card">
+            <div class="hybrid-header">
+                <span class="hybrid-name">P05466</span>
+                <span class="hybrid-num">10</span>
+            </div>
+            <div class="hybrid-notes">
+                <p>Great in pH.</p>
+                <span class="hybrid-tag tag-strong">Great in pH</span>
+            </div>
+        </div>
+
+        <div class="hybrid-card">
+            <div class="hybrid-header">
+                <span class="hybrid-name">P08215</span>
+                <span class="hybrid-num">11</span>
+            </div>
+            <div class="hybrid-notes">
+                <p>Surprisingly impressive. Light green color. Comes with yield.</p>
+                <span class="hybrid-tag tag-good">Impressive</span>
+            </div>
+        </div>
+
+        <div class="hybrid-card">
+            <div class="hybrid-header">
+                <span class="hybrid-name">P08527</span>
+                <span class="hybrid-num">12</span>
+            </div>
+            <div class="hybrid-notes">
+                <p>Keep off of really sandy high pH ground. Will not produce. On mild pH spots will be just fine.</p>
+                <span class="hybrid-tag tag-conditional">Mild pH Only</span>
+            </div>
+        </div>
+
+        <div class="hybrid-card">
+            <div class="hybrid-header">
+                <span class="hybrid-name">P09076</span>
+                <span class="hybrid-num">13</span>
+            </div>
+            <div class="hybrid-notes">
+                <p>Pretty decent on pH. Maybe slightly better than 10300. But comparable.</p>
+                <span class="hybrid-tag tag-good">Decent pH</span>
+            </div>
+        </div>
+
+        <div class="hybrid-card">
+            <div class="hybrid-header">
+                <span class="hybrid-name">P10300</span>
+                <span class="hybrid-num">14</span>
+            </div>
+            <div class="hybrid-notes">
+                <p>Decent. Nothing special, doesn&rsquo;t fall off.</p>
+                <span class="hybrid-tag tag-avg">Decent</span>
+            </div>
+        </div>
+
+        <div class="hybrid-card">
+            <div class="hybrid-header">
+                <span class="hybrid-name">P10705</span>
+                <span class="hybrid-num">15</span>
+            </div>
+            <div class="hybrid-notes">
+                <p>Looked great early. Will be stable in pH. More ground specific.</p>
+                <span class="hybrid-tag tag-good">Stable pH</span>
+            </div>
+        </div>
+
+        <div class="hybrid-card">
+            <div class="hybrid-header">
+                <span class="hybrid-name">P11259</span>
+                <span class="hybrid-num">16</span>
+            </div>
+            <div class="hybrid-notes">
+                <p>Solid through pH. The late season health this hybrid has brings value to the pH acre.</p>
+                <span class="hybrid-tag tag-strong">Solid pH</span>
+            </div>
+        </div>
+
+        <div class="hybrid-card">
+            <div class="hybrid-header">
+                <span class="hybrid-name">P12517</span>
+                <span class="hybrid-num">17</span>
+            </div>
+            <div class="hybrid-notes">
+                <p>Exceptional on pH.</p>
+                <span class="hybrid-tag tag-strong">Exceptional pH</span>
+            </div>
+        </div>
+
+        <div class="hybrid-card">
+            <div class="hybrid-header">
+                <span class="hybrid-name">P13777</span>
+                <span class="hybrid-num">18</span>
+            </div>
+            <div class="hybrid-notes">
+                <p>Between the rapid growth and pickiness of growth habits, has to be on the high yield ground. Deteriorates on tougher ground.</p>
+                <span class="hybrid-tag tag-conditional">High Yield Ground Only</span>
+            </div>
+        </div>
+
+        <div class="hybrid-card">
+            <div class="hybrid-header">
+                <span class="hybrid-name">P14364</span>
+                <span class="hybrid-num">19</span>
+            </div>
+            <div class="hybrid-notes">
+                <p>Not a pH corn.</p>
+                <span class="hybrid-tag tag-poor">Not a pH Corn</span>
+            </div>
+        </div>
+
+        <div class="hybrid-card">
+            <div class="hybrid-header">
+                <span class="hybrid-name">P14270</span>
+                <span class="hybrid-num">20</span>
+            </div>
+            <div class="hybrid-notes">
+                <p>The 114 day play on pH.</p>
+                <span class="hybrid-tag tag-good">114 Day pH Play</span>
+            </div>
+        </div>
+
+        <div class="hybrid-card">
+            <div class="hybrid-header">
+                <span class="hybrid-name">P15517</span>
+                <span class="hybrid-num">21</span>
+            </div>
+            <div class="hybrid-notes">
+                <p>Average to below average.</p>
+                <span class="hybrid-tag tag-avg">Below Average</span>
+            </div>
+        </div>
+
+        <div class="hybrid-card">
+            <div class="hybrid-header">
+                <span class="hybrid-name">P17677</span>
+                <span class="hybrid-num">22</span>
+            </div>
+            <div class="hybrid-notes">
+                <p>Plot winner. Strongest pH play in the Pioneer lineup.</p>
+                <span class="hybrid-tag tag-winner">Plot Winner</span>
+                <span class="hybrid-tag tag-strong">Strongest pH Play</span>
+            </div>
+        </div>
+
+        <div class="hybrid-card">
+            <div class="hybrid-header">
+                <span class="hybrid-name">P18216</span>
+                <span class="hybrid-num">23</span>
+            </div>
+            <div class="hybrid-notes">
+                <p>Double option for high pH. Looks good in pH.</p>
+                <span class="hybrid-tag tag-good">Good in pH</span>
+            </div>
+        </div>
+
+        <div class="hybrid-card">
+            <div class="hybrid-header">
+                <span class="hybrid-name">P18512</span>
+                <span class="hybrid-num">24</span>
+            </div>
+            <div class="hybrid-notes">
+                <p>For a grain play in 118 day corn, it looks good on pH.</p>
+                <span class="hybrid-tag tag-good">118 Day pH</span>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="disclaimer">
+        All observations are field notes by Kyle McConnell, McConnell Enterprises. These are not official Pioneer ratings or recommendations. Performance may vary by location, soil type, and management.
+    </div>
+
+    <footer>
+        <p class="name">McConnell Enterprises</p>
+        <p class="sub">Your Local Pioneer Sales Rep</p>
+        <a href="https://www.youraginfo.com">youraginfo.com</a>
+        <p class="phone">Kyle McConnell &mdash; 970-571-1015</p>
+    </footer>
+
+</div>
+</body>
+</html>

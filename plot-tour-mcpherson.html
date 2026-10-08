@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Late Season Plot Tour — McPherson Short Season Plot, Yuma, CO. Pioneer hybrid observations by Kyle McConnell, McConnell Enterprises.">
+    <title>Short Season Plot Tour — McPherson, Yuma CO | McConnell Enterprises</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --pioneer-green: #2d6a1e;
+            --pioneer-green-dark: #1e4a14;
+            --pioneer-gold: #c9a227;
+            --cream: #f7f5ef;
+            --page: #f2f0ea;
+            --ink: #2c2c2c;
+            --ink-soft: #5a5a5a;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            background: var(--page);
+            color: var(--ink);
+            font-family: 'Inter', -apple-system, 'Segoe UI', Helvetica, sans-serif;
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+        .wrap {
+            max-width: 800px;
+            margin: 0 auto;
+            background: #fff;
+            box-shadow: 0 2px 24px rgba(0,0,0,0.07);
+        }
+        .topbar {
+            background: var(--pioneer-green-dark);
+            color: var(--pioneer-gold);
+            text-align: center;
+            padding: 12px 20px;
+            font-size: 11px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            font-weight: 700;
+        }
+        .hero {
+            background: linear-gradient(160deg, var(--pioneer-green-dark) 0%, var(--pioneer-green) 100%);
+            color: #fff;
+            text-align: center;
+            padding: 48px 28px 44px;
+        }
+        .hero .eyebrow {
+            font-size: 12px;
+            letter-spacing: 2.5px;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.6);
+            margin: 0 0 14px;
+            font-weight: 600;
+        }
+        .hero h1 {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-weight: 700;
+            font-size: clamp(28px, 6vw, 44px);
+            line-height: 1.1;
+            margin: 0;
+        }
+        .hero h2 {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-weight: 400;
+            font-size: clamp(17px, 3.5vw, 24px);
+            color: var(--pioneer-gold);
+            margin: 10px 0 0;
+        }
+        .hero .meta-row {
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+            flex-wrap: wrap;
+            margin-top: 24px;
+        }
+        .hero .meta-chip {
+            background: rgba(255,255,255,0.12);
+            border: 1px solid rgba(255,255,255,0.2);
+            padding: 8px 18px;
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+        .plot-info {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 2px;
+            background: #ddd9cc;
+        }
+        .plot-info .cell {
+            background: var(--cream);
+            padding: 20px 22px;
+            text-align: center;
+        }
+        .plot-info .label {
+            font-size: 10px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: #7a8f7a;
+            font-weight: 700;
+            margin: 0 0 6px;
+        }
+        .plot-info .val {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 18px;
+            color: var(--pioneer-green);
+        }
+        .direction-bar {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            padding: 14px 20px;
+            background: var(--pioneer-green-dark);
+            color: rgba(255,255,255,0.7);
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+        }
+        .direction-bar .arrow {
+            flex: 1;
+            height: 1px;
+            background: rgba(255,255,255,0.25);
+            max-width: 120px;
+        }
+        .hybrid-card {
+            border-bottom: 2px solid var(--page);
+        }
+        .hybrid-card:last-child { border-bottom: none; }
+        .hybrid-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 22px 32px 0;
+        }
+        .hybrid-name {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--pioneer-green);
+        }
+        .hybrid-num {
+            font-size: 12px;
+            font-weight: 700;
+            color: #fff;
+            background: var(--pioneer-green);
+            width: 28px;
+            height: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+        .hybrid-notes {
+            padding: 10px 32px 24px;
+        }
+        .hybrid-notes p {
+            font-size: 15px;
+            color: var(--ink);
+            margin: 0;
+            line-height: 1.65;
+        }
+        .hybrid-tag {
+            display: inline-block;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            padding: 3px 10px;
+            margin-top: 10px;
+            border-radius: 3px;
+        }
+        .tag-tough { background: #fef3e2; color: #b8860b; }
+        .tag-yield { background: #e8f5e9; color: var(--pioneer-green); }
+        .tag-versatile { background: #e3f2fd; color: #1565c0; }
+        .tag-caution { background: #fce4ec; color: #c62828; }
+        .tag-ph { background: #e0f2f1; color: #00695c; }
+        .tag-new { background: #fff3e0; color: #e65100; }
+        .disclaimer {
+            background: var(--cream);
+            border-top: 2px solid var(--page);
+            padding: 20px 32px;
+            font-size: 13px;
+            color: var(--ink-soft);
+            font-style: italic;
+        }
+        footer {
+            background: var(--pioneer-green);
+            color: #fff;
+            text-align: center;
+            padding: 32px 28px;
+        }
+        footer .name {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 22px;
+            margin: 0 0 4px;
+        }
+        footer .sub {
+            font-size: 12px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.6);
+            font-weight: 600;
+            margin: 0 0 12px;
+        }
+        footer a {
+            color: var(--pioneer-gold);
+            font-size: 15px;
+            text-decoration: none;
+            border-bottom: 1px solid rgba(201,162,39,0.4);
+        }
+        footer .phone {
+            font-size: 14px;
+            color: rgba(255,255,255,0.6);
+            margin: 6px 0 0;
+        }
+        @media (max-width: 600px) {
+            .plot-info { grid-template-columns: 1fr; }
+            .hybrid-header { padding: 18px 20px 0; }
+            .hybrid-notes { padding: 10px 20px 20px; }
+            .disclaimer { padding: 18px 20px; }
+        }
+    </style>
+</head>
+<body>
+<div class="wrap">
+
+    <div class="topbar">McConnell Enterprises &bull; Pioneer Plot Tour &bull; 2026</div>
+
+    <section class="hero">
+        <p class="eyebrow">Late Season &mdash; Short Season Plot</p>
+        <h1>McPherson Plot</h1>
+        <h2>Yuma, Colorado</h2>
+        <div class="meta-row">
+            <span class="meta-chip">Adv PKP Trait</span>
+            <span class="meta-chip">34,000 Population</span>
+        </div>
+    </section>
+
+    <div class="plot-info">
+        <div class="cell">
+            <p class="label">Hybrids</p>
+            <p class="val">9</p>
+        </div>
+        <div class="cell">
+            <p class="label">Tour Date</p>
+            <p class="val">Oct 8, 2026</p>
+        </div>
+        <div class="cell">
+            <p class="label">Population</p>
+            <p class="val">34,000</p>
+        </div>
+    </div>
+
+    <div class="direction-bar">
+        <span>South</span>
+        <span class="arrow"></span>
+        <span>Plot Order</span>
+        <span class="arrow"></span>
+        <span>North</span>
+    </div>
+
+    <div class="hybrids">
+
+        <div class="hybrid-card">
+            <div class="hybrid-header">
+                <span class="hybrid-name">P99491V</span>
+                <span class="hybrid-num">1</span>
+            </div>
+            <div class="hybrid-notes">
+                <p>Really nice grain quality. Looking to be tough. Looking to compete with 101-33.</p>
+                <span class="hybrid-tag tag-tough">Tough</span>
+            </div>
+        </div>
+
+        <div class="hybrid-card">
+            <div class="hybrid-header">
+                <span class="hybrid-name">P02405V</span>
+                <span class="hybrid-num">2</span>
+            </div>
+            <div class="hybrid-notes">
+                <p>Grain quality isn't great. Seems to like clay soils more.</p>
+                <span class="hybrid-tag tag-caution">Clay Soils</span>
+            </div>
+        </div>
+
+        <div class="hybrid-card">
+            <div class="hybrid-header">
+                <span class="hybrid-name">P03802PCE</span>
+                <span class="hybrid-num">3</span>
+            </div>
+            <div class="hybrid-notes">
+                <p>Seems to do well in population variations. Can take it low or take it high. Good yielder in tough environment. Good in pH.</p>
+                <span class="hybrid-tag tag-versatile">Versatile</span>
+                <span class="hybrid-tag tag-ph">Good pH</span>
+            </div>
+        </div>
+
+        <div class="hybrid-card">
+            <div class="hybrid-header">
+                <span class="hybrid-name">P04651V</span>
+                <span class="hybrid-num">4</span>
+            </div>
+            <div class="hybrid-notes">
+                <p>Not a pH player. Avoid on pH &mdash; use P05466 instead.</p>
+                <span class="hybrid-tag tag-caution">Avoid pH</span>
+            </div>
+        </div>
+
+        <div class="hybrid-card">
+            <div class="hybrid-header">
+                <span class="hybrid-name">P08215PCUE</span>
+                <span class="hybrid-num">5</span>
+            </div>
+            <div class="hybrid-notes">
+                <p>Higher ear height. Not the real dark green. Super tough &mdash; will die trying to set an ear. Will tiller when thin. A real staple in tough environments. Do not place with the high yielders. Tough as nails. Seems to be the new 805 replacement.</p>
+                <span class="hybrid-tag tag-tough">Tough Environment</span>
+            </div>
+        </div>
+
+        <div class="hybrid-card">
+            <div class="hybrid-header">
+                <span class="hybrid-name">P09076PCE</span>
+                <span class="hybrid-num">6</span>
+            </div>
+            <div class="hybrid-notes">
+                <p>Looks good. Good deep heavy test weight kernel. Corn until the combine gets there. Good ear height. On rough sand, this hybrid will be low ear height &mdash; avoid rough sand hills. Very consistent hybrid. Just needs to be on flat good circles.</p>
+                <span class="hybrid-tag tag-yield">Consistent Yielder</span>
+            </div>
+        </div>
+
+        <div class="hybrid-card">
+            <div class="hybrid-header">
+                <span class="hybrid-name">P11259PCE</span>
+                <span class="hybrid-num">7</span>
+            </div>
+            <div class="hybrid-notes">
+                <p>Great late season health.</p>
+                <span class="hybrid-tag tag-yield">Late Season Health</span>
+            </div>
+        </div>
+
+        <div class="hybrid-card">
+            <div class="hybrid-header">
+                <span class="hybrid-name">P10705</span>
+                <span class="hybrid-num">8</span>
+            </div>
+            <div class="hybrid-notes">
+                <p>Not quite finished yet.</p>
+                <span class="hybrid-tag tag-new">New</span>
+            </div>
+        </div>
+
+        <div class="hybrid-card">
+            <div class="hybrid-header">
+                <span class="hybrid-name">P05466V</span>
+                <span class="hybrid-num">9</span>
+            </div>
+            <div class="hybrid-notes">
+                <p>Field hybrid as a comparison.</p>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="disclaimer">
+        All observations are field notes by Kyle McConnell, McConnell Enterprises. These are not official Pioneer ratings or recommendations. Performance may vary by location, soil type, and management.
+    </div>
+
+    <footer>
+        <p class="name">McConnell Enterprises</p>
+        <p class="sub">Your Local Pioneer Sales Rep</p>
+        <a href="https://www.youraginfo.com">youraginfo.com</a>
+        <p class="phone">Kyle McConnell &mdash; 970-571-1015</p>
+    </footer>
+
+</div>
+</body>
+</html>
