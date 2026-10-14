@@ -1,0 +1,822 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="2026 Pioneer Test Plot Results — Weighed yield data from local plots across Northeastern Colorado. Full irrigation, limited irrigation, and dryland. McConnell Enterprises.">
+    <title>2026 Test Plot Results | McConnell Enterprises</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --pioneer-green: #2d6a1e;
+            --pioneer-green-dark: #1e4a14;
+            --pioneer-gold: #c9a227;
+            --cream: #f7f5ef;
+            --page: #f2f0ea;
+            --ink: #2c2c2c;
+            --ink-soft: #5a5a5a;
+            --win: #2e7d32;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+        body {
+            background: var(--page);
+            color: var(--ink);
+            font-family: 'Inter', -apple-system, 'Segoe UI', Helvetica, sans-serif;
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+        .wrap {
+            max-width: 900px;
+            margin: 0 auto;
+            background: #fff;
+            box-shadow: 0 2px 24px rgba(0,0,0,0.07);
+        }
+        .topbar {
+            background: var(--pioneer-green-dark);
+            color: var(--pioneer-gold);
+            text-align: center;
+            padding: 12px 20px;
+            font-size: 11px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            font-weight: 700;
+        }
+        .hero {
+            background: linear-gradient(160deg, var(--pioneer-green-dark) 0%, var(--pioneer-green) 100%);
+            color: #fff;
+            text-align: center;
+            padding: 48px 28px 44px;
+        }
+        .hero .eyebrow {
+            font-size: 12px;
+            letter-spacing: 2.5px;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.6);
+            margin: 0 0 14px;
+            font-weight: 600;
+        }
+        .hero h1 {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-weight: 700;
+            font-size: clamp(28px, 6vw, 44px);
+            line-height: 1.1;
+            margin: 0;
+        }
+        .hero h2 {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-weight: 400;
+            font-size: clamp(17px, 3.5vw, 24px);
+            color: var(--pioneer-gold);
+            margin: 10px 0 0;
+        }
+        .hero .subtitle {
+            font-size: 15px;
+            color: rgba(255,255,255,0.7);
+            margin-top: 16px;
+            max-width: 560px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Navigation */
+        .plot-nav {
+            background: var(--pioneer-green-dark);
+            padding: 16px 28px;
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            flex-wrap: wrap;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 2px solid var(--pioneer-gold);
+        }
+        .plot-nav a {
+            display: inline-block;
+            padding: 8px 18px;
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            text-decoration: none;
+            color: #fff;
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 4px;
+            transition: all 0.15s;
+        }
+        .plot-nav a:hover {
+            background: var(--pioneer-gold);
+            color: var(--pioneer-green-dark);
+            border-color: var(--pioneer-gold);
+        }
+        .plot-nav a.nav-active {
+            background: var(--pioneer-gold);
+            color: var(--pioneer-green-dark);
+            border-color: var(--pioneer-gold);
+        }
+
+        /* Summary Stats */
+        .summary-bar {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2px;
+            background: #ddd9cc;
+        }
+        .summary-bar .cell {
+            background: var(--cream);
+            padding: 20px 16px;
+            text-align: center;
+        }
+        .summary-bar .label {
+            font-size: 10px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: #7a8f7a;
+            font-weight: 700;
+            margin: 0 0 6px;
+        }
+        .summary-bar .val {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 18px;
+            color: var(--pioneer-green);
+        }
+
+        /* Section */
+        .section-header {
+            background: var(--pioneer-green);
+            color: #fff;
+            padding: 28px 32px;
+        }
+        .section-header h2 {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 26px;
+            font-weight: 700;
+            margin: 0 0 8px;
+        }
+        .section-header p {
+            font-size: 14px;
+            color: rgba(255,255,255,0.75);
+            margin: 0;
+            line-height: 1.5;
+        }
+        .section-header .irr-type {
+            display: inline-block;
+            background: var(--pioneer-gold);
+            color: var(--pioneer-green-dark);
+            font-size: 10px;
+            font-weight: 800;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            padding: 4px 12px;
+            border-radius: 3px;
+            margin-bottom: 10px;
+        }
+
+        /* Plot Card */
+        .plot-card {
+            border-bottom: 3px solid var(--page);
+            padding: 28px 32px;
+        }
+        .plot-card:last-child { border-bottom: none; }
+        .plot-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 16px;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+        .plot-title {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--pioneer-green);
+            margin: 0 0 4px;
+        }
+        .plot-details {
+            font-size: 13px;
+            color: var(--ink-soft);
+            line-height: 1.6;
+        }
+        .plot-avg {
+            text-align: right;
+            flex-shrink: 0;
+        }
+        .plot-avg .avg-label {
+            font-size: 10px;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: #7a8f7a;
+            font-weight: 700;
+        }
+        .plot-avg .avg-val {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--pioneer-green);
+            line-height: 1;
+        }
+        .plot-avg .avg-unit {
+            font-size: 12px;
+            color: var(--ink-soft);
+        }
+        .plot-comment {
+            background: #fef9e7;
+            border-left: 3px solid var(--pioneer-gold);
+            padding: 10px 14px;
+            font-size: 13px;
+            color: #7a6a1e;
+            margin-bottom: 16px;
+            font-style: italic;
+        }
+
+        /* Yield Table */
+        .yield-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+        }
+        .yield-table thead th {
+            background: var(--pioneer-green-dark);
+            color: #fff;
+            padding: 10px 12px;
+            text-align: left;
+            font-size: 11px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            font-weight: 700;
+        }
+        .yield-table thead th:nth-child(n+3) {
+            text-align: right;
+        }
+        .yield-table tbody td {
+            padding: 10px 12px;
+            border-bottom: 1px solid #eee;
+        }
+        .yield-table tbody td:nth-child(n+3) {
+            text-align: right;
+            font-variant-numeric: tabular-nums;
+        }
+        .yield-table tbody tr:nth-child(even) {
+            background: #fafaf7;
+        }
+        .yield-table tbody tr.row-top {
+            background: #e8f5e9;
+            font-weight: 600;
+        }
+        .yield-table tbody tr.row-top td:first-child {
+            color: var(--win);
+        }
+        .yield-table tfoot td {
+            padding: 10px 12px;
+            font-weight: 700;
+            border-top: 2px solid var(--pioneer-green);
+            background: var(--cream);
+        }
+        .yield-table tfoot td:nth-child(n+3) {
+            text-align: right;
+        }
+        .rank-badge {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 24px;
+            height: 24px;
+            background: var(--pioneer-green);
+            color: #fff;
+            border-radius: 50%;
+            font-size: 11px;
+            font-weight: 700;
+        }
+        .row-top .rank-badge {
+            background: var(--win);
+        }
+
+        /* Back to Top */
+        .back-to-top {
+            display: block;
+            text-align: center;
+            padding: 14px;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--pioneer-green);
+            text-decoration: none;
+            border-top: 1px solid #eee;
+            transition: background 0.15s;
+        }
+        .back-to-top:hover {
+            background: var(--cream);
+        }
+
+        /* Plot Tour Links */
+        .tour-links {
+            background: var(--cream);
+            padding: 28px 32px;
+            border-top: 2px solid var(--page);
+        }
+        .tour-links h3 {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 20px;
+            color: var(--pioneer-green);
+            margin: 0 0 16px;
+        }
+        .tour-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+        }
+        .tour-link {
+            display: block;
+            padding: 14px 18px;
+            background: #fff;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            text-decoration: none;
+            color: var(--ink);
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.15s;
+        }
+        .tour-link:hover {
+            border-color: var(--pioneer-green);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+        .tour-link .tl-sub {
+            font-size: 12px;
+            color: var(--ink-soft);
+            font-weight: 400;
+            margin-top: 2px;
+        }
+
+        .disclaimer {
+            background: var(--cream);
+            border-top: 2px solid var(--page);
+            padding: 20px 32px;
+            font-size: 13px;
+            color: var(--ink-soft);
+            font-style: italic;
+        }
+        footer {
+            background: var(--pioneer-green);
+            color: #fff;
+            text-align: center;
+            padding: 32px 28px;
+        }
+        footer .name {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 22px;
+            margin: 0 0 4px;
+        }
+        footer .sub {
+            font-size: 12px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.6);
+            font-weight: 600;
+            margin: 0 0 12px;
+        }
+        footer a {
+            color: var(--pioneer-gold);
+            font-size: 15px;
+            text-decoration: none;
+            border-bottom: 1px solid rgba(201,162,39,0.4);
+        }
+        footer .phone {
+            font-size: 14px;
+            color: rgba(255,255,255,0.6);
+            margin: 6px 0 0;
+        }
+        @media (max-width: 700px) {
+            .summary-bar { grid-template-columns: repeat(2, 1fr); }
+            .plot-card { padding: 20px 16px; }
+            .section-header { padding: 22px 16px; }
+            .yield-table { font-size: 12px; }
+            .yield-table thead th, .yield-table tbody td, .yield-table tfoot td { padding: 8px 6px; }
+            .tour-grid { grid-template-columns: 1fr; }
+            .disclaimer { padding: 18px 16px; }
+            .tour-links { padding: 22px 16px; }
+            .plot-nav { padding: 12px 16px; gap: 8px; }
+            .plot-nav a { padding: 6px 12px; font-size: 12px; }
+        }
+    </style>
+</head>
+<body>
+<div class="wrap" id="top">
+
+    <div class="topbar">McConnell Enterprises &bull; 2026 Harvest Data</div>
+
+    <section class="hero">
+        <p class="eyebrow">Pioneer Test Plots &mdash; Northeastern Colorado</p>
+        <h1>2026 Test Plot Results</h1>
+        <h2>Weighed Yield Data</h2>
+        <p class="subtitle">Local plot results from across the territory. All yields are weighed &mdash; not yield monitor estimates. Every plot in this report was hailed during the 2026 growing season.</p>
+    </section>
+
+    <nav class="plot-nav" id="nav">
+        <a href="#full-irrigation">Full Irrigation</a>
+        <a href="#limited-irrigation">Limited Irrigation</a>
+        <a href="#dryland">Dryland</a>
+        <a href="#field-tours">Field Tour Notes</a>
+    </nav>
+
+    <div class="summary-bar">
+        <div class="cell">
+            <p class="label">Plots</p>
+            <p class="val">10</p>
+        </div>
+        <div class="cell">
+            <p class="label">Hybrids Tested</p>
+            <p class="val">20+</p>
+        </div>
+        <div class="cell">
+            <p class="label">Top Yield</p>
+            <p class="val">320.7</p>
+        </div>
+        <div class="cell">
+            <p class="label">Data Pull</p>
+            <p class="val">Oct 12</p>
+        </div>
+    </div>
+
+    <!-- ============================================ -->
+    <!-- FULL IRRIGATION -->
+    <!-- ============================================ -->
+    <div id="full-irrigation">
+        <div class="section-header">
+            <span class="irr-type">Full Irrigation</span>
+            <h2>Full Irrigation Plots</h2>
+            <p>Eight plots under full irrigation across the territory. Soybeans and corn as previous crops. All plots experienced hail damage during the 2026 season &mdash; results demonstrate hybrid recovery and toughness under stress.</p>
+        </div>
+
+        <!-- Plot 1: Steve Wallin PCE/PCUE -->
+        <div class="plot-card">
+            <div class="plot-meta">
+                <div>
+                    <h3 class="plot-title">Wallin &mdash; Full Irrigation, PCE/PCUE</h3>
+                    <div class="plot-details">
+                        Previous Crop: Corn &nbsp;&bull;&nbsp; Tillage: Strip &nbsp;&bull;&nbsp; Planted: 05/09/2026 &nbsp;&bull;&nbsp; Harvested: 10/04/2026
+                    </div>
+                </div>
+                <div class="plot-avg">
+                    <div class="avg-label">Plot Avg</div>
+                    <div class="avg-val">303.5</div>
+                    <div class="avg-unit">bu/a</div>
+                </div>
+            </div>
+            <div class="plot-comment">Hailed in early July, 2 weeks prior to tassel. P10300PCE had 150' of 2 rows missing due to sprinkler track.</div>
+            <table class="yield-table">
+                <thead><tr><th>Rank</th><th>Hybrid</th><th>Yield (bu/a)</th><th>Mst %</th><th>Test Wt</th></tr></thead>
+                <tbody>
+                    <tr class="row-top"><td><span class="rank-badge">1</span></td><td>P13777PCUE</td><td>320.7</td><td>25.6</td><td>55.7</td></tr>
+                    <tr class="row-top"><td><span class="rank-badge">2</span></td><td>P11259PCE</td><td>317.3</td><td>26.2</td><td>53.6</td></tr>
+                    <tr class="row-top"><td><span class="rank-badge">3</span></td><td>P10300PCE</td><td>312.7</td><td>25.3</td><td>53.6</td></tr>
+                    <tr><td><span class="rank-badge">4</span></td><td>P14270PCE</td><td>307.7</td><td>26.0</td><td>55.1</td></tr>
+                    <tr><td><span class="rank-badge">5</span></td><td>P12517PCUE</td><td>303.4</td><td>25.1</td><td>55.5</td></tr>
+                    <tr><td><span class="rank-badge">6</span></td><td>P09076PCE</td><td>292.2</td><td>23.2</td><td>54.8</td></tr>
+                    <tr><td><span class="rank-badge">7</span></td><td>P08527V</td><td>287.6</td><td>22.9</td><td>55.5</td></tr>
+                    <tr><td><span class="rank-badge">8</span></td><td>P08527V</td><td>286.4</td><td>22.1</td><td>56.0</td></tr>
+                </tbody>
+                <tfoot><tr><td></td><td>Average</td><td>303.5</td><td></td><td></td></tr></tfoot>
+            </table>
+        </div>
+
+        <!-- Plot 2: Waitman -->
+        <div class="plot-card">
+            <div class="plot-meta">
+                <div>
+                    <h3 class="plot-title">Waitman &mdash; Full Irrigation</h3>
+                    <div class="plot-details">
+                        Previous Crop: Corn &nbsp;&bull;&nbsp; Tillage: Strip &nbsp;&bull;&nbsp; Planted: 04/27/2026 &nbsp;&bull;&nbsp; Harvested: 10/07/2026
+                    </div>
+                </div>
+                <div class="plot-avg">
+                    <div class="avg-label">Plot Avg</div>
+                    <div class="avg-val">292.7</div>
+                    <div class="avg-unit">bu/a</div>
+                </div>
+            </div>
+            <table class="yield-table">
+                <thead><tr><th>Rank</th><th>Hybrid</th><th>Yield (bu/a)</th><th>Mst %</th><th>Test Wt</th></tr></thead>
+                <tbody>
+                    <tr class="row-top"><td><span class="rank-badge">1</span></td><td>P11259PCE</td><td>297.8</td><td>20.0</td><td>56.0</td></tr>
+                    <tr><td><span class="rank-badge">2</span></td><td>P09076PCE</td><td>287.6</td><td>17.4</td><td>59.3</td></tr>
+                </tbody>
+                <tfoot><tr><td></td><td>Average</td><td>292.7</td><td></td><td></td></tr></tfoot>
+            </table>
+        </div>
+
+        <!-- Plot 3: Steve Wallin Vorceed -->
+        <div class="plot-card">
+            <div class="plot-meta">
+                <div>
+                    <h3 class="plot-title">Wallin &mdash; Full Irrigation, Vorceed Enlist</h3>
+                    <div class="plot-details">
+                        Previous Crop: Corn &nbsp;&bull;&nbsp; Tillage: Strip &nbsp;&bull;&nbsp; Planted: 05/09/2026 &nbsp;&bull;&nbsp; Harvested: 10/04/2026
+                    </div>
+                </div>
+                <div class="plot-avg">
+                    <div class="avg-label">Plot Avg</div>
+                    <div class="avg-val">284.7</div>
+                    <div class="avg-unit">bu/a</div>
+                </div>
+            </div>
+            <div class="plot-comment">Hailed in early July, 2 weeks prior to tassel.</div>
+            <table class="yield-table">
+                <thead><tr><th>Rank</th><th>Hybrid</th><th>Yield (bu/a)</th><th>Mst %</th><th>Test Wt</th></tr></thead>
+                <tbody>
+                    <tr class="row-top"><td><span class="rank-badge">1</span></td><td>P12517V</td><td>310.1</td><td>23.6</td><td>55.2</td></tr>
+                    <tr class="row-top"><td><span class="rank-badge">2</span></td><td>P13777V</td><td>293.9</td><td>24.1</td><td>56.0</td></tr>
+                    <tr class="row-top"><td><span class="rank-badge">3</span></td><td>P14270V</td><td>291.8</td><td>24.4</td><td>55.2</td></tr>
+                    <tr><td><span class="rank-badge">4</span></td><td>P08527V</td><td>286.4</td><td>22.1</td><td>56.0</td></tr>
+                    <tr><td><span class="rank-badge">5</span></td><td>P15517V</td><td>285.7</td><td>25.3</td><td>54.3</td></tr>
+                    <tr><td><span class="rank-badge">6</span></td><td>P08527V</td><td>283.4</td><td>22.6</td><td>55.7</td></tr>
+                    <tr><td><span class="rank-badge">7</span></td><td>P04651V</td><td>241.4</td><td>21.5</td><td>55.0</td></tr>
+                </tbody>
+                <tfoot><tr><td></td><td>Average</td><td>284.7</td><td></td><td></td></tr></tfoot>
+            </table>
+        </div>
+
+        <a href="#top" class="back-to-top">&uarr; Back to Top</a>
+
+        <!-- Plot 4: C & R Farms Full #2 -->
+        <div class="plot-card">
+            <div class="plot-meta">
+                <div>
+                    <h3 class="plot-title">C &amp; R Farms &mdash; Full Irrigation</h3>
+                    <div class="plot-details">
+                        Previous Crop: Soybeans &nbsp;&bull;&nbsp; Tillage: No-Till &nbsp;&bull;&nbsp; Planted: 04/30/2026 &nbsp;&bull;&nbsp; Harvested: 10/08/2026 &nbsp;&bull;&nbsp; 34K Pop
+                    </div>
+                </div>
+                <div class="plot-avg">
+                    <div class="avg-label">Plot Avg</div>
+                    <div class="avg-val">268.4</div>
+                    <div class="avg-unit">bu/a</div>
+                </div>
+            </div>
+            <div class="plot-comment">Hail in July &mdash; stripped versus defoliated.</div>
+            <table class="yield-table">
+                <thead><tr><th>Rank</th><th>Hybrid</th><th>Yield (bu/a)</th><th>Mst %</th><th>Test Wt</th></tr></thead>
+                <tbody>
+                    <tr class="row-top"><td><span class="rank-badge">1</span></td><td>P08215PCUE</td><td>276.5</td><td>17.7</td><td>61.1</td></tr>
+                    <tr class="row-top"><td><span class="rank-badge">2</span></td><td>P11259PCE</td><td>272.3</td><td>18.4</td><td>58.1</td></tr>
+                    <tr><td><span class="rank-badge">3</span></td><td>P14270PCE</td><td>263.4</td><td>18.0</td><td>59.6</td></tr>
+                    <tr><td><span class="rank-badge">4</span></td><td>P09076PCE</td><td>261.5</td><td>17.3</td><td>58.4</td></tr>
+                </tbody>
+                <tfoot><tr><td></td><td>Average</td><td>268.4</td><td></td><td></td></tr></tfoot>
+            </table>
+        </div>
+
+        <!-- Plot 5: C & R Farms Full #1 -->
+        <div class="plot-card">
+            <div class="plot-meta">
+                <div>
+                    <h3 class="plot-title">C &amp; R Farms &mdash; Full Irrigation</h3>
+                    <div class="plot-details">
+                        Previous Crop: Soybeans &nbsp;&bull;&nbsp; Tillage: No-Till &nbsp;&bull;&nbsp; Planted: 05/01/2026 &nbsp;&bull;&nbsp; Harvested: 09/29/2026 &nbsp;&bull;&nbsp; 33K Pop &nbsp;&bull;&nbsp; Cover Crop
+                    </div>
+                </div>
+                <div class="plot-avg">
+                    <div class="avg-label">Plot Avg</div>
+                    <div class="avg-val">265.0</div>
+                    <div class="avg-unit">bu/a</div>
+                </div>
+            </div>
+            <div class="plot-comment">Soybeans in 2025. Hailed in July pre tassel.</div>
+            <table class="yield-table">
+                <thead><tr><th>Rank</th><th>Hybrid</th><th>Yield (bu/a)</th><th>Mst %</th><th>Test Wt</th></tr></thead>
+                <tbody>
+                    <tr class="row-top"><td><span class="rank-badge">1</span></td><td>P12517PCUE</td><td>275.2</td><td>22.9</td><td>55.7</td></tr>
+                    <tr class="row-top"><td><span class="rank-badge">2</span></td><td>P10300PCE</td><td>273.0</td><td>22.7</td><td>52.5</td></tr>
+                    <tr class="row-top"><td><span class="rank-badge">3</span></td><td>P08215PCUE</td><td>264.3</td><td>23.5</td><td>55.3</td></tr>
+                    <tr><td><span class="rank-badge">4</span></td><td>P11259PCE</td><td>263.5</td><td>22.9</td><td>54.7</td></tr>
+                    <tr><td><span class="rank-badge">5</span></td><td>P14270PCE</td><td>260.9</td><td>24.5</td><td>53.5</td></tr>
+                    <tr><td><span class="rank-badge">6</span></td><td>P14364PCUE</td><td>253.4</td><td>23.3</td><td>53.1</td></tr>
+                </tbody>
+                <tfoot><tr><td></td><td>Average</td><td>265.0</td><td></td><td></td></tr></tfoot>
+            </table>
+        </div>
+
+        <!-- Plot 6: Bussell Farms Full -->
+        <div class="plot-card">
+            <div class="plot-meta">
+                <div>
+                    <h3 class="plot-title">Bussell Farms &mdash; Full Irrigation</h3>
+                    <div class="plot-details">
+                        Previous Crop: Edible Beans &nbsp;&bull;&nbsp; Tillage: Strip &nbsp;&bull;&nbsp; Planted: 04/14/2026
+                    </div>
+                </div>
+                <div class="plot-avg">
+                    <div class="avg-label">Plot Avg</div>
+                    <div class="avg-val">257.7</div>
+                    <div class="avg-unit">bu/a</div>
+                </div>
+            </div>
+            <table class="yield-table">
+                <thead><tr><th>Rank</th><th>Hybrid</th><th>Yield (bu/a)</th><th>Mst %</th><th>Test Wt</th></tr></thead>
+                <tbody>
+                    <tr class="row-top"><td><span class="rank-badge">1</span></td><td>P11259PCE</td><td>271.2</td><td>19.6</td><td>54.8</td></tr>
+                    <tr class="row-top"><td><span class="rank-badge">2</span></td><td>P12517PCUE</td><td>261.4</td><td>18.7</td><td>56.9</td></tr>
+                    <tr class="row-top"><td><span class="rank-badge">3</span></td><td>P13777PCUE</td><td>260.1</td><td>20.1</td><td>58.2</td></tr>
+                    <tr><td><span class="rank-badge">4</span></td><td>P10300PCE</td><td>259.8</td><td>20.1</td><td>54.8</td></tr>
+                    <tr><td><span class="rank-badge">5</span></td><td>P14830AML</td><td>258.3</td><td>19.2</td><td>53.0</td></tr>
+                    <tr><td><span class="rank-badge">6</span></td><td>P14364PCUE</td><td>249.3</td><td>19.2</td><td>57.0</td></tr>
+                    <tr><td><span class="rank-badge">7</span></td><td>P14830AML</td><td>243.7</td><td>19.9</td><td>57.0</td></tr>
+                </tbody>
+                <tfoot><tr><td></td><td>Average</td><td>257.7</td><td></td><td></td></tr></tfoot>
+            </table>
+        </div>
+
+        <a href="#top" class="back-to-top">&uarr; Back to Top</a>
+
+        <!-- Plot 7: C & R Farms Vorceed -->
+        <div class="plot-card">
+            <div class="plot-meta">
+                <div>
+                    <h3 class="plot-title">C &amp; R Farms &mdash; Full Irrigation, Vorceed Enlist</h3>
+                    <div class="plot-details">
+                        Previous Crop: Soybeans &nbsp;&bull;&nbsp; Tillage: No-Till &nbsp;&bull;&nbsp; Planted: 05/01/2026 &nbsp;&bull;&nbsp; Harvested: 09/29/2026
+                    </div>
+                </div>
+                <div class="plot-avg">
+                    <div class="avg-label">Plot Avg</div>
+                    <div class="avg-val">251.5</div>
+                    <div class="avg-unit">bu/a</div>
+                </div>
+            </div>
+            <div class="plot-comment">Hailed in July pre tassel.</div>
+            <table class="yield-table">
+                <thead><tr><th>Rank</th><th>Hybrid</th><th>Yield (bu/a)</th><th>Mst %</th><th>Test Wt</th></tr></thead>
+                <tbody>
+                    <tr class="row-top"><td><span class="rank-badge">1</span></td><td>P12517V</td><td>273.5</td><td>21.7</td><td>55.8</td></tr>
+                    <tr><td><span class="rank-badge">2</span></td><td>P14270V</td><td>258.3</td><td>22.7</td><td>56.3</td></tr>
+                    <tr><td><span class="rank-badge">3</span></td><td>P15517V</td><td>254.7</td><td>22.9</td><td>55.8</td></tr>
+                    <tr><td><span class="rank-badge">4</span></td><td>P18512V</td><td>242.4</td><td>24.9</td><td>50.9</td></tr>
+                    <tr><td><span class="rank-badge">5</span></td><td>P10705V</td><td>242.1</td><td>21.3</td><td>55.8</td></tr>
+                    <tr><td><span class="rank-badge">6</span></td><td>P08527V</td><td>237.9</td><td>21.7</td><td>54.9</td></tr>
+                </tbody>
+                <tfoot><tr><td></td><td>Average</td><td>251.5</td><td></td><td></td></tr></tfoot>
+            </table>
+        </div>
+
+        <!-- Plot 8: Martin Angus Ranch (Stress) -->
+        <div class="plot-card">
+            <div class="plot-meta">
+                <div>
+                    <h3 class="plot-title">Martin Angus Ranch &mdash; Full Irrigation (Hail Stress)</h3>
+                    <div class="plot-details">
+                        Previous Crop: Corn &nbsp;&bull;&nbsp; Tillage: Strip &nbsp;&bull;&nbsp; Planted: 04/30/2026 &nbsp;&bull;&nbsp; Harvested: 10/05/2026
+                    </div>
+                </div>
+                <div class="plot-avg">
+                    <div class="avg-label">Plot Avg</div>
+                    <div class="avg-val">223.8</div>
+                    <div class="avg-unit">bu/a</div>
+                </div>
+            </div>
+            <div class="plot-comment">Rough sand hill. 80% defoliation from hail in September.</div>
+            <table class="yield-table">
+                <thead><tr><th>Rank</th><th>Hybrid</th><th>Yield (bu/a)</th><th>Mst %</th><th>Test Wt</th></tr></thead>
+                <tbody>
+                    <tr class="row-top"><td><span class="rank-badge">1</span></td><td>P10300PCE</td><td>239.3</td><td>16.1</td><td>58.5</td></tr>
+                    <tr class="row-top"><td><span class="rank-badge">2</span></td><td>P11259PCE</td><td>238.6</td><td>16.3</td><td>59.1</td></tr>
+                    <tr class="row-top"><td><span class="rank-badge">3</span></td><td>P08215PCUE</td><td>229.3</td><td>16.0</td><td>60.1</td></tr>
+                    <tr><td><span class="rank-badge">4</span></td><td>P10625V</td><td>227.3</td><td>17.0</td><td>58.8</td></tr>
+                    <tr><td><span class="rank-badge">5</span></td><td>P10625PCUE</td><td>226.7</td><td>17.0</td><td>59.1</td></tr>
+                    <tr><td><span class="rank-badge">6</span></td><td>P09076PCE</td><td>225.6</td><td>15.9</td><td>58.5</td></tr>
+                    <tr><td><span class="rank-badge">7</span></td><td>P12517PCUE</td><td>224.6</td><td>16.1</td><td>59.0</td></tr>
+                    <tr><td><span class="rank-badge">8</span></td><td>P12904V</td><td>215.9</td><td>16.0</td><td>59.9</td></tr>
+                    <tr><td><span class="rank-badge">9</span></td><td>P05466V</td><td>215.6</td><td>14.7</td><td>58.1</td></tr>
+                    <tr><td><span class="rank-badge">10</span></td><td>P08527V</td><td>211.8</td><td>16.0</td><td>59.7</td></tr>
+                    <tr><td><span class="rank-badge">11</span></td><td>P13777PCUE</td><td>207.0</td><td>16.5</td><td>58.5</td></tr>
+                </tbody>
+                <tfoot><tr><td></td><td>Average</td><td>223.8</td><td></td><td></td></tr></tfoot>
+            </table>
+        </div>
+
+        <a href="#top" class="back-to-top">&uarr; Back to Top</a>
+    </div>
+
+    <!-- ============================================ -->
+    <!-- LIMITED IRRIGATION -->
+    <!-- ============================================ -->
+    <div id="limited-irrigation">
+        <div class="section-header">
+            <span class="irr-type">Limited Irrigation</span>
+            <h2>Limited Irrigation Plot</h2>
+            <p>Lower population at 26K to match water availability. This plot demonstrates what hybrids can do when water is managed carefully. Even with hail damage pre tassel, the plot averaged 265.5 bu/a.</p>
+        </div>
+
+        <div class="plot-card">
+            <div class="plot-meta">
+                <div>
+                    <h3 class="plot-title">C &amp; R Farms &mdash; Limited Irrigation</h3>
+                    <div class="plot-details">
+                        Previous Crop: Soybeans &nbsp;&bull;&nbsp; Tillage: No-Till &nbsp;&bull;&nbsp; Planted: 05/01/2026 &nbsp;&bull;&nbsp; Harvested: 09/29/2026 &nbsp;&bull;&nbsp; 26K Pop
+                    </div>
+                </div>
+                <div class="plot-avg">
+                    <div class="avg-label">Plot Avg</div>
+                    <div class="avg-val">265.5</div>
+                    <div class="avg-unit">bu/a</div>
+                </div>
+            </div>
+            <div class="plot-comment">Field population of 26K planted. Hailed in July pre tassel.</div>
+            <table class="yield-table">
+                <thead><tr><th>Rank</th><th>Hybrid</th><th>Yield (bu/a)</th><th>Mst %</th><th>Test Wt</th></tr></thead>
+                <tbody>
+                    <tr class="row-top"><td><span class="rank-badge">1</span></td><td>P08215PCUE</td><td>279.2</td><td>24.5</td><td>55.4</td></tr>
+                    <tr class="row-top"><td><span class="rank-badge">2</span></td><td>P11259PCE</td><td>276.5</td><td>22.7</td><td>55.7</td></tr>
+                    <tr class="row-top"><td><span class="rank-badge">3</span></td><td>P10705V</td><td>272.6</td><td>22.8</td><td>54.4</td></tr>
+                    <tr><td><span class="rank-badge">4</span></td><td>P12517PCUE</td><td>268.0</td><td>22.7</td><td>57.1</td></tr>
+                    <tr><td><span class="rank-badge">5</span></td><td>P14364PCUE</td><td>266.1</td><td>26.2</td><td>54.7</td></tr>
+                    <tr><td><span class="rank-badge">6</span></td><td>P09076PCE</td><td>264.4</td><td>23.1</td><td>53.2</td></tr>
+                    <tr><td><span class="rank-badge">7</span></td><td>P14270PCE</td><td>258.6</td><td>25.2</td><td>54.4</td></tr>
+                    <tr><td><span class="rank-badge">8</span></td><td>P08527V</td><td>238.5</td><td>23.2</td><td>55.5</td></tr>
+                </tbody>
+                <tfoot><tr><td></td><td>Average</td><td>265.5</td><td></td><td></td></tr></tfoot>
+            </table>
+        </div>
+
+        <a href="#top" class="back-to-top">&uarr; Back to Top</a>
+    </div>
+
+    <!-- ============================================ -->
+    <!-- DRYLAND -->
+    <!-- ============================================ -->
+    <div id="dryland">
+        <div class="section-header">
+            <span class="irr-type">Dryland</span>
+            <h2>Dryland Plot</h2>
+            <p>Non-irrigated, strip-tilled, planted May 13. Dryland conditions tested two hybrids head-to-head &mdash; the Acre Focus P0075AM and P05081PCUE finished within 1.2 bu/a of each other.</p>
+        </div>
+
+        <div class="plot-card">
+            <div class="plot-meta">
+                <div>
+                    <h3 class="plot-title">Bussell Farms &mdash; Dryland</h3>
+                    <div class="plot-details">
+                        Tillage: Strip &nbsp;&bull;&nbsp; Planted: 05/13/2026 &nbsp;&bull;&nbsp; Harvested: 09/16/2026
+                    </div>
+                </div>
+                <div class="plot-avg">
+                    <div class="avg-label">Plot Avg</div>
+                    <div class="avg-val">89.3</div>
+                    <div class="avg-unit">bu/a</div>
+                </div>
+            </div>
+            <table class="yield-table">
+                <thead><tr><th>Rank</th><th>Hybrid</th><th>Yield (bu/a)</th><th>Mst %</th><th>Test Wt</th></tr></thead>
+                <tbody>
+                    <tr class="row-top"><td><span class="rank-badge">1</span></td><td>P0075AM</td><td>89.9</td><td>19.5</td><td>56.0</td></tr>
+                    <tr><td><span class="rank-badge">2</span></td><td>P05081PCUE</td><td>88.7</td><td>20.0</td><td>56.0</td></tr>
+                </tbody>
+                <tfoot><tr><td></td><td>Average</td><td>89.3</td><td></td><td></td></tr></tfoot>
+            </table>
+        </div>
+
+        <a href="#top" class="back-to-top">&uarr; Back to Top</a>
+    </div>
+
+    <!-- ============================================ -->
+    <!-- FIELD TOUR NOTES -->
+    <!-- ============================================ -->
+    <div id="field-tours" class="tour-links">
+        <h3>October 8 Field Tour Notes</h3>
+        <p style="font-size:14px;color:var(--ink-soft);margin-bottom:16px;">In-field observations from Kyle McConnell on hybrid characteristics, placement, and performance.</p>
+        <div class="tour-grid">
+            <a href="plot-tour-koenig.html" class="tour-link">
+                Koenig Plot
+                <div class="tl-sub">Yuma, CO &mdash; 9 hybrids, 36K pop</div>
+            </a>
+            <a href="plot-tour-mcpherson.html" class="tour-link">
+                McPherson Short Season
+                <div class="tl-sub">Yuma, CO &mdash; 9 hybrids, 34K pop</div>
+            </a>
+            <a href="plot-tour-dryland.html" class="tour-link">
+                Dryland Plot
+                <div class="tl-sub">SW of Wray, CO &mdash; 8 hybrids, 11K pop</div>
+            </a>
+            <a href="plot-tour-ph.html" class="tour-link">
+                pH Tolerance Plot
+                <div class="tl-sub">Yuma County &mdash; 24 hybrids</div>
+            </a>
+        </div>
+    </div>
+
+    <div class="disclaimer">
+        All yields are weighed &mdash; not yield monitor estimates. Results represent specific locations and may not predict future performance. Multi-year and multi-location data is a better predictor of future performance. Use this information as one component of your product positioning decision.
+    </div>
+
+    <footer>
+        <p class="name">McConnell Enterprises</p>
+        <p class="sub">Your Local Pioneer Sales Rep</p>
+        <a href="https://www.youraginfo.com">youraginfo.com</a>
+        <p class="phone">Kyle McConnell &mdash; 970-571-1015</p>
+    </footer>
+
+</div>
+</body>
+</html>
