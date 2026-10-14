@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pioneer Corn Technology &amp; Nomenclature | YourAgInfo.com</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Inter', sans-serif; background: #0a1a0a; color: #e8e8e8; line-height: 1.6; }
+
+        .hero {
+            background: linear-gradient(135deg, #1a472a 0%, #2d6a1e 50%, #1e4a14 100%);
+            padding: 48px 24px 40px;
+            text-align: center;
+        }
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(24px, 5vw, 36px);
+            color: #fff;
+            margin-bottom: 8px;
+        }
+        .hero .subtitle {
+            color: #c9a227;
+            font-size: 15px;
+            font-weight: 500;
+        }
+        .hero .back-link {
+            display: inline-block;
+            margin-top: 16px;
+            color: rgba(255,255,255,0.7);
+            text-decoration: none;
+            font-size: 13px;
+        }
+        .hero .back-link:hover { color: #fff; }
+
+        .page-nav {
+            background: #142814;
+            border-bottom: 1px solid #1e4a14;
+            padding: 12px 24px;
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            flex-wrap: wrap;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .page-nav a {
+            color: #c9a227;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 600;
+            padding: 6px 14px;
+            border-radius: 20px;
+            border: 1px solid #2d6a1e;
+            transition: all 0.2s;
+        }
+        .page-nav a:hover { background: #2d6a1e; color: #fff; }
+
+        .container { max-width: 960px; margin: 0 auto; padding: 0 20px; }
+
+        .section { padding: 48px 0; border-bottom: 1px solid #1e3a1e; }
+        .section:last-child { border-bottom: none; }
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(20px, 4vw, 28px);
+            color: #fff;
+            margin-bottom: 8px;
+        }
+        .section-desc { color: #a0a0a0; font-size: 14px; margin-bottom: 28px; max-width: 700px; }
+
+        /* Numbering System */
+        .naming-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+            margin-bottom: 28px;
+        }
+        .naming-card {
+            background: #142814;
+            border-radius: 10px;
+            padding: 20px;
+            border-left: 4px solid #2d6a1e;
+        }
+        .naming-card.card-pioneer { border-left-color: #2d6a1e; }
+        .naming-card.card-crm { border-left-color: #c9a227; }
+        .naming-card.card-random { border-left-color: #58a6ff; }
+        .naming-card.card-trait { border-left-color: #e05252; }
+        .naming-card h3 { font-size: 14px; font-weight: 700; margin-bottom: 6px; color: #fff; }
+        .naming-card p { font-size: 13px; color: #b0b0b0; }
+
+        .naming-example {
+            background: #1a2e1a;
+            border-radius: 12px;
+            padding: 24px;
+            text-align: center;
+            margin-bottom: 24px;
+        }
+        .naming-example .example-label { font-size: 12px; color: #a0a0a0; margin-bottom: 12px; text-transform: uppercase; letter-spacing: 1px; }
+        .hybrid-breakdown {
+            display: inline-flex;
+            align-items: baseline;
+            gap: 0;
+            font-size: clamp(28px, 6vw, 48px);
+            font-weight: 700;
+        }
+        .hybrid-breakdown .part { padding: 4px 2px; }
+        .part-p { color: #2d6a1e; }
+        .part-crm { color: #c9a227; }
+        .part-num { color: #58a6ff; }
+        .part-trait { color: #e05252; font-size: 0.6em; }
+
+        .breakdown-labels {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 14px;
+            flex-wrap: wrap;
+        }
+        .breakdown-labels span {
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .breakdown-labels .dot {
+            width: 8px; height: 8px;
+            border-radius: 50%;
+            display: inline-block;
+        }
+
+        /* Trait Table */
+        .trait-table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+        .trait-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13px;
+            min-width: 500px;
+        }
+        .trait-table th {
+            background: #2d6a1e;
+            color: #fff;
+            padding: 10px 14px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .trait-table td {
+            padding: 10px 14px;
+            border-bottom: 1px solid #1e3a1e;
+        }
+        .trait-table tr:hover { background: #142814; }
+        .trait-code { font-weight: 700; color: #c9a227; font-size: 14px; white-space: nowrap; }
+        .trait-name { color: #e0e0e0; }
+
+        .trait-group-header {
+            font-weight: 700;
+            color: #2d6a1e;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 16px 14px 6px !important;
+            border-bottom: none !important;
+        }
+
+        /* Insect Protection */
+        .protection-table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+        .protection-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 12px;
+            min-width: 700px;
+        }
+        .protection-table th {
+            background: #2d6a1e;
+            color: #fff;
+            padding: 10px 8px;
+            text-align: center;
+            font-weight: 600;
+            font-size: 11px;
+        }
+        .protection-table th:first-child { text-align: left; min-width: 160px; }
+        .protection-table td {
+            padding: 10px 8px;
+            border-bottom: 1px solid #1e3a1e;
+            text-align: center;
+        }
+        .protection-table td:first-child {
+            text-align: left;
+            font-weight: 600;
+            color: #fff;
+            font-size: 13px;
+        }
+        .protection-table tr:hover { background: #142814; }
+        .protection-table .pioneer-row { background: #0f1f0f; }
+        .protection-table .competitor-row { background: #1a1a10; }
+
+        .rating-excellent { color: #4ade80; font-weight: 700; }
+        .rating-good { color: #a3e635; font-weight: 600; }
+        .rating-some { color: #fbbf24; }
+        .rating-none { color: #555; }
+
+        .rating-legend {
+            display: flex;
+            gap: 20px;
+            margin-top: 14px;
+            flex-wrap: wrap;
+            font-size: 12px;
+            color: #a0a0a0;
+        }
+        .rating-legend span { display: flex; align-items: center; gap: 5px; }
+
+        /* Refuge */
+        .refuge-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 16px;
+        }
+        .refuge-card {
+            background: #142814;
+            border-radius: 10px;
+            padding: 20px;
+        }
+        .refuge-card h3 {
+            font-size: 15px;
+            color: #c9a227;
+            margin-bottom: 10px;
+        }
+        .refuge-card p {
+            font-size: 13px;
+            color: #b0b0b0;
+            margin-bottom: 6px;
+        }
+        .refuge-card .refuge-detail {
+            font-size: 12px;
+            color: #888;
+            margin-top: 8px;
+            padding-top: 8px;
+            border-top: 1px solid #1e3a1e;
+        }
+
+        /* Herbicide */
+        .herb-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 12px;
+            margin-top: 16px;
+        }
+        .herb-card {
+            background: #142814;
+            border-radius: 8px;
+            padding: 14px 16px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .herb-dot {
+            width: 10px; height: 10px;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+        .herb-dot.yes { background: #4ade80; }
+        .herb-dot.no { background: #555; }
+        .herb-name { font-size: 13px; font-weight: 600; color: #e0e0e0; }
+        .herb-sub { font-size: 11px; color: #888; }
+
+        /* Downloads */
+        .downloads {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 12px;
+            margin-top: 20px;
+        }
+        .dl-link {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: #142814;
+            padding: 14px 16px;
+            border-radius: 8px;
+            color: #c9a227;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 600;
+            transition: background 0.2s;
+        }
+        .dl-link:hover { background: #1e3a1e; }
+        .dl-icon { font-size: 18px; }
+
+        footer {
+            text-align: center;
+            padding: 32px 20px;
+            color: #555;
+            font-size: 12px;
+        }
+        footer a { color: #c9a227; text-decoration: none; }
+
+        @media (max-width: 600px) {
+            .hero { padding: 32px 16px 28px; }
+            .section { padding: 32px 0; }
+            .naming-grid { grid-template-columns: 1fr; }
+            .page-nav { padding: 10px 16px; gap: 8px; }
+            .page-nav a { font-size: 11px; padding: 5px 10px; }
+            .breakdown-labels { gap: 12px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="hero">
+        <h1>Pioneer Corn Technology Guide</h1>
+        <p class="subtitle">Understanding the Product Numbering System, Trait Platforms &amp; Insect Protection</p>
+        <a href="members.html" class="back-link">&larr; Back to Member Dashboard</a>
+    </div>
+
+    <nav class="page-nav" id="top">
+        <a href="#naming">Naming System</a>
+        <a href="#traits">Trait Codes</a>
+        <a href="#insect">Insect Protection</a>
+        <a href="#herbicide">Herbicide Tolerance</a>
+        <a href="#refuge">Refuge &amp; Bag Mix</a>
+        <a href="#downloads">Downloads</a>
+    </nav>
+
+    <div class="container">
+
+        <!-- ============================================ -->
+        <!-- NAMING SYSTEM -->
+        <!-- ============================================ -->
+        <div class="section" id="naming">
+            <h2 class="section-title">How Pioneer Names Its Corn</h2>
+            <p class="section-desc">Every Pioneer hybrid number tells you four things at a glance: the brand, maturity, unique genetics, and trait package.</p>
+
+            <div class="naming-example">
+                <div class="example-label">Example: Current Product</div>
+                <div class="hybrid-breakdown">
+                    <span class="part part-p">P</span><span class="part part-crm">1234</span><span class="part part-num">5</span><span class="part part-trait">V</span>
+                </div>
+                <div class="breakdown-labels">
+                    <span><span class="dot" style="background:#2d6a1e"></span> Pioneer Brand</span>
+                    <span><span class="dot" style="background:#c9a227"></span> CRM (Maturity)</span>
+                    <span><span class="dot" style="background:#58a6ff"></span> Random Number</span>
+                    <span><span class="dot" style="background:#e05252"></span> Trait ID</span>
+                </div>
+            </div>
+
+            <div class="naming-grid">
+                <div class="naming-card card-pioneer">
+                    <h3>P &mdash; Pioneer Brand</h3>
+                    <p>Identifies the product as a Pioneer brand corn hybrid.</p>
+                </div>
+                <div class="naming-card card-crm">
+                    <h3>CRM &mdash; Maturity</h3>
+                    <p>Based on family genetics. Tells you the approximate Comparative Relative Maturity of the hybrid&rsquo;s &ldquo;platform.&rdquo;</p>
+                </div>
+                <div class="naming-card card-random">
+                    <h3>Random Number</h3>
+                    <p>01&ndash;99 for current products, 01&ndash;999 for newly advanced. Multiple genetics can share the same CRM.</p>
+                </div>
+                <div class="naming-card card-trait">
+                    <h3>Trait Identifier</h3>
+                    <p>The smaller letters at the end tell you which insect protection and herbicide tolerance traits are in the bag.</p>
+                </div>
+            </div>
+
+            <div class="naming-example">
+                <div class="example-label">Example: Newly Advanced Product (5-digit)</div>
+                <div class="hybrid-breakdown">
+                    <span class="part part-p">P</span><span class="part part-crm">12345</span><span class="part part-trait">PCUE</span>
+                </div>
+                <div class="breakdown-labels">
+                    <span><span class="dot" style="background:#c9a227"></span> Same CRM, more room for unique numbers (up to 999)</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================ -->
+        <!-- TRAIT DESIGNATIONS -->
+        <!-- ============================================ -->
+        <div class="section" id="traits">
+            <h2 class="section-title">Trait Designations</h2>
+            <p class="section-desc">The letters after the hybrid number identify the trait package. Here is every code you will see on a Pioneer corn product.</p>
+
+            <div class="trait-table-wrap">
+                <table class="trait-table">
+                    <thead>
+                        <tr><th>Code</th><th>Full Name</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td colspan="2" class="trait-group-header">Pioneer Brand &mdash; Integrated Refuge</td></tr>
+                        <tr><td class="trait-code">AM</td><td class="trait-name">Optimum&reg; AcreMax&reg; &mdash; above-ground insect protection</td></tr>
+                        <tr><td class="trait-code">AML</td><td class="trait-name">Optimum&reg; AcreMax&reg; Leptra&reg; &mdash; above + below-ground, Leptra trait</td></tr>
+                        <tr><td class="trait-code">AMX</td><td class="trait-name">Optimum&reg; AcreMax&reg; Xtra &mdash; above + below-ground</td></tr>
+                        <tr><td class="trait-code">AMXT</td><td class="trait-name">Optimum&reg; AcreMax&reg; XTreme &mdash; broadest integrated protection</td></tr>
+                        <tr><td class="trait-code">Q</td><td class="trait-name">Qrome&reg; &mdash; above + below-ground with Qrome technology</td></tr>
+                        <tr><td class="trait-code">V</td><td class="trait-name">Vorceed&trade; Enlist&reg; &mdash; above + below-ground, Enlist herbicide system</td></tr>
+
+                        <tr><td colspan="2" class="trait-group-header">Pioneer Brand &mdash; Structured Refuge</td></tr>
+                        <tr><td class="trait-code">PCE</td><td class="trait-name">PowerCore&reg; Enlist&reg; Refuge Advanced&reg; &mdash; above-ground, Enlist system</td></tr>
+                        <tr><td class="trait-code">PCUE</td><td class="trait-name">PowerCore&reg; Ultra Enlist&reg; Refuged Advanced&reg; &mdash; broadest above-ground + Enlist</td></tr>
+                        <tr><td class="trait-code">PWE</td><td class="trait-name">PowerCore&reg; Enlist&reg; (structured) &mdash; 100% treated seed</td></tr>
+                        <tr><td class="trait-code">PWUE</td><td class="trait-name">PowerCore&reg; Ultra Enlist&reg; (structured) &mdash; 100% treated seed</td></tr>
+                        <tr><td class="trait-code">VYHR</td><td class="trait-name">Optimum&reg; Leptra&reg; (structured, Vorceed platform)</td></tr>
+                        <tr><td class="trait-code">YHR</td><td class="trait-name">Optimum&reg; Intrasect&reg; (structured)</td></tr>
+
+                        <tr><td colspan="2" class="trait-group-header">Other Identifiers</td></tr>
+                        <tr><td class="trait-code">AVBL</td><td class="trait-name">Agrisure Viptera&reg; insect trait</td></tr>
+                        <tr><td class="trait-code">HX1</td><td class="trait-name">Herculex&reg; I insect trait</td></tr>
+                        <tr><td class="trait-code">HXX</td><td class="trait-name">Herculex&reg; XTRA insect trait</td></tr>
+                        <tr><td class="trait-code">LL</td><td class="trait-name">LibertyLink&reg; (glufosinate) herbicide resistance</td></tr>
+                        <tr><td class="trait-code">LR</td><td class="trait-name">LibertyLink&reg; + Roundup Ready&reg; Corn 2 herbicide resistance</td></tr>
+                        <tr><td class="trait-code">RR2</td><td class="trait-name">Roundup Ready&reg; Corn 2 (glyphosate) herbicide resistance</td></tr>
+                        <tr><td class="trait-code">RW</td><td class="trait-name">Agrisure&reg; RW insect trait</td></tr>
+                        <tr><td class="trait-code">W</td><td class="trait-name">White product</td></tr>
+                        <tr><td class="trait-code">WQ</td><td class="trait-name">White Qrome&reg; product</td></tr>
+                        <tr><td class="trait-code">WV</td><td class="trait-name">White Vorceed&trade; Enlist&reg; product</td></tr>
+                        <tr><td class="trait-code">WX</td><td class="trait-name">Waxy product</td></tr>
+                        <tr><td class="trait-code">WXQ</td><td class="trait-name">Waxy Qrome&reg; product</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- ============================================ -->
+        <!-- INSECT PROTECTION -->
+        <!-- ============================================ -->
+        <div class="section" id="insect">
+            <h2 class="section-title">Insect Protection Ratings</h2>
+            <p class="section-desc">How each trait platform stacks up against common corn pests. Pioneer options highlighted.</p>
+
+            <h3 style="color:#c9a227; font-size:15px; margin-bottom:14px;">Above-Ground Insect Protection</h3>
+            <div class="protection-table-wrap">
+                <table class="protection-table">
+                    <thead>
+                        <tr>
+                            <th>Technology</th>
+                            <th>European Corn Borer</th>
+                            <th>SW Corn Borer</th>
+                            <th>Black Cutworm</th>
+                            <th>Corn Earworm</th>
+                            <th>Western Bean Cutworm</th>
+                            <th>Fall Armyworm</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="pioneer-row">
+                            <td>AcreMax&reg; (AM)</td>
+                            <td class="rating-excellent">+++</td>
+                            <td class="rating-excellent">+++</td>
+                            <td class="rating-good">++</td>
+                            <td class="rating-some">+</td>
+                            <td class="rating-none">&ndash;</td>
+                            <td class="rating-good">++</td>
+                        </tr>
+                        <tr class="pioneer-row">
+                            <td>AcreMax Leptra&reg; (AML)</td>
+                            <td class="rating-excellent">+++</td>
+                            <td class="rating-excellent">+++</td>
+                            <td class="rating-excellent">+++</td>
+                            <td class="rating-excellent">+++</td>
+                            <td class="rating-excellent">+++</td>
+                            <td class="rating-excellent">+++</td>
+                        </tr>
+                        <tr class="pioneer-row">
+                            <td>Intrasect&reg;</td>
+                            <td class="rating-excellent">+++</td>
+                            <td class="rating-excellent">+++</td>
+                            <td class="rating-good">++</td>
+                            <td class="rating-some">+</td>
+                            <td class="rating-none">&ndash;</td>
+                            <td class="rating-good">++</td>
+                        </tr>
+                        <tr class="pioneer-row">
+                            <td>PowerCore Enlist (PCE)</td>
+                            <td class="rating-excellent">+++</td>
+                            <td class="rating-excellent">+++</td>
+                            <td class="rating-good">++</td>
+                            <td class="rating-some">+</td>
+                            <td class="rating-none">&ndash;</td>
+                            <td class="rating-good">++</td>
+                        </tr>
+                        <tr class="pioneer-row">
+                            <td>PowerCore Ultra Enlist (PCUE)</td>
+                            <td class="rating-excellent">+++</td>
+                            <td class="rating-excellent">+++</td>
+                            <td class="rating-excellent">+++</td>
+                            <td class="rating-excellent">+++</td>
+                            <td class="rating-excellent">+++</td>
+                            <td class="rating-excellent">+++</td>
+                        </tr>
+                        <tr class="competitor-row">
+                            <td>VT Double PRO RIB</td>
+                            <td class="rating-excellent">+++</td>
+                            <td class="rating-excellent">+++</td>
+                            <td class="rating-none">&ndash;</td>
+                            <td class="rating-some">+</td>
+                            <td class="rating-none">&ndash;</td>
+                            <td class="rating-good">++</td>
+                        </tr>
+                        <tr class="competitor-row">
+                            <td>Trecepta&reg;</td>
+                            <td class="rating-excellent">+++</td>
+                            <td class="rating-excellent">+++</td>
+                            <td class="rating-excellent">+++</td>
+                            <td class="rating-excellent">+++</td>
+                            <td class="rating-none">&ndash;</td>
+                            <td class="rating-excellent">+++</td>
+                        </tr>
+                        <tr class="competitor-row">
+                            <td>SmartStax&reg;</td>
+                            <td class="rating-excellent">+++</td>
+                            <td class="rating-excellent">+++</td>
+                            <td class="rating-excellent">+++</td>
+                            <td class="rating-good">++</td>
+                            <td class="rating-some">+</td>
+                            <td class="rating-good">++</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="rating-legend">
+                <span><span class="rating-excellent">+++</span> Excellent</span>
+                <span><span class="rating-good">++</span> Good</span>
+                <span><span class="rating-some">+</span> Some</span>
+                <span><span class="rating-none">&ndash;</span> No activity</span>
+            </div>
+
+            <h3 style="color:#c9a227; font-size:15px; margin: 28px 0 14px;">Above- &amp; Below-Ground Insect Protection</h3>
+            <div class="protection-table-wrap">
+                <table class="protection-table">
+                    <thead>
+                        <tr>
+                            <th>Technology</th>
+                            <th>Corn Rootworm</th>
+                            <th>European Corn Borer</th>
+                            <th>SW Corn Borer</th>
+                            <th>Black Cutworm</th>
+                            <th>Corn Earworm</th>
+                            <th>Western Bean Cutworm</th>
+                            <th>Fall Armyworm</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="pioneer-row">
+                            <td>Qrome&reg; (Q)</td>
+                            <td class="rating-good">++</td>
+                            <td class="rating-excellent">+++</td>
+                            <td class="rating-excellent">+++</td>
+                            <td class="rating-good">++</td>
+                            <td class="rating-good">++</td>
+                            <td class="rating-none">&ndash;</td>
+                            <td class="rating-good">++</td>
+                        </tr>
+                        <tr class="pioneer-row">
+                            <td>AcreMax XTreme (AMXT)</td>
+                            <td class="rating-good">++</td>
+                            <td class="rating-excellent">+++</td>
+                            <td class="rating-excellent">+++</td>
+                            <td class="rating-excellent">+++</td>
+                            <td class="rating-good">++</td>
+                            <td class="rating-some">+</td>
+                            <td class="rating-good">++</td>
+                        </tr>
+                        <tr class="pioneer-row">
+                            <td>Vorceed Enlist (V)</td>
+                            <td class="rating-excellent">+++</td>
+                            <td class="rating-excellent">+++</td>
+                            <td class="rating-excellent">+++</td>
+                            <td class="rating-good">++</td>
+                            <td class="rating-some">+</td>
+                            <td class="rating-none">&ndash;</td>
+                            <td class="rating-good">++</td>
+                        </tr>
+                        <tr class="competitor-row">
+                            <td>SmartStax PRO</td>
+                            <td class="rating-excellent">+++</td>
+                            <td class="rating-excellent">+++</td>
+                            <td class="rating-excellent">+++</td>
+                            <td class="rating-good">++</td>
+                            <td class="rating-some">+</td>
+                            <td class="rating-none">&ndash;</td>
+                            <td class="rating-good">++</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="rating-legend">
+                <span><span class="rating-excellent">+++</span> Excellent</span>
+                <span><span class="rating-good">++</span> Good</span>
+                <span><span class="rating-some">+</span> Some</span>
+                <span><span class="rating-none">&ndash;</span> No activity</span>
+            </div>
+        </div>
+
+        <!-- ============================================ -->
+        <!-- HERBICIDE TOLERANCE -->
+        <!-- ============================================ -->
+        <div class="section" id="herbicide">
+            <h2 class="section-title">Herbicide Tolerance by Trait</h2>
+            <p class="section-desc">Which herbicide systems each trait platform supports.</p>
+
+            <div class="trait-table-wrap">
+                <table class="trait-table">
+                    <thead>
+                        <tr><th>Technology</th><th>Glyphosate</th><th>Glufosinate</th><th>2,4-D Choline</th><th>FOP</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr class="pioneer-row"><td class="trait-code">AM / AML / AMX / AMXT</td><td class="rating-excellent">&#10003;</td><td class="rating-excellent">&#10003;</td><td class="rating-none">&ndash;</td><td class="rating-none">&ndash;</td></tr>
+                        <tr class="pioneer-row"><td class="trait-code">Q (Qrome)</td><td class="rating-excellent">&#10003;</td><td class="rating-excellent">&#10003;</td><td class="rating-none">&ndash;</td><td class="rating-none">&ndash;</td></tr>
+                        <tr class="pioneer-row"><td class="trait-code">V (Vorceed Enlist)</td><td class="rating-excellent">&#10003;</td><td class="rating-excellent">&#10003;</td><td class="rating-excellent">&#10003;</td><td class="rating-excellent">&#10003;</td></tr>
+                        <tr class="pioneer-row"><td class="trait-code">PCE / PWE</td><td class="rating-excellent">&#10003;</td><td class="rating-excellent">&#10003;</td><td class="rating-excellent">&#10003;</td><td class="rating-excellent">&#10003;</td></tr>
+                        <tr class="pioneer-row"><td class="trait-code">PCUE / PWUE</td><td class="rating-excellent">&#10003;</td><td class="rating-excellent">&#10003;</td><td class="rating-excellent">&#10003;</td><td class="rating-excellent">&#10003;</td></tr>
+                        <tr class="competitor-row"><td class="trait-code">VT Double PRO RIB</td><td class="rating-excellent">&#10003;</td><td class="rating-none">&ndash;</td><td class="rating-none">&ndash;</td><td class="rating-none">&ndash;</td></tr>
+                        <tr class="competitor-row"><td class="trait-code">Trecepta / SmartStax</td><td class="rating-excellent">&#10003;</td><td class="rating-excellent">&#10003;</td><td class="rating-none">&ndash;</td><td class="rating-none">&ndash;</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- ============================================ -->
+        <!-- REFUGE & BAG MIX -->
+        <!-- ============================================ -->
+        <div class="section" id="refuge">
+            <h2 class="section-title">Refuge &amp; What&rsquo;s In The Bag</h2>
+            <p class="section-desc">Pioneer products come in two refuge configurations. Integrated refuge is blended in the bag. Structured refuge is 100% treated.</p>
+
+            <div class="refuge-grid">
+                <div class="refuge-card">
+                    <h3>Integrated Refuge (In-Bag)</h3>
+                    <p><strong>AM, AML, AMX, AMXT, Q, V</strong></p>
+                    <p>Major component treated for insect protection. Minor component (5&ndash;10%) is refuge seed blended in the bag.</p>
+                    <div class="refuge-detail">Additional 20% corn borer refuge is required in EPA-designated cotton counties.</div>
+                </div>
+                <div class="refuge-card">
+                    <h3>Structured Refuge (100% Treated)</h3>
+                    <p><strong>PCE, PCUE, PWE, PWUE, YHR, VYHR</strong></p>
+                    <p>Every seed in the bag is treated. Grower plants a separate 5% structured refuge in the corn belt (20% in EPA cotton counties).</p>
+                    <div class="refuge-detail">Structured products are treated 100% &mdash; no blended refuge component.</div>
+                </div>
+            </div>
+
+            <h3 style="color:#c9a227; font-size:15px; margin: 28px 0 14px;">Lumigen&reg; Seed Treatment</h3>
+            <p style="font-size:13px; color:#b0b0b0; margin-bottom:12px;">All Pioneer corn comes with Lumigen seed treatment:</p>
+            <div class="herb-grid">
+                <div class="herb-card">
+                    <div class="herb-dot yes"></div>
+                    <div>
+                        <div class="herb-name">Pioneer Premium Package</div>
+                        <div class="herb-sub">Multiple modes of action fungicide + insecticide</div>
+                    </div>
+                </div>
+                <div class="herb-card">
+                    <div class="herb-dot yes"></div>
+                    <div>
+                        <div class="herb-name">CRW Package (Optional)</div>
+                        <div class="herb-sub">Same disease package + Lumisure&reg; 1250 nematicide for rootworm</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================ -->
+        <!-- DOWNLOADS -->
+        <!-- ============================================ -->
+        <div class="section" id="downloads">
+            <h2 class="section-title">Reference Downloads</h2>
+            <p class="section-desc">Official Pioneer documents for the full details.</p>
+
+            <div class="downloads">
+                <a href="profiles/Pioneer-Nomenclature.pdf" target="_blank" class="dl-link">
+                    <span class="dl-icon">&#128196;</span> Corn Numbering System
+                </a>
+                <a href="profiles/Pioneer-Insect-Protection-Technologies.pdf" target="_blank" class="dl-link">
+                    <span class="dl-icon">&#128196;</span> Insect Protection Technologies
+                </a>
+                <a href="profiles/Pioneer-Insect-Protection-Ratings.pdf" target="_blank" class="dl-link">
+                    <span class="dl-icon">&#128196;</span> Insect Protection Ratings
+                </a>
+                <a href="profiles/Pioneer-Whats-In-The-Bag.pdf" target="_blank" class="dl-link">
+                    <span class="dl-icon">&#128196;</span> What&rsquo;s In The Bag?
+                </a>
+            </div>
+        </div>
+
+    </div>
+
+    <footer>
+        <p>McConnell Enterprises &mdash; Your Local Pioneer Sales Rep</p>
+        <p><a href="https://www.youraginfo.com">youraginfo.com</a> &nbsp;&bull;&nbsp; (970) 571-1015</p>
+        <p style="margin-top:8px;">Source: Corteva Agriscience. Pioneer&reg; brand products are provided subject to terms and conditions of purchase. &copy; 2024 Corteva.</p>
+    </footer>
+</body>
+</html>
