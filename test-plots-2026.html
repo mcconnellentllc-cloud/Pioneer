@@ -423,6 +423,50 @@
             white-space: nowrap;
             font-weight: 600;
         }
+        .highlight-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2px;
+            background: #ddd9cc;
+        }
+        .highlight-stats > div {
+            background: #fff;
+            padding: 20px 16px;
+        }
+        .plots-toggle { border: none; }
+        .plots-toggle > summary {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 20px 32px;
+            background: var(--pioneer-green);
+            color: #fff;
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 22px;
+            font-weight: 700;
+            cursor: pointer;
+            list-style: none;
+            border-bottom: 3px solid var(--pioneer-gold);
+            transition: background 0.15s;
+        }
+        .plots-toggle > summary:hover { background: var(--pioneer-green-dark); }
+        .plots-toggle > summary::-webkit-details-marker { display: none; }
+        .plots-toggle > summary::after { content: ' ▾'; font-size: 18px; }
+        .plots-toggle[open] > summary::after { content: ' ▴'; }
+        .section-divider {
+            background: var(--pioneer-gold);
+            color: var(--pioneer-green-dark);
+            text-align: center;
+            padding: 14px 20px;
+            font-size: 12px;
+            font-weight: 800;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+        @media (max-width: 700px) {
+            .highlight-stats { grid-template-columns: 1fr; }
+        }
     </style>
 </head>
 <body>
@@ -442,7 +486,7 @@
         <a href="#limited-irrigation">Limited Irrigation</a>
         <a href="#dryland">Dryland</a>
         <a href="#plot-sets-2027">2027 Sets</a>
-        <a href="#field-tours">Field Tour Notes</a>
+        <a href="#field-tours">Field Observations</a>
     </nav>
 
     <div class="summary-bar">
@@ -463,6 +507,45 @@
             <p class="val">Oct 26</p>
         </div>
     </div>
+
+    <!-- Territory Highlights -->
+    <div style="margin:24px 24px 0;border:2px solid var(--pioneer-gold);border-radius:8px;overflow:hidden;">
+        <div style="background:var(--pioneer-green-dark);padding:16px 24px;">
+            <h3 style="font-family:'Playfair Display',Georgia,serif;font-size:20px;color:var(--pioneer-gold);margin:0;">Territory Performance</h3>
+            <p style="font-size:13px;color:rgba(255,255,255,0.65);margin:4px 0 0;">11 plots. Every one hailed. Here's how Pioneer showed up.</p>
+        </div>
+        <div class="highlight-stats">
+            <div style="text-align:center;">
+                <div style="font-family:'Playfair Display',serif;font-size:38px;font-weight:700;color:var(--pioneer-green);line-height:1;">320.7</div>
+                <div style="font-size:11px;text-transform:uppercase;letter-spacing:1.5px;color:#7a8f7a;font-weight:700;margin:6px 0 4px;">Top Weighed Yield</div>
+                <div style="font-size:14px;color:var(--ink);">P13777PCUE &mdash; Wallin</div>
+            </div>
+            <div style="text-align:center;">
+                <div style="font-family:'Playfair Display',serif;font-size:38px;font-weight:700;color:var(--pioneer-green);line-height:1;">6 / 8</div>
+                <div style="font-size:11px;text-transform:uppercase;letter-spacing:1.5px;color:#7a8f7a;font-weight:700;margin:6px 0 4px;">Top 3 Finishes</div>
+                <div style="font-size:14px;color:var(--ink);">P11259PCE &mdash; Most Consistent</div>
+            </div>
+            <div style="text-align:center;">
+                <div style="font-family:'Playfair Display',serif;font-size:38px;font-weight:700;color:var(--pioneer-green);line-height:1;">7</div>
+                <div style="font-size:11px;text-transform:uppercase;letter-spacing:1.5px;color:#7a8f7a;font-weight:700;margin:6px 0 4px;">Entries Above 300</div>
+                <div style="font-size:14px;color:var(--ink);">Across 3 plots &mdash; after hail</div>
+            </div>
+        </div>
+        <div style="padding:20px 24px;background:#fff;">
+            <p style="font-size:14px;color:var(--ink);margin:0 0 12px;">
+                <strong style="color:var(--pioneer-green);">Most Consistent:</strong> P11259PCE finished in the top 3 in 6 of 8 irrigated plots &mdash; reliable across sand, clay, full water, and limited water. Won Waitman (297.8 bu/a) and Bussell (271.2 bu/a).
+            </p>
+            <p style="font-size:14px;color:var(--ink);margin:0 0 12px;">
+                <strong style="color:var(--pioneer-green);">Stress Performers:</strong> P08215PCUE won both the hail-stressed C&amp;R plot (276.5 bu/a) and the limited irrigation plot (279.2 bu/a at 26K pop). P10300PCE finished top 3 in 4 of 5 plots including a win at Martin Angus Ranch under 80% defoliation.
+            </p>
+            <p style="font-size:14px;color:var(--ink);margin:0;">
+                <strong style="color:var(--pioneer-green);">The Bottom Line:</strong> 11 plots, all hailed, and Pioneer genetics delivered 250&ndash;320 bu/a under irrigation. Real weighed data in a real tough year.
+            </p>
+        </div>
+    </div>
+
+    <details class="plots-toggle" id="plots-detail">
+        <summary>See the Plots</summary>
 
     <!-- ============================================ -->
     <!-- FULL IRRIGATION -->
@@ -926,11 +1009,12 @@
     </div>
 
     <!-- ============================================ -->
-    <!-- FIELD TOUR NOTES -->
+    <!-- FIELD OBSERVATIONS -->
     <!-- ============================================ -->
+    <div class="section-divider">Field Observations &mdash; Kyle McConnell</div>
     <div id="field-tours" class="tour-links">
-        <h3>October 8 Field Tour Notes</h3>
-        <p style="font-size:14px;color:var(--ink-soft);margin-bottom:16px;">In-field observations from Kyle McConnell on hybrid characteristics, placement, and performance.</p>
+        <h3>In-Field Hybrid Observations</h3>
+        <p style="font-size:14px;color:var(--ink-soft);margin-bottom:16px;">Late-season observations on hybrid characteristics, placement recommendations, and performance notes from Kyle McConnell.</p>
         <div class="tour-grid">
             <a href="plot-tour-koenig.html" class="tour-link">
                 Koenig Plot
@@ -951,6 +1035,8 @@
         </div>
     </div>
 
+    </details>
+
     <div class="disclaimer">
         All yields are weighed &mdash; not yield monitor estimates. Results represent specific locations and may not predict future performance. Multi-year and multi-location data is a better predictor of future performance. Use this information as one component of your product positioning decision.
     </div>
@@ -963,5 +1049,13 @@
     </footer>
 
 </div>
+<script>
+document.querySelectorAll('.plot-nav a[href^="#"]').forEach(function(a) {
+    a.addEventListener('click', function() {
+        var d = document.getElementById('plots-detail');
+        if (d && !d.open) d.open = true;
+    });
+});
+</script>
 </body>
 </html>
