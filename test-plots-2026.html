@@ -403,6 +403,26 @@
         }
         .hybrid-link { color: #c9a227; text-decoration: none; border-bottom: 1px dashed #c9a227; }
         .hybrid-link:hover { color: #fff; border-bottom-color: #fff; }
+        .obs-chip {
+            display: inline-block;
+            padding: 6px 14px;
+            background: var(--cream);
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--pioneer-green);
+            transition: all 0.15s;
+        }
+        a.obs-chip { text-decoration: none; }
+        a.obs-chip:hover {
+            border-color: var(--pioneer-green);
+            background: #e8f5e9;
+        }
+        .sets-table td:first-child {
+            white-space: nowrap;
+            font-weight: 600;
+        }
     </style>
 </head>
 <body>
@@ -421,13 +441,14 @@
         <a href="#full-irrigation">Full Irrigation</a>
         <a href="#limited-irrigation">Limited Irrigation</a>
         <a href="#dryland">Dryland</a>
+        <a href="#plot-sets-2027">2027 Sets</a>
         <a href="#field-tours">Field Tour Notes</a>
     </nav>
 
     <div class="summary-bar">
         <div class="cell">
             <p class="label">Plots</p>
-            <p class="val">10</p>
+            <p class="val">11</p>
         </div>
         <div class="cell">
             <p class="label">Hybrids Tested</p>
@@ -439,7 +460,7 @@
         </div>
         <div class="cell">
             <p class="label">Data Pull</p>
-            <p class="val">Oct 12</p>
+            <p class="val">Oct 26</p>
         </div>
     </div>
 
@@ -450,7 +471,7 @@
         <div class="section-header">
             <span class="irr-type">Full Irrigation</span>
             <h2>Full Irrigation Plots</h2>
-            <p>Eight plots under full irrigation across the territory. Soybeans and corn as previous crops. All plots experienced hail damage during the 2026 season &mdash; results demonstrate hybrid recovery and toughness under stress.</p>
+            <p>Nine plots under full irrigation across the territory. Soybeans and corn as previous crops. All plots experienced hail damage during the 2026 season &mdash; results demonstrate hybrid recovery and toughness under stress.</p>
         </div>
 
         <!-- Plot 1: Steve Wallin PCE/PCUE -->
@@ -507,6 +528,38 @@
                     <tr><td><span class="rank-badge">2</span></td><td><a href="profiles/P09076PCE.pdf" target="_blank" class="hybrid-link">P09076PCE</a></td><td>287.6</td><td>17.4</td><td>59.3</td></tr>
                 </tbody>
                 <tfoot><tr><td></td><td>Average</td><td>292.7</td><td></td><td></td></tr></tfoot>
+            </table>
+        </div>
+
+        <!-- Plot: 3 Circle Farms -->
+        <div class="plot-card">
+            <div class="plot-meta">
+                <div>
+                    <h3 class="plot-title">3 Circle Farms &mdash; Full Irrigation</h3>
+                    <div class="plot-details">
+                        Previous Crop: Corn &nbsp;&bull;&nbsp; Tillage: Strip &nbsp;&bull;&nbsp; Planted: 05/04/2026 &nbsp;&bull;&nbsp; Harvested: 10/19/2026 &nbsp;&bull;&nbsp; 28-32K Pop
+                    </div>
+                </div>
+                <div class="plot-avg">
+                    <div class="avg-label">Plot Avg</div>
+                    <div class="avg-val">286.1</div>
+                    <div class="avg-unit">bu/a</div>
+                </div>
+            </div>
+            <div class="plot-comment">Population: VRS 28K-32K.</div>
+            <table class="yield-table">
+                <thead><tr><th>Rank</th><th>Hybrid</th><th>Yield (bu/a)</th><th>Mst %</th><th>Test Wt</th></tr></thead>
+                <tbody>
+                    <tr class="row-top"><td><span class="rank-badge">1</span></td><td><a href="profiles/P14364PWUE.pdf" target="_blank" class="hybrid-link">P14364PCUE</a></td><td>302.4</td><td>16.8</td><td>58.4</td></tr>
+                    <tr class="row-top"><td><span class="rank-badge">2</span></td><td><a href="profiles/P13777V.pdf" target="_blank" class="hybrid-link">P13777PCUE</a></td><td>296.1</td><td>16.4</td><td>60.2</td></tr>
+                    <tr class="row-top"><td><span class="rank-badge">3</span></td><td><a href="profiles/P10300PCE.pdf" target="_blank" class="hybrid-link">P10300PCE</a></td><td>292.6</td><td>15.8</td><td>58.9</td></tr>
+                    <tr><td><span class="rank-badge">4</span></td><td><a href="profiles/P12517PCUE.pdf" target="_blank" class="hybrid-link">P12517PCUE</a></td><td>286.7</td><td>16.4</td><td>60.3</td></tr>
+                    <tr><td><span class="rank-badge">5</span></td><td><a href="profiles/P11259PCE.pdf" target="_blank" class="hybrid-link">P11259PCE</a></td><td>285.6</td><td>15.6</td><td>59.2</td></tr>
+                    <tr><td><span class="rank-badge">6</span></td><td><a href="profiles/P14270V.pdf" target="_blank" class="hybrid-link">P14270PCE</a></td><td>285.3</td><td>15.9</td><td>58.9</td></tr>
+                    <tr><td><span class="rank-badge">7</span></td><td><a href="profiles/P08215PCUE.pdf" target="_blank" class="hybrid-link">P08215PCUE</a></td><td>272.2</td><td>13.8</td><td>60.9</td></tr>
+                    <tr><td><span class="rank-badge">8</span></td><td><a href="profiles/P09076PCE.pdf" target="_blank" class="hybrid-link">P09076PCE</a></td><td>267.8</td><td>14.3</td><td>59.6</td></tr>
+                </tbody>
+                <tfoot><tr><td></td><td>Average</td><td>286.1</td><td></td><td></td></tr></tfoot>
             </table>
         </div>
 
@@ -777,6 +830,96 @@
                 </tbody>
                 <tfoot><tr><td></td><td>Average</td><td>89.3</td><td></td><td></td></tr></tfoot>
             </table>
+        </div>
+
+        <a href="#top" class="back-to-top">&uarr; Back to Top</a>
+    </div>
+
+    <!-- ============================================ -->
+    <!-- 2027 PLOT SETS -->
+    <!-- ============================================ -->
+    <div id="plot-sets-2027">
+        <div class="section-header">
+            <span class="irr-type">2027 Season</span>
+            <h2>2027 Plot Sets</h2>
+            <p>Planned hybrid lineup for next season's local trial plots. Lineup subject to change as advancement decisions are finalized.</p>
+        </div>
+
+        <div class="plot-card">
+            <div class="plot-meta">
+                <div>
+                    <h3 class="plot-title">Corn Grain Plots</h3>
+                    <div class="plot-details">Head-to-head hybrid testing by CRM maturity range &mdash; Vorceed Enlist and PowerCore Enlist platforms.</div>
+                </div>
+            </div>
+            <table class="yield-table sets-table">
+                <thead><tr><th>CRM Range</th><th>Platform</th><th>Hybrids</th></tr></thead>
+                <tbody>
+                    <tr><td>96&ndash;99</td><td>Vorceed</td><td>P96567V &bull; P9845V &bull; P99491V</td></tr>
+                    <tr><td>99&ndash;103</td><td>PowerCore</td><td>P99491PCE &bull; P03357PCUE &bull; P03802PCE</td></tr>
+                    <tr><td>100&ndash;105</td><td>Vorceed</td><td>P99491V &bull; P02405V &bull; P04651V</td></tr>
+                    <tr><td>105&ndash;110</td><td>Vorceed</td><td>P08527V &bull; P10705V</td></tr>
+                    <tr><td>105&ndash;110</td><td>PowerCore</td><td>P05081PCUE &bull; P08215PCUE &bull; P09076PCE &bull; P10300PCE</td></tr>
+                    <tr><td>108&ndash;113</td><td>Vorceed</td><td>P08527V &bull; P10705V &bull; P12517V</td></tr>
+                    <tr><td>109&ndash;113</td><td>PowerCore</td><td>P09076PCE &bull; P10300PCE &bull; P11259PCE &bull; P12517PCUE</td></tr>
+                    <tr><td>110&ndash;114</td><td>PowerCore</td><td>P10300PCE &bull; P11259PCE &bull; P12517PCUE &bull; P14270PCE &bull; P14364PCUE</td></tr>
+                    <tr><td>112&ndash;115</td><td>Vorceed</td><td>P12517V &bull; P14270V &bull; P15517V</td></tr>
+                    <tr><td>114&ndash;118</td><td>Vorceed</td><td>P14364PCUE &bull; P14270V &bull; P15517V &bull; P18512V</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="plot-card">
+            <div class="plot-meta">
+                <div>
+                    <h3 class="plot-title">TD Durability Plots</h3>
+                    <div class="plot-details">Total Defense durability testing &mdash; evaluating hybrid toughness under stress.</div>
+                </div>
+            </div>
+            <table class="yield-table sets-table">
+                <thead><tr><th>CRM Range</th><th>Hybrids</th></tr></thead>
+                <tbody>
+                    <tr><td>92&ndash;98</td><td>P92399PCE &bull; P96567PCE &bull; P9845PCE</td></tr>
+                    <tr><td>99&ndash;104</td><td>P99491PCE &bull; P03115V &bull; P03357PCUE &bull; P04651V</td></tr>
+                    <tr><td>105&ndash;108</td><td>P05081PCUE &bull; P08527V &bull; P08215PCUE &bull; P0995AM</td></tr>
+                    <tr><td>111&ndash;115</td><td>P1122AML &bull; P11259PCE &bull; P12517PCUE &bull; P14364PCUE</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="plot-card">
+            <div class="plot-meta">
+                <div>
+                    <h3 class="plot-title">Single Row Observation Plot</h3>
+                    <div class="plot-details">Full 2027 lineup &mdash; every hybrid available in the territory, observed in single-row format.</div>
+                </div>
+            </div>
+            <div style="display:flex;flex-wrap:wrap;gap:8px;padding-top:8px;">
+                <a href="profiles/P96567PCE.pdf" target="_blank" class="obs-chip">P96567V</a>
+                <span class="obs-chip">P9845V</span>
+                <a href="profiles/P99491PCE.pdf" target="_blank" class="obs-chip">P99491V</a>
+                <a href="profiles/P02405PCE.pdf" target="_blank" class="obs-chip">P02405V</a>
+                <a href="profiles/P03115V.pdf" target="_blank" class="obs-chip">P03115V</a>
+                <a href="profiles/P03357PCUE.pdf" target="_blank" class="obs-chip">P03357PCUE</a>
+                <a href="profiles/P03802PCE.pdf" target="_blank" class="obs-chip">P03802PCE</a>
+                <a href="profiles/P04651V.pdf" target="_blank" class="obs-chip">P04651V</a>
+                <a href="profiles/P05081PCUE.pdf" target="_blank" class="obs-chip">P05081PCUE</a>
+                <a href="profiles/P05466V.pdf" target="_blank" class="obs-chip">P05466V</a>
+                <a href="profiles/P08215PCUE.pdf" target="_blank" class="obs-chip">P08215PCUE</a>
+                <a href="profiles/P08527V.pdf" target="_blank" class="obs-chip">P08527V</a>
+                <a href="profiles/P09076PCE.pdf" target="_blank" class="obs-chip">P09076PCE</a>
+                <a href="profiles/P10300PCE.pdf" target="_blank" class="obs-chip">P10300PCE</a>
+                <a href="profiles/P10625V.pdf" target="_blank" class="obs-chip">P10625V</a>
+                <a href="profiles/P11259PCE.pdf" target="_blank" class="obs-chip">P11259PCE</a>
+                <a href="profiles/P12517V.pdf" target="_blank" class="obs-chip">P12517V</a>
+                <a href="profiles/P13777V.pdf" target="_blank" class="obs-chip">P13777V</a>
+                <a href="profiles/P14270V.pdf" target="_blank" class="obs-chip">P14270V</a>
+                <a href="profiles/P14364PWUE.pdf" target="_blank" class="obs-chip">P14364PCUE</a>
+                <a href="profiles/P15517PCE.pdf" target="_blank" class="obs-chip">P15517V</a>
+                <a href="profiles/P17677V.pdf" target="_blank" class="obs-chip">P17677V</a>
+                <a href="profiles/P18216V.pdf" target="_blank" class="obs-chip">P18216PCUE</a>
+                <a href="profiles/P18512V.pdf" target="_blank" class="obs-chip">P18512V</a>
+            </div>
         </div>
 
         <a href="#top" class="back-to-top">&uarr; Back to Top</a>
