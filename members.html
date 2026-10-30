@@ -494,6 +494,176 @@
             letter-spacing: 0.02em;
         }
 
+
+        /* Compact Sales-Driven Dashboard */
+        .members-hero.hero-compact {
+            padding: 76px 0 0;
+        }
+        .members-hero.hero-compact h1,
+        .members-hero.hero-compact p {
+            display: none;
+        }
+        .members-main.main-compact {
+            padding: 16px 0 40px;
+        }
+        .dash-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        .dash-top h2 {
+            font-family: var(--font-heading);
+            font-size: 20px;
+            margin: 0;
+            color: var(--gray-800);
+        }
+        .stat-bar {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2px;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 10px;
+        }
+        .stat-cell {
+            background: linear-gradient(160deg, var(--green-dark) 0%, var(--green-medium) 100%);
+            padding: 12px 16px;
+            text-align: center;
+        }
+        .stat-num {
+            font-family: var(--font-heading);
+            font-size: 26px;
+            font-weight: 700;
+            color: var(--gold);
+            line-height: 1;
+            margin-bottom: 2px;
+        }
+        .stat-desc {
+            font-size: 10px;
+            color: rgba(255,255,255,0.7);
+            letter-spacing: 0.5px;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+        .cta-bar {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: var(--gold);
+            color: var(--green-dark);
+            padding: 10px 18px;
+            border-radius: 8px;
+            margin-bottom: 14px;
+            font-weight: 700;
+            font-size: 14px;
+        }
+        .cta-tag {
+            background: var(--green-dark);
+            color: var(--gold);
+            font-size: 10px;
+            font-weight: 800;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            padding: 4px 12px;
+            border-radius: 4px;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+        .cta-bar a {
+            margin-left: auto;
+            color: var(--green-dark);
+            text-decoration: none;
+            font-size: 15px;
+            font-weight: 800;
+            white-space: nowrap;
+            border-bottom: 2px solid var(--green-dark);
+        }
+        .cta-bar a:hover { opacity: 0.8; }
+        .dash-label {
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--green-dark);
+            margin: 0 0 6px 2px;
+        }
+        .mini-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+            gap: 8px;
+            margin-bottom: 12px;
+        }
+        .mini-card {
+            background: var(--white);
+            border: 1px solid var(--gray-200);
+            border-radius: 8px;
+            padding: 10px 14px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            text-decoration: none;
+            color: var(--gray-800);
+            font-size: 13px;
+            font-weight: 600;
+            line-height: 1.25;
+            transition: all 0.15s ease;
+            cursor: pointer;
+        }
+        .mini-card:hover {
+            border-color: var(--green-dark);
+            box-shadow: 0 3px 12px rgba(0,0,0,0.1);
+            transform: translateY(-2px);
+        }
+        .mini-card::after {
+            content: '\2192';
+            color: var(--gray-400);
+            flex-shrink: 0;
+            margin-left: 8px;
+            transition: all 0.15s;
+        }
+        .mini-card:hover::after {
+            color: var(--green-dark);
+            transform: translateX(3px);
+        }
+        .mini-gold {
+            border-left: 3px solid var(--gold);
+        }
+        .mini-ext::after {
+            content: '\2197';
+        }
+        .dash-bottom {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            padding-top: 12px;
+            border-top: 1px solid var(--gray-200);
+            margin-top: 4px;
+        }
+        .dash-bottom-newsletter { flex: 1; }
+        .dash-bottom-contact {
+            font-size: 13px;
+            color: var(--gray-600);
+            white-space: nowrap;
+        }
+        .dash-bottom-contact a {
+            color: var(--green-dark);
+            text-decoration: none;
+            font-weight: 700;
+        }
+        @media (max-width: 768px) {
+            .stat-bar { grid-template-columns: 1fr; }
+            .cta-bar { flex-wrap: wrap; gap: 8px; text-align: center; justify-content: center; }
+            .cta-bar a { margin-left: 0; }
+            .dash-bottom { flex-direction: column; text-align: center; }
+        }
+        @media (max-width: 600px) {
+            .mini-grid { grid-template-columns: repeat(2, 1fr); gap: 6px; }
+            .mini-card { font-size: 12px; padding: 8px 12px; }
+        }
+
+
         @media (max-width: 1024px) {
             .tools-grid {
                 grid-template-columns: repeat(2, 1fr);
@@ -574,250 +744,87 @@
 
             <!-- Member Dashboard (shown when logged in) -->
             <div class="member-dashboard" id="dashboardSection">
-                <div class="dashboard-header">
-                    <h2>Welcome Back</h2>
+                <div class="dash-top">
+                    <h2>Member Dashboard</h2>
                     <button class="logout-btn" onclick="handleLogout()">Sign Out</button>
                 </div>
 
-                <!-- 2026 Harvest Data -->
-                <div class="dashboard-section">
-                    <span class="dashboard-section-title">2026 Harvest Data</span>
-                    <div class="tools-grid">
-                        <a href="plot-tour-koenig.html" class="tool-card tool-card-highlight">
-                            <h3>Koenig Plot</h3>
-                            <p>Late season plot tour — Yuma, CO. 9 hybrids at 36,000 population. APK trait, planted April 23.</p>
-                            <span class="tool-link">View Plot Tour</span>
-                        </a>
-                        <a href="plot-tour-mcpherson.html" class="tool-card tool-card-highlight">
-                            <h3>McPherson Short Season</h3>
-                            <p>Short season plot — Yuma, CO. 9 hybrids at 34,000 population. Adv PKP trait.</p>
-                            <span class="tool-link">View Plot Tour</span>
-                        </a>
-                        <a href="plot-tour-dryland.html" class="tool-card tool-card-highlight">
-                            <h3>Dryland Plot</h3>
-                            <p>Dryland plot — SW of Wray, CO. 8 hybrids at 11,000 population. Planted June 5. Acre Focus hybrids.</p>
-                            <span class="tool-link">View Plot Tour</span>
-                        </a>
-                        <a href="plot-tour-ph.html" class="tool-card tool-card-highlight">
-                            <h3>pH Tolerance Plot</h3>
-                            <p>pH tolerance evaluation — Yuma County, CO. 24 hybrids rated for pH performance.</p>
-                            <span class="tool-link">View Plot Tour</span>
-                        </a>
-                        <a href="test-plots-2026.html" class="tool-card tool-card-highlight">
-                            <h3>2026 Test Plot Results</h3>
-                            <p>Weighed yield data from 11 local Pioneer test plots. Full irrigation, limited, and dryland. 20+ hybrids tested.</p>
-                            <span class="tool-link">View All Plot Data</span>
-                        </a>
+                <div class="stat-bar">
+                    <div class="stat-cell">
+                        <div class="stat-num">320.7</div>
+                        <div class="stat-desc">bu/acre &mdash; Local Top Yield</div>
+                    </div>
+                    <div class="stat-cell">
+                        <div class="stat-num">75%</div>
+                        <div class="stat-desc">Top 3 Rate &mdash; Most Consistent</div>
+                    </div>
+                    <div class="stat-cell">
+                        <div class="stat-num">572</div>
+                        <div class="stat-desc">bu/acre &mdash; National Champion</div>
                     </div>
                 </div>
 
-                <!-- 2027 Sales Season Banner -->
-                <div class="event-banner-dash" style="cursor: default;">
-                    <div class="event-left">
-                        <span class="event-tag">2027 Sales Season</span>
-                        <h3>Pioneer Seed &mdash; Book Your 2027 Crop</h3>
-                        <p class="event-details">First Pay Date: <strong>December 5, 2026</strong> &nbsp;&bull;&nbsp; Lock in your hybrids early for best availability</p>
-                    </div>
-                    <div class="event-right">
-                        <div class="event-date-box">
-                            <div class="event-day-name">First Pay</div>
-                            <div class="event-day-num">5</div>
-                            <div class="event-month">December 2026</div>
-                        </div>
-                        <span class="event-cta">Call (970) 571-1015</span>
-                    </div>
+                <div class="cta-bar">
+                    <span class="cta-tag">2027 Seed</span>
+                    <span>First Pay Dec 5 &mdash; Best selection goes early</span>
+                    <a href="tel:9705711015">(970) 571-1015</a>
                 </div>
 
-                <!-- Pioneer Performance Data -->
-                <div class="dashboard-section">
-                    <span class="dashboard-section-title">Pioneer Performance Data</span>
-                    <div class="tools-grid">
-                        <a href="seedbook.html" class="tool-card tool-card-highlight">
-                            <h3>Multi-Year Performance Data</h3>
-                            <p>4 years of yield comparisons and local field results across 200,000+ acres. Real data from real fields.</p>
-                            <span class="tool-link">View Data</span>
-                        </a>
-                        <a href="yield-zone.html" class="tool-card">
-                            <h3>Yield Zone Analysis</h3>
-                            <p>Zone-by-zone hybrid recommendations based on 2023-2025 district data. Find the right hybrid for every yield environment.</p>
-                            <span class="tool-link">View Analysis</span>
-                        </a>
-                        <a href="sorghum.html" class="tool-card">
-                            <h3>Sorghum Hybrids</h3>
-                            <p>2027 new sorghum hybrids, sorghum-sudangrass, and complete XD lifecycle plan.</p>
-                            <span class="tool-link">View Sorghum</span>
-                        </a>
-                        <a href="soybeans.html" class="tool-card">
-                            <h3>Soybean Varieties</h3>
-                            <p>2027 soybean variety information and positioning guides.</p>
-                            <span class="tool-link">View Soybeans</span>
-                        </a>
-                        <a href="pioneer-technology.html" class="tool-card">
-                            <h3>Technology &amp; Nomenclature Guide</h3>
-                            <p>How Pioneer names its corn. Trait codes, insect protection ratings, herbicide tolerance, and refuge solutions explained.</p>
-                            <span class="tool-link">View Guide</span>
-                        </a>
-                    </div>
+                <p class="dash-label">The Results Are In</p>
+                <div class="mini-grid">
+                    <a href="test-plots-2026.html" class="mini-card mini-gold">2026 Plot Results</a>
+                    <a href="plot-tour-koenig.html" class="mini-card mini-gold">Koenig Tour</a>
+                    <a href="plot-tour-mcpherson.html" class="mini-card mini-gold">McPherson Tour</a>
+                    <a href="plot-tour-dryland.html" class="mini-card mini-gold">Dryland Tour</a>
+                    <a href="plot-tour-ph.html" class="mini-card mini-gold">pH Tolerance</a>
                 </div>
 
-                <!-- Your Tools -->
-                <div class="dashboard-section">
-                    <span class="dashboard-section-title">Your Tools</span>
-                    <div class="tools-grid">
-                        <a href="planner.html" class="tool-card tool-card-highlight">
-                            <h3>Input Cost Calculator</h3>
-                            <p>Interactive profitability calculator. Check the practices you use, adjust costs to your operation, and see where breakeven hits.</p>
-                            <span class="tool-link">Open Calculator</span>
-                        </a>
-                        <a href="crop-planner/index.html" class="tool-card">
-                            <h3>2025 Crop Planner</h3>
-                            <p>Full cost breakdown, inputs, revenue projections, and custom farming rates for northeastern Colorado operations.</p>
-                            <span class="tool-link">Open Planner</span>
-                        </a>
-                        <a href="farm-programs.html" class="tool-card">
-                            <h3>Farm Programs</h3>
-                            <p>Key deadlines, enrollment dates, and links for ARC/PLC, crop insurance, CRP, and more.</p>
-                            <span class="tool-link">View Programs</span>
-                        </a>
-                        <a href="ai-tools.html" class="tool-card tool-card-highlight">
-                            <h3>Get Started with AI</h3>
-                            <p>Simple guides to Claude, Grok, and ChatGPT. Learn how AI can help with marketing plans, finding parts, and creating social media content.</p>
-                            <span class="tool-link">Explore AI Tools</span>
-                        </a>
-                    </div>
+                <p class="dash-label">Find Your Hybrid</p>
+                <div class="mini-grid">
+                    <a href="seedbook.html" class="mini-card mini-gold">Multi-Year Yield Data</a>
+                    <a href="yield-zone.html" class="mini-card">Yield Zone Analysis</a>
+                    <a href="sorghum.html" class="mini-card">Sorghum Hybrids</a>
+                    <a href="soybeans.html" class="mini-card">Soybean Varieties</a>
+                    <a href="pioneer-technology.html" class="mini-card">Tech &amp; Naming Guide</a>
                 </div>
 
-                <!-- Pioneer Resources -->
-                <div class="dashboard-section">
-                    <span class="dashboard-section-title">Pioneer Resources</span>
-                    <div class="tools-grid">
-                        <a href="fund/" class="tool-card tool-card-highlight">
-                            <h3>Grow with M.E. Fund</h3>
-                            <p>$133,000 back to our customers. Full six-year ledger, how it works, and a link to check your balance at togoag.com.</p>
-                            <span class="tool-link">View Fund Ledger</span>
-                        </a>
-                        <a href="pioneer-100.html" class="tool-card tool-card-highlight">
-                            <h3>A Century of Innovation</h3>
-                            <p>Pioneer's 100-year timeline — from teosinte and Henry Wallace's first hybrid to world-record yields and the future of seed science. 1926–2026.</p>
-                            <span class="tool-link">View Timeline</span>
-                        </a>
-                        <a href="water-reporter.html" class="tool-card tool-card-highlight">
-                            <h3>Water Reporter</h3>
-                            <p>Daily soil moisture monitoring for irrigation decisions. See when and where to water across your fields.</p>
-                            <span class="tool-link">View Guide</span>
-                        </a>
-                        <a href="weather-recap.html" class="tool-card tool-card-highlight">
-                            <h3>Weather Recap</h3>
-                            <p>Monthly weather data for Haxtun, Julesburg, Sedgwick, and Holyoke. GDUs, heat stress, ET, and corn impact analysis.</p>
-                            <span class="tool-link">View Recap</span>
-                        </a>
-                        <a href="davis.html" class="tool-card tool-card-highlight">
-                            <h3>Davis Weather Stations</h3>
-                            <p>Step-by-step setup guide — mounting, WeatherLink, Weather Underground, and the app. Plus 30% off Davis list price through partner pricing.</p>
-                            <span class="tool-link">Setup Guide &amp; Pricing</span>
-                        </a>
-                        <div class="share-card">
-                            <div class="share-card-label">Send to Your Staff</div>
-                            <p>Quick guide for anyone to set up a free WeatherLink account and find nearby stations. No password needed — text or email this link.</p>
-                            <div class="share-card-link">
-                                <div class="share-card-url" id="wl-share-url">youraginfo.com/weatherlink-setup.html</div>
-                                <button class="share-card-btn" onclick="navigator.clipboard.writeText('https://youraginfo.com/weatherlink-setup.html').then(()=>{this.textContent='Copied!';setTimeout(()=>{this.textContent='Copy Link'},2000)})">Copy Link</button>
-                            </div>
-                        </div>
-                        <a href="enviromonitor-setup.html" class="tool-card tool-card-highlight">
-                            <h3>EnviroMonitor Installation</h3>
-                            <p>Step-by-step setup for your 7 Gateways, cabled &amp; wireless sensor suites, apps, and service plans. Complete deployment guide.</p>
-                            <span class="tool-link">Installation Guide</span>
-                        </a>
-                        <a href="https://agcompanyb2c.b2clogin.com/agcompanyb2c.onmicrosoft.com/oauth2/v2.0/authorize?p=B2C_1_Pioneer_PROD&client_id=efee0769-edcb-42fe-a278-e347b9017e72&nonce=nzoqrkecqmcthemhkaub&redirect_uri=https%3A%2F%2Fwww.pioneer.com%2Fus%2Fredirect.html&scope=https%3A%2F%2Fagcompanyb2c.onmicrosoft.com%2Fapiprod%2Fwrite%20https%3A%2F%2Fagcompanyb2c.onmicrosoft.com%2Fapiprod%2Fread%20offline_access%20openid&response_type=code+id_token&prompt=login&ui_locales=en&response_mode=query"
-                           class="tool-card" target="_blank" rel="noopener">
-                            <h3>Pioneer Account</h3>
-                            <p>View orders, track deliveries, and access agronomic data for your operation.</p>
-                            <span class="tool-link">Sign In</span>
-                        </a>
-                        <a href="https://www.togoag.com/shop/pioneer-customers/UTUDVLOMMLNZIYF7JFQO4IXB"
-                           class="tool-card" target="_blank" rel="noopener">
-                            <h3>Pioneer Merchandise</h3>
-                            <p>Caps, jackets, and gear. Quality apparel for Pioneer customers.</p>
-                            <span class="tool-link">Shop Now</span>
-                        </a>
-                        <a href="https://www.pioneer.com/us" class="tool-card" target="_blank" rel="noopener">
-                            <h3>Pioneer.com</h3>
-                            <p>Product information, agronomy insights, and the latest from Pioneer.</p>
-                            <span class="tool-link">Visit Site</span>
-                        </a>
-                    </div>
+                <p class="dash-label">Your Edge</p>
+                <div class="mini-grid">
+                    <a href="planner.html" class="mini-card mini-gold">Input Cost Calculator</a>
+                    <a href="crop-planner/index.html" class="mini-card">Crop Planner</a>
+                    <a href="farm-programs.html" class="mini-card">Farm Programs</a>
+                    <a href="ai-tools.html" class="mini-card mini-gold">AI for Your Farm</a>
                 </div>
 
-                <!-- Pioneer News -->
-                <div class="dashboard-section">
-                    <span class="dashboard-section-title">Pioneer News</span>
-                    <div class="dashboard-news-grid">
-                        <article class="dashboard-news-card">
-                            <span class="news-tag">Breaking News</span>
-                            <time>October 2025</time>
-                            <h4>Corteva to Separate Into Two Companies</h4>
-                            <p>The seed business, to be named "SpinCo," will be home to Pioneer brand. Separation expected second half 2026.</p>
-                            <a href="https://www.corteva.com/resources/media-center/corteva-announces-plan-to-separate-into-two-industry-leading-public-companies.html" target="_blank" class="news-link">Read More →</a>
-                        </article>
-                        <article class="dashboard-news-card">
-                            <span class="news-tag">Yield Contest</span>
-                            <time>December 2025</time>
-                            <h4>David Hula Claims 14th National Title</h4>
-                            <p>572.26 bu/acre using Pioneer genetics. The only farmer to exceed 600 bu/acre — three times.</p>
-                            <a href="ncga.html" class="news-link">Learn About NCGA →</a>
-                        </article>
-                        <article class="dashboard-news-card">
-                            <span class="news-tag">Event</span>
-                            <time>February 2027</time>
-                            <h4>Commodity Classic 2027 — New Orleans</h4>
-                            <p>America's largest farmer-led, farmer-focused convention and trade show. Pioneer showcasing latest innovations.</p>
-                            <a href="https://commodityclassic.com/" target="_blank" class="news-link">Event Details →</a>
-                        </article>
-                        <article class="dashboard-news-card">
-                            <span class="news-tag">New Products</span>
-                            <time>2025</time>
-                            <h4>Z-Series Soybeans Deliver Record Yields</h4>
-                            <p>3.5 bu/acre advantage over competitors with 73% wins. New world record using Z-Series.</p>
-                            <a href="https://www.pioneer.com/us/products/soybeans/z-series.html" target="_blank" class="news-link">Explore Z-Series →</a>
-                        </article>
-                        <article class="dashboard-news-card">
-                            <span class="news-tag">Corn</span>
-                            <time>2024</time>
-                            <h4>60+ New High-Yielding Corn Hybrids</h4>
-                            <p>Expanding Vorceed Enlist corn availability and introducing PowerCore Enlist options.</p>
-                            <a href="https://www.pioneer.com/us/products/corn.html" target="_blank" class="news-link">View Products →</a>
-                        </article>
-                        <article class="dashboard-news-card">
-                            <span class="news-tag">Performance</span>
-                            <time>2024</time>
-                            <h4>Pioneer Corn Outperforms Competition</h4>
-                            <p>Top 40 products outperformed by 10.4 bu/acre with a 73% win rate across 16,000+ comparisons.</p>
-                            <a href="https://www.pioneer.com/us/agronomy/corn-greater-yield.html" target="_blank" class="news-link">See Results →</a>
-                        </article>
-                    </div>
+                <p class="dash-label">Resources</p>
+                <div class="mini-grid">
+                    <a href="fund/" class="mini-card mini-gold">Grow Fund &mdash; $133K+</a>
+                    <a href="pioneer-100.html" class="mini-card mini-gold">Pioneer &mdash; 100 Years</a>
+                    <a href="water-reporter.html" class="mini-card mini-gold">Water Reporter</a>
+                    <a href="weather-recap.html" class="mini-card mini-gold">Weather Recap</a>
+                    <a href="davis.html" class="mini-card mini-gold">Davis Stations</a>
+                    <a href="enviromonitor-setup.html" class="mini-card mini-gold">EnviroMonitor Setup</a>
+                    <a href="https://agcompanyb2c.b2clogin.com/agcompanyb2c.onmicrosoft.com/oauth2/v2.0/authorize?p=B2C_1_Pioneer_PROD&client_id=efee0769-edcb-42fe-a278-e347b9017e72&nonce=nzoqrkecqmcthemhkaub&redirect_uri=https%3A%2F%2Fwww.pioneer.com%2Fus%2Fredirect.html&scope=https%3A%2F%2Fagcompanyb2c.onmicrosoft.com%2Fapiprod%2Fwrite%20https%3A%2F%2Fagcompanyb2c.onmicrosoft.com%2Fapiprod%2Fread%20offline_access%20openid&response_type=code+id_token&prompt=login&ui_locales=en&response_mode=query" class="mini-card mini-ext" target="_blank" rel="noopener">Pioneer Account</a>
+                    <a href="https://www.togoag.com/shop/pioneer-customers/UTUDVLOMMLNZIYF7JFQO4IXB" class="mini-card mini-ext" target="_blank" rel="noopener">Merchandise</a>
+                    <a href="https://www.pioneer.com/us" class="mini-card mini-ext" target="_blank" rel="noopener">Pioneer.com</a>
                 </div>
 
-                <!-- Newsletter -->
-                <div class="dashboard-section">
-                    <div class="dashboard-newsletter">
-                        <div class="dashboard-newsletter-text">
-                            <h3>Stay Connected</h3>
-                            <p>Get event updates, market insights, and agronomic tips delivered to your inbox. We respect your time — only the information that matters.</p>
-                        </div>
-                        <div class="dashboard-newsletter-form">
-                            <!-- Begin Constant Contact Inline Form Code -->
-                            <div class="ctct-inline-form" data-form-id="0250f944-7b02-4620-8fd9-2f549d83b12c"></div>
-                            <!-- End Constant Contact Inline Form Code -->
-                        </div>
-                    </div>
+                <p class="dash-label">In The News</p>
+                <div class="mini-grid">
+                    <a href="https://www.pioneer.com/us/agronomy/corn-greater-yield.html" class="mini-card mini-ext" target="_blank" rel="noopener">Pioneer +10.4 bu vs Competition</a>
+                    <a href="ncga.html" class="mini-card">Hula &mdash; 572 bu, 14th Title</a>
+                    <a href="https://www.pioneer.com/us/products/soybeans/z-series.html" class="mini-card mini-ext" target="_blank" rel="noopener">Z-Series &mdash; 73% Win Rate</a>
+                    <a href="https://www.pioneer.com/us/products/corn.html" class="mini-card mini-ext" target="_blank" rel="noopener">60+ New Corn Hybrids</a>
+                    <a href="https://www.corteva.com/resources/media-center/corteva-announces-plan-to-separate-into-two-industry-leading-public-companies.html" class="mini-card mini-ext" target="_blank" rel="noopener">Corteva Separation</a>
                 </div>
 
-                <!-- Schedule Call -->
-                <div class="dashboard-section" style="text-align: center; padding: 40px 0 0;">
-                    <h3 style="margin-bottom: 12px;">Need Help?</h3>
-                    <p style="margin-bottom: 20px;">Call or text Kyle to discuss your operation and planning needs.</p>
-                    <a href="tel:9705711015" class="btn btn-primary">Call (970) 571-1015</a>
+                <div class="dash-bottom">
+                    <div class="dash-bottom-newsletter">
+                        <div class="ctct-inline-form" data-form-id="0250f944-7b02-4620-8fd9-2f549d83b12c"></div>
+                    </div>
+                    <div class="dash-bottom-contact">
+                        Need help? <a href="tel:9705711015">(970) 571-1015</a> &mdash; Call or text Kyle
+                    </div>
                 </div>
             </div>
         </div>
@@ -879,11 +886,15 @@
         }
 
         function showDashboard() {
+            document.querySelector('.members-hero').classList.add('hero-compact');
+            document.querySelector('.members-main').classList.add('main-compact');
             document.getElementById('loginSection').style.display = 'none';
             document.getElementById('dashboardSection').style.display = 'block';
         }
 
         function handleLogout() {
+            document.querySelector('.members-hero').classList.remove('hero-compact');
+            document.querySelector('.members-main').classList.remove('main-compact');
             localStorage.removeItem('memberAuth');
             document.getElementById('loginSection').style.display = 'block';
             document.getElementById('dashboardSection').style.display = 'none';
