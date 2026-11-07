@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Pioneer Days Open House — December 1-4, 2026. Lock in your 2027 seed savings. Coffee and cinnamon rolls. McConnell Enterprises, Haxtun, CO.">
+    <title>Pioneer Days Open House | McConnell Enterprises</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --pioneer-green: #2d6a1e;
+            --pioneer-green-dark: #1e4a14;
+            --pioneer-gold: #c9a227;
+            --gold-light: #f5e6b8;
+            --cream: #f7f5ef;
+            --page: #f2f0ea;
+            --ink: #2c2c2c;
+            --ink-soft: #5a5a5a;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            background: var(--page);
+            color: var(--ink);
+            font-family: 'Inter', -apple-system, 'Segoe UI', Helvetica, sans-serif;
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+        .wrap {
+            max-width: 900px;
+            margin: 0 auto;
+            background: #fff;
+            box-shadow: 0 2px 24px rgba(0,0,0,0.07);
+        }
+
+        /* Topbar */
+        .topbar {
+            background: var(--pioneer-green-dark);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 24px;
+        }
+        .topbar a {
+            color: rgba(255,255,255,0.7);
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 500;
+            transition: color 0.15s;
+        }
+        .topbar a:hover { color: #fff; }
+        .topbar .brand {
+            color: var(--pioneer-gold);
+            font-size: 11px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            font-weight: 700;
+        }
+
+        /* Hero / Announcement */
+        .hero {
+            background: linear-gradient(160deg, var(--pioneer-green-dark) 0%, var(--pioneer-green) 100%);
+            color: #fff;
+            text-align: center;
+            padding: 48px 28px 40px;
+            position: relative;
+        }
+        .hero .eyebrow {
+            font-size: 12px;
+            letter-spacing: 2.5px;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.55);
+            margin: 0 0 14px;
+            font-weight: 600;
+        }
+        .hero h1 {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-weight: 700;
+            font-size: clamp(30px, 6vw, 46px);
+            line-height: 1.1;
+            margin: 0 0 8px;
+        }
+        .hero h2 {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-weight: 400;
+            font-size: clamp(17px, 3.5vw, 24px);
+            color: var(--pioneer-gold);
+            margin: 0 0 24px;
+            font-style: italic;
+        }
+        .hero .dates {
+            display: inline-flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        .hero .date-chip {
+            background: rgba(255,255,255,0.12);
+            border: 1px solid rgba(255,255,255,0.2);
+            padding: 8px 18px;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 14px;
+            letter-spacing: 0.5px;
+        }
+        .hero .time-note {
+            font-size: 14px;
+            color: rgba(255,255,255,0.65);
+            margin-bottom: 6px;
+        }
+
+        /* Gold CTA band */
+        .cta-band {
+            background: linear-gradient(135deg, var(--pioneer-gold) 0%, #d4af37 100%);
+            color: var(--pioneer-green-dark);
+            padding: 28px 32px;
+            text-align: center;
+        }
+        .cta-band h3 {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 22px;
+            font-weight: 700;
+            margin: 0 0 10px;
+        }
+        .cta-band p {
+            font-size: 15px;
+            max-width: 600px;
+            margin: 0 auto 6px;
+            line-height: 1.5;
+        }
+        .cta-band .perks {
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+            flex-wrap: wrap;
+            margin-top: 14px;
+            font-size: 13px;
+            font-weight: 600;
+        }
+        .cta-band .perk {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .cta-band .perk-dot {
+            width: 6px; height: 6px;
+            background: var(--pioneer-green-dark);
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        /* Calendar Section */
+        .cal-section {
+            padding: 36px 28px 20px;
+        }
+        .cal-section > h2 {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 24px;
+            color: var(--pioneer-green-dark);
+            text-align: center;
+            margin: 0 0 6px;
+        }
+        .cal-section > p {
+            text-align: center;
+            color: var(--ink-soft);
+            font-size: 14px;
+            margin: 0 0 28px;
+        }
+
+        /* Day columns */
+        .cal-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+        }
+        .day-col {
+            border: 1px solid #e0ddd4;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        .day-header {
+            background: var(--pioneer-green);
+            color: #fff;
+            text-align: center;
+            padding: 12px 8px;
+        }
+        .day-header .day-name {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 16px;
+            font-weight: 700;
+        }
+        .day-header .day-date {
+            font-size: 11px;
+            color: rgba(255,255,255,0.65);
+            letter-spacing: 0.5px;
+        }
+        .slot {
+            padding: 10px 12px;
+            border-bottom: 1px solid #f0ede6;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 13px;
+            cursor: pointer;
+            transition: background 0.12s;
+        }
+        .slot:last-child { border-bottom: none; }
+        .slot:hover { background: #f9f7f2; }
+        .slot .slot-time {
+            font-weight: 600;
+            color: var(--ink);
+            white-space: nowrap;
+        }
+        .slot .slot-status {
+            font-size: 11px;
+            font-weight: 500;
+            letter-spacing: 0.3px;
+        }
+        .slot .slot-status.available { color: var(--pioneer-green); }
+        .slot .slot-status.reserved {
+            color: #999;
+            font-style: italic;
+        }
+        .slot.is-reserved {
+            background: #f5f3ee;
+            cursor: default;
+        }
+        .slot.is-reserved:hover { background: #f5f3ee; }
+
+        /* Booking Modal */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .modal-overlay.show { display: flex; }
+        .modal {
+            background: #fff;
+            border-radius: 12px;
+            max-width: 420px;
+            width: 100%;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.25);
+            overflow: hidden;
+        }
+        .modal-header {
+            background: var(--pioneer-green);
+            color: #fff;
+            padding: 20px 24px;
+        }
+        .modal-header h3 {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 20px;
+            margin: 0 0 4px;
+        }
+        .modal-header p {
+            font-size: 13px;
+            color: rgba(255,255,255,0.7);
+            margin: 0;
+        }
+        .modal-body {
+            padding: 24px;
+        }
+        .modal-body label {
+            display: block;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--ink);
+            margin: 0 0 6px;
+        }
+        .modal-body input,
+        .modal-body textarea {
+            width: 100%;
+            padding: 10px 14px;
+            border: 1px solid #d5d0c5;
+            border-radius: 6px;
+            font-size: 14px;
+            font-family: inherit;
+            margin: 0 0 16px;
+            transition: border-color 0.15s;
+        }
+        .modal-body input:focus,
+        .modal-body textarea:focus {
+            outline: none;
+            border-color: var(--pioneer-green);
+        }
+        .modal-body textarea { resize: vertical; min-height: 60px; }
+        .modal-body .optional {
+            font-weight: 400;
+            color: #999;
+            font-size: 11px;
+        }
+        .modal-actions {
+            display: flex;
+            gap: 10px;
+            justify-content: flex-end;
+            padding-top: 4px;
+        }
+        .btn {
+            padding: 10px 22px;
+            border: none;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            font-family: inherit;
+            transition: background 0.15s;
+        }
+        .btn-primary {
+            background: var(--pioneer-green);
+            color: #fff;
+        }
+        .btn-primary:hover { background: var(--pioneer-green-dark); }
+        .btn-cancel {
+            background: #f0ede6;
+            color: var(--ink-soft);
+        }
+        .btn-cancel:hover { background: #e5e1d8; }
+
+        /* Confirmation */
+        .confirm-msg {
+            display: none;
+            background: #e8f5e9;
+            border: 1px solid #a5d6a7;
+            border-radius: 8px;
+            padding: 16px 20px;
+            margin: 20px 28px;
+            font-size: 14px;
+            color: #2e7d32;
+            text-align: center;
+        }
+        .confirm-msg.show { display: block; }
+
+        /* Contact footer */
+        .contact-bar {
+            background: var(--cream);
+            padding: 28px 32px;
+            text-align: center;
+            border-top: 1px solid #e0ddd4;
+        }
+        .contact-bar p {
+            font-size: 14px;
+            color: var(--ink-soft);
+            margin: 0 0 8px;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .contact-bar a.phone {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--pioneer-green-dark);
+            text-decoration: none;
+        }
+        .contact-bar a.phone:hover { text-decoration: underline; }
+        .contact-bar .email-link {
+            display: block;
+            margin-top: 6px;
+            font-size: 13px;
+            color: var(--ink-soft);
+        }
+
+        footer {
+            background: var(--pioneer-green-dark);
+            color: rgba(255,255,255,0.6);
+            text-align: center;
+            padding: 24px 20px;
+            font-size: 13px;
+        }
+        footer .name {
+            color: var(--pioneer-gold);
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 16px;
+            margin: 0 0 2px;
+        }
+        footer a {
+            color: rgba(255,255,255,0.5);
+            text-decoration: none;
+        }
+
+        /* Responsive */
+        @media (max-width: 700px) {
+            .cal-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 10px;
+            }
+        }
+        @media (max-width: 440px) {
+            .cal-grid {
+                grid-template-columns: 1fr;
+                gap: 10px;
+            }
+            .hero { padding: 36px 20px 32px; }
+            .cal-section { padding: 28px 16px 16px; }
+            .cta-band { padding: 24px 20px; }
+            .topbar { padding: 10px 16px; }
+        }
+    </style>
+</head>
+<body>
+<script src="js/auth.js"></script>
+
+<div class="wrap">
+    <div class="topbar">
+        <a href="members.html">&larr; Member Dashboard</a>
+        <span class="brand">McConnell Enterprises</span>
+    </div>
+
+    <div class="hero">
+        <p class="eyebrow">You're Invited</p>
+        <h1>Pioneer Days Open House</h1>
+        <h2>Coffee, Cinnamon Rolls &amp; Savings</h2>
+        <div class="dates">
+            <span class="date-chip">Mon, Dec 1</span>
+            <span class="date-chip">Tue, Dec 2</span>
+            <span class="date-chip">Wed, Dec 3</span>
+            <span class="date-chip">Thu, Dec 4</span>
+        </div>
+        <p class="time-note">8:00 AM &ndash; 5:00 PM &nbsp;&bull;&nbsp; Haxtun, Colorado</p>
+    </div>
+
+    <div class="cta-band">
+        <h3>Lock In Your 2027 Seed Savings</h3>
+        <p>With additional discounts this year, Pioneer is committed to rewarding early commitments as in years past. Whether you prefer cash savings or defer pay savings, this is the best time to secure your position.</p>
+        <div class="perks">
+            <span class="perk"><span class="perk-dot"></span> Cash Savings</span>
+            <span class="perk"><span class="perk-dot"></span> Defer Pay Savings</span>
+            <span class="perk"><span class="perk-dot"></span> Coffee &amp; Cinnamon Rolls</span>
+            <span class="perk"><span class="perk-dot"></span> One-on-One Planning</span>
+        </div>
+    </div>
+
+    <div class="cal-section">
+        <h2>Reserve Your Time</h2>
+        <p>Click an available slot to schedule a one-on-one planning session. Walk-ins welcome &mdash; appointments ensure Kyle is ready for you.</p>
+
+        <div class="cal-grid" id="calGrid"></div>
+    </div>
+
+    <div class="confirm-msg" id="confirmMsg">
+        Your appointment request has been sent. Kyle will confirm shortly. See you at Pioneer Days!
+    </div>
+
+    <div class="contact-bar">
+        <p>Questions? Need information before your visit? Let us know &mdash; we're happy to help with anything.</p>
+        <a href="tel:9705711015" class="phone">(970) 571-1015</a>
+        <a href="mailto:hub@m77ag.com" class="email-link">hub@m77ag.com</a>
+    </div>
+
+    <footer>
+        <p class="name">McConnell Enterprises</p>
+        <p>Haxtun, Colorado &bull; Your Local Pioneer Sales Rep</p>
+        <a href="https://www.youraginfo.com">youraginfo.com</a>
+    </footer>
+</div>
+
+<!-- Booking Modal -->
+<div class="modal-overlay" id="bookingModal">
+    <div class="modal">
+        <div class="modal-header">
+            <h3>Schedule Your Visit</h3>
+            <p id="modalSlotInfo"></p>
+        </div>
+        <div class="modal-body">
+            <label for="bookName">Your Name</label>
+            <input type="text" id="bookName" placeholder="First and Last Name" required>
+
+            <label for="bookPhone">Phone <span class="optional">(optional)</span></label>
+            <input type="tel" id="bookPhone" placeholder="(000) 000-0000">
+
+            <label for="bookNotes">Notes <span class="optional">(optional &mdash; hybrids to discuss, acres, etc.)</span></label>
+            <textarea id="bookNotes" placeholder="Anything you'd like Kyle to have ready"></textarea>
+
+            <div class="modal-actions">
+                <button class="btn btn-cancel" onclick="closeModal()">Cancel</button>
+                <button class="btn btn-primary" onclick="submitBooking()">Send Request</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+(function() {
+    var DAYS = [
+        { label: 'Monday', date: 'Dec 1', key: '2026-12-01' },
+        { label: 'Tuesday', date: 'Dec 2', key: '2026-12-02' },
+        { label: 'Wednesday', date: 'Dec 3', key: '2026-12-03' },
+        { label: 'Thursday', date: 'Dec 4', key: '2026-12-04' }
+    ];
+    var SLOTS = [
+        { time: '8:00 AM', hour: 8 },
+        { time: '9:00 AM', hour: 9 },
+        { time: '10:00 AM', hour: 10 },
+        { time: '11:00 AM', hour: 11 },
+        { time: '12:00 PM', hour: 12 },
+        { time: '1:00 PM', hour: 13 },
+        { time: '2:00 PM', hour: 14 },
+        { time: '3:00 PM', hour: 15 },
+        { time: '4:00 PM', hour: 16 }
+    ];
+
+    var currentSlot = null;
+
+    function getReservations() {
+        try {
+            return JSON.parse(localStorage.getItem('pioneerDaysBookings') || '{}');
+        } catch (e) { return {}; }
+    }
+
+    function saveReservation(key) {
+        try {
+            var bookings = getReservations();
+            bookings[key] = true;
+            localStorage.setItem('pioneerDaysBookings', JSON.stringify(bookings));
+        } catch (e) {}
+    }
+
+    function isReserved(dayKey, hour) {
+        var bookings = getReservations();
+        return bookings[dayKey + '-' + hour] === true;
+    }
+
+    function buildCalendar() {
+        var grid = document.getElementById('calGrid');
+        grid.innerHTML = '';
+
+        DAYS.forEach(function(day) {
+            var col = document.createElement('div');
+            col.className = 'day-col';
+
+            var header = document.createElement('div');
+            header.className = 'day-header';
+            header.innerHTML = '<div class="day-name">' + day.label + '</div><div class="day-date">' + day.date + ', 2026</div>';
+            col.appendChild(header);
+
+            SLOTS.forEach(function(slot) {
+                var slotEl = document.createElement('div');
+                var reserved = isReserved(day.key, slot.hour);
+                slotEl.className = 'slot' + (reserved ? ' is-reserved' : '');
+
+                var timeSpan = document.createElement('span');
+                timeSpan.className = 'slot-time';
+                timeSpan.textContent = slot.time;
+
+                var statusSpan = document.createElement('span');
+                statusSpan.className = 'slot-status ' + (reserved ? 'reserved' : 'available');
+                statusSpan.textContent = reserved ? 'Reserved' : 'Open';
+
+                slotEl.appendChild(timeSpan);
+                slotEl.appendChild(statusSpan);
+
+                if (!reserved) {
+                    slotEl.addEventListener('click', function() {
+                        openModal(day, slot);
+                    });
+                }
+
+                col.appendChild(slotEl);
+            });
+
+            grid.appendChild(col);
+        });
+    }
+
+    window.openModal = function(day, slot) {
+        currentSlot = { day: day, slot: slot };
+        document.getElementById('modalSlotInfo').textContent = day.label + ', ' + day.date + ' at ' + slot.time;
+        document.getElementById('bookName').value = '';
+        document.getElementById('bookPhone').value = '';
+        document.getElementById('bookNotes').value = '';
+        document.getElementById('bookingModal').classList.add('show');
+        setTimeout(function() { document.getElementById('bookName').focus(); }, 100);
+    };
+
+    window.closeModal = function() {
+        document.getElementById('bookingModal').classList.remove('show');
+        currentSlot = null;
+    };
+
+    window.submitBooking = function() {
+        var name = document.getElementById('bookName').value.trim();
+        if (!name) {
+            document.getElementById('bookName').style.borderColor = '#dc2626';
+            document.getElementById('bookName').focus();
+            return;
+        }
+
+        var phone = document.getElementById('bookPhone').value.trim();
+        var notes = document.getElementById('bookNotes').value.trim();
+        var day = currentSlot.day;
+        var slot = currentSlot.slot;
+
+        var subject = '[DAILY BRIEF] Pioneer Days Appointment — ' + day.date + ' at ' + slot.time;
+        var body = 'Pioneer Days Open House Appointment\n'
+            + '-----------------------------------\n'
+            + 'Date: ' + day.label + ', ' + day.date + ', 2026\n'
+            + 'Time: ' + slot.time + '\n'
+            + 'Name: ' + name + '\n'
+            + (phone ? 'Phone: ' + phone + '\n' : '')
+            + (notes ? 'Notes: ' + notes + '\n' : '')
+            + '-----------------------------------\n'
+            + 'Sent from youraginfo.com Pioneer Days booking';
+
+        saveReservation(day.key + '-' + slot.hour);
+
+        var mailto = 'mailto:hub@m77ag.com?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+        window.location.href = mailto;
+
+        closeModal();
+        buildCalendar();
+
+        var msg = document.getElementById('confirmMsg');
+        msg.classList.add('show');
+        setTimeout(function() { msg.classList.remove('show'); }, 8000);
+    };
+
+    document.getElementById('bookingModal').addEventListener('click', function(e) {
+        if (e.target === this) closeModal();
+    });
+
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') closeModal();
+    });
+
+    buildCalendar();
+})();
+</script>
+</body>
+</html>

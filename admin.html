@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+    <title>Admin</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #0d1117;
+            --surface: #161b22;
+            --border: #30363d;
+            --text: #c9d1d9;
+            --text-dim: #8b949e;
+            --accent: #58a6ff;
+            --green: #3fb950;
+            --red: #f85149;
+            --gold: #d29922;
+            --font-ui: 'Inter', -apple-system, sans-serif;
+            --font-mono: 'IBM Plex Mono', monospace;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { background: var(--bg); color: var(--text); font-family: var(--font-ui); line-height: 1.5; min-height: 100vh; }
+
+        /* Login */
+        .login-wrap {
+            display: flex; align-items: center; justify-content: center;
+            min-height: 100vh; padding: 20px;
+        }
+        .login-box {
+            background: var(--surface); border: 1px solid var(--border);
+            border-radius: 8px; padding: 40px; max-width: 360px; width: 100%; text-align: center;
+        }
+        .login-box h1 { font-size: 18px; font-weight: 600; margin-bottom: 24px; color: var(--text); }
+        .login-box input {
+            width: 100%; padding: 10px 14px; background: var(--bg); border: 1px solid var(--border);
+            border-radius: 6px; color: var(--text); font-family: var(--font-mono); font-size: 14px;
+            margin-bottom: 12px;
+        }
+        .login-box input:focus { outline: none; border-color: var(--accent); }
+        .login-box button {
+            width: 100%; padding: 10px; background: var(--accent); color: var(--bg);
+            border: none; border-radius: 6px; font-weight: 600; font-size: 14px; cursor: pointer;
+        }
+        .login-box button:hover { opacity: 0.9; }
+        .login-error { color: var(--red); font-size: 13px; margin-top: 8px; display: none; }
+
+        /* Dashboard */
+        .dashboard { display: none; }
+        .dash-header {
+            background: var(--surface); border-bottom: 1px solid var(--border);
+            padding: 16px 24px; display: flex; justify-content: space-between; align-items: center;
+            flex-wrap: wrap; gap: 12px;
+        }
+        .dash-header h1 { font-size: 16px; font-weight: 600; }
+        .dash-header h1 span { color: var(--accent); }
+        .dash-actions { display: flex; gap: 8px; align-items: center; }
+        .dash-actions a, .dash-actions button {
+            padding: 6px 14px; font-size: 12px; border-radius: 4px; cursor: pointer;
+            text-decoration: none; font-weight: 500; border: 1px solid var(--border);
+            background: var(--surface); color: var(--text); font-family: var(--font-ui);
+        }
+        .dash-actions a:hover, .dash-actions button:hover { border-color: var(--accent); color: var(--accent); }
+
+        .stats-row {
+            display: flex; gap: 2px; padding: 16px 24px; flex-wrap: wrap;
+        }
+        .stat-box {
+            background: var(--surface); border: 1px solid var(--border); border-radius: 6px;
+            padding: 14px 20px; flex: 1; min-width: 120px; text-align: center;
+        }
+        .stat-box .num { font-family: var(--font-mono); font-size: 28px; font-weight: 600; }
+        .stat-box .lbl { font-size: 11px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 1px; margin-top: 4px; }
+        .stat-booked .num { color: var(--accent); }
+        .stat-open .num { color: var(--green); }
+        .stat-total .num { color: var(--gold); }
+
+        .device-note {
+            padding: 0 24px 8px; font-size: 12px; color: var(--text-dim); font-style: italic;
+        }
+
+        /* Calendar Grid */
+        .cal-grid {
+            display: grid; grid-template-columns: repeat(4, 1fr);
+            gap: 12px; padding: 0 24px 24px;
+        }
+        .cal-day {
+            background: var(--surface); border: 1px solid var(--border); border-radius: 8px;
+            overflow: hidden;
+        }
+        .cal-day-header {
+            background: rgba(88,166,255,0.1); padding: 12px 14px;
+            border-bottom: 1px solid var(--border); text-align: center;
+        }
+        .cal-day-header .day-name { font-size: 13px; font-weight: 600; color: var(--accent); }
+        .cal-day-header .day-date { font-size: 11px; color: var(--text-dim); margin-top: 2px; }
+        .cal-day-header .day-brief {
+            display: inline-block; margin-top: 6px; padding: 3px 10px;
+            font-size: 11px; border-radius: 3px; cursor: pointer;
+            background: rgba(88,166,255,0.15); color: var(--accent); border: 1px solid rgba(88,166,255,0.3);
+            font-family: var(--font-ui); font-weight: 500;
+        }
+        .cal-day-header .day-brief:hover { background: rgba(88,166,255,0.25); }
+
+        .slot {
+            padding: 10px 14px; border-bottom: 1px solid var(--border);
+            display: flex; align-items: flex-start; gap: 10px; font-size: 13px;
+            transition: background 0.1s;
+        }
+        .slot:last-child { border-bottom: none; }
+        .slot-time {
+            font-family: var(--font-mono); font-size: 12px; font-weight: 500;
+            color: var(--text-dim); min-width: 58px; flex-shrink: 0; padding-top: 1px;
+        }
+        .slot-open { cursor: pointer; }
+        .slot-open:hover { background: rgba(63,185,80,0.08); }
+        .slot-open .slot-status { color: var(--green); font-size: 12px; }
+        .slot-booked { background: rgba(88,166,255,0.05); }
+        .slot-booked .slot-info { flex: 1; }
+        .slot-booked .slot-name { font-weight: 600; color: var(--text); font-size: 13px; }
+        .slot-booked .slot-phone { font-family: var(--font-mono); font-size: 12px; color: var(--text-dim); }
+        .slot-booked .slot-notes { font-size: 12px; color: var(--text-dim); font-style: italic; margin-top: 2px; }
+        .slot-remove {
+            background: none; border: none; color: var(--red); cursor: pointer;
+            font-size: 14px; padding: 2px 6px; opacity: 0.5; flex-shrink: 0;
+        }
+        .slot-remove:hover { opacity: 1; }
+
+        /* Modal */
+        .modal-overlay {
+            display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.7);
+            z-index: 1000; align-items: center; justify-content: center; padding: 20px;
+        }
+        .modal-overlay.active { display: flex; }
+        .modal {
+            background: var(--surface); border: 1px solid var(--border); border-radius: 8px;
+            padding: 28px; max-width: 400px; width: 100%;
+        }
+        .modal h2 { font-size: 16px; margin-bottom: 4px; }
+        .modal .modal-sub { font-size: 13px; color: var(--text-dim); margin-bottom: 20px; }
+        .modal label { display: block; font-size: 12px; font-weight: 500; color: var(--text-dim); margin-bottom: 4px; }
+        .modal input, .modal textarea {
+            width: 100%; padding: 8px 12px; background: var(--bg); border: 1px solid var(--border);
+            border-radius: 4px; color: var(--text); font-family: var(--font-ui); font-size: 14px;
+            margin-bottom: 12px;
+        }
+        .modal textarea { resize: vertical; min-height: 60px; }
+        .modal input:focus, .modal textarea:focus { outline: none; border-color: var(--accent); }
+        .modal-btns { display: flex; gap: 8px; justify-content: flex-end; margin-top: 8px; }
+        .modal-btns button {
+            padding: 8px 18px; border-radius: 4px; font-size: 13px; font-weight: 600;
+            cursor: pointer; border: none; font-family: var(--font-ui);
+        }
+        .btn-cancel { background: var(--border); color: var(--text); }
+        .btn-save { background: var(--accent); color: var(--bg); }
+        .btn-cancel:hover { background: #484f58; }
+        .btn-save:hover { opacity: 0.9; }
+
+        @media (max-width: 900px) {
+            .cal-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (max-width: 500px) {
+            .cal-grid { grid-template-columns: 1fr; padding: 0 12px 16px; }
+            .stats-row { padding: 12px; }
+            .dash-header { padding: 12px 16px; }
+            .device-note { padding: 0 12px 8px; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Login -->
+<div class="login-wrap" id="loginSection">
+    <div class="login-box">
+        <h1>Admin Access</h1>
+        <form onsubmit="return handleAdminLogin(event)">
+            <input type="password" id="adminPw" placeholder="Password" autocomplete="off">
+            <button type="submit">Sign In</button>
+        </form>
+        <p class="login-error" id="loginErr">Incorrect password.</p>
+    </div>
+</div>
+
+<!-- Dashboard -->
+<div class="dashboard" id="dashboard">
+    <div class="dash-header">
+        <h1><span>Admin Dashboard</span> &mdash; Pioneer Days Open House</h1>
+        <div class="dash-actions">
+            <a href="members.html">Member Dashboard</a>
+            <button onclick="handleAdminLogout()">Sign Out</button>
+        </div>
+    </div>
+
+    <div class="stats-row">
+        <div class="stat-box stat-booked"><div class="num" id="statBooked">0</div><div class="lbl">Booked</div></div>
+        <div class="stat-box stat-open"><div class="num" id="statOpen">36</div><div class="lbl">Available</div></div>
+        <div class="stat-box stat-total"><div class="num" id="statTotal">36</div><div class="lbl">Total Slots</div></div>
+    </div>
+    <p class="device-note">Bookings shown are from this device's storage. Check hub@m77ag.com for email confirmations.</p>
+
+    <div class="cal-grid" id="calGrid"></div>
+</div>
+
+<!-- Add Booking Modal -->
+<div class="modal-overlay" id="addModal">
+    <div class="modal">
+        <h2>Add Appointment</h2>
+        <p class="modal-sub" id="modalSub"></p>
+        <label>Name *</label>
+        <input type="text" id="modalName" required>
+        <label>Phone</label>
+        <input type="tel" id="modalPhone">
+        <label>Notes</label>
+        <textarea id="modalNotes"></textarea>
+        <div class="modal-btns">
+            <button class="btn-cancel" onclick="closeModal()">Cancel</button>
+            <button class="btn-save" onclick="saveBooking()">Save</button>
+        </div>
+    </div>
+</div>
+
+<script>
+var DAYS = [
+    { date: '2026-12-01', label: 'Tuesday', display: 'Dec 1' },
+    { date: '2026-12-02', label: 'Wednesday', display: 'Dec 2' },
+    { date: '2026-12-03', label: 'Thursday', display: 'Dec 3' },
+    { date: '2026-12-04', label: 'Friday', display: 'Dec 4' }
+];
+var TIMES = ['8:00 AM','9:00 AM','10:00 AM','11:00 AM','12:00 PM','1:00 PM','2:00 PM','3:00 PM','4:00 PM'];
+var pendingSlot = null;
+
+function getBookings() {
+    try { return JSON.parse(localStorage.getItem('pioneerDaysBookings') || '[]'); }
+    catch(e) { return []; }
+}
+function setBookings(b) {
+    try { localStorage.setItem('pioneerDaysBookings', JSON.stringify(b)); } catch(e) {}
+}
+function findBooking(date, time) {
+    return getBookings().find(function(b) { return b.date === date && b.time === time; });
+}
+
+function handleAdminLogin(e) {
+    e.preventDefault();
+    if (document.getElementById('adminPw').value === 'Vylor.345491') {
+        try { localStorage.setItem('adminAuth', 'true'); } catch(e) {}
+        showDashboard();
+    } else {
+        document.getElementById('loginErr').style.display = 'block';
+    }
+    return false;
+}
+function handleAdminLogout() {
+    try { localStorage.removeItem('adminAuth'); } catch(e) {}
+    document.getElementById('dashboard').style.display = 'none';
+    document.getElementById('loginSection').style.display = 'flex';
+}
+function showDashboard() {
+    document.getElementById('loginSection').style.display = 'none';
+    document.getElementById('dashboard').style.display = 'block';
+    renderCalendar();
+}
+
+function renderCalendar() {
+    var grid = document.getElementById('calGrid');
+    grid.innerHTML = '';
+    var bookings = getBookings();
+    var booked = 0;
+
+    DAYS.forEach(function(day) {
+        var col = document.createElement('div');
+        col.className = 'cal-day';
+
+        var header = document.createElement('div');
+        header.className = 'cal-day-header';
+        header.innerHTML = '<div class="day-name">' + day.label + '</div>' +
+            '<div class="day-date">' + day.display + ', 2026</div>' +
+            '<button class="day-brief" onclick="sendDailyBrief(\'' + day.date + '\',\'' + day.display + '\')">Daily Brief</button>';
+        col.appendChild(header);
+
+        TIMES.forEach(function(time) {
+            var b = bookings.find(function(x) { return x.date === day.date && x.time === time; });
+            var slot = document.createElement('div');
+
+            if (b) {
+                booked++;
+                slot.className = 'slot slot-booked';
+                slot.innerHTML = '<span class="slot-time">' + time + '</span>' +
+                    '<div class="slot-info">' +
+                        '<div class="slot-name">' + escHtml(b.name) + '</div>' +
+                        (b.phone ? '<div class="slot-phone">' + escHtml(b.phone) + '</div>' : '') +
+                        (b.notes ? '<div class="slot-notes">' + escHtml(b.notes) + '</div>' : '') +
+                    '</div>' +
+                    '<button class="slot-remove" onclick="removeBooking(\'' + day.date + '\',\'' + time + '\')" title="Remove">&times;</button>';
+            } else {
+                slot.className = 'slot slot-open';
+                slot.innerHTML = '<span class="slot-time">' + time + '</span>' +
+                    '<span class="slot-status">+ Add</span>';
+                slot.onclick = function() { openModal(day.date, day.display + ' at ' + time, time); };
+            }
+            col.appendChild(slot);
+        });
+        grid.appendChild(col);
+    });
+
+    var total = DAYS.length * TIMES.length;
+    document.getElementById('statBooked').textContent = booked;
+    document.getElementById('statOpen').textContent = total - booked;
+    document.getElementById('statTotal').textContent = total;
+}
+
+function openModal(date, label, time) {
+    pendingSlot = { date: date, time: time };
+    document.getElementById('modalSub').textContent = label;
+    document.getElementById('modalName').value = '';
+    document.getElementById('modalPhone').value = '';
+    document.getElementById('modalNotes').value = '';
+    document.getElementById('addModal').classList.add('active');
+    document.getElementById('modalName').focus();
+}
+function closeModal() {
+    document.getElementById('addModal').classList.remove('active');
+    pendingSlot = null;
+}
+function saveBooking() {
+    var name = document.getElementById('modalName').value.trim();
+    if (!name) { document.getElementById('modalName').focus(); return; }
+    var bookings = getBookings();
+    bookings.push({
+        date: pendingSlot.date,
+        time: pendingSlot.time,
+        name: name,
+        phone: document.getElementById('modalPhone').value.trim(),
+        notes: document.getElementById('modalNotes').value.trim()
+    });
+    setBookings(bookings);
+    closeModal();
+    renderCalendar();
+}
+function removeBooking(date, time) {
+    if (!confirm('Remove this appointment?')) return;
+    var bookings = getBookings().filter(function(b) { return !(b.date === date && b.time === time); });
+    setBookings(bookings);
+    renderCalendar();
+}
+
+function sendDailyBrief(date, display) {
+    var bookings = getBookings().filter(function(b) { return b.date === date; });
+    var subject = '[DAILY BRIEF] Pioneer Days — ' + display + ', 2026';
+    var body = 'Pioneer Days Open House — ' + display + ', 2026\n';
+    body += '8:00 AM – 5:00 PM | McConnell Enterprises, Haxtun, CO\n';
+    body += '================================================\n\n';
+
+    if (bookings.length === 0) {
+        body += 'No appointments scheduled for this day.\n';
+    } else {
+        body += bookings.length + ' appointment(s) scheduled:\n\n';
+        bookings.sort(function(a, b) { return TIMES.indexOf(a.time) - TIMES.indexOf(b.time); });
+        bookings.forEach(function(b, i) {
+            body += (i + 1) + '. ' + b.time + ' — ' + b.name;
+            if (b.phone) body += ' | ' + b.phone;
+            body += '\n';
+            if (b.notes) body += '   Notes: ' + b.notes + '\n';
+        });
+    }
+
+    body += '\n— Sent from Admin Dashboard';
+    window.location.href = 'mailto:hub@m77ag.com?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+}
+
+function escHtml(s) {
+    var d = document.createElement('div');
+    d.textContent = s;
+    return d.innerHTML;
+}
+
+(function() {
+    try {
+        if (localStorage.getItem('adminAuth') === 'true') { showDashboard(); }
+    } catch(e) {}
+})();
+</script>
+</body>
+</html>
