@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="2026 Pioneer Hybrid Performance — Seeding rate vs yield data from commercial fields across Logan, Phillips, and Sedgwick Counties. McConnell Enterprises.">
+    <title>2026 Hybrid Performance | McConnell Enterprises</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --pioneer-green: #2d6a1e;
+            --pioneer-green-dark: #1e4a14;
+            --pioneer-gold: #c9a227;
+            --cream: #f7f5ef;
+            --page: #f2f0ea;
+            --ink: #2c2c2c;
+            --ink-soft: #5a5a5a;
+            --c-am: #e65100;
+            --c-pce: #1565c0;
+            --c-pcue: #6a1b9a;
+            --c-v: #2e7d32;
+            --c-q: #00838f;
+            --c-amxt: #bf360c;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+        body {
+            background: var(--page);
+            color: var(--ink);
+            font-family: 'Inter', -apple-system, 'Segoe UI', Helvetica, sans-serif;
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+        .wrap {
+            max-width: 960px;
+            margin: 0 auto;
+            background: #fff;
+            box-shadow: 0 2px 24px rgba(0,0,0,0.07);
+        }
+        .topbar {
+            background: var(--pioneer-green-dark);
+            color: var(--pioneer-gold);
+            text-align: center;
+            padding: 12px 20px;
+            font-size: 11px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            font-weight: 700;
+        }
+        .hero {
+            background: linear-gradient(160deg, var(--pioneer-green-dark) 0%, var(--pioneer-green) 100%);
+            color: #fff;
+            text-align: center;
+            padding: 48px 28px 44px;
+        }
+        .hero .eyebrow {
+            font-size: 12px;
+            letter-spacing: 2.5px;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.6);
+            margin: 0 0 14px;
+            font-weight: 600;
+        }
+        .hero h1 {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-weight: 700;
+            font-size: clamp(28px, 6vw, 44px);
+            line-height: 1.1;
+            margin: 0;
+        }
+        .hero h2 {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-weight: 400;
+            font-size: clamp(17px, 3.5vw, 24px);
+            color: var(--pioneer-gold);
+            margin: 10px 0 0;
+        }
+        .hero .subtitle {
+            font-size: 15px;
+            color: rgba(255,255,255,0.7);
+            margin-top: 16px;
+            max-width: 620px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Nav */
+        .perf-nav {
+            background: var(--pioneer-green-dark);
+            padding: 14px 28px;
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            flex-wrap: wrap;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 2px solid var(--pioneer-gold);
+        }
+        .perf-nav a {
+            display: inline-block;
+            padding: 8px 18px;
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            text-decoration: none;
+            color: #fff;
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 4px;
+            transition: all 0.15s;
+        }
+        .perf-nav a:hover {
+            background: var(--pioneer-gold);
+            color: var(--pioneer-green-dark);
+            border-color: var(--pioneer-gold);
+        }
+
+        /* Legend */
+        .legend {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            flex-wrap: wrap;
+            padding: 16px 20px;
+            background: var(--cream);
+            border-bottom: 1px solid #ddd;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .legend-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 3px;
+        }
+
+        /* Section */
+        .section-header {
+            background: var(--pioneer-green);
+            color: #fff;
+            padding: 28px 32px;
+        }
+        .section-header h2 {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 26px;
+            font-weight: 700;
+            margin: 0 0 8px;
+        }
+        .section-header p {
+            font-size: 14px;
+            color: rgba(255,255,255,0.75);
+            margin: 0;
+        }
+        .section-header .irr-type {
+            display: inline-block;
+            background: var(--pioneer-gold);
+            color: var(--pioneer-green-dark);
+            font-size: 10px;
+            font-weight: 800;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            padding: 4px 12px;
+            border-radius: 3px;
+            margin-bottom: 10px;
+        }
+
+        /* Trend Box */
+        .trend-box {
+            background: #fef9e7;
+            border-left: 4px solid var(--pioneer-gold);
+            padding: 20px 24px;
+            margin: 0;
+        }
+        .trend-box h3 {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 18px;
+            color: var(--pioneer-green);
+            margin: 0 0 10px;
+        }
+        .trend-box ul {
+            list-style: none;
+            padding: 0;
+        }
+        .trend-box li {
+            font-size: 14px;
+            color: var(--ink);
+            padding: 4px 0;
+            line-height: 1.5;
+        }
+        .trend-box li::before {
+            content: '\25B8';
+            color: var(--pioneer-gold);
+            margin-right: 8px;
+            font-weight: 700;
+        }
+
+        /* Bar Chart */
+        .chart-wrap {
+            padding: 24px 24px 8px;
+        }
+        .chart-wrap h3 {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 18px;
+            color: var(--pioneer-green);
+            margin: 0 0 16px;
+        }
+        .bar-row {
+            display: grid;
+            grid-template-columns: 130px 1fr 70px 60px 70px;
+            align-items: center;
+            gap: 8px;
+            padding: 5px 0;
+            border-bottom: 1px solid #f0ede6;
+            font-size: 13px;
+        }
+        .bar-row.bar-header {
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: var(--ink-soft);
+            border-bottom: 2px solid var(--pioneer-green);
+            padding-bottom: 8px;
+        }
+        .bar-row.bar-header span:nth-child(n+3) { text-align: right; }
+        .bar-label {
+            font-weight: 600;
+            font-size: 12px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .bar-track {
+            height: 22px;
+            background: #f5f3ed;
+            border-radius: 3px;
+            overflow: hidden;
+            position: relative;
+        }
+        .bar-fill {
+            height: 100%;
+            border-radius: 3px;
+            transition: width 0.6s ease;
+            min-width: 2px;
+        }
+        .bar-val {
+            text-align: right;
+            font-weight: 700;
+            font-variant-numeric: tabular-nums;
+            font-size: 13px;
+        }
+        .bar-pop, .bar-ac {
+            text-align: right;
+            font-variant-numeric: tabular-nums;
+            color: var(--ink-soft);
+            font-size: 12px;
+        }
+        .bar-row.low-conf .bar-label,
+        .bar-row.low-conf .bar-val,
+        .bar-row.low-conf .bar-pop,
+        .bar-row.low-conf .bar-ac { opacity: 0.55; }
+        .bar-row.low-conf .bar-fill { opacity: 0.45; }
+
+        /* Scatter Plot */
+        .scatter-wrap {
+            padding: 24px;
+        }
+        .scatter-wrap h3 {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 18px;
+            color: var(--pioneer-green);
+            margin: 0 0 6px;
+        }
+        .scatter-wrap .scatter-sub {
+            font-size: 13px;
+            color: var(--ink-soft);
+            margin: 0 0 16px;
+        }
+        .scatter-svg {
+            width: 100%;
+            max-width: 900px;
+            background: #fafaf7;
+            border: 1px solid #eee;
+            border-radius: 6px;
+        }
+        .scatter-svg text { font-family: 'Inter', sans-serif; }
+
+        /* Summary strip */
+        .summary-strip {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2px;
+            background: #ddd9cc;
+        }
+        .summary-strip .cell {
+            background: var(--cream);
+            padding: 18px 14px;
+            text-align: center;
+        }
+        .summary-strip .label {
+            font-size: 10px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: #7a8f7a;
+            font-weight: 700;
+            margin: 0 0 4px;
+        }
+        .summary-strip .val {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 18px;
+            color: var(--pioneer-green);
+        }
+
+        .back-link {
+            display: block;
+            text-align: center;
+            padding: 14px;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--pioneer-green);
+            text-decoration: none;
+            border-top: 1px solid #eee;
+        }
+        .back-link:hover { background: var(--cream); }
+
+        .methodology {
+            background: var(--cream);
+            border-top: 2px solid var(--page);
+            padding: 24px 32px;
+        }
+        .methodology h3 {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 18px;
+            color: var(--pioneer-green);
+            margin: 0 0 10px;
+        }
+        .methodology p {
+            font-size: 13px;
+            color: var(--ink-soft);
+            line-height: 1.7;
+            margin: 0 0 8px;
+        }
+        footer {
+            background: var(--pioneer-green);
+            color: #fff;
+            text-align: center;
+            padding: 32px 28px;
+        }
+        footer .name {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 22px;
+            margin: 0 0 4px;
+        }
+        footer .sub {
+            font-size: 12px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.6);
+            font-weight: 600;
+            margin: 0 0 12px;
+        }
+        footer a {
+            color: var(--pioneer-gold);
+            font-size: 15px;
+            text-decoration: none;
+            border-bottom: 1px solid rgba(201,162,39,0.4);
+        }
+        footer .phone {
+            font-size: 14px;
+            color: rgba(255,255,255,0.6);
+            margin: 6px 0 0;
+        }
+
+        @media (max-width: 700px) {
+            .bar-row { grid-template-columns: 100px 1fr 55px 50px 55px; gap: 4px; }
+            .bar-label { font-size: 11px; }
+            .bar-val { font-size: 12px; }
+            .bar-pop, .bar-ac { font-size: 10px; }
+            .chart-wrap { padding: 16px 12px 4px; }
+            .section-header { padding: 22px 16px; }
+            .trend-box { padding: 16px; }
+            .scatter-wrap { padding: 16px 12px; }
+            .methodology { padding: 20px 16px; }
+            .summary-strip { grid-template-columns: repeat(2, 1fr); }
+            .perf-nav { padding: 10px 12px; gap: 6px; }
+            .perf-nav a { padding: 6px 10px; font-size: 11px; }
+            .legend { gap: 10px; padding: 12px 16px; font-size: 11px; }
+        }
+    </style>
+</head>
+<body>
+<script src="js/auth.js"></script>
+<div class="wrap" id="top">
+
+    <div class="topbar">McConnell Enterprises &bull; 2026 Hybrid Performance</div>
+
+    <section class="hero">
+        <p class="eyebrow">Logan &bull; Phillips &bull; Sedgwick Counties</p>
+        <h1>2026 Hybrid Performance</h1>
+        <h2>Seeding Rate &times; Yield by Variety</h2>
+        <p class="subtitle">Commercial field data aggregated across the territory. Real grower yields at actual planted populations &mdash; not test plots.</p>
+    </section>
+
+    <nav class="perf-nav">
+        <a href="#dryland">Dryland</a>
+        <a href="#irrigated">Irrigated</a>
+        <a href="#scatter">Rate &times; Yield</a>
+        <a href="test-plots-2026.html">2026 Plot Data</a>
+        <a href="members.html">Dashboard</a>
+    </nav>
+
+    <div class="legend">
+        <span class="legend-item"><span class="legend-dot" style="background:var(--c-am)"></span> AcreMax</span>
+        <span class="legend-item"><span class="legend-dot" style="background:var(--c-pce)"></span> PowerCore Enlist</span>
+        <span class="legend-item"><span class="legend-dot" style="background:var(--c-pcue)"></span> PowerCore Ultra Enlist</span>
+        <span class="legend-item"><span class="legend-dot" style="background:var(--c-v)"></span> Vorceed Enlist</span>
+        <span class="legend-item"><span class="legend-dot" style="background:var(--c-q)"></span> Qrome</span>
+    </div>
+
+    <!-- ============================================ -->
+    <!-- DRYLAND -->
+    <!-- ============================================ -->
+    <div id="dryland">
+        <div class="section-header">
+            <span class="irr-type">Dryland</span>
+            <h2>Dryland Performance</h2>
+            <p>Population 9,000 &ndash; 15,600 &nbsp;&bull;&nbsp; Non-irrigated commercial fields</p>
+        </div>
+
+        <div class="summary-strip" id="dryland-summary"></div>
+
+        <div class="trend-box">
+            <h3>Key Trends</h3>
+            <ul>
+                <li><strong>AcreMax dominates dryland:</strong> P1122AML leads at 67.5 bu/a on 623 acres. P0075AM follows at 60.8 bu/a on 1,146 acres &mdash; the largest dryland acreage in the territory.</li>
+                <li><strong>Population sweet spot:</strong> All top performers planted 12,200&ndash;13,800 seeds/acre. No yield advantage observed above 14,000 in dryland conditions.</li>
+                <li><strong>Platform story:</strong> AcreMax/AM hybrids fill 5 of the top 6 spots. PowerCore Enlist and Vorceed entries have limited dryland acreage &mdash; they're built for irrigated environments.</li>
+                <li><strong>P0157AMXT:</strong> Most-planted dryland hybrid (1,623 ac) averaged 34.7 bu/a &mdash; widespread adoption but a tough year for this maturity.</li>
+            </ul>
+        </div>
+
+        <div class="chart-wrap">
+            <h3>Yield Ranking &mdash; Dryland</h3>
+            <div class="bar-row bar-header">
+                <span>Hybrid</span>
+                <span></span>
+                <span style="text-align:right">Yield</span>
+                <span style="text-align:right">Pop</span>
+                <span style="text-align:right">Acres</span>
+            </div>
+            <div id="dryland-chart"></div>
+        </div>
+
+        <a href="#top" class="back-link">&uarr; Back to Top</a>
+    </div>
+
+    <!-- ============================================ -->
+    <!-- IRRIGATED -->
+    <!-- ============================================ -->
+    <div id="irrigated">
+        <div class="section-header">
+            <span class="irr-type">Irrigated</span>
+            <h2>Irrigated Performance</h2>
+            <p>Population 18,000 &ndash; 40,000 &nbsp;&bull;&nbsp; Full and limited irrigation combined</p>
+        </div>
+
+        <div class="summary-strip" id="irrigated-summary"></div>
+
+        <div class="trend-box">
+            <h3>Key Trends</h3>
+            <ul>
+                <li><strong>P10300PCE leads on high-confidence acres:</strong> 275.5 bu/a on 1,771 acres &mdash; the highest yield with 1,000+ acres behind it. PowerCore Enlist platform proving out.</li>
+                <li><strong>P14364PCUE &amp; P14830AML strong:</strong> 264.9 and 261.8 bu/a respectively, both on 1,700+ acres. Consistent high-volume performance.</li>
+                <li><strong>P08527V &mdash; the workhorse:</strong> Most-planted irrigated hybrid in the territory at 6,838 acres, averaging 249.4 bu/a. Reliable across conditions.</li>
+                <li><strong>Population range 31&ndash;33K:</strong> Top performers cluster in this range. No consistent yield advantage pushing above 33,000.</li>
+                <li><strong>P12517PCUE &amp; P14270PCE top the chart</strong> at 292.3 and 288.2 bu/a, but on limited acres (33 and 17 ac). Worth watching as acreage grows.</li>
+            </ul>
+        </div>
+
+        <div class="chart-wrap">
+            <h3>Yield Ranking &mdash; Irrigated</h3>
+            <div class="bar-row bar-header">
+                <span>Hybrid</span>
+                <span></span>
+                <span style="text-align:right">Yield</span>
+                <span style="text-align:right">Pop</span>
+                <span style="text-align:right">Acres</span>
+            </div>
+            <div id="irrigated-chart"></div>
+        </div>
+
+        <a href="#top" class="back-link">&uarr; Back to Top</a>
+    </div>
+
+    <!-- ============================================ -->
+    <!-- SCATTER PLOT -->
+    <!-- ============================================ -->
+    <div id="scatter">
+        <div class="section-header">
+            <span class="irr-type">Correlation</span>
+            <h2>Seeding Rate &times; Yield</h2>
+            <p>How does planted population correlate to yield across irrigated hybrids? Bubble size reflects total acres &mdash; larger bubbles mean more data confidence.</p>
+        </div>
+
+        <div class="scatter-wrap">
+            <h3>Irrigated: Population vs. Yield</h3>
+            <p class="scatter-sub">Each bubble is one hybrid. Larger bubble = more acres planted in the territory.</p>
+            <svg id="scatter-svg" class="scatter-svg" viewBox="0 0 700 420" preserveAspectRatio="xMidYMid meet"></svg>
+        </div>
+
+        <div class="scatter-wrap" style="padding-top:0;">
+            <h3>Dryland: Population vs. Yield</h3>
+            <p class="scatter-sub">Dryland populations are tightly clustered (12&ndash;14K). Hybrid selection matters more than population fine-tuning.</p>
+            <svg id="scatter-svg-dry" class="scatter-svg" viewBox="0 0 700 420" preserveAspectRatio="xMidYMid meet"></svg>
+        </div>
+
+        <a href="#top" class="back-link">&uarr; Back to Top</a>
+    </div>
+
+    <div class="methodology">
+        <h3>About This Data</h3>
+        <p>Aggregated from commercial production fields across McConnell Enterprises, McDaniel Enterprises, and Vieselmeyer Seed territory (Logan, Phillips, Sedgwick counties). 2026 crop year, Pioneer brand only.</p>
+        <p>Yield and seeding rate are as-reported from combine and planter data. Dryland entries require a minimum of 10 harvest acres; irrigated entries require 15 acres. Entries below these thresholds are shown with reduced emphasis.</p>
+        <p>This data reflects actual grower results from a wide range of field conditions, soil types, and management practices. It is not a controlled experiment. Use alongside test plot data and multi-year performance records for product positioning decisions.</p>
+    </div>
+
+    <footer>
+        <p class="name">McConnell Enterprises</p>
+        <p class="sub">Your Local Pioneer Sales Rep</p>
+        <a href="https://www.youraginfo.com">youraginfo.com</a>
+        <p class="phone">Kyle McConnell &mdash; 970-571-1015</p>
+    </footer>
+
+</div>
+
+<script>
+var DRYLAND = [
+    {v:'P1122AML',yield:67.5,mst:18.2,pop:13180,ac:622.8,p:'am'},
+    {v:'P0075AM',yield:60.8,mst:17.5,pop:12277,ac:1146.2,p:'am'},
+    {v:'P05081',yield:57.8,mst:15.1,pop:14675,ac:12.7,p:'am'},
+    {v:'P0622AML',yield:53.3,mst:15.9,pop:13220,ac:971.9,p:'am'},
+    {v:'P1548AM',yield:49.7,mst:18.6,pop:13835,ac:77.6,p:'am'},
+    {v:'P0622Q',yield:46.6,mst:15.2,pop:12693,ac:519.3,p:'q'},
+    {v:'P05081AML',yield:44.4,mst:17.6,pop:13012,ac:1510.4,p:'am'},
+    {v:'P0075Q',yield:42.4,mst:15.0,pop:13237,ac:838.4,p:'q'},
+    {v:'P9845AM',yield:41.7,mst:14.5,pop:13145,ac:523.3,p:'am'},
+    {v:'P9845PCE',yield:41.2,mst:15.9,pop:13148,ac:97.2,p:'pce'},
+    {v:'P14364PCUE',yield:40.4,mst:18.7,pop:12163,ac:58.7,p:'pcue'},
+    {v:'P13841PWUE',yield:40.0,mst:19.4,pop:13469,ac:33.3,p:'pcue'},
+    {v:'P03357PCUE',yield:36.1,mst:24.1,pop:12590,ac:43.3,p:'pcue'},
+    {v:'P09076PCE',yield:35.6,mst:16.4,pop:13967,ac:14.8,p:'pce'},
+    {v:'P0157AMXT',yield:34.7,mst:15.7,pop:12757,ac:1623.1,p:'amxt'},
+    {v:'P05466V',yield:26.3,mst:14.3,pop:13627,ac:19.5,p:'v'},
+    {v:'P11259PCE',yield:25.4,mst:14.7,pop:12219,ac:124.6,p:'pce'},
+    {v:'P0487Q',yield:12.8,mst:14.5,pop:12573,ac:515.7,p:'q'}
+];
+
+var IRRIGATED = [
+    {v:'P12517PCUE',yield:292.3,mst:16.5,pop:32749,ac:33.5,p:'pcue'},
+    {v:'P14270PCE',yield:288.2,mst:16.5,pop:32269,ac:16.8,p:'pce'},
+    {v:'P10300PCE',yield:275.5,mst:16.7,pop:32579,ac:1771.2,p:'pce'},
+    {v:'P0924Q',yield:266.3,mst:19.6,pop:31310,ac:96.1,p:'q'},
+    {v:'P14364PCUE',yield:264.9,mst:16.7,pop:31624,ac:1859.8,p:'pcue'},
+    {v:'P14830AML',yield:261.8,mst:18.7,pop:32228,ac:1763.9,p:'am'},
+    {v:'P12904V',yield:256.7,mst:17.7,pop:33404,ac:949.4,p:'v'},
+    {v:'P0859AM',yield:256.2,mst:17.7,pop:32080,ac:1318.3,p:'am'},
+    {v:'P12517V',yield:254.8,mst:16.5,pop:32715,ac:1991.7,p:'v'},
+    {v:'P0157AMXT',yield:254.3,mst:16.7,pop:30293,ac:58.9,p:'amxt'},
+    {v:'P0908AML',yield:252.0,mst:14.5,pop:32181,ac:212.7,p:'am'},
+    {v:'P08527V',yield:249.4,mst:17.4,pop:33257,ac:6837.6,p:'v'},
+    {v:'P13777V',yield:248.3,mst:17.6,pop:33784,ac:1773.9,p:'v'},
+    {v:'P09076PCE',yield:247.5,mst:15.8,pop:31723,ac:1562.4,p:'pce'},
+    {v:'P99491PCE',yield:245.4,mst:19.2,pop:32788,ac:19.1,p:'pce'},
+    {v:'P13777PCUE',yield:244.8,mst:17.4,pop:32291,ac:2110.8,p:'pcue'},
+    {v:'P03357PCUE',yield:240.4,mst:15.0,pop:31848,ac:982.6,p:'pcue'},
+    {v:'P02405V',yield:237.2,mst:16.0,pop:29773,ac:80.6,p:'v'},
+    {v:'P0908AML*',yield:235.1,mst:14.0,pop:32656,ac:224.4,p:'am'},
+    {v:'P05081AML',yield:235.1,mst:23.3,pop:30071,ac:380.0,p:'am'},
+    {v:'P05466V',yield:231.8,mst:16.2,pop:32011,ac:2045.2,p:'v'},
+    {v:'P03951V',yield:230.6,mst:14.1,pop:32633,ac:140.7,p:'v'},
+    {v:'P10625PCUE',yield:229.4,mst:15.5,pop:32180,ac:1153.4,p:'pcue'},
+    {v:'P0622AML',yield:228.3,mst:16.6,pop:33075,ac:25.6,p:'am'},
+    {v:'P11259PCE',yield:226.9,mst:16.4,pop:32609,ac:296.5,p:'pce'},
+    {v:'P12904AML',yield:223.9,mst:17.8,pop:31973,ac:2321.7,p:'am'},
+    {v:'P03115V',yield:221.1,mst:15.2,pop:32908,ac:238.2,p:'v'},
+    {v:'P10625V',yield:219.7,mst:17.4,pop:33926,ac:298.5,p:'v'},
+    {v:'P0487Q',yield:207.9,mst:28.5,pop:28056,ac:80.1,p:'q'},
+    {v:'P03802PCE',yield:207.7,mst:16.6,pop:30958,ac:73.6,p:'pce'},
+    {v:'P0622Q',yield:204.1,mst:18.0,pop:33808,ac:66.3,p:'q'},
+    {v:'P08215PCUE',yield:201.9,mst:15.8,pop:31371,ac:76.0,p:'pcue'},
+    {v:'P0075Q',yield:201.6,mst:20.2,pop:29473,ac:270.4,p:'q'},
+    {v:'P9845PCE',yield:192.2,mst:18.0,pop:30626,ac:316.3,p:'pce'},
+    {v:'P10705V',yield:255.7,mst:16.6,pop:32744,ac:1.7,p:'v'},
+    {v:'P07340Q',yield:145.5,mst:16.3,pop:30164,ac:65.8,p:'q'}
+];
+
+var COLORS = {am:'#e65100',pce:'#1565c0',pcue:'#6a1b9a',v:'#2e7d32',q:'#00838f',amxt:'#bf360c'};
+
+function buildBars(data, containerId, maxY, minAcres) {
+    var c = document.getElementById(containerId);
+    if (!c) return;
+    var html = '';
+    data.forEach(function(d) {
+        var pct = (d.yield / maxY * 100).toFixed(1);
+        var color = COLORS[d.p] || '#888';
+        var low = d.ac < minAcres ? ' low-conf' : '';
+        var popStr = d.pop >= 1000 ? (d.pop/1000).toFixed(1)+'K' : d.pop;
+        var acStr = d.ac >= 1000 ? (d.ac/1000).toFixed(1)+'K' : Math.round(d.ac);
+        html += '<div class="bar-row'+low+'">';
+        html += '<span class="bar-label" style="color:'+color+'">'+d.v+'</span>';
+        html += '<span class="bar-track"><span class="bar-fill" style="width:'+pct+'%;background:'+color+'"></span></span>';
+        html += '<span class="bar-val">'+d.yield.toFixed(1)+'</span>';
+        html += '<span class="bar-pop">'+popStr+'</span>';
+        html += '<span class="bar-ac">'+acStr+'</span>';
+        html += '</div>';
+    });
+    c.innerHTML = html;
+}
+
+function buildSummary(data, containerId, minAcres) {
+    var c = document.getElementById(containerId);
+    if (!c) return;
+    var filtered = data.filter(function(d) { return d.ac >= minAcres; });
+    var totalAc = 0, weightedYield = 0, topYield = 0, topName = '';
+    filtered.forEach(function(d) {
+        totalAc += d.ac;
+        weightedYield += d.yield * d.ac;
+        if (d.yield > topYield) { topYield = d.yield; topName = d.v; }
+    });
+    var avgYield = totalAc > 0 ? (weightedYield / totalAc).toFixed(1) : '—';
+    c.innerHTML =
+        '<div class="cell"><p class="label">Varieties</p><p class="val">'+filtered.length+'</p></div>' +
+        '<div class="cell"><p class="label">Total Acres</p><p class="val">'+Math.round(totalAc).toLocaleString()+'</p></div>' +
+        '<div class="cell"><p class="label">Wtd Avg Yield</p><p class="val">'+avgYield+'</p></div>' +
+        '<div class="cell"><p class="label">Top Hybrid</p><p class="val">'+topName+'</p></div>';
+}
+
+function buildScatter(data, svgId, xMin, xMax, yMin, yMax, xLabel, yLabel) {
+    var svg = document.getElementById(svgId);
+    if (!svg) return;
+    var L=70,R=680,T=30,B=380;
+    var html = '';
+    html += '<rect x="'+L+'" y="'+T+'" width="'+(R-L)+'" height="'+(B-T)+'" fill="#fafaf7" stroke="#ddd" rx="2"/>';
+
+    // Grid lines + labels
+    var ySteps = [];
+    for (var y = yMin; y <= yMax; y += (yMax-yMin > 100 ? 25 : 10)) ySteps.push(y);
+    ySteps.forEach(function(yv) {
+        var py = B - (yv - yMin) / (yMax - yMin) * (B - T);
+        html += '<line x1="'+L+'" y1="'+py+'" x2="'+R+'" y2="'+py+'" stroke="#e0ddd4" stroke-width="1"/>';
+        html += '<text x="'+(L-8)+'" y="'+(py+4)+'" text-anchor="end" font-size="10" fill="#888">'+yv+'</text>';
+    });
+
+    var xSteps = [];
+    var xStep = (xMax-xMin) > 10000 ? 1000 : 500;
+    for (var x = Math.ceil(xMin/xStep)*xStep; x <= xMax; x += xStep) xSteps.push(x);
+    xSteps.forEach(function(xv) {
+        var px = L + (xv - xMin) / (xMax - xMin) * (R - L);
+        html += '<line x1="'+px+'" y1="'+T+'" x2="'+px+'" y2="'+B+'" stroke="#e0ddd4" stroke-width="1"/>';
+        html += '<text x="'+px+'" y="'+(B+16)+'" text-anchor="middle" font-size="10" fill="#888">'+(xv>=1000?(xv/1000).toFixed(0)+'K':xv)+'</text>';
+    });
+
+    // Axis labels
+    html += '<text x="'+((L+R)/2)+'" y="'+(B+36)+'" text-anchor="middle" font-size="11" fill="#666" font-weight="600">'+xLabel+'</text>';
+    html += '<text x="16" y="'+((T+B)/2)+'" text-anchor="middle" font-size="11" fill="#666" font-weight="600" transform="rotate(-90,16,'+((T+B)/2)+')">'+yLabel+'</text>';
+
+    // Points (sorted by acreage desc so small bubbles draw on top)
+    var sorted = data.slice().sort(function(a,b) { return b.ac - a.ac; });
+    sorted.forEach(function(d) {
+        var px = L + (d.pop - xMin) / (xMax - xMin) * (R - L);
+        var py = B - (d.yield - yMin) / (yMax - yMin) * (B - T);
+        var r = Math.max(4, 3 + Math.log10(Math.max(d.ac,1)) * 4);
+        if (r > 20) r = 20;
+        var color = COLORS[d.p] || '#888';
+        html += '<circle cx="'+px.toFixed(1)+'" cy="'+py.toFixed(1)+'" r="'+r.toFixed(1)+'" fill="'+color+'" fill-opacity="0.65" stroke="'+color+'" stroke-width="1.5"/>';
+    });
+
+    // Labels for top entries (largest acreage)
+    var labeled = data.slice().sort(function(a,b) { return b.ac - a.ac; }).slice(0,8);
+    labeled.forEach(function(d) {
+        var px = L + (d.pop - xMin) / (xMax - xMin) * (R - L);
+        var py = B - (d.yield - yMin) / (yMax - yMin) * (B - T);
+        var r = Math.max(4, 3 + Math.log10(Math.max(d.ac,1)) * 4);
+        html += '<text x="'+(px+r+3).toFixed(1)+'" y="'+(py+3)+'" font-size="9" fill="#333" font-weight="600">'+d.v+'</text>';
+    });
+
+    svg.innerHTML = html;
+}
+
+// Build everything
+buildSummary(DRYLAND, 'dryland-summary', 10);
+buildSummary(IRRIGATED, 'irrigated-summary', 15);
+buildBars(DRYLAND, 'dryland-chart', 75, 50);
+buildBars(IRRIGATED, 'irrigated-chart', 300, 100);
+buildScatter(IRRIGATED, 'scatter-svg', 28000, 35000, 140, 300, 'Seeding Rate (seeds/acre)', 'Yield (bu/acre)');
+buildScatter(DRYLAND, 'scatter-svg-dry', 11500, 15000, 10, 75, 'Seeding Rate (seeds/acre)', 'Yield (bu/acre)');
+</script>
+</body>
+</html>
