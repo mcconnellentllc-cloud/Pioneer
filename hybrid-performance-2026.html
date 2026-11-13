@@ -512,13 +512,13 @@
         <div class="scatter-wrap">
             <h3>Irrigated: Population vs. Yield</h3>
             <p class="scatter-sub">Each bubble is one hybrid. Larger bubble = more acres planted in the territory.</p>
-            <svg id="scatter-svg" class="scatter-svg" viewBox="0 0 700 480" preserveAspectRatio="xMidYMid meet"></svg>
+            <svg id="scatter-svg" class="scatter-svg" viewBox="0 0 960 540" preserveAspectRatio="xMidYMid meet"></svg>
         </div>
 
         <div class="scatter-wrap" style="padding-top:0;">
             <h3>Dryland: Population vs. Yield</h3>
             <p class="scatter-sub">Dryland populations are tightly clustered (12&ndash;14K). Hybrid selection matters more than population fine-tuning.</p>
-            <svg id="scatter-svg-dry" class="scatter-svg" viewBox="0 0 700 480" preserveAspectRatio="xMidYMid meet"></svg>
+            <svg id="scatter-svg-dry" class="scatter-svg" viewBox="0 0 960 540" preserveAspectRatio="xMidYMid meet"></svg>
         </div>
 
         <a href="#top" class="back-link">&uarr; Back to Top</a>
@@ -645,17 +645,16 @@ function buildSummary(data, containerId, minAcres) {
 function buildScatter(data, svgId, xMin, xMax, yMin, yMax, xLabel, yLabel) {
     var svg = document.getElementById(svgId);
     if (!svg) return;
-    var L=70,R=680,T=60,B=410;
+    var L=70,R=700,T=60,B=440,MARGIN_R=880;
     var NAMES = {am:'AcreMax',pce:'PowerCore Enlist',pcue:'PowerCore Ultra Enlist',v:'Vorceed Enlist',q:'Qrome',amxt:'AcreMax Xtreme'};
     var html = '';
 
     // Inline legend at top of chart
-    var legendX = L;
-    var legendY = 18;
+    var legendY = 20;
     var seen = {};
     data.forEach(function(d) { seen[d.p] = true; });
     var platforms = Object.keys(seen);
-    var spacing = Math.min(120, (R - L) / platforms.length);
+    var spacing = Math.min(140, (R - L) / platforms.length);
     var startX = L + ((R - L) - platforms.length * spacing) / 2;
     platforms.forEach(function(p, i) {
         var cx = startX + i * spacing;
@@ -663,10 +662,18 @@ function buildScatter(data, svgId, xMin, xMax, yMin, yMax, xLabel, yLabel) {
         html += '<circle cx="'+cx+'" cy="'+legendY+'" r="6" fill="'+color+'" fill-opacity="0.8"/>';
         html += '<text x="'+(cx+10)+'" y="'+(legendY+4)+'" font-size="10" fill="#444" font-weight="600">'+(NAMES[p]||p)+'</text>';
     });
+    // Bubble size legend
+    html += '<text x="'+(R+20)+'" y="'+(legendY-4)+'" font-size="9" fill="#888" font-weight="600">Bubble = Acres</text>';
+    html += '<circle cx="'+(R+28)+'" cy="'+(legendY+14)+'" r="5" fill="none" stroke="#bbb" stroke-width="1"/>';
+    html += '<text x="'+(R+38)+'" y="'+(legendY+17)+'" font-size="8" fill="#999">10 ac</text>';
+    html += '<circle cx="'+(R+80)+'" cy="'+(legendY+14)+'" r="10" fill="none" stroke="#bbb" stroke-width="1"/>';
+    html += '<text x="'+(R+94)+'" y="'+(legendY+17)+'" font-size="8" fill="#999">1K ac</text>';
+    html += '<circle cx="'+(R+140)+'" cy="'+(legendY+14)+'" r="15" fill="none" stroke="#bbb" stroke-width="1"/>';
+    html += '<text x="'+(R+158)+'" y="'+(legendY+17)+'" font-size="8" fill="#999">5K+ ac</text>';
 
     html += '<rect x="'+L+'" y="'+T+'" width="'+(R-L)+'" height="'+(B-T)+'" fill="#fafaf7" stroke="#ddd" rx="2"/>';
 
-    // Grid lines + labels
+    // Grid lines
     var ySteps = [];
     for (var y = yMin; y <= yMax; y += (yMax-yMin > 100 ? 25 : 10)) ySteps.push(y);
     ySteps.forEach(function(yv) {
@@ -674,7 +681,6 @@ function buildScatter(data, svgId, xMin, xMax, yMin, yMax, xLabel, yLabel) {
         html += '<line x1="'+L+'" y1="'+py+'" x2="'+R+'" y2="'+py+'" stroke="#e0ddd4" stroke-width="1"/>';
         html += '<text x="'+(L-8)+'" y="'+(py+4)+'" text-anchor="end" font-size="10" fill="#888">'+yv+'</text>';
     });
-
     var xSteps = [];
     var xStep = (xMax-xMin) > 10000 ? 1000 : 500;
     for (var x = Math.ceil(xMin/xStep)*xStep; x <= xMax; x += xStep) xSteps.push(x);
@@ -683,41 +689,83 @@ function buildScatter(data, svgId, xMin, xMax, yMin, yMax, xLabel, yLabel) {
         html += '<line x1="'+px+'" y1="'+T+'" x2="'+px+'" y2="'+B+'" stroke="#e0ddd4" stroke-width="1"/>';
         html += '<text x="'+px+'" y="'+(B+16)+'" text-anchor="middle" font-size="10" fill="#888">'+(xv>=1000?(xv/1000).toFixed(0)+'K':xv)+'</text>';
     });
-
-    // Axis labels
     html += '<text x="'+((L+R)/2)+'" y="'+(B+36)+'" text-anchor="middle" font-size="11" fill="#666" font-weight="600">'+xLabel+'</text>';
     html += '<text x="16" y="'+((T+B)/2)+'" text-anchor="middle" font-size="11" fill="#666" font-weight="600" transform="rotate(-90,16,'+((T+B)/2)+')">'+yLabel+'</text>';
 
-    // Points (sorted by acreage desc so small bubbles draw on top)
-    var sorted = data.slice().sort(function(a,b) { return b.ac - a.ac; });
-    sorted.forEach(function(d) {
+    // Compute point positions
+    var pts = data.map(function(d) {
         var px = L + (d.pop - xMin) / (xMax - xMin) * (R - L);
         var py = B - (d.yield - yMin) / (yMax - yMin) * (B - T);
         var r = Math.max(5, 3 + Math.log10(Math.max(d.ac,1)) * 4);
         if (r > 20) r = 20;
-        var color = COLORS[d.p] || '#888';
-        html += '<circle cx="'+px.toFixed(1)+'" cy="'+py.toFixed(1)+'" r="'+r.toFixed(1)+'" fill="'+color+'" fill-opacity="0.65" stroke="'+color+'" stroke-width="1.5"/>';
+        return {d:d, px:px, py:py, r:r};
     });
 
-    // Label EVERY bubble
-    var placed = [];
-    sorted.forEach(function(d) {
-        var px = L + (d.pop - xMin) / (xMax - xMin) * (R - L);
-        var py = B - (d.yield - yMin) / (yMax - yMin) * (B - T);
-        var r = Math.max(5, 3 + Math.log10(Math.max(d.ac,1)) * 4);
-        if (r > 20) r = 20;
-        var tx = px + r + 3;
-        var ty = py + 3;
-        // nudge down if overlapping a previous label
-        for (var i = 0; i < placed.length; i++) {
-            if (Math.abs(tx - placed[i].x) < 60 && Math.abs(ty - placed[i].y) < 10) {
-                ty = placed[i].y + 10;
+    // Draw bubbles
+    pts.sort(function(a,b) { return b.d.ac - a.d.ac; });
+    pts.forEach(function(p) {
+        var color = COLORS[p.d.p] || '#888';
+        html += '<circle cx="'+p.px.toFixed(1)+'" cy="'+p.py.toFixed(1)+'" r="'+p.r.toFixed(1)+'" fill="'+color+'" fill-opacity="0.6" stroke="'+color+'" stroke-width="1.5"/>';
+    });
+
+    // Place labels in right margin column with leader lines
+    // Split into left-side and right-side labels based on bubble x position
+    var mid = (L + R) / 2;
+    var rightPts = pts.filter(function(p) { return p.px >= mid; });
+    var leftPts = pts.filter(function(p) { return p.px < mid; });
+
+    // Sort each group by y position (top to bottom)
+    rightPts.sort(function(a,b) { return a.py - b.py; });
+    leftPts.sort(function(a,b) { return a.py - b.py; });
+
+    // Resolve overlaps: enforce min spacing between labels
+    var MIN_GAP = 16;
+    function resolveOverlaps(labels, anchorX) {
+        // initial label y = bubble y
+        labels.forEach(function(p) { p.labelY = p.py; p.labelX = anchorX; });
+        // multi-pass: push overlapping labels apart
+        for (var pass = 0; pass < 20; pass++) {
+            var moved = false;
+            for (var i = 1; i < labels.length; i++) {
+                var gap = labels[i].labelY - labels[i-1].labelY;
+                if (gap < MIN_GAP) {
+                    var push = (MIN_GAP - gap) / 2;
+                    labels[i-1].labelY -= push;
+                    labels[i].labelY += push;
+                    moved = true;
+                }
             }
+            // clamp to chart bounds
+            labels.forEach(function(p) {
+                if (p.labelY < T + 8) p.labelY = T + 8;
+                if (p.labelY > B + 60) p.labelY = B + 60;
+            });
+            if (!moved) break;
         }
-        if (tx + 70 > R) { tx = px - r - 3; }
-        placed.push({x: tx, y: ty});
-        var anchor = (tx < px) ? 'end' : 'start';
-        html += '<text x="'+tx.toFixed(1)+'" y="'+ty.toFixed(1)+'" text-anchor="'+anchor+'" font-size="8" fill="#333" font-weight="600">'+d.v+'</text>';
+    }
+
+    resolveOverlaps(rightPts, R + 12);
+    resolveOverlaps(leftPts, L - 12);
+
+    // Draw right-side labels with leader lines
+    rightPts.forEach(function(p) {
+        var color = COLORS[p.d.p] || '#888';
+        // leader line: bubble edge → label
+        html += '<line x1="'+(p.px+p.r).toFixed(1)+'" y1="'+p.py.toFixed(1)+'" x2="'+p.labelX.toFixed(1)+'" y2="'+p.labelY.toFixed(1)+'" stroke="'+color+'" stroke-width="0.7" stroke-opacity="0.5"/>';
+        // small dot at label end
+        html += '<circle cx="'+p.labelX.toFixed(1)+'" cy="'+p.labelY.toFixed(1)+'" r="1.5" fill="'+color+'"/>';
+        // label text
+        html += '<text x="'+(p.labelX+5).toFixed(1)+'" y="'+(p.labelY+3).toFixed(1)+'" text-anchor="start" font-size="9" fill="'+color+'" font-weight="700">'+p.d.v+'</text>';
+        html += '<text x="'+(p.labelX+5).toFixed(1)+'" y="'+(p.labelY+12).toFixed(1)+'" text-anchor="start" font-size="7.5" fill="#888">'+p.d.yield.toFixed(0)+' bu &middot; '+Math.round(p.d.ac)+' ac</text>';
+    });
+
+    // Draw left-side labels with leader lines
+    leftPts.forEach(function(p) {
+        var color = COLORS[p.d.p] || '#888';
+        html += '<line x1="'+(p.px-p.r).toFixed(1)+'" y1="'+p.py.toFixed(1)+'" x2="'+p.labelX.toFixed(1)+'" y2="'+p.labelY.toFixed(1)+'" stroke="'+color+'" stroke-width="0.7" stroke-opacity="0.5"/>';
+        html += '<circle cx="'+p.labelX.toFixed(1)+'" cy="'+p.labelY.toFixed(1)+'" r="1.5" fill="'+color+'"/>';
+        html += '<text x="'+(p.labelX-5).toFixed(1)+'" y="'+(p.labelY+3).toFixed(1)+'" text-anchor="end" font-size="9" fill="'+color+'" font-weight="700">'+p.d.v+'</text>';
+        html += '<text x="'+(p.labelX-5).toFixed(1)+'" y="'+(p.labelY+12).toFixed(1)+'" text-anchor="end" font-size="7.5" fill="#888">'+p.d.yield.toFixed(0)+' bu &middot; '+Math.round(p.d.ac)+' ac</text>';
     });
 
     svg.innerHTML = html;
