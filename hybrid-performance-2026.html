@@ -512,13 +512,13 @@
         <div class="scatter-wrap">
             <h3>Irrigated: Population vs. Yield</h3>
             <p class="scatter-sub">Each bubble is one hybrid. Larger bubble = more acres planted in the territory.</p>
-            <svg id="scatter-svg" class="scatter-svg" viewBox="0 0 700 420" preserveAspectRatio="xMidYMid meet"></svg>
+            <svg id="scatter-svg" class="scatter-svg" viewBox="0 0 700 480" preserveAspectRatio="xMidYMid meet"></svg>
         </div>
 
         <div class="scatter-wrap" style="padding-top:0;">
             <h3>Dryland: Population vs. Yield</h3>
             <p class="scatter-sub">Dryland populations are tightly clustered (12&ndash;14K). Hybrid selection matters more than population fine-tuning.</p>
-            <svg id="scatter-svg-dry" class="scatter-svg" viewBox="0 0 700 420" preserveAspectRatio="xMidYMid meet"></svg>
+            <svg id="scatter-svg-dry" class="scatter-svg" viewBox="0 0 700 480" preserveAspectRatio="xMidYMid meet"></svg>
         </div>
 
         <a href="#top" class="back-link">&uarr; Back to Top</a>
@@ -645,8 +645,25 @@ function buildSummary(data, containerId, minAcres) {
 function buildScatter(data, svgId, xMin, xMax, yMin, yMax, xLabel, yLabel) {
     var svg = document.getElementById(svgId);
     if (!svg) return;
-    var L=70,R=680,T=30,B=380;
+    var L=70,R=680,T=60,B=410;
+    var NAMES = {am:'AcreMax',pce:'PowerCore Enlist',pcue:'PowerCore Ultra Enlist',v:'Vorceed Enlist',q:'Qrome',amxt:'AcreMax Xtreme'};
     var html = '';
+
+    // Inline legend at top of chart
+    var legendX = L;
+    var legendY = 18;
+    var seen = {};
+    data.forEach(function(d) { seen[d.p] = true; });
+    var platforms = Object.keys(seen);
+    var spacing = Math.min(120, (R - L) / platforms.length);
+    var startX = L + ((R - L) - platforms.length * spacing) / 2;
+    platforms.forEach(function(p, i) {
+        var cx = startX + i * spacing;
+        var color = COLORS[p] || '#888';
+        html += '<circle cx="'+cx+'" cy="'+legendY+'" r="6" fill="'+color+'" fill-opacity="0.8"/>';
+        html += '<text x="'+(cx+10)+'" y="'+(legendY+4)+'" font-size="10" fill="#444" font-weight="600">'+(NAMES[p]||p)+'</text>';
+    });
+
     html += '<rect x="'+L+'" y="'+T+'" width="'+(R-L)+'" height="'+(B-T)+'" fill="#fafaf7" stroke="#ddd" rx="2"/>';
 
     // Grid lines + labels
@@ -676,19 +693,31 @@ function buildScatter(data, svgId, xMin, xMax, yMin, yMax, xLabel, yLabel) {
     sorted.forEach(function(d) {
         var px = L + (d.pop - xMin) / (xMax - xMin) * (R - L);
         var py = B - (d.yield - yMin) / (yMax - yMin) * (B - T);
-        var r = Math.max(4, 3 + Math.log10(Math.max(d.ac,1)) * 4);
+        var r = Math.max(5, 3 + Math.log10(Math.max(d.ac,1)) * 4);
         if (r > 20) r = 20;
         var color = COLORS[d.p] || '#888';
         html += '<circle cx="'+px.toFixed(1)+'" cy="'+py.toFixed(1)+'" r="'+r.toFixed(1)+'" fill="'+color+'" fill-opacity="0.65" stroke="'+color+'" stroke-width="1.5"/>';
     });
 
-    // Labels for top entries (largest acreage)
-    var labeled = data.slice().sort(function(a,b) { return b.ac - a.ac; }).slice(0,8);
-    labeled.forEach(function(d) {
+    // Label EVERY bubble
+    var placed = [];
+    sorted.forEach(function(d) {
         var px = L + (d.pop - xMin) / (xMax - xMin) * (R - L);
         var py = B - (d.yield - yMin) / (yMax - yMin) * (B - T);
-        var r = Math.max(4, 3 + Math.log10(Math.max(d.ac,1)) * 4);
-        html += '<text x="'+(px+r+3).toFixed(1)+'" y="'+(py+3)+'" font-size="9" fill="#333" font-weight="600">'+d.v+'</text>';
+        var r = Math.max(5, 3 + Math.log10(Math.max(d.ac,1)) * 4);
+        if (r > 20) r = 20;
+        var tx = px + r + 3;
+        var ty = py + 3;
+        // nudge down if overlapping a previous label
+        for (var i = 0; i < placed.length; i++) {
+            if (Math.abs(tx - placed[i].x) < 60 && Math.abs(ty - placed[i].y) < 10) {
+                ty = placed[i].y + 10;
+            }
+        }
+        if (tx + 70 > R) { tx = px - r - 3; }
+        placed.push({x: tx, y: ty});
+        var anchor = (tx < px) ? 'end' : 'start';
+        html += '<text x="'+tx.toFixed(1)+'" y="'+ty.toFixed(1)+'" text-anchor="'+anchor+'" font-size="8" fill="#333" font-weight="600">'+d.v+'</text>';
     });
 
     svg.innerHTML = html;
