@@ -512,13 +512,13 @@
         <div class="scatter-wrap">
             <h3>Irrigated: Population vs. Yield</h3>
             <p class="scatter-sub">Each bubble is one hybrid. Larger bubble = more acres planted in the territory.</p>
-            <svg id="scatter-svg" class="scatter-svg" viewBox="0 0 1020 500" preserveAspectRatio="xMidYMid meet"></svg>
+            <svg id="scatter-svg" class="scatter-svg" viewBox="-120 0 1100 500" preserveAspectRatio="xMidYMid meet"></svg>
         </div>
 
         <div class="scatter-wrap" style="padding-top:0;">
             <h3>Dryland: Population vs. Yield</h3>
             <p class="scatter-sub">Dryland populations are tightly clustered (12&ndash;14K). Hybrid selection matters more than population fine-tuning.</p>
-            <svg id="scatter-svg-dry" class="scatter-svg" viewBox="0 0 1020 500" preserveAspectRatio="xMidYMid meet"></svg>
+            <svg id="scatter-svg-dry" class="scatter-svg" viewBox="-120 0 1100 500" preserveAspectRatio="xMidYMid meet"></svg>
         </div>
 
         <a href="#top" class="back-link">&uarr; Back to Top</a>
@@ -707,84 +707,34 @@ function buildScatter(data, svgId, xMin, xMax, yMin, yMax, xLabel, yLabel) {
         html += '<circle cx="'+p.px.toFixed(1)+'" cy="'+p.py.toFixed(1)+'" r="'+p.r.toFixed(1)+'" fill="'+color+'" fill-opacity="0.6" stroke="'+color+'" stroke-width="1.5"/>';
     });
 
-    // Place labels using force-directed layout across chart area
-    var LBL_W = 120, LBL_H = 12;
-    var PAD = 20;
-    var minX = L - PAD, maxX = MARGIN_R, minY = T - PAD, maxY = B + 50;
-
-    // Seed each label offset from its bubble toward nearest open direction
-    pts.forEach(function(p) {
-        var offX = (p.px < (L+R)/2) ? -LBL_W/2 - p.r - 10 : p.r + 10;
-        var offY = 0;
-        p.labelX = Math.max(minX, Math.min(maxX - LBL_W, p.px + offX));
-        p.labelY = Math.max(minY, Math.min(maxY, p.py + offY));
+    // Two-column label layout: sorted by yield, evenly spaced
+    var sorted = pts.slice().sort(function(a,b) { return b.d.yield - a.d.yield; });
+    var leftCol = [], rightCol = [];
+    sorted.forEach(function(p, i) {
+        if (i % 2 === 0) rightCol.push(p);
+        else leftCol.push(p);
     });
 
-    // Iterative relaxation: push labels apart and away from bubbles
-    for (var iter = 0; iter < 60; iter++) {
-        for (var i = 0; i < pts.length; i++) {
-            var a = pts[i];
-            // Repel from other labels
-            for (var j = i+1; j < pts.length; j++) {
-                var b = pts[j];
-                var dx = a.labelX - b.labelX;
-                var dy = a.labelY - b.labelY;
-                var overlapX = LBL_W - Math.abs(dx);
-                var overlapY = LBL_H - Math.abs(dy);
-                if (overlapX > 0 && overlapY > 0) {
-                    if (overlapY < overlapX) {
-                        var pushY = overlapY / 2 + 0.5;
-                        a.labelY += (dy >= 0 ? pushY : -pushY);
-                        b.labelY += (dy >= 0 ? -pushY : pushY);
-                    } else {
-                        var pushX = overlapX / 2 + 0.5;
-                        a.labelX += (dx >= 0 ? pushX : -pushX);
-                        b.labelX += (dx >= 0 ? -pushX : pushX);
-                    }
-                }
+    var colTop = T + 4, colBot = B + 10;
+    function spaceColumn(col, anchorX, side) {
+        var step = col.length > 1 ? (colBot - colTop) / (col.length - 1) : 0;
+        col.forEach(function(p, i) {
+            var ly = colTop + i * step;
+            var color = COLORS[p.d.p] || '#888';
+            // Leader line: elbow style — horizontal from bubble, then vertical to label
+            var edgeX = (side === 'right') ? p.px + p.r : p.px - p.r;
+            var elbowX = anchorX - (side === 'right' ? 4 : -4);
+            html += '<path d="M'+edgeX.toFixed(1)+','+p.py.toFixed(1)+' L'+elbowX.toFixed(1)+','+p.py.toFixed(1)+' L'+elbowX.toFixed(1)+','+ly.toFixed(1)+'" fill="none" stroke="'+color+'" stroke-width="0.6" stroke-opacity="0.35"/>';
+            html += '<circle cx="'+elbowX.toFixed(1)+'" cy="'+ly.toFixed(1)+'" r="1.2" fill="'+color+'"/>';
+            if (side === 'right') {
+                html += '<text x="'+(anchorX).toFixed(1)+'" y="'+(ly+3).toFixed(1)+'" text-anchor="start" font-size="8.5"><tspan fill="'+color+'" font-weight="700">'+p.d.v+'</tspan><tspan fill="#888" font-size="7"> '+p.d.yield.toFixed(0)+' bu · '+Math.round(p.d.ac)+' ac</tspan></text>';
+            } else {
+                html += '<text x="'+(anchorX).toFixed(1)+'" y="'+(ly+3).toFixed(1)+'" text-anchor="end" font-size="8.5"><tspan fill="#888" font-size="7">'+p.d.yield.toFixed(0)+' bu · '+Math.round(p.d.ac)+' ac </tspan><tspan fill="'+color+'" font-weight="700">'+p.d.v+'</tspan></text>';
             }
-            // Repel from bubbles (avoid labels sitting on dots)
-            for (var k = 0; k < pts.length; k++) {
-                if (k === i) continue;
-                var bp = pts[k];
-                var cx = a.labelX + LBL_W/2;
-                var cy = a.labelY;
-                var ddx = cx - bp.px;
-                var ddy = cy - bp.py;
-                var dist = Math.sqrt(ddx*ddx + ddy*ddy);
-                var minD = bp.r + 8;
-                if (dist < minD && dist > 0) {
-                    var force = (minD - dist) / dist * 0.5;
-                    a.labelX += ddx * force;
-                    a.labelY += ddy * force;
-                }
-            }
-            // Gentle pull back toward own bubble (spring)
-            a.labelX += (a.px - a.labelX) * 0.02;
-            a.labelY += (a.py - a.labelY) * 0.02;
-            // Clamp to bounds
-            a.labelX = Math.max(minX, Math.min(maxX - LBL_W/2, a.labelX));
-            a.labelY = Math.max(minY + 5, Math.min(maxY, a.labelY));
-        }
+        });
     }
-
-    // Draw leader lines and labels
-    pts.forEach(function(p) {
-        var color = COLORS[p.d.p] || '#888';
-        var dx = p.labelX - p.px;
-        var dy = p.labelY - p.py;
-        var dist = Math.sqrt(dx*dx + dy*dy);
-        // Only draw leader line if label is far enough from bubble
-        if (dist > p.r + 8) {
-            var startX = p.px + (dx/dist) * p.r;
-            var startY = p.py + (dy/dist) * p.r;
-            html += '<line x1="'+startX.toFixed(1)+'" y1="'+startY.toFixed(1)+'" x2="'+p.labelX.toFixed(1)+'" y2="'+p.labelY.toFixed(1)+'" stroke="'+color+'" stroke-width="0.6" stroke-opacity="0.4"/>';
-            html += '<circle cx="'+p.labelX.toFixed(1)+'" cy="'+p.labelY.toFixed(1)+'" r="1.2" fill="'+color+'"/>';
-        }
-        var anchor = (p.labelX >= p.px) ? 'start' : 'end';
-        var tx = (anchor === 'start') ? p.labelX + 4 : p.labelX - 4;
-        html += '<text x="'+tx.toFixed(1)+'" y="'+(p.labelY+3).toFixed(1)+'" text-anchor="'+anchor+'" font-size="9"><tspan fill="'+color+'" font-weight="700">'+p.d.v+'</tspan><tspan fill="#888" font-size="7.5"> '+p.d.yield.toFixed(0)+' bu · '+Math.round(p.d.ac)+' ac</tspan></text>';
-    });
+    spaceColumn(rightCol, R + 14, 'right');
+    spaceColumn(leftCol, L - 14, 'left');
 
     svg.innerHTML = html;
 }
