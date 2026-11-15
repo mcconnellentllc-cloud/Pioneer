@@ -512,13 +512,13 @@
         <div class="scatter-wrap">
             <h3>Irrigated: Population vs. Yield</h3>
             <p class="scatter-sub">Each bubble is one hybrid. Larger bubble = more acres planted in the territory.</p>
-            <svg id="scatter-svg" class="scatter-svg" viewBox="0 0 960 540" preserveAspectRatio="xMidYMid meet"></svg>
+            <svg id="scatter-svg" class="scatter-svg" viewBox="0 0 1020 500" preserveAspectRatio="xMidYMid meet"></svg>
         </div>
 
         <div class="scatter-wrap" style="padding-top:0;">
             <h3>Dryland: Population vs. Yield</h3>
             <p class="scatter-sub">Dryland populations are tightly clustered (12&ndash;14K). Hybrid selection matters more than population fine-tuning.</p>
-            <svg id="scatter-svg-dry" class="scatter-svg" viewBox="0 0 960 540" preserveAspectRatio="xMidYMid meet"></svg>
+            <svg id="scatter-svg-dry" class="scatter-svg" viewBox="0 0 1020 500" preserveAspectRatio="xMidYMid meet"></svg>
         </div>
 
         <a href="#top" class="back-link">&uarr; Back to Top</a>
@@ -718,7 +718,7 @@ function buildScatter(data, svgId, xMin, xMax, yMin, yMax, xLabel, yLabel) {
     leftPts.sort(function(a,b) { return a.py - b.py; });
 
     // Resolve overlaps: enforce min spacing between labels
-    var MIN_GAP = 16;
+    var MIN_GAP = 12;
     function resolveOverlaps(labels, anchorX) {
         // initial label y = bubble y
         labels.forEach(function(p) { p.labelY = p.py; p.labelX = anchorX; });
@@ -749,13 +749,9 @@ function buildScatter(data, svgId, xMin, xMax, yMin, yMax, xLabel, yLabel) {
     // Draw right-side labels with leader lines
     rightPts.forEach(function(p) {
         var color = COLORS[p.d.p] || '#888';
-        // leader line: bubble edge → label
         html += '<line x1="'+(p.px+p.r).toFixed(1)+'" y1="'+p.py.toFixed(1)+'" x2="'+p.labelX.toFixed(1)+'" y2="'+p.labelY.toFixed(1)+'" stroke="'+color+'" stroke-width="0.7" stroke-opacity="0.5"/>';
-        // small dot at label end
         html += '<circle cx="'+p.labelX.toFixed(1)+'" cy="'+p.labelY.toFixed(1)+'" r="1.5" fill="'+color+'"/>';
-        // label text
-        html += '<text x="'+(p.labelX+5).toFixed(1)+'" y="'+(p.labelY+3).toFixed(1)+'" text-anchor="start" font-size="9" fill="'+color+'" font-weight="700">'+p.d.v+'</text>';
-        html += '<text x="'+(p.labelX+5).toFixed(1)+'" y="'+(p.labelY+12).toFixed(1)+'" text-anchor="start" font-size="7.5" fill="#888">'+p.d.yield.toFixed(0)+' bu &middot; '+Math.round(p.d.ac)+' ac</text>';
+        html += '<text x="'+(p.labelX+5).toFixed(1)+'" y="'+(p.labelY+3).toFixed(1)+'" text-anchor="start" font-size="9"><tspan fill="'+color+'" font-weight="700">'+p.d.v+'</tspan><tspan fill="#888" font-size="7.5"> '+p.d.yield.toFixed(0)+' bu · '+Math.round(p.d.ac)+' ac</tspan></text>';
     });
 
     // Draw left-side labels with leader lines
@@ -763,8 +759,7 @@ function buildScatter(data, svgId, xMin, xMax, yMin, yMax, xLabel, yLabel) {
         var color = COLORS[p.d.p] || '#888';
         html += '<line x1="'+(p.px-p.r).toFixed(1)+'" y1="'+p.py.toFixed(1)+'" x2="'+p.labelX.toFixed(1)+'" y2="'+p.labelY.toFixed(1)+'" stroke="'+color+'" stroke-width="0.7" stroke-opacity="0.5"/>';
         html += '<circle cx="'+p.labelX.toFixed(1)+'" cy="'+p.labelY.toFixed(1)+'" r="1.5" fill="'+color+'"/>';
-        html += '<text x="'+(p.labelX-5).toFixed(1)+'" y="'+(p.labelY+3).toFixed(1)+'" text-anchor="end" font-size="9" fill="'+color+'" font-weight="700">'+p.d.v+'</text>';
-        html += '<text x="'+(p.labelX-5).toFixed(1)+'" y="'+(p.labelY+12).toFixed(1)+'" text-anchor="end" font-size="7.5" fill="#888">'+p.d.yield.toFixed(0)+' bu &middot; '+Math.round(p.d.ac)+' ac</text>';
+        html += '<text x="'+(p.labelX-5).toFixed(1)+'" y="'+(p.labelY+3).toFixed(1)+'" text-anchor="end" font-size="9"><tspan fill="#888" font-size="7.5">'+p.d.yield.toFixed(0)+' bu · '+Math.round(p.d.ac)+' ac </tspan><tspan fill="'+color+'" font-weight="700">'+p.d.v+'</tspan></text>';
     });
 
     svg.innerHTML = html;
