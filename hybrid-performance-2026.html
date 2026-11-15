@@ -707,59 +707,83 @@ function buildScatter(data, svgId, xMin, xMax, yMin, yMax, xLabel, yLabel) {
         html += '<circle cx="'+p.px.toFixed(1)+'" cy="'+p.py.toFixed(1)+'" r="'+p.r.toFixed(1)+'" fill="'+color+'" fill-opacity="0.6" stroke="'+color+'" stroke-width="1.5"/>';
     });
 
-    // Place labels in right margin column with leader lines
-    // Split into left-side and right-side labels based on bubble x position
-    var mid = (L + R) / 2;
-    var rightPts = pts.filter(function(p) { return p.px >= mid; });
-    var leftPts = pts.filter(function(p) { return p.px < mid; });
+    // Place labels using force-directed layout across chart area
+    var LBL_W = 120, LBL_H = 12;
+    var PAD = 20;
+    var minX = L - PAD, maxX = MARGIN_R, minY = T - PAD, maxY = B + 50;
 
-    // Sort each group by y position (top to bottom)
-    rightPts.sort(function(a,b) { return a.py - b.py; });
-    leftPts.sort(function(a,b) { return a.py - b.py; });
+    // Seed each label offset from its bubble toward nearest open direction
+    pts.forEach(function(p) {
+        var offX = (p.px < (L+R)/2) ? -LBL_W/2 - p.r - 10 : p.r + 10;
+        var offY = 0;
+        p.labelX = Math.max(minX, Math.min(maxX - LBL_W, p.px + offX));
+        p.labelY = Math.max(minY, Math.min(maxY, p.py + offY));
+    });
 
-    // Resolve overlaps: enforce min spacing between labels
-    var MIN_GAP = 12;
-    function resolveOverlaps(labels, anchorX) {
-        // initial label y = bubble y
-        labels.forEach(function(p) { p.labelY = p.py; p.labelX = anchorX; });
-        // multi-pass: push overlapping labels apart
-        for (var pass = 0; pass < 20; pass++) {
-            var moved = false;
-            for (var i = 1; i < labels.length; i++) {
-                var gap = labels[i].labelY - labels[i-1].labelY;
-                if (gap < MIN_GAP) {
-                    var push = (MIN_GAP - gap) / 2;
-                    labels[i-1].labelY -= push;
-                    labels[i].labelY += push;
-                    moved = true;
+    // Iterative relaxation: push labels apart and away from bubbles
+    for (var iter = 0; iter < 60; iter++) {
+        for (var i = 0; i < pts.length; i++) {
+            var a = pts[i];
+            // Repel from other labels
+            for (var j = i+1; j < pts.length; j++) {
+                var b = pts[j];
+                var dx = a.labelX - b.labelX;
+                var dy = a.labelY - b.labelY;
+                var overlapX = LBL_W - Math.abs(dx);
+                var overlapY = LBL_H - Math.abs(dy);
+                if (overlapX > 0 && overlapY > 0) {
+                    if (overlapY < overlapX) {
+                        var pushY = overlapY / 2 + 0.5;
+                        a.labelY += (dy >= 0 ? pushY : -pushY);
+                        b.labelY += (dy >= 0 ? -pushY : pushY);
+                    } else {
+                        var pushX = overlapX / 2 + 0.5;
+                        a.labelX += (dx >= 0 ? pushX : -pushX);
+                        b.labelX += (dx >= 0 ? -pushX : pushX);
+                    }
                 }
             }
-            // clamp to chart bounds
-            labels.forEach(function(p) {
-                if (p.labelY < T + 8) p.labelY = T + 8;
-                if (p.labelY > B + 60) p.labelY = B + 60;
-            });
-            if (!moved) break;
+            // Repel from bubbles (avoid labels sitting on dots)
+            for (var k = 0; k < pts.length; k++) {
+                if (k === i) continue;
+                var bp = pts[k];
+                var cx = a.labelX + LBL_W/2;
+                var cy = a.labelY;
+                var ddx = cx - bp.px;
+                var ddy = cy - bp.py;
+                var dist = Math.sqrt(ddx*ddx + ddy*ddy);
+                var minD = bp.r + 8;
+                if (dist < minD && dist > 0) {
+                    var force = (minD - dist) / dist * 0.5;
+                    a.labelX += ddx * force;
+                    a.labelY += ddy * force;
+                }
+            }
+            // Gentle pull back toward own bubble (spring)
+            a.labelX += (a.px - a.labelX) * 0.02;
+            a.labelY += (a.py - a.labelY) * 0.02;
+            // Clamp to bounds
+            a.labelX = Math.max(minX, Math.min(maxX - LBL_W/2, a.labelX));
+            a.labelY = Math.max(minY + 5, Math.min(maxY, a.labelY));
         }
     }
 
-    resolveOverlaps(rightPts, R + 12);
-    resolveOverlaps(leftPts, L - 12);
-
-    // Draw right-side labels with leader lines
-    rightPts.forEach(function(p) {
+    // Draw leader lines and labels
+    pts.forEach(function(p) {
         var color = COLORS[p.d.p] || '#888';
-        html += '<line x1="'+(p.px+p.r).toFixed(1)+'" y1="'+p.py.toFixed(1)+'" x2="'+p.labelX.toFixed(1)+'" y2="'+p.labelY.toFixed(1)+'" stroke="'+color+'" stroke-width="0.7" stroke-opacity="0.5"/>';
-        html += '<circle cx="'+p.labelX.toFixed(1)+'" cy="'+p.labelY.toFixed(1)+'" r="1.5" fill="'+color+'"/>';
-        html += '<text x="'+(p.labelX+5).toFixed(1)+'" y="'+(p.labelY+3).toFixed(1)+'" text-anchor="start" font-size="9"><tspan fill="'+color+'" font-weight="700">'+p.d.v+'</tspan><tspan fill="#888" font-size="7.5"> '+p.d.yield.toFixed(0)+' bu · '+Math.round(p.d.ac)+' ac</tspan></text>';
-    });
-
-    // Draw left-side labels with leader lines
-    leftPts.forEach(function(p) {
-        var color = COLORS[p.d.p] || '#888';
-        html += '<line x1="'+(p.px-p.r).toFixed(1)+'" y1="'+p.py.toFixed(1)+'" x2="'+p.labelX.toFixed(1)+'" y2="'+p.labelY.toFixed(1)+'" stroke="'+color+'" stroke-width="0.7" stroke-opacity="0.5"/>';
-        html += '<circle cx="'+p.labelX.toFixed(1)+'" cy="'+p.labelY.toFixed(1)+'" r="1.5" fill="'+color+'"/>';
-        html += '<text x="'+(p.labelX-5).toFixed(1)+'" y="'+(p.labelY+3).toFixed(1)+'" text-anchor="end" font-size="9"><tspan fill="#888" font-size="7.5">'+p.d.yield.toFixed(0)+' bu · '+Math.round(p.d.ac)+' ac </tspan><tspan fill="'+color+'" font-weight="700">'+p.d.v+'</tspan></text>';
+        var dx = p.labelX - p.px;
+        var dy = p.labelY - p.py;
+        var dist = Math.sqrt(dx*dx + dy*dy);
+        // Only draw leader line if label is far enough from bubble
+        if (dist > p.r + 8) {
+            var startX = p.px + (dx/dist) * p.r;
+            var startY = p.py + (dy/dist) * p.r;
+            html += '<line x1="'+startX.toFixed(1)+'" y1="'+startY.toFixed(1)+'" x2="'+p.labelX.toFixed(1)+'" y2="'+p.labelY.toFixed(1)+'" stroke="'+color+'" stroke-width="0.6" stroke-opacity="0.4"/>';
+            html += '<circle cx="'+p.labelX.toFixed(1)+'" cy="'+p.labelY.toFixed(1)+'" r="1.2" fill="'+color+'"/>';
+        }
+        var anchor = (p.labelX >= p.px) ? 'start' : 'end';
+        var tx = (anchor === 'start') ? p.labelX + 4 : p.labelX - 4;
+        html += '<text x="'+tx.toFixed(1)+'" y="'+(p.labelY+3).toFixed(1)+'" text-anchor="'+anchor+'" font-size="9"><tspan fill="'+color+'" font-weight="700">'+p.d.v+'</tspan><tspan fill="#888" font-size="7.5"> '+p.d.yield.toFixed(0)+' bu · '+Math.round(p.d.ac)+' ac</tspan></text>';
     });
 
     svg.innerHTML = html;
