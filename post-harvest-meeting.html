@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="District CD Post-Harvest Meeting — December 15-16, 2026. Black Hawk, CO. RSVP for rooms now.">
+    <title>Post-Harvest Meeting | McConnell Enterprises</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --pioneer-green: #2d6a1e;
+            --pioneer-green-dark: #1e4a14;
+            --pioneer-gold: #c9a227;
+            --gold-light: #f5e6b8;
+            --cream: #f7f5ef;
+            --page: #f2f0ea;
+            --ink: #2c2c2c;
+            --ink-soft: #5a5a5a;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            background: var(--page);
+            color: var(--ink);
+            font-family: 'Inter', -apple-system, 'Segoe UI', Helvetica, sans-serif;
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+        .wrap {
+            max-width: 900px;
+            margin: 0 auto;
+            background: #fff;
+            box-shadow: 0 2px 24px rgba(0,0,0,0.07);
+        }
+
+        .topbar {
+            background: var(--pioneer-green-dark);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 24px;
+        }
+        .topbar a {
+            color: rgba(255,255,255,0.7);
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 500;
+            transition: color 0.15s;
+        }
+        .topbar a:hover { color: #fff; }
+        .topbar .brand {
+            color: var(--pioneer-gold);
+            font-size: 11px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            font-weight: 700;
+        }
+
+        .hero {
+            background: linear-gradient(160deg, var(--pioneer-green-dark) 0%, var(--pioneer-green) 100%);
+            color: #fff;
+            text-align: center;
+            padding: 48px 28px 40px;
+        }
+        .hero .eyebrow {
+            font-size: 12px;
+            letter-spacing: 2.5px;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.55);
+            margin: 0 0 14px;
+            font-weight: 600;
+        }
+        .hero h1 {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-weight: 700;
+            font-size: clamp(28px, 5.5vw, 44px);
+            line-height: 1.15;
+            margin: 0 0 8px;
+        }
+        .hero h2 {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-weight: 400;
+            font-size: clamp(17px, 3.5vw, 24px);
+            color: var(--pioneer-gold);
+            margin: 0 0 24px;
+            font-style: italic;
+        }
+        .hero .dates {
+            display: inline-flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-bottom: 12px;
+        }
+        .hero .date-chip {
+            background: rgba(255,255,255,0.12);
+            border: 1px solid rgba(255,255,255,0.2);
+            padding: 8px 18px;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 14px;
+            letter-spacing: 0.5px;
+        }
+        .hero .location {
+            font-size: 15px;
+            color: rgba(255,255,255,0.7);
+            margin-top: 10px;
+        }
+
+        /* Urgency band */
+        .urgency-band {
+            background: linear-gradient(135deg, #c0392b 0%, #e74c3c 100%);
+            color: #fff;
+            padding: 18px 28px;
+            text-align: center;
+            font-weight: 700;
+            font-size: 16px;
+            letter-spacing: 0.3px;
+        }
+        .urgency-band span {
+            display: inline-block;
+            background: rgba(255,255,255,0.2);
+            padding: 2px 10px;
+            border-radius: 4px;
+            font-size: 13px;
+            margin-left: 8px;
+            font-weight: 600;
+            vertical-align: middle;
+        }
+
+        /* Agenda */
+        .agenda {
+            padding: 36px 28px 20px;
+        }
+        .agenda h2 {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 26px;
+            color: var(--pioneer-green-dark);
+            text-align: center;
+            margin: 0 0 28px;
+        }
+        .day-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        .day-card {
+            border: 1px solid #e0ddd4;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        .day-card-header {
+            background: var(--pioneer-green);
+            color: #fff;
+            text-align: center;
+            padding: 14px 16px;
+        }
+        .day-card-header .day-name {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 18px;
+            font-weight: 700;
+        }
+        .day-card-header .day-date {
+            font-size: 12px;
+            color: rgba(255,255,255,0.65);
+        }
+        .day-card-body {
+            padding: 16px;
+        }
+        .agenda-item {
+            display: flex;
+            gap: 12px;
+            padding: 10px 0;
+            border-bottom: 1px solid #f0ede6;
+            font-size: 14px;
+        }
+        .agenda-item:last-child { border-bottom: none; }
+        .agenda-time {
+            font-weight: 700;
+            color: var(--pioneer-green-dark);
+            white-space: nowrap;
+            min-width: 70px;
+        }
+        .agenda-desc {
+            color: var(--ink);
+        }
+        .agenda-note {
+            font-size: 13px;
+            color: var(--ink-soft);
+            font-style: italic;
+            padding: 10px 0 0;
+            border-top: 1px dashed #e0ddd4;
+            margin-top: 4px;
+        }
+
+        /* RSVP Section */
+        .rsvp-section {
+            padding: 36px 28px 40px;
+            background: var(--cream);
+            border-top: 3px solid var(--pioneer-gold);
+        }
+        .rsvp-section h2 {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 26px;
+            color: var(--pioneer-green-dark);
+            text-align: center;
+            margin: 0 0 8px;
+        }
+        .rsvp-section .rsvp-sub {
+            text-align: center;
+            color: var(--ink-soft);
+            font-size: 14px;
+            margin: 0 0 28px;
+        }
+        .rsvp-form {
+            max-width: 500px;
+            margin: 0 auto;
+            background: #fff;
+            border: 1px solid #e0ddd4;
+            border-radius: 12px;
+            padding: 28px;
+        }
+        .form-group {
+            margin-bottom: 18px;
+        }
+        .form-group label {
+            display: block;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--ink);
+            margin-bottom: 6px;
+        }
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 10px 14px;
+            border: 1px solid #d5d0c5;
+            border-radius: 6px;
+            font-size: 15px;
+            font-family: inherit;
+            transition: border-color 0.15s;
+            background: #fff;
+        }
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--pioneer-green);
+        }
+        .form-group textarea { resize: vertical; min-height: 60px; }
+        .form-group .hint {
+            font-size: 12px;
+            color: #999;
+            margin-top: 4px;
+        }
+        .rsvp-btn {
+            display: block;
+            width: 100%;
+            padding: 14px 24px;
+            background: var(--pioneer-green);
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            font-family: inherit;
+            transition: background 0.15s;
+            margin-top: 8px;
+        }
+        .rsvp-btn:hover { background: var(--pioneer-green-dark); }
+
+        .rsvp-confirm {
+            display: none;
+            background: #e8f5e9;
+            border: 1px solid #a5d6a7;
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+            font-size: 15px;
+            color: #2e7d32;
+            margin-top: 16px;
+        }
+        .rsvp-confirm.show { display: block; }
+
+        .or-call {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 14px;
+            color: var(--ink-soft);
+        }
+        .or-call a {
+            color: var(--pioneer-green-dark);
+            font-weight: 700;
+            text-decoration: none;
+        }
+        .or-call a:hover { text-decoration: underline; }
+
+        /* Footer */
+        .contact-bar {
+            background: var(--cream);
+            padding: 28px 32px;
+            text-align: center;
+            border-top: 1px solid #e0ddd4;
+        }
+        .contact-bar p {
+            font-size: 14px;
+            color: var(--ink-soft);
+            margin: 0 0 8px;
+        }
+        footer {
+            background: var(--pioneer-green-dark);
+            color: rgba(255,255,255,0.6);
+            text-align: center;
+            padding: 24px 20px;
+            font-size: 13px;
+        }
+        footer .name {
+            color: var(--pioneer-gold);
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 16px;
+            margin-bottom: 4px;
+        }
+        footer a {
+            color: var(--pioneer-gold);
+            text-decoration: none;
+        }
+        footer a:hover { text-decoration: underline; }
+
+        @media (max-width: 600px) {
+            .day-grid { grid-template-columns: 1fr; }
+            .hero { padding: 36px 20px 32px; }
+            .agenda { padding: 28px 20px 16px; }
+            .rsvp-section { padding: 28px 20px 32px; }
+            .rsvp-form { padding: 20px; }
+        }
+    </style>
+</head>
+<body>
+<div class="wrap">
+    <div class="topbar">
+        <a href="members.html">&larr; Dashboard</a>
+        <span class="brand">McConnell Enterprises</span>
+    </div>
+
+    <div class="hero">
+        <p class="eyebrow">Pioneer &bull; Celebrating 100 Years</p>
+        <h1>District CD Post-Harvest Meeting</h1>
+        <h2>Black Hawk, Colorado</h2>
+        <div class="dates">
+            <span class="date-chip">Tue, Dec 15</span>
+            <span class="date-chip">Wed, Dec 16</span>
+        </div>
+        <p class="location">December 15&ndash;16, 2026</p>
+    </div>
+
+    <div class="urgency-band">
+        Rooms are filling up fast &mdash; first come, first served <span>RSVP Now</span>
+    </div>
+
+    <div class="agenda">
+        <h2>Tentative Agenda</h2>
+        <div class="day-grid">
+            <div class="day-card">
+                <div class="day-card-header">
+                    <div class="day-name">Tuesday</div>
+                    <div class="day-date">December 15, 2026</div>
+                </div>
+                <div class="day-card-body">
+                    <div class="agenda-item">
+                        <span class="agenda-time">2:30 pm</span>
+                        <span class="agenda-desc">Arrive &amp; Check In</span>
+                    </div>
+                    <div class="agenda-item">
+                        <span class="agenda-time">3:00&ndash;5:00</span>
+                        <span class="agenda-desc">Business Meeting</span>
+                    </div>
+                    <div class="agenda-item">
+                        <span class="agenda-time">5:00&ndash;6:00</span>
+                        <span class="agenda-desc">Social Hour</span>
+                    </div>
+                    <div class="agenda-item">
+                        <span class="agenda-time">6:00 pm</span>
+                        <span class="agenda-desc">Banquet Dinner</span>
+                    </div>
+                    <p class="agenda-note">Bar open until 10:00 pm for those who choose to stay in.</p>
+                </div>
+            </div>
+
+            <div class="day-card">
+                <div class="day-card-header">
+                    <div class="day-name">Wednesday</div>
+                    <div class="day-date">December 16, 2026</div>
+                </div>
+                <div class="day-card-body">
+                    <div class="agenda-item">
+                        <span class="agenda-time">Morning</span>
+                        <span class="agenda-desc">Depart at your convenience</span>
+                    </div>
+                    <p class="agenda-note">Safe travels home.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="rsvp-section" id="rsvp">
+        <h2>RSVP &mdash; Reserve Your Room</h2>
+        <p class="rsvp-sub">Let us know you're coming and how many rooms you need. Rooms are first come, first served.</p>
+
+        <form class="rsvp-form" id="rsvp-form" onsubmit="return submitRSVP(event)">
+            <div class="form-group">
+                <label for="rsvp-name">Your Name</label>
+                <input type="text" id="rsvp-name" required placeholder="John Smith">
+            </div>
+            <div class="form-group">
+                <label for="rsvp-people">Number of People in Your Group</label>
+                <select id="rsvp-people" required>
+                    <option value="">Select...</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5+">5+</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="rsvp-rooms">Number of Rooms Needed</label>
+                <select id="rsvp-rooms" required>
+                    <option value="">Select...</option>
+                    <option value="1">1 Room</option>
+                    <option value="2">2 Rooms</option>
+                    <option value="3">3 Rooms</option>
+                    <option value="4+">4+ Rooms</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="rsvp-notes">Notes <span style="font-weight:400;color:#999;">(optional)</span></label>
+                <textarea id="rsvp-notes" placeholder="Special requests, arrival time, etc."></textarea>
+            </div>
+            <button type="submit" class="rsvp-btn">Send RSVP</button>
+        </form>
+
+        <div class="rsvp-confirm" id="rsvp-confirm">
+            Your RSVP has been sent! We'll confirm your room shortly.
+        </div>
+
+        <p class="or-call">Or call Kyle directly: <a href="tel:9705711015">970-571-1015</a></p>
+    </div>
+
+    <footer>
+        <div class="name">McConnell Enterprises</div>
+        <div>Your Local Pioneer Sales Rep</div>
+        <div style="margin-top:8px;">
+            <a href="https://youraginfo.com">youraginfo.com</a>
+        </div>
+        <div style="margin-top:4px;">Kyle McConnell &mdash; <a href="tel:9705711015">970-571-1015</a></div>
+    </footer>
+</div>
+
+<script>
+function submitRSVP(e) {
+    e.preventDefault();
+    var name = document.getElementById('rsvp-name').value.trim();
+    var people = document.getElementById('rsvp-people').value;
+    var rooms = document.getElementById('rsvp-rooms').value;
+    var notes = document.getElementById('rsvp-notes').value.trim();
+
+    var subject = encodeURIComponent('Post-Harvest Meeting RSVP — ' + name);
+    var body = 'Name: ' + name + '\n'
+             + 'Number of People: ' + people + '\n'
+             + 'Rooms Needed: ' + rooms + '\n';
+    if (notes) body += 'Notes: ' + notes + '\n';
+    body += '\n— Sent from youraginfo.com';
+
+    window.location.href = 'mailto:mcconnellentllc@gmail.com?subject=' + subject + '&body=' + encodeURIComponent(body);
+
+    document.getElementById('rsvp-form').style.display = 'none';
+    document.getElementById('rsvp-confirm').classList.add('show');
+    return false;
+}
+</script>
+</body>
+</html>
