@@ -986,12 +986,27 @@
         // Simple member access
         const MEMBER_PASSWORD = 'mcconnell';
 
+        // Airtable login tracking
+        var AT_BASE = 'app1NuXlsl0KMFbxW';
+        var AT_TOKEN = 'patHIt2PyWkCWV1cz.f237c55211f452d9778946cac976bea1752fb173ecff3c81225fb1b2a1288120';
+
+        function logLogin(name, method) {
+            fetch('https://api.airtable.com/v0/' + AT_BASE + '/' + encodeURIComponent('Logins'), {
+                method: 'POST',
+                headers: { 'Authorization': 'Bearer ' + AT_TOKEN, 'Content-Type': 'application/json' },
+                body: JSON.stringify({ records: [{ fields: { 'Name': name, 'Method': method, 'Timestamp': new Date().toISOString() } }] })
+            }).catch(function() {});
+        }
+
         // Check if already logged in on page load
         document.addEventListener('DOMContentLoaded', function() {
             var params = new URLSearchParams(window.location.search);
             if (params.get('key') && params.get('key').toLowerCase() === MEMBER_PASSWORD) {
                 localStorage.setItem('memberAuth', 'true');
                 incrementVisitorCount();
+                var who = params.get('who');
+                logLogin(who ? decodeURIComponent(who) : 'Unknown', 'magic link');
+                window.history.replaceState({}, '', window.location.pathname);
             }
             if (localStorage.getItem('memberAuth') === 'true') {
                 showDashboard();
