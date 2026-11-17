@@ -234,8 +234,8 @@
         <input type="number" id="rsvpPeopleIn" value="1" min="1" max="20">
         <label>Rooms Needed</label>
         <input type="number" id="rsvpRoomsIn" value="1" min="0" max="10">
-        <label>Notes</label>
-        <textarea id="rsvpNotes"></textarea>
+        <label>Guest Names</label>
+        <textarea id="rsvpNotes" placeholder="Names of additional guests"></textarea>
         <div class="modal-btns">
             <button class="btn-cancel" onclick="closeRsvpModal()">Cancel</button>
             <button class="btn-save" onclick="saveRsvp()">Save</button>
@@ -262,14 +262,14 @@
 </div>
 
 <script>
+// === Airtable Config ===
+var AT_BASE = 'app1NuXlsl0KMFbxW';
+var AT_TABLE = 'RSVPs';
+var AT_TOKEN = 'patHIt2PyWkCWV1cz.f237c55211f452d9778946cac976bea1752fb173ecff3c81225fb1b2a1288120';
+var AT_URL = 'https://api.airtable.com/v0/' + AT_BASE + '/' + encodeURIComponent(AT_TABLE);
+var AT_HEADERS = { 'Authorization': 'Bearer ' + AT_TOKEN, 'Content-Type': 'application/json' };
+
 // === Post-Harvest RSVP Management ===
-function getRsvps() {
-    try { return JSON.parse(localStorage.getItem('postHarvestRsvps') || '[]'); }
-    catch(e) { return []; }
-}
-function setRsvps(r) {
-    try { localStorage.setItem('postHarvestRsvps', JSON.stringify(r)); } catch(e) {}
-}
 function openRsvpModal() {
     document.getElementById('rsvpName').value = '';
     document.getElementById('rsvpPeopleIn').value = '1';
@@ -284,53 +284,70 @@ function closeRsvpModal() {
 function saveRsvp() {
     var name = document.getElementById('rsvpName').value.trim();
     if (!name) { document.getElementById('rsvpName').focus(); return; }
-    var rsvps = getRsvps();
-    rsvps.push({
-        name: name,
-        people: parseInt(document.getElementById('rsvpPeopleIn').value) || 1,
-        rooms: parseInt(document.getElementById('rsvpRoomsIn').value) || 1,
-        notes: document.getElementById('rsvpNotes').value.trim(),
-        date: new Date().toLocaleDateString()
-    });
-    setRsvps(rsvps);
-    closeRsvpModal();
-    renderRsvps();
+    fetch(AT_URL, {
+        method: 'POST',
+        headers: AT_HEADERS,
+        body: JSON.stringify({
+            records: [{
+                fields: {
+                    'Name': name,
+                    'People': parseInt(document.getElementById('rsvpPeopleIn').value) || 1,
+                    'Rooms': parseInt(document.getElementById('rsvpRoomsIn').value) || 1,
+                    'Guests': document.getElementById('rsvpNotes').value.trim(),
+                    'Submitted': new Date().toISOString()
+                }
+            }]
+        })
+    })
+    .then(function(res) { if (!res.ok) throw new Error('Failed'); closeRsvpModal(); renderRsvps(); })
+    .catch(function() { alert('Error saving. Try again.'); });
 }
-function removeRsvp(idx) {
+function removeRsvp(recordId) {
     if (!confirm('Remove this RSVP?')) return;
-    var rsvps = getRsvps();
-    rsvps.splice(idx, 1);
-    setRsvps(rsvps);
-    renderRsvps();
+    fetch(AT_URL + '/' + recordId, { method: 'DELETE', headers: AT_HEADERS })
+    .then(function() { renderRsvps(); })
+    .catch(function() { alert('Error removing.'); });
 }
 function renderRsvps() {
-    var rsvps = getRsvps();
     var list = document.getElementById('rsvpList');
-    var totalPeople = 0, totalRooms = 0;
+    list.innerHTML = '<p style="color:var(--text-dim);font-size:13px;">Loading RSVPs...</p>';
 
-    if (rsvps.length === 0) {
-        list.innerHTML = '<p style="color:var(--text-dim);font-size:13px;font-style:italic;">No RSVPs yet. Add them as they come in.</p>';
-    } else {
-        var html = '<table style="width:100%;border-collapse:collapse;font-size:13px;">';
-        html += '<tr style="border-bottom:1px solid var(--border);"><th style="text-align:left;padding:8px 12px;color:var(--text-dim);font-size:11px;text-transform:uppercase;letter-spacing:1px;">Name</th><th style="text-align:center;padding:8px 12px;color:var(--text-dim);font-size:11px;text-transform:uppercase;letter-spacing:1px;">People</th><th style="text-align:center;padding:8px 12px;color:var(--text-dim);font-size:11px;text-transform:uppercase;letter-spacing:1px;">Rooms</th><th style="text-align:left;padding:8px 12px;color:var(--text-dim);font-size:11px;text-transform:uppercase;letter-spacing:1px;">Notes</th><th style="width:30px;"></th></tr>';
-        rsvps.forEach(function(r, i) {
-            totalPeople += r.people;
-            totalRooms += r.rooms;
-            html += '<tr style="border-bottom:1px solid var(--border);">';
-            html += '<td style="padding:8px 12px;font-weight:600;">' + escHtml(r.name) + '</td>';
-            html += '<td style="padding:8px 12px;text-align:center;font-family:var(--font-mono);">' + r.people + '</td>';
-            html += '<td style="padding:8px 12px;text-align:center;font-family:var(--font-mono);">' + r.rooms + '</td>';
-            html += '<td style="padding:8px 12px;color:var(--text-dim);font-style:italic;">' + (r.notes ? escHtml(r.notes) : '—') + '</td>';
-            html += '<td><button class="slot-remove" onclick="removeRsvp(' + i + ')" title="Remove">&times;</button></td>';
-            html += '</tr>';
-        });
-        html += '</table>';
-        list.innerHTML = html;
-    }
+    fetch(AT_URL + '?sort%5B0%5D%5Bfield%5D=Submitted&sort%5B0%5D%5Bdirection%5D=desc', { headers: AT_HEADERS })
+    .then(function(res) { return res.json(); })
+    .then(function(data) {
+        var rsvps = data.records || [];
+        var totalPeople = 0, totalRooms = 0;
 
-    document.getElementById('rsvpCount').textContent = rsvps.length;
-    document.getElementById('rsvpPeople').textContent = totalPeople;
-    document.getElementById('rsvpRooms').textContent = totalRooms;
+        if (rsvps.length === 0) {
+            list.innerHTML = '<p style="color:var(--text-dim);font-size:13px;font-style:italic;">No RSVPs yet. Add them as they come in.</p>';
+        } else {
+            var html = '<table style="width:100%;border-collapse:collapse;font-size:13px;">';
+            html += '<tr style="border-bottom:1px solid var(--border);"><th style="text-align:left;padding:8px 12px;color:var(--text-dim);font-size:11px;text-transform:uppercase;letter-spacing:1px;">Name</th><th style="text-align:center;padding:8px 12px;color:var(--text-dim);font-size:11px;text-transform:uppercase;letter-spacing:1px;">People</th><th style="text-align:center;padding:8px 12px;color:var(--text-dim);font-size:11px;text-transform:uppercase;letter-spacing:1px;">Rooms</th><th style="text-align:left;padding:8px 12px;color:var(--text-dim);font-size:11px;text-transform:uppercase;letter-spacing:1px;">Guests</th><th style="width:30px;"></th></tr>';
+            rsvps.forEach(function(r) {
+                var f = r.fields;
+                var p = f.People || 0;
+                var rm = f.Rooms || 0;
+                totalPeople += p;
+                totalRooms += rm;
+                html += '<tr style="border-bottom:1px solid var(--border);">';
+                html += '<td style="padding:8px 12px;font-weight:600;">' + escHtml(f.Name || '') + '</td>';
+                html += '<td style="padding:8px 12px;text-align:center;font-family:var(--font-mono);">' + p + '</td>';
+                html += '<td style="padding:8px 12px;text-align:center;font-family:var(--font-mono);">' + rm + '</td>';
+                html += '<td style="padding:8px 12px;color:var(--text-dim);font-style:italic;">' + (f.Guests ? escHtml(f.Guests) : '—') + '</td>';
+                html += '<td><button class="slot-remove" onclick="removeRsvp(\'' + r.id + '\')" title="Remove">&times;</button></td>';
+                html += '</tr>';
+            });
+            html += '</table>';
+            list.innerHTML = html;
+        }
+
+        document.getElementById('rsvpCount').textContent = rsvps.length;
+        document.getElementById('rsvpPeople').textContent = totalPeople;
+        document.getElementById('rsvpRooms').textContent = totalRooms;
+    })
+    .catch(function() {
+        list.innerHTML = '<p style="color:var(--red);font-size:13px;">Error loading RSVPs. Check connection.</p>';
+    });
 }
 
 // === Pioneer Days Appointments ===

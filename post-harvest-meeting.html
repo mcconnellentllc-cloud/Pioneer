@@ -443,8 +443,8 @@
                 </select>
             </div>
             <div class="form-group">
-                <label for="rsvp-notes">Notes <span style="font-weight:400;color:#999;">(optional)</span></label>
-                <textarea id="rsvp-notes" placeholder="Special requests, arrival time, etc."></textarea>
+                <label for="rsvp-guests">Names of Additional Guests <span style="font-weight:400;color:#999;">(if any)</span></label>
+                <textarea id="rsvp-guests" placeholder="e.g. Brandi McConnell"></textarea>
             </div>
             <button type="submit" class="rsvp-btn">Send RSVP</button>
         </form>
@@ -468,24 +468,49 @@
 
 <script src="js/auth.js"></script>
 <script>
+var AT_BASE = 'app1NuXlsl0KMFbxW';
+var AT_TABLE = 'RSVPs';
+var AT_TOKEN = 'patHIt2PyWkCWV1cz.f237c55211f452d9778946cac976bea1752fb173ecff3c81225fb1b2a1288120';
+
 function submitRSVP(e) {
     e.preventDefault();
+    var btn = document.querySelector('.rsvp-btn');
+    btn.disabled = true;
+    btn.textContent = 'Sending...';
+
     var name = document.getElementById('rsvp-name').value.trim();
-    var people = document.getElementById('rsvp-people').value;
-    var rooms = document.getElementById('rsvp-rooms').value;
-    var notes = document.getElementById('rsvp-notes').value.trim();
+    var people = parseInt(document.getElementById('rsvp-people').value) || 1;
+    var rooms = parseInt(document.getElementById('rsvp-rooms').value) || 1;
+    var guests = document.getElementById('rsvp-guests').value.trim();
 
-    var subject = encodeURIComponent('Post-Harvest Meeting RSVP — ' + name);
-    var body = 'Name: ' + name + '\n'
-             + 'Number of People: ' + people + '\n'
-             + 'Rooms Needed: ' + rooms + '\n';
-    if (notes) body += 'Notes: ' + notes + '\n';
-    body += '\n— Sent from youraginfo.com';
-
-    window.location.href = 'mailto:info@youraginfo.com?subject=' + subject + '&body=' + encodeURIComponent(body);
-
-    document.getElementById('rsvp-form').style.display = 'none';
-    document.getElementById('rsvp-confirm').classList.add('show');
+    fetch('https://api.airtable.com/v0/' + AT_BASE + '/' + encodeURIComponent(AT_TABLE), {
+        method: 'POST',
+        headers: {
+            'Authorization': 'Bearer ' + AT_TOKEN,
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            records: [{
+                fields: {
+                    'Name': name,
+                    'People': people,
+                    'Rooms': rooms,
+                    'Guests': guests,
+                    'Submitted': new Date().toISOString()
+                }
+            }]
+        })
+    })
+    .then(function(res) {
+        if (!res.ok) throw new Error('Failed');
+        document.getElementById('rsvp-form').style.display = 'none';
+        document.getElementById('rsvp-confirm').classList.add('show');
+    })
+    .catch(function() {
+        btn.disabled = false;
+        btn.textContent = 'Send RSVP';
+        alert('Something went wrong. Please call Kyle at 970-571-1015 to RSVP.');
+    });
     return false;
 }
 </script>
