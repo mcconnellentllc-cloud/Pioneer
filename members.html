@@ -865,10 +865,15 @@
 
         // Check if already logged in on page load
         document.addEventListener('DOMContentLoaded', function() {
+            var params = new URLSearchParams(window.location.search);
+            if (params.get('key') && params.get('key').toLowerCase() === MEMBER_PASSWORD) {
+                localStorage.setItem('memberAuth', 'true');
+                incrementVisitorCount();
+            }
             if (localStorage.getItem('memberAuth') === 'true') {
                 showDashboard();
             }
-            loadVisitorCount(); // Load current count without incrementing
+            loadVisitorCount();
         });
 
         function handleLogin(event) {

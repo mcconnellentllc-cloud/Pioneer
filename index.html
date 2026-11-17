@@ -633,6 +633,15 @@
 </head>
 <body>
 
+    <!-- Post-Harvest Meeting Banner -->
+    <div class="event-topbar" style="background:linear-gradient(135deg,#7b1a1a 0%,#a82828 100%);">
+        <a href="post-harvest-meeting.html">
+            <span class="event-badge" style="background:#fff;color:#7b1a1a;">Dec 15&ndash;16</span>
+            <span class="event-text">District CD Post-Harvest Meeting &mdash; Black Hawk, CO &mdash; <strong>RSVP by Nov 21</strong></span>
+            <span class="event-arrow">&rarr;</span>
+        </a>
+    </div>
+
     <!-- Pioneer Days Banner -->
     <div class="event-topbar">
         <a href="pioneer-days.html">
@@ -705,6 +714,16 @@
     </footer>
 
     <script>
+        // Magic link: ?key=mcconnell auto-logs in
+        (function() {
+            var params = new URLSearchParams(window.location.search);
+            if (params.get('key') && params.get('key').toLowerCase() === 'mcconnell') {
+                localStorage.setItem('memberAuth', 'true');
+                window.location.href = 'members.html';
+                return;
+            }
+        })();
+
         // Login Form Handler
         document.getElementById('loginForm').addEventListener('submit', function(e) {
             e.preventDefault();

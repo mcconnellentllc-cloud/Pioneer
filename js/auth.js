@@ -1,10 +1,9 @@
-// Simple member access check
-// Include this script on any page you want to protect
-
 (function() {
-    // Check if user has member access
+    var params = new URLSearchParams(window.location.search);
+    if (params.get('key') && params.get('key').toLowerCase() === 'mcconnell') {
+        localStorage.setItem('memberAuth', 'true');
+    }
     if (localStorage.getItem('memberAuth') !== 'true') {
-        // Not logged in - redirect to members page
         window.location.href = 'members.html';
     }
 })();
