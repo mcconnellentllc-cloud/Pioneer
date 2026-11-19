@@ -645,12 +645,19 @@ function buildSummary(data, containerId, minAcres) {
 function buildScatter(data, svgId, xMin, xMax, yMin, yMax, xLabel, yLabel) {
     var svg = document.getElementById(svgId);
     if (!svg) return;
-    var L=70,R=700,T=60,B=440,MARGIN_R=880;
+
     var NAMES = {am:'AcreMax',pce:'PowerCore Enlist',pcue:'PowerCore Ultra Enlist',v:'Vorceed Enlist',q:'Qrome',amxt:'AcreMax Xtreme'};
+    var N = data.length;
+    var LINE_H = 16;
+    var perCol = Math.ceil(N / 2);
+    var chartH = Math.max(380, perCol * LINE_H + 30);
+    var totalH = chartH + 130;
+    svg.setAttribute('viewBox', '-160 0 1200 ' + totalH);
+
+    var L = 90, R = 710, T = 65, B = T + chartH;
     var html = '';
 
-    // Inline legend at top of chart
-    var legendY = 20;
+    var legendY = 22;
     var seen = {};
     data.forEach(function(d) { seen[d.p] = true; });
     var platforms = Object.keys(seen);
@@ -662,18 +669,16 @@ function buildScatter(data, svgId, xMin, xMax, yMin, yMax, xLabel, yLabel) {
         html += '<circle cx="'+cx+'" cy="'+legendY+'" r="6" fill="'+color+'" fill-opacity="0.8"/>';
         html += '<text x="'+(cx+10)+'" y="'+(legendY+4)+'" font-size="10" fill="#444" font-weight="600">'+(NAMES[p]||p)+'</text>';
     });
-    // Bubble size legend
-    html += '<text x="'+(R+20)+'" y="'+(legendY-4)+'" font-size="9" fill="#888" font-weight="600">Bubble = Acres</text>';
-    html += '<circle cx="'+(R+28)+'" cy="'+(legendY+14)+'" r="5" fill="none" stroke="#bbb" stroke-width="1"/>';
-    html += '<text x="'+(R+38)+'" y="'+(legendY+17)+'" font-size="8" fill="#999">10 ac</text>';
-    html += '<circle cx="'+(R+80)+'" cy="'+(legendY+14)+'" r="10" fill="none" stroke="#bbb" stroke-width="1"/>';
-    html += '<text x="'+(R+94)+'" y="'+(legendY+17)+'" font-size="8" fill="#999">1K ac</text>';
-    html += '<circle cx="'+(R+140)+'" cy="'+(legendY+14)+'" r="15" fill="none" stroke="#bbb" stroke-width="1"/>';
-    html += '<text x="'+(R+158)+'" y="'+(legendY+17)+'" font-size="8" fill="#999">5K+ ac</text>';
+    html += '<text x="'+(R+30)+'" y="'+(legendY-4)+'" font-size="9" fill="#888" font-weight="600">Bubble = Acres</text>';
+    html += '<circle cx="'+(R+38)+'" cy="'+(legendY+14)+'" r="5" fill="none" stroke="#bbb" stroke-width="1"/>';
+    html += '<text x="'+(R+48)+'" y="'+(legendY+17)+'" font-size="8" fill="#999">10 ac</text>';
+    html += '<circle cx="'+(R+90)+'" cy="'+(legendY+14)+'" r="10" fill="none" stroke="#bbb" stroke-width="1"/>';
+    html += '<text x="'+(R+104)+'" y="'+(legendY+17)+'" font-size="8" fill="#999">1K ac</text>';
+    html += '<circle cx="'+(R+150)+'" cy="'+(legendY+14)+'" r="15" fill="none" stroke="#bbb" stroke-width="1"/>';
+    html += '<text x="'+(R+168)+'" y="'+(legendY+17)+'" font-size="8" fill="#999">5K+ ac</text>';
 
     html += '<rect x="'+L+'" y="'+T+'" width="'+(R-L)+'" height="'+(B-T)+'" fill="#fafaf7" stroke="#ddd" rx="2"/>';
 
-    // Grid lines
     var ySteps = [];
     for (var y = yMin; y <= yMax; y += (yMax-yMin > 100 ? 25 : 10)) ySteps.push(y);
     ySteps.forEach(function(yv) {
@@ -692,50 +697,167 @@ function buildScatter(data, svgId, xMin, xMax, yMin, yMax, xLabel, yLabel) {
     html += '<text x="'+((L+R)/2)+'" y="'+(B+36)+'" text-anchor="middle" font-size="11" fill="#666" font-weight="600">'+xLabel+'</text>';
     html += '<text x="16" y="'+((T+B)/2)+'" text-anchor="middle" font-size="11" fill="#666" font-weight="600" transform="rotate(-90,16,'+((T+B)/2)+')">'+yLabel+'</text>';
 
-    // Compute point positions
     var pts = data.map(function(d) {
         var px = L + (d.pop - xMin) / (xMax - xMin) * (R - L);
         var py = B - (d.yield - yMin) / (yMax - yMin) * (B - T);
-        var r = Math.max(5, 3 + Math.log10(Math.max(d.ac,1)) * 4);
+        var r = Math.max(5, 3 + Math.log10(Math.max(d.ac, 1)) * 4);
         if (r > 20) r = 20;
         return {d:d, px:px, py:py, r:r};
     });
 
-    // Draw bubbles
-    pts.sort(function(a,b) { return b.d.ac - a.d.ac; });
-    pts.forEach(function(p) {
+    var bySize = pts.slice().sort(function(a, b) { return b.d.ac - a.d.ac; });
+    bySize.forEach(function(p) {
         var color = COLORS[p.d.p] || '#888';
         html += '<circle cx="'+p.px.toFixed(1)+'" cy="'+p.py.toFixed(1)+'" r="'+p.r.toFixed(1)+'" fill="'+color+'" fill-opacity="0.6" stroke="'+color+'" stroke-width="1.5"/>';
     });
 
-    // Two-column label layout: sorted by yield, evenly spaced
-    var sorted = pts.slice().sort(function(a,b) { return b.d.yield - a.d.yield; });
-    var leftCol = [], rightCol = [];
-    sorted.forEach(function(p, i) {
-        if (i % 2 === 0) rightCol.push(p);
-        else leftCol.push(p);
+    var CHAR_W = 5.0;
+    var LABEL_H = 13;
+    var LABEL_PAD = 5;
+    var placedBoxes = [];
+    var inChartLabels = [];
+    var deferredLeft = [];
+    var deferredRight = [];
+    var midX = (L + R) / 2;
+
+    var bubbleBoxes = pts.map(function(p) {
+        return {x1: p.px - p.r - 2, y1: p.py - p.r - 2, x2: p.px + p.r + 2, y2: p.py + p.r + 2};
     });
 
-    var colTop = T + 4, colBot = B + 10;
-    function spaceColumn(col, anchorX, side) {
-        var step = col.length > 1 ? (colBot - colTop) / (col.length - 1) : 0;
-        col.forEach(function(p, i) {
-            var ly = colTop + i * step;
+    function boxCollides(box) {
+        var i;
+        for (i = 0; i < placedBoxes.length; i++) {
+            var b = placedBoxes[i];
+            if (box.x1 < b.x2 + 3 && box.x2 > b.x1 - 3 && box.y1 < b.y2 + 1 && box.y2 > b.y1 - 1) return true;
+        }
+        for (i = 0; i < bubbleBoxes.length; i++) {
+            var bb = bubbleBoxes[i];
+            if (box.x1 < bb.x2 && box.x2 > bb.x1 && box.y1 < bb.y2 && box.y2 > bb.y1) return true;
+        }
+        return false;
+    }
+
+    function labelWidth(p) {
+        var acStr = p.d.ac >= 1000 ? (p.d.ac/1000).toFixed(1)+'K' : Math.round(p.d.ac) + '';
+        var text = p.d.v + ' ' + p.d.yield.toFixed(0) + 'bu ' + acStr + 'ac';
+        return text.length * CHAR_W;
+    }
+
+    var byYield = pts.slice().sort(function(a, b) { return a.py - b.py; });
+
+    byYield.forEach(function(p) {
+        var tw = labelWidth(p);
+        var box;
+
+        box = {x1: p.px + p.r + LABEL_PAD, y1: p.py - LABEL_H / 2, x2: p.px + p.r + LABEL_PAD + tw, y2: p.py + LABEL_H / 2};
+        if (box.x2 < R - 8 && box.x1 > L + 8 && !boxCollides(box)) {
+            placedBoxes.push(box);
+            inChartLabels.push({p: p, lx: box.x1, ly: p.py + 3.5, anchor: 'start'});
+            return;
+        }
+
+        box = {x1: p.px - p.r - LABEL_PAD - tw, y1: p.py - LABEL_H / 2, x2: p.px - p.r - LABEL_PAD, y2: p.py + LABEL_H / 2};
+        if (box.x1 > L + 8 && box.x2 < R - 8 && !boxCollides(box)) {
+            placedBoxes.push(box);
+            inChartLabels.push({p: p, lx: box.x2, ly: p.py + 3.5, anchor: 'end'});
+            return;
+        }
+
+        box = {x1: p.px - tw / 2, y1: p.py - p.r - LABEL_PAD - LABEL_H, x2: p.px + tw / 2, y2: p.py - p.r - LABEL_PAD};
+        if (box.y1 > T + 5 && box.x1 > L + 8 && box.x2 < R - 8 && !boxCollides(box)) {
+            placedBoxes.push(box);
+            inChartLabels.push({p: p, lx: p.px, ly: box.y2 - 1, anchor: 'middle'});
+            return;
+        }
+
+        box = {x1: p.px - tw / 2, y1: p.py + p.r + LABEL_PAD, x2: p.px + tw / 2, y2: p.py + p.r + LABEL_PAD + LABEL_H};
+        if (box.y2 < B - 5 && box.x1 > L + 8 && box.x2 < R - 8 && !boxCollides(box)) {
+            placedBoxes.push(box);
+            inChartLabels.push({p: p, lx: p.px, ly: box.y1 + LABEL_H - 2, anchor: 'middle'});
+            return;
+        }
+
+        if (p.px <= midX) deferredLeft.push(p);
+        else deferredRight.push(p);
+    });
+
+    var maxPerSide = Math.ceil(N * 0.65);
+    while (deferredLeft.length > maxPerSide && deferredRight.length < deferredLeft.length) {
+        var bestIdx = 0, bestDist = 0;
+        deferredLeft.forEach(function(p, i) { var d = p.px - midX; if (d > bestDist) { bestDist = d; bestIdx = i; } });
+        deferredRight.push(deferredLeft.splice(bestIdx, 1)[0]);
+    }
+    while (deferredRight.length > maxPerSide && deferredLeft.length < deferredRight.length) {
+        var bestIdx2 = 0, bestDist2 = 0;
+        deferredRight.forEach(function(p, i) { var d = midX - p.px; if (d > bestDist2) { bestDist2 = d; bestIdx2 = i; } });
+        deferredLeft.push(deferredRight.splice(bestIdx2, 1)[0]);
+    }
+
+    deferredLeft.sort(function(a, b) { return a.py - b.py; });
+    deferredRight.sort(function(a, b) { return a.py - b.py; });
+
+    function relaxColumn(col) {
+        if (!col.length) return [];
+        var items = col.map(function(p) { return {p: p, ly: p.py}; });
+        var topBound = T - 5;
+        var botBound = B + 20;
+        var pass, i;
+        for (pass = 0; pass < 80; pass++) {
+            var moved = false;
+            for (i = 1; i < items.length; i++) {
+                var gap = items[i].ly - items[i - 1].ly;
+                if (gap < LINE_H) {
+                    var push = (LINE_H - gap) / 2 + 0.2;
+                    items[i - 1].ly -= push;
+                    items[i].ly += push;
+                    moved = true;
+                }
+            }
+            if (items[0].ly < topBound) items[0].ly = topBound;
+            if (items[items.length - 1].ly > botBound) items[items.length - 1].ly = botBound;
+            for (i = 1; i < items.length; i++) {
+                if (items[i].ly - items[i - 1].ly < LINE_H) items[i].ly = items[i - 1].ly + LINE_H;
+            }
+            for (i = items.length - 2; i >= 0; i--) {
+                if (items[i + 1].ly - items[i].ly < LINE_H) items[i].ly = items[i + 1].ly - LINE_H;
+            }
+            if (!moved) break;
+        }
+        return items;
+    }
+
+    var leftLabels = relaxColumn(deferredLeft);
+    var rightLabels = relaxColumn(deferredRight);
+
+    inChartLabels.forEach(function(pl) {
+        var color = COLORS[pl.p.d.p] || '#888';
+        var acStr = pl.p.d.ac >= 1000 ? (pl.p.d.ac / 1000).toFixed(1) + 'K' : Math.round(pl.p.d.ac);
+        html += '<text x="'+pl.lx.toFixed(1)+'" y="'+pl.ly.toFixed(1)+'" text-anchor="'+pl.anchor+'" font-size="8.5">';
+        html += '<tspan fill="'+color+'" font-weight="700">'+pl.p.d.v+'</tspan>';
+        html += '<tspan fill="#999" font-size="7"> '+pl.p.d.yield.toFixed(0)+' bu · '+acStr+' ac</tspan>';
+        html += '</text>';
+    });
+
+    function drawSideLabels(items, anchorX, side) {
+        items.forEach(function(item) {
+            var p = item.p;
+            var ly = item.ly;
             var color = COLORS[p.d.p] || '#888';
-            // Leader line: elbow style — horizontal from bubble, then vertical to label
-            var edgeX = (side === 'right') ? p.px + p.r : p.px - p.r;
-            var elbowX = anchorX - (side === 'right' ? 4 : -4);
-            html += '<path d="M'+edgeX.toFixed(1)+','+p.py.toFixed(1)+' L'+elbowX.toFixed(1)+','+p.py.toFixed(1)+' L'+elbowX.toFixed(1)+','+ly.toFixed(1)+'" fill="none" stroke="'+color+'" stroke-width="0.6" stroke-opacity="0.35"/>';
-            html += '<circle cx="'+elbowX.toFixed(1)+'" cy="'+ly.toFixed(1)+'" r="1.2" fill="'+color+'"/>';
+            var edgeX = side === 'right' ? p.px + p.r + 2 : p.px - p.r - 2;
+            var elbowX = side === 'right' ? anchorX - 6 : anchorX + 6;
+            html += '<path d="M'+edgeX.toFixed(1)+','+p.py.toFixed(1)+' L'+elbowX.toFixed(1)+','+p.py.toFixed(1)+' L'+elbowX.toFixed(1)+','+ly.toFixed(1)+'" fill="none" stroke="'+color+'" stroke-width="0.7" stroke-opacity="0.4"/>';
+            html += '<circle cx="'+elbowX.toFixed(1)+'" cy="'+ly.toFixed(1)+'" r="1.5" fill="'+color+'" fill-opacity="0.5"/>';
+            var acStr = p.d.ac >= 1000 ? (p.d.ac / 1000).toFixed(1) + 'K' : Math.round(p.d.ac);
             if (side === 'right') {
-                html += '<text x="'+(anchorX).toFixed(1)+'" y="'+(ly+3).toFixed(1)+'" text-anchor="start" font-size="8.5"><tspan fill="'+color+'" font-weight="700">'+p.d.v+'</tspan><tspan fill="#888" font-size="7"> '+p.d.yield.toFixed(0)+' bu · '+Math.round(p.d.ac)+' ac</tspan></text>';
+                html += '<text x="'+anchorX.toFixed(1)+'" y="'+(ly + 3.5).toFixed(1)+'" text-anchor="start" font-size="8.5"><tspan fill="'+color+'" font-weight="700">'+p.d.v+'</tspan><tspan fill="#999" font-size="7"> '+p.d.yield.toFixed(0)+' bu · '+acStr+' ac</tspan></text>';
             } else {
-                html += '<text x="'+(anchorX).toFixed(1)+'" y="'+(ly+3).toFixed(1)+'" text-anchor="end" font-size="8.5"><tspan fill="#888" font-size="7">'+p.d.yield.toFixed(0)+' bu · '+Math.round(p.d.ac)+' ac </tspan><tspan fill="'+color+'" font-weight="700">'+p.d.v+'</tspan></text>';
+                html += '<text x="'+anchorX.toFixed(1)+'" y="'+(ly + 3.5).toFixed(1)+'" text-anchor="end" font-size="8.5"><tspan fill="#999" font-size="7">'+p.d.yield.toFixed(0)+' bu · '+acStr+' ac </tspan><tspan fill="'+color+'" font-weight="700">'+p.d.v+'</tspan></text>';
             }
         });
     }
-    spaceColumn(rightCol, R + 14, 'right');
-    spaceColumn(leftCol, L - 14, 'left');
+
+    drawSideLabels(rightLabels, R + 16, 'right');
+    drawSideLabels(leftLabels, L - 16, 'left');
 
     svg.innerHTML = html;
 }
