@@ -356,13 +356,15 @@ function renderRsvps() {
 }
 
 // === Pioneer Days Appointments ===
+var ALL_TIMES = ['8:00 AM','9:00 AM','10:00 AM','11:00 AM','12:00 PM','1:00 PM','2:00 PM','3:00 PM','4:00 PM'];
+var AM_TIMES = ['8:00 AM','9:00 AM','10:00 AM','11:00 AM','12:00 PM'];
 var DAYS = [
-    { date: '2026-12-01', label: 'Tuesday', display: 'Dec 1' },
-    { date: '2026-12-02', label: 'Wednesday', display: 'Dec 2' },
-    { date: '2026-12-03', label: 'Thursday', display: 'Dec 3' },
-    { date: '2026-12-04', label: 'Friday', display: 'Dec 4' }
+    { date: '2026-11-30', label: 'Monday', display: 'Nov 30', times: ALL_TIMES },
+    { date: '2026-12-01', label: 'Tuesday', display: 'Dec 1', times: ALL_TIMES },
+    { date: '2026-12-02', label: 'Wednesday', display: 'Dec 2', times: AM_TIMES },
+    { date: '2026-12-04', label: 'Friday', display: 'Dec 4', times: ALL_TIMES }
 ];
-var TIMES = ['8:00 AM','9:00 AM','10:00 AM','11:00 AM','12:00 PM','1:00 PM','2:00 PM','3:00 PM','4:00 PM'];
+var TIMES = ALL_TIMES;
 var pendingSlot = null;
 
 function getBookings() {
@@ -447,7 +449,7 @@ function renderCalendar() {
             '<button class="day-brief" onclick="sendDailyBrief(\'' + day.date + '\',\'' + day.display + '\')">Daily Brief</button>';
         col.appendChild(header);
 
-        TIMES.forEach(function(time) {
+        (day.times || TIMES).forEach(function(time) {
             var b = bookings.find(function(x) { return x.date === day.date && x.time === time; });
             var slot = document.createElement('div');
 
@@ -472,7 +474,7 @@ function renderCalendar() {
         grid.appendChild(col);
     });
 
-    var total = DAYS.length * TIMES.length;
+    var total = DAYS.reduce(function(sum, d) { return sum + (d.times || TIMES).length; }, 0);
     document.getElementById('statBooked').textContent = booked;
     document.getElementById('statOpen').textContent = total - booked;
     document.getElementById('statTotal').textContent = total;
