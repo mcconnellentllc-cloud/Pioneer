@@ -285,7 +285,8 @@
         }
         .scatter-svg {
             width: 100%;
-            max-width: 900px;
+            max-width: 1100px;
+            min-height: 420px;
             background: #fafaf7;
             border: 1px solid #eee;
             border-radius: 6px;
@@ -648,13 +649,13 @@ function buildScatter(data, svgId, xMin, xMax, yMin, yMax, xLabel, yLabel) {
 
     var NAMES = {am:'AcreMax',pce:'PowerCore Enlist',pcue:'PowerCore Ultra Enlist',v:'Vorceed Enlist',q:'Qrome',amxt:'AcreMax Xtreme'};
     var N = data.length;
-    var LINE_H = 16;
+    var LINE_H = 20;
     var perCol = Math.ceil(N / 2);
-    var chartH = Math.max(380, perCol * LINE_H + 30);
-    var totalH = chartH + 130;
-    svg.setAttribute('viewBox', '-160 0 1200 ' + totalH);
+    var chartH = Math.max(460, perCol * LINE_H + 40);
+    var totalH = chartH + 140;
+    svg.setAttribute('viewBox', '-180 0 1260 ' + totalH);
 
-    var L = 90, R = 710, T = 65, B = T + chartH;
+    var L = 100, R = 720, T = 70, B = T + chartH;
     var html = '';
 
     var legendY = 22;
@@ -666,16 +667,16 @@ function buildScatter(data, svgId, xMin, xMax, yMin, yMax, xLabel, yLabel) {
     platforms.forEach(function(p, i) {
         var cx = startX + i * spacing;
         var color = COLORS[p] || '#888';
-        html += '<circle cx="'+cx+'" cy="'+legendY+'" r="6" fill="'+color+'" fill-opacity="0.8"/>';
-        html += '<text x="'+(cx+10)+'" y="'+(legendY+4)+'" font-size="10" fill="#444" font-weight="600">'+(NAMES[p]||p)+'</text>';
+        html += '<circle cx="'+cx+'" cy="'+legendY+'" r="7" fill="'+color+'" fill-opacity="0.8"/>';
+        html += '<text x="'+(cx+12)+'" y="'+(legendY+4)+'" font-size="11" fill="#444" font-weight="600">'+(NAMES[p]||p)+'</text>';
     });
-    html += '<text x="'+(R+30)+'" y="'+(legendY-4)+'" font-size="9" fill="#888" font-weight="600">Bubble = Acres</text>';
-    html += '<circle cx="'+(R+38)+'" cy="'+(legendY+14)+'" r="5" fill="none" stroke="#bbb" stroke-width="1"/>';
-    html += '<text x="'+(R+48)+'" y="'+(legendY+17)+'" font-size="8" fill="#999">10 ac</text>';
-    html += '<circle cx="'+(R+90)+'" cy="'+(legendY+14)+'" r="10" fill="none" stroke="#bbb" stroke-width="1"/>';
-    html += '<text x="'+(R+104)+'" y="'+(legendY+17)+'" font-size="8" fill="#999">1K ac</text>';
-    html += '<circle cx="'+(R+150)+'" cy="'+(legendY+14)+'" r="15" fill="none" stroke="#bbb" stroke-width="1"/>';
-    html += '<text x="'+(R+168)+'" y="'+(legendY+17)+'" font-size="8" fill="#999">5K+ ac</text>';
+    html += '<text x="'+(R+30)+'" y="'+(legendY-4)+'" font-size="10" fill="#888" font-weight="600">Bubble = Acres</text>';
+    html += '<circle cx="'+(R+38)+'" cy="'+(legendY+16)+'" r="5" fill="none" stroke="#bbb" stroke-width="1"/>';
+    html += '<text x="'+(R+48)+'" y="'+(legendY+19)+'" font-size="9" fill="#999">10 ac</text>';
+    html += '<circle cx="'+(R+95)+'" cy="'+(legendY+16)+'" r="10" fill="none" stroke="#bbb" stroke-width="1"/>';
+    html += '<text x="'+(R+110)+'" y="'+(legendY+19)+'" font-size="9" fill="#999">1K ac</text>';
+    html += '<circle cx="'+(R+160)+'" cy="'+(legendY+16)+'" r="15" fill="none" stroke="#bbb" stroke-width="1"/>';
+    html += '<text x="'+(R+180)+'" y="'+(legendY+19)+'" font-size="9" fill="#999">5K+ ac</text>';
 
     html += '<rect x="'+L+'" y="'+T+'" width="'+(R-L)+'" height="'+(B-T)+'" fill="#fafaf7" stroke="#ddd" rx="2"/>';
 
@@ -684,7 +685,7 @@ function buildScatter(data, svgId, xMin, xMax, yMin, yMax, xLabel, yLabel) {
     ySteps.forEach(function(yv) {
         var py = B - (yv - yMin) / (yMax - yMin) * (B - T);
         html += '<line x1="'+L+'" y1="'+py+'" x2="'+R+'" y2="'+py+'" stroke="#e0ddd4" stroke-width="1"/>';
-        html += '<text x="'+(L-8)+'" y="'+(py+4)+'" text-anchor="end" font-size="10" fill="#888">'+yv+'</text>';
+        html += '<text x="'+(L-10)+'" y="'+(py+4)+'" text-anchor="end" font-size="11" fill="#888">'+yv+'</text>';
     });
     var xSteps = [];
     var xStep = (xMax-xMin) > 10000 ? 1000 : 500;
@@ -692,16 +693,16 @@ function buildScatter(data, svgId, xMin, xMax, yMin, yMax, xLabel, yLabel) {
     xSteps.forEach(function(xv) {
         var px = L + (xv - xMin) / (xMax - xMin) * (R - L);
         html += '<line x1="'+px+'" y1="'+T+'" x2="'+px+'" y2="'+B+'" stroke="#e0ddd4" stroke-width="1"/>';
-        html += '<text x="'+px+'" y="'+(B+16)+'" text-anchor="middle" font-size="10" fill="#888">'+(xv>=1000?(xv/1000).toFixed(0)+'K':xv)+'</text>';
+        html += '<text x="'+px+'" y="'+(B+18)+'" text-anchor="middle" font-size="11" fill="#888">'+(xv>=1000?(xv/1000).toFixed(0)+'K':xv)+'</text>';
     });
-    html += '<text x="'+((L+R)/2)+'" y="'+(B+36)+'" text-anchor="middle" font-size="11" fill="#666" font-weight="600">'+xLabel+'</text>';
-    html += '<text x="16" y="'+((T+B)/2)+'" text-anchor="middle" font-size="11" fill="#666" font-weight="600" transform="rotate(-90,16,'+((T+B)/2)+')">'+yLabel+'</text>';
+    html += '<text x="'+((L+R)/2)+'" y="'+(B+40)+'" text-anchor="middle" font-size="12" fill="#666" font-weight="600">'+xLabel+'</text>';
+    html += '<text x="16" y="'+((T+B)/2)+'" text-anchor="middle" font-size="12" fill="#666" font-weight="600" transform="rotate(-90,16,'+((T+B)/2)+')">'+yLabel+'</text>';
 
     var pts = data.map(function(d) {
         var px = L + (d.pop - xMin) / (xMax - xMin) * (R - L);
         var py = B - (d.yield - yMin) / (yMax - yMin) * (B - T);
-        var r = Math.max(5, 3 + Math.log10(Math.max(d.ac, 1)) * 4);
-        if (r > 20) r = 20;
+        var r = Math.max(6, 4 + Math.log10(Math.max(d.ac, 1)) * 5);
+        if (r > 24) r = 24;
         return {d:d, px:px, py:py, r:r};
     });
 
@@ -711,9 +712,9 @@ function buildScatter(data, svgId, xMin, xMax, yMin, yMax, xLabel, yLabel) {
         html += '<circle cx="'+p.px.toFixed(1)+'" cy="'+p.py.toFixed(1)+'" r="'+p.r.toFixed(1)+'" fill="'+color+'" fill-opacity="0.6" stroke="'+color+'" stroke-width="1.5"/>';
     });
 
-    var CHAR_W = 5.0;
-    var LABEL_H = 13;
-    var LABEL_PAD = 5;
+    var CHAR_W = 6.0;
+    var LABEL_H = 16;
+    var LABEL_PAD = 7;
     var placedBoxes = [];
     var inChartLabels = [];
     var deferredLeft = [];
@@ -832,9 +833,9 @@ function buildScatter(data, svgId, xMin, xMax, yMin, yMax, xLabel, yLabel) {
     inChartLabels.forEach(function(pl) {
         var color = COLORS[pl.p.d.p] || '#888';
         var acStr = pl.p.d.ac >= 1000 ? (pl.p.d.ac / 1000).toFixed(1) + 'K' : Math.round(pl.p.d.ac);
-        html += '<text x="'+pl.lx.toFixed(1)+'" y="'+pl.ly.toFixed(1)+'" text-anchor="'+pl.anchor+'" font-size="8.5">';
+        html += '<text x="'+pl.lx.toFixed(1)+'" y="'+pl.ly.toFixed(1)+'" text-anchor="'+pl.anchor+'" font-size="10">';
         html += '<tspan fill="'+color+'" font-weight="700">'+pl.p.d.v+'</tspan>';
-        html += '<tspan fill="#999" font-size="7"> '+pl.p.d.yield.toFixed(0)+' bu · '+acStr+' ac</tspan>';
+        html += '<tspan fill="#999" font-size="8.5"> '+pl.p.d.yield.toFixed(0)+' bu · '+acStr+' ac</tspan>';
         html += '</text>';
     });
 
@@ -845,13 +846,13 @@ function buildScatter(data, svgId, xMin, xMax, yMin, yMax, xLabel, yLabel) {
             var color = COLORS[p.d.p] || '#888';
             var edgeX = side === 'right' ? p.px + p.r + 2 : p.px - p.r - 2;
             var elbowX = side === 'right' ? anchorX - 6 : anchorX + 6;
-            html += '<path d="M'+edgeX.toFixed(1)+','+p.py.toFixed(1)+' L'+elbowX.toFixed(1)+','+p.py.toFixed(1)+' L'+elbowX.toFixed(1)+','+ly.toFixed(1)+'" fill="none" stroke="'+color+'" stroke-width="0.7" stroke-opacity="0.4"/>';
-            html += '<circle cx="'+elbowX.toFixed(1)+'" cy="'+ly.toFixed(1)+'" r="1.5" fill="'+color+'" fill-opacity="0.5"/>';
+            html += '<path d="M'+edgeX.toFixed(1)+','+p.py.toFixed(1)+' L'+elbowX.toFixed(1)+','+p.py.toFixed(1)+' L'+elbowX.toFixed(1)+','+ly.toFixed(1)+'" fill="none" stroke="'+color+'" stroke-width="0.8" stroke-opacity="0.45"/>';
+            html += '<circle cx="'+elbowX.toFixed(1)+'" cy="'+ly.toFixed(1)+'" r="2" fill="'+color+'" fill-opacity="0.6"/>';
             var acStr = p.d.ac >= 1000 ? (p.d.ac / 1000).toFixed(1) + 'K' : Math.round(p.d.ac);
             if (side === 'right') {
-                html += '<text x="'+anchorX.toFixed(1)+'" y="'+(ly + 3.5).toFixed(1)+'" text-anchor="start" font-size="8.5"><tspan fill="'+color+'" font-weight="700">'+p.d.v+'</tspan><tspan fill="#999" font-size="7"> '+p.d.yield.toFixed(0)+' bu · '+acStr+' ac</tspan></text>';
+                html += '<text x="'+anchorX.toFixed(1)+'" y="'+(ly + 4).toFixed(1)+'" text-anchor="start" font-size="10"><tspan fill="'+color+'" font-weight="700">'+p.d.v+'</tspan><tspan fill="#999" font-size="8.5"> '+p.d.yield.toFixed(0)+' bu · '+acStr+' ac</tspan></text>';
             } else {
-                html += '<text x="'+anchorX.toFixed(1)+'" y="'+(ly + 3.5).toFixed(1)+'" text-anchor="end" font-size="8.5"><tspan fill="#999" font-size="7">'+p.d.yield.toFixed(0)+' bu · '+acStr+' ac </tspan><tspan fill="'+color+'" font-weight="700">'+p.d.v+'</tspan></text>';
+                html += '<text x="'+anchorX.toFixed(1)+'" y="'+(ly + 4).toFixed(1)+'" text-anchor="end" font-size="10"><tspan fill="#999" font-size="8.5">'+p.d.yield.toFixed(0)+' bu · '+acStr+' ac </tspan><tspan fill="'+color+'" font-weight="700">'+p.d.v+'</tspan></text>';
             }
         });
     }
@@ -868,7 +869,7 @@ buildSummary(IRRIGATED, 'irrigated-summary', 15);
 buildBars(DRYLAND, 'dryland-chart', 75, 50);
 buildBars(IRRIGATED, 'irrigated-chart', 300, 100);
 buildScatter(IRRIGATED, 'scatter-svg', 28000, 35000, 140, 300, 'Seeding Rate (seeds/acre)', 'Yield (bu/acre)');
-buildScatter(DRYLAND, 'scatter-svg-dry', 11500, 15000, 10, 75, 'Seeding Rate (seeds/acre)', 'Yield (bu/acre)');
+buildScatter(DRYLAND, 'scatter-svg-dry', 11800, 14500, 5, 75, 'Seeding Rate (seeds/acre)', 'Yield (bu/acre)');
 </script>
 </body>
 </html>
