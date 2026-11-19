@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Pioneer Days Open House — December 1-4, 2026. Lock in your 2027 seed savings. Coffee and cinnamon rolls. McConnell Enterprises, Haxtun, CO.">
+    <meta name="description" content="Pioneer Days Open House — November 30 - December 4, 2026. Lock in your 2027 seed savings. Coffee and cinnamon rolls. McConnell Enterprises, Haxtun, CO.">
     <title>Pioneer Days Open House | McConnell Enterprises</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -417,9 +417,9 @@
         <h1>Pioneer Days Open House</h1>
         <h2>Coffee, Cinnamon Rolls &amp; Savings</h2>
         <div class="dates">
+            <span class="date-chip">Mon, Nov 30</span>
             <span class="date-chip">Tue, Dec 1</span>
-            <span class="date-chip">Wed, Dec 2</span>
-            <span class="date-chip">Thu, Dec 3</span>
+            <span class="date-chip">Wed, Dec 2 (AM only)</span>
             <span class="date-chip">Fri, Dec 4</span>
         </div>
         <p class="time-note">8:00 AM &ndash; 5:00 PM &nbsp;&bull;&nbsp; Haxtun, Colorado</p>
@@ -487,13 +487,7 @@
 
 <script>
 (function() {
-    var DAYS = [
-        { label: 'Tuesday', date: 'Dec 1', key: '2026-12-01' },
-        { label: 'Wednesday', date: 'Dec 2', key: '2026-12-02' },
-        { label: 'Thursday', date: 'Dec 3', key: '2026-12-03' },
-        { label: 'Friday', date: 'Dec 4', key: '2026-12-04' }
-    ];
-    var SLOTS = [
+    var ALL_SLOTS = [
         { time: '8:00 AM', hour: 8 },
         { time: '9:00 AM', hour: 9 },
         { time: '10:00 AM', hour: 10 },
@@ -504,6 +498,14 @@
         { time: '3:00 PM', hour: 15 },
         { time: '4:00 PM', hour: 16 }
     ];
+    var AM_SLOTS = ALL_SLOTS.filter(function(s) { return s.hour < 13; });
+    var DAYS = [
+        { label: 'Monday', date: 'Nov 30', key: '2026-11-30', slots: ALL_SLOTS },
+        { label: 'Tuesday', date: 'Dec 1', key: '2026-12-01', slots: ALL_SLOTS },
+        { label: 'Wednesday', date: 'Dec 2', key: '2026-12-02', slots: AM_SLOTS },
+        { label: 'Friday', date: 'Dec 4', key: '2026-12-04', slots: ALL_SLOTS }
+    ];
+    var SLOTS = ALL_SLOTS;
 
     var currentSlot = null;
 
@@ -539,7 +541,7 @@
             header.innerHTML = '<div class="day-name">' + day.label + '</div><div class="day-date">' + day.date + ', 2026</div>';
             col.appendChild(header);
 
-            SLOTS.forEach(function(slot) {
+            (day.slots || SLOTS).forEach(function(slot) {
                 var slotEl = document.createElement('div');
                 var reserved = isReserved(day.key, slot.hour);
                 slotEl.className = 'slot' + (reserved ? ' is-reserved' : '');

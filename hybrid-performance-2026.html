@@ -397,6 +397,7 @@
 </head>
 <body>
 <script src="js/auth.js"></script>
+<div style="background:#1e4a14;padding:8px 20px;text-align:center;"><a href="members.html" style="color:#c9a227;text-decoration:none;font-size:13px;font-weight:600;font-family:Inter,-apple-system,sans-serif;">&larr; Member Dashboard</a></div>
 <div class="wrap" id="top">
 
     <div class="topbar">McConnell Enterprises &bull; 2026 Hybrid Performance</div>
@@ -512,13 +513,13 @@
         <div class="scatter-wrap">
             <h3>Irrigated: Population vs. Yield</h3>
             <p class="scatter-sub">Each bubble is one hybrid. Larger bubble = more acres planted in the territory.</p>
-            <svg id="scatter-svg" class="scatter-svg" viewBox="0 0 700 480" preserveAspectRatio="xMidYMid meet"></svg>
+            <svg id="scatter-svg" class="scatter-svg" viewBox="-120 0 1100 500" preserveAspectRatio="xMidYMid meet"></svg>
         </div>
 
         <div class="scatter-wrap" style="padding-top:0;">
             <h3>Dryland: Population vs. Yield</h3>
             <p class="scatter-sub">Dryland populations are tightly clustered (12&ndash;14K). Hybrid selection matters more than population fine-tuning.</p>
-            <svg id="scatter-svg-dry" class="scatter-svg" viewBox="0 0 700 480" preserveAspectRatio="xMidYMid meet"></svg>
+            <svg id="scatter-svg-dry" class="scatter-svg" viewBox="-120 0 1100 500" preserveAspectRatio="xMidYMid meet"></svg>
         </div>
 
         <a href="#top" class="back-link">&uarr; Back to Top</a>
@@ -526,7 +527,7 @@
 
     <div class="methodology">
         <h3>About This Data</h3>
-        <p>Aggregated from commercial production fields across McConnell Enterprises, McDaniel Enterprises, and Vieselmeyer Seed territory (Logan, Phillips, Sedgwick counties). 2026 crop year, Pioneer brand only.</p>
+        <p>Aggregated from area Pioneer data across Logan, Phillips, and Sedgwick counties. 2026 crop year, Pioneer brand only.</p>
         <p>Yield and seeding rate are as-reported from combine and planter data. Dryland entries require a minimum of 10 harvest acres; irrigated entries require 15 acres. Entries below these thresholds are shown with reduced emphasis.</p>
         <p>This data reflects actual grower results from a wide range of field conditions, soil types, and management practices. It is not a controlled experiment. Use alongside test plot data and multi-year performance records for product positioning decisions.</p>
     </div>
@@ -544,11 +545,10 @@
 var DRYLAND = [
     {v:'P1122AML',yield:67.5,mst:18.2,pop:13180,ac:622.8,p:'am'},
     {v:'P0075AM',yield:60.8,mst:17.5,pop:12277,ac:1146.2,p:'am'},
-    {v:'P05081',yield:57.8,mst:15.1,pop:14675,ac:12.7,p:'am'},
     {v:'P0622AML',yield:53.3,mst:15.9,pop:13220,ac:971.9,p:'am'},
     {v:'P1548AM',yield:49.7,mst:18.6,pop:13835,ac:77.6,p:'am'},
     {v:'P0622Q',yield:46.6,mst:15.2,pop:12693,ac:519.3,p:'q'},
-    {v:'P05081AML',yield:44.4,mst:17.6,pop:13012,ac:1510.4,p:'am'},
+    {v:'P05081AML',yield:44.5,mst:17.6,pop:13026,ac:1523.1,p:'am'},
     {v:'P0075Q',yield:42.4,mst:15.0,pop:13237,ac:838.4,p:'q'},
     {v:'P9845AM',yield:41.7,mst:14.5,pop:13145,ac:523.3,p:'am'},
     {v:'P9845PCE',yield:41.2,mst:15.9,pop:13148,ac:97.2,p:'pce'},
@@ -645,17 +645,16 @@ function buildSummary(data, containerId, minAcres) {
 function buildScatter(data, svgId, xMin, xMax, yMin, yMax, xLabel, yLabel) {
     var svg = document.getElementById(svgId);
     if (!svg) return;
-    var L=70,R=680,T=60,B=410;
+    var L=70,R=700,T=60,B=440,MARGIN_R=880;
     var NAMES = {am:'AcreMax',pce:'PowerCore Enlist',pcue:'PowerCore Ultra Enlist',v:'Vorceed Enlist',q:'Qrome',amxt:'AcreMax Xtreme'};
     var html = '';
 
     // Inline legend at top of chart
-    var legendX = L;
-    var legendY = 18;
+    var legendY = 20;
     var seen = {};
     data.forEach(function(d) { seen[d.p] = true; });
     var platforms = Object.keys(seen);
-    var spacing = Math.min(120, (R - L) / platforms.length);
+    var spacing = Math.min(140, (R - L) / platforms.length);
     var startX = L + ((R - L) - platforms.length * spacing) / 2;
     platforms.forEach(function(p, i) {
         var cx = startX + i * spacing;
@@ -663,10 +662,18 @@ function buildScatter(data, svgId, xMin, xMax, yMin, yMax, xLabel, yLabel) {
         html += '<circle cx="'+cx+'" cy="'+legendY+'" r="6" fill="'+color+'" fill-opacity="0.8"/>';
         html += '<text x="'+(cx+10)+'" y="'+(legendY+4)+'" font-size="10" fill="#444" font-weight="600">'+(NAMES[p]||p)+'</text>';
     });
+    // Bubble size legend
+    html += '<text x="'+(R+20)+'" y="'+(legendY-4)+'" font-size="9" fill="#888" font-weight="600">Bubble = Acres</text>';
+    html += '<circle cx="'+(R+28)+'" cy="'+(legendY+14)+'" r="5" fill="none" stroke="#bbb" stroke-width="1"/>';
+    html += '<text x="'+(R+38)+'" y="'+(legendY+17)+'" font-size="8" fill="#999">10 ac</text>';
+    html += '<circle cx="'+(R+80)+'" cy="'+(legendY+14)+'" r="10" fill="none" stroke="#bbb" stroke-width="1"/>';
+    html += '<text x="'+(R+94)+'" y="'+(legendY+17)+'" font-size="8" fill="#999">1K ac</text>';
+    html += '<circle cx="'+(R+140)+'" cy="'+(legendY+14)+'" r="15" fill="none" stroke="#bbb" stroke-width="1"/>';
+    html += '<text x="'+(R+158)+'" y="'+(legendY+17)+'" font-size="8" fill="#999">5K+ ac</text>';
 
     html += '<rect x="'+L+'" y="'+T+'" width="'+(R-L)+'" height="'+(B-T)+'" fill="#fafaf7" stroke="#ddd" rx="2"/>';
 
-    // Grid lines + labels
+    // Grid lines
     var ySteps = [];
     for (var y = yMin; y <= yMax; y += (yMax-yMin > 100 ? 25 : 10)) ySteps.push(y);
     ySteps.forEach(function(yv) {
@@ -674,7 +681,6 @@ function buildScatter(data, svgId, xMin, xMax, yMin, yMax, xLabel, yLabel) {
         html += '<line x1="'+L+'" y1="'+py+'" x2="'+R+'" y2="'+py+'" stroke="#e0ddd4" stroke-width="1"/>';
         html += '<text x="'+(L-8)+'" y="'+(py+4)+'" text-anchor="end" font-size="10" fill="#888">'+yv+'</text>';
     });
-
     var xSteps = [];
     var xStep = (xMax-xMin) > 10000 ? 1000 : 500;
     for (var x = Math.ceil(xMin/xStep)*xStep; x <= xMax; x += xStep) xSteps.push(x);
@@ -683,42 +689,53 @@ function buildScatter(data, svgId, xMin, xMax, yMin, yMax, xLabel, yLabel) {
         html += '<line x1="'+px+'" y1="'+T+'" x2="'+px+'" y2="'+B+'" stroke="#e0ddd4" stroke-width="1"/>';
         html += '<text x="'+px+'" y="'+(B+16)+'" text-anchor="middle" font-size="10" fill="#888">'+(xv>=1000?(xv/1000).toFixed(0)+'K':xv)+'</text>';
     });
-
-    // Axis labels
     html += '<text x="'+((L+R)/2)+'" y="'+(B+36)+'" text-anchor="middle" font-size="11" fill="#666" font-weight="600">'+xLabel+'</text>';
     html += '<text x="16" y="'+((T+B)/2)+'" text-anchor="middle" font-size="11" fill="#666" font-weight="600" transform="rotate(-90,16,'+((T+B)/2)+')">'+yLabel+'</text>';
 
-    // Points (sorted by acreage desc so small bubbles draw on top)
-    var sorted = data.slice().sort(function(a,b) { return b.ac - a.ac; });
-    sorted.forEach(function(d) {
+    // Compute point positions
+    var pts = data.map(function(d) {
         var px = L + (d.pop - xMin) / (xMax - xMin) * (R - L);
         var py = B - (d.yield - yMin) / (yMax - yMin) * (B - T);
         var r = Math.max(5, 3 + Math.log10(Math.max(d.ac,1)) * 4);
         if (r > 20) r = 20;
-        var color = COLORS[d.p] || '#888';
-        html += '<circle cx="'+px.toFixed(1)+'" cy="'+py.toFixed(1)+'" r="'+r.toFixed(1)+'" fill="'+color+'" fill-opacity="0.65" stroke="'+color+'" stroke-width="1.5"/>';
+        return {d:d, px:px, py:py, r:r};
     });
 
-    // Label EVERY bubble
-    var placed = [];
-    sorted.forEach(function(d) {
-        var px = L + (d.pop - xMin) / (xMax - xMin) * (R - L);
-        var py = B - (d.yield - yMin) / (yMax - yMin) * (B - T);
-        var r = Math.max(5, 3 + Math.log10(Math.max(d.ac,1)) * 4);
-        if (r > 20) r = 20;
-        var tx = px + r + 3;
-        var ty = py + 3;
-        // nudge down if overlapping a previous label
-        for (var i = 0; i < placed.length; i++) {
-            if (Math.abs(tx - placed[i].x) < 60 && Math.abs(ty - placed[i].y) < 10) {
-                ty = placed[i].y + 10;
-            }
-        }
-        if (tx + 70 > R) { tx = px - r - 3; }
-        placed.push({x: tx, y: ty});
-        var anchor = (tx < px) ? 'end' : 'start';
-        html += '<text x="'+tx.toFixed(1)+'" y="'+ty.toFixed(1)+'" text-anchor="'+anchor+'" font-size="8" fill="#333" font-weight="600">'+d.v+'</text>';
+    // Draw bubbles
+    pts.sort(function(a,b) { return b.d.ac - a.d.ac; });
+    pts.forEach(function(p) {
+        var color = COLORS[p.d.p] || '#888';
+        html += '<circle cx="'+p.px.toFixed(1)+'" cy="'+p.py.toFixed(1)+'" r="'+p.r.toFixed(1)+'" fill="'+color+'" fill-opacity="0.6" stroke="'+color+'" stroke-width="1.5"/>';
     });
+
+    // Two-column label layout: sorted by yield, evenly spaced
+    var sorted = pts.slice().sort(function(a,b) { return b.d.yield - a.d.yield; });
+    var leftCol = [], rightCol = [];
+    sorted.forEach(function(p, i) {
+        if (i % 2 === 0) rightCol.push(p);
+        else leftCol.push(p);
+    });
+
+    var colTop = T + 4, colBot = B + 10;
+    function spaceColumn(col, anchorX, side) {
+        var step = col.length > 1 ? (colBot - colTop) / (col.length - 1) : 0;
+        col.forEach(function(p, i) {
+            var ly = colTop + i * step;
+            var color = COLORS[p.d.p] || '#888';
+            // Leader line: elbow style — horizontal from bubble, then vertical to label
+            var edgeX = (side === 'right') ? p.px + p.r : p.px - p.r;
+            var elbowX = anchorX - (side === 'right' ? 4 : -4);
+            html += '<path d="M'+edgeX.toFixed(1)+','+p.py.toFixed(1)+' L'+elbowX.toFixed(1)+','+p.py.toFixed(1)+' L'+elbowX.toFixed(1)+','+ly.toFixed(1)+'" fill="none" stroke="'+color+'" stroke-width="0.6" stroke-opacity="0.35"/>';
+            html += '<circle cx="'+elbowX.toFixed(1)+'" cy="'+ly.toFixed(1)+'" r="1.2" fill="'+color+'"/>';
+            if (side === 'right') {
+                html += '<text x="'+(anchorX).toFixed(1)+'" y="'+(ly+3).toFixed(1)+'" text-anchor="start" font-size="8.5"><tspan fill="'+color+'" font-weight="700">'+p.d.v+'</tspan><tspan fill="#888" font-size="7"> '+p.d.yield.toFixed(0)+' bu · '+Math.round(p.d.ac)+' ac</tspan></text>';
+            } else {
+                html += '<text x="'+(anchorX).toFixed(1)+'" y="'+(ly+3).toFixed(1)+'" text-anchor="end" font-size="8.5"><tspan fill="#888" font-size="7">'+p.d.yield.toFixed(0)+' bu · '+Math.round(p.d.ac)+' ac </tspan><tspan fill="'+color+'" font-weight="700">'+p.d.v+'</tspan></text>';
+            }
+        });
+    }
+    spaceColumn(rightCol, R + 14, 'right');
+    spaceColumn(leftCol, L - 14, 'left');
 
     svg.innerHTML = html;
 }

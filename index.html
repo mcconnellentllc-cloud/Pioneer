@@ -636,7 +636,7 @@
     <!-- Pioneer Days Banner -->
     <div class="event-topbar">
         <a href="pioneer-days.html">
-            <span class="event-badge">Dec 1&ndash;4</span>
+            <span class="event-badge">Nov 30&ndash;Dec 4</span>
             <span class="event-text">Pioneer Days Open House &mdash; <strong>Lock In the Biggest Discounts</strong> &mdash; Coffee &amp; Rolls</span>
             <span class="event-arrow">&rarr;</span>
         </a>
@@ -705,6 +705,16 @@
     </footer>
 
     <script>
+        // Magic link: ?key=mcconnell auto-logs in
+        (function() {
+            var params = new URLSearchParams(window.location.search);
+            if (params.get('key') && params.get('key').toLowerCase() === 'mcconnell') {
+                localStorage.setItem('memberAuth', 'true');
+                window.location.href = 'members.html';
+                return;
+            }
+        })();
+
         // Login Form Handler
         document.getElementById('loginForm').addEventListener('submit', function(e) {
             e.preventDefault();

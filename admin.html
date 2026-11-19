@@ -243,12 +243,36 @@
         </div>
     </div>
 
+    <!-- Post-Harvest RSVP Section -->
+    <div style="padding:16px 24px 8px;">
+        <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;">
+            <h2 style="font-size:15px;color:var(--accent);">Post-Harvest Meeting RSVPs <span style="color:var(--text-dim);font-weight:400;">— Black Hawk, Dec 15&ndash;16</span></h2>
+            <button onclick="openRsvpModal()" style="padding:6px 14px;font-size:12px;border-radius:4px;cursor:pointer;font-weight:600;border:1px solid var(--green);background:rgba(63,185,80,0.1);color:var(--green);font-family:var(--font-ui);">+ Add RSVP</button>
+        </div>
+    </div>
+
+    <div class="stats-row">
+        <div class="stat-box" style="border-color:var(--accent);"><div class="num" style="color:var(--accent);" id="rsvpCount">0</div><div class="lbl">RSVPs</div></div>
+        <div class="stat-box" style="border-color:var(--green);"><div class="num" style="color:var(--green);" id="rsvpPeople">0</div><div class="lbl">People</div></div>
+        <div class="stat-box" style="border-color:var(--gold);"><div class="num" style="color:var(--gold);" id="rsvpRooms">0</div><div class="lbl">Rooms</div></div>
+    </div>
+
+    <div id="rsvpList" style="padding:0 24px 24px;"></div>
+
+    <div style="padding:0 24px 8px;border-top:1px solid var(--border);margin-top:8px;padding-top:20px;">
+        <h2 style="font-size:15px;color:var(--accent);">Recent Logins <span style="color:var(--text-dim);font-weight:400;">— Magic Link Tracking</span></h2>
+    </div>
+    <div id="loginList" style="padding:0 24px 24px;"></div>
+
+    <div style="padding:0 24px 8px;border-top:1px solid var(--border);margin-top:8px;padding-top:20px;">
+        <h2 style="font-size:15px;color:var(--accent);">Pioneer Days Appointments</h2>
+    </div>
     <div class="stats-row">
         <div class="stat-box stat-booked"><div class="num" id="statBooked">0</div><div class="lbl">Booked</div></div>
         <div class="stat-box stat-open"><div class="num" id="statOpen">36</div><div class="lbl">Available</div></div>
         <div class="stat-box stat-total"><div class="num" id="statTotal">36</div><div class="lbl">Total Slots</div></div>
     </div>
-    <p class="device-note">Bookings shown are from this device's storage. Check hub@m77ag.com for email confirmations.</p>
+    <p class="device-note">Bookings shown are from this device's storage.</p>
 
     <div class="cal-grid" id="calGrid"></div>
 
@@ -293,6 +317,26 @@
     </div>
 </div>
 
+<!-- Add RSVP Modal -->
+<div class="modal-overlay" id="rsvpModal">
+    <div class="modal">
+        <h2>Add RSVP</h2>
+        <p class="modal-sub">Post-Harvest Meeting — Dec 15&ndash;16</p>
+        <label>Name *</label>
+        <input type="text" id="rsvpName" required>
+        <label>Number of People</label>
+        <input type="number" id="rsvpPeopleIn" value="1" min="1" max="20">
+        <label>Rooms Needed</label>
+        <input type="number" id="rsvpRoomsIn" value="1" min="0" max="10">
+        <label>Guest Names</label>
+        <textarea id="rsvpNotes" placeholder="Names of additional guests"></textarea>
+        <div class="modal-btns">
+            <button class="btn-cancel" onclick="closeRsvpModal()">Cancel</button>
+            <button class="btn-save" onclick="saveRsvp()">Save</button>
+        </div>
+    </div>
+</div>
+
 <!-- Add Booking Modal -->
 <div class="modal-overlay" id="addModal">
     <div class="modal">
@@ -312,6 +356,95 @@
 </div>
 
 <script>
+// === Airtable Config ===
+var AT_BASE = 'app1NuXlsl0KMFbxW';
+var AT_TABLE = 'RSVPs';
+var AT_TOKEN = 'patHIt2PyWkCWV1cz.f237c55211f452d9778946cac976bea1752fb173ecff3c81225fb1b2a1288120';
+var AT_URL = 'https://api.airtable.com/v0/' + AT_BASE + '/' + encodeURIComponent(AT_TABLE);
+var AT_HEADERS = { 'Authorization': 'Bearer ' + AT_TOKEN, 'Content-Type': 'application/json' };
+
+// === Post-Harvest RSVP Management ===
+function openRsvpModal() {
+    document.getElementById('rsvpName').value = '';
+    document.getElementById('rsvpPeopleIn').value = '1';
+    document.getElementById('rsvpRoomsIn').value = '1';
+    document.getElementById('rsvpNotes').value = '';
+    document.getElementById('rsvpModal').classList.add('active');
+    document.getElementById('rsvpName').focus();
+}
+function closeRsvpModal() {
+    document.getElementById('rsvpModal').classList.remove('active');
+}
+function saveRsvp() {
+    var name = document.getElementById('rsvpName').value.trim();
+    if (!name) { document.getElementById('rsvpName').focus(); return; }
+    fetch(AT_URL, {
+        method: 'POST',
+        headers: AT_HEADERS,
+        body: JSON.stringify({
+            records: [{
+                fields: {
+                    'Name': name,
+                    'People': parseInt(document.getElementById('rsvpPeopleIn').value) || 1,
+                    'Rooms': parseInt(document.getElementById('rsvpRoomsIn').value) || 1,
+                    'Guests': document.getElementById('rsvpNotes').value.trim(),
+                    'Submitted': new Date().toISOString()
+                }
+            }]
+        })
+    })
+    .then(function(res) { if (!res.ok) throw new Error('Failed'); closeRsvpModal(); renderRsvps(); })
+    .catch(function() { alert('Error saving. Try again.'); });
+}
+function removeRsvp(recordId) {
+    if (!confirm('Remove this RSVP?')) return;
+    fetch(AT_URL + '/' + recordId, { method: 'DELETE', headers: AT_HEADERS })
+    .then(function() { renderRsvps(); })
+    .catch(function() { alert('Error removing.'); });
+}
+function renderRsvps() {
+    var list = document.getElementById('rsvpList');
+    list.innerHTML = '<p style="color:var(--text-dim);font-size:13px;">Loading RSVPs...</p>';
+
+    fetch(AT_URL + '?sort%5B0%5D%5Bfield%5D=Submitted&sort%5B0%5D%5Bdirection%5D=desc', { headers: AT_HEADERS })
+    .then(function(res) { return res.json(); })
+    .then(function(data) {
+        var rsvps = data.records || [];
+        var totalPeople = 0, totalRooms = 0;
+
+        if (rsvps.length === 0) {
+            list.innerHTML = '<p style="color:var(--text-dim);font-size:13px;font-style:italic;">No RSVPs yet. Add them as they come in.</p>';
+        } else {
+            var html = '<table style="width:100%;border-collapse:collapse;font-size:13px;">';
+            html += '<tr style="border-bottom:1px solid var(--border);"><th style="text-align:left;padding:8px 12px;color:var(--text-dim);font-size:11px;text-transform:uppercase;letter-spacing:1px;">Name</th><th style="text-align:center;padding:8px 12px;color:var(--text-dim);font-size:11px;text-transform:uppercase;letter-spacing:1px;">People</th><th style="text-align:center;padding:8px 12px;color:var(--text-dim);font-size:11px;text-transform:uppercase;letter-spacing:1px;">Rooms</th><th style="text-align:left;padding:8px 12px;color:var(--text-dim);font-size:11px;text-transform:uppercase;letter-spacing:1px;">Guests</th><th style="width:30px;"></th></tr>';
+            rsvps.forEach(function(r) {
+                var f = r.fields;
+                var p = f.People || 0;
+                var rm = f.Rooms || 0;
+                totalPeople += p;
+                totalRooms += rm;
+                html += '<tr style="border-bottom:1px solid var(--border);">';
+                html += '<td style="padding:8px 12px;font-weight:600;">' + escHtml(f.Name || '') + '</td>';
+                html += '<td style="padding:8px 12px;text-align:center;font-family:var(--font-mono);">' + p + '</td>';
+                html += '<td style="padding:8px 12px;text-align:center;font-family:var(--font-mono);">' + rm + '</td>';
+                html += '<td style="padding:8px 12px;color:var(--text-dim);font-style:italic;">' + (f.Guests ? escHtml(f.Guests) : '—') + '</td>';
+                html += '<td><button class="slot-remove" onclick="removeRsvp(\'' + r.id + '\')" title="Remove">&times;</button></td>';
+                html += '</tr>';
+            });
+            html += '</table>';
+            list.innerHTML = html;
+        }
+
+        document.getElementById('rsvpCount').textContent = rsvps.length;
+        document.getElementById('rsvpPeople').textContent = totalPeople;
+        document.getElementById('rsvpRooms').textContent = totalRooms;
+    })
+    .catch(function() {
+        list.innerHTML = '<p style="color:var(--red);font-size:13px;">Error loading RSVPs. Check connection.</p>';
+    });
+}
+
+// === Pioneer Days Appointments ===
 var ALL_TIMES = ['8:00 AM','9:00 AM','10:00 AM','11:00 AM','12:00 PM','1:00 PM','2:00 PM','3:00 PM','4:00 PM'];
 var AM_TIMES = ['8:00 AM','9:00 AM','10:00 AM','11:00 AM','12:00 PM'];
 var DAYS = [
@@ -352,8 +485,41 @@ function handleAdminLogout() {
 function showDashboard() {
     document.getElementById('loginSection').style.display = 'none';
     document.getElementById('dashboard').style.display = 'block';
+    renderRsvps();
+    renderLogins();
     renderCalendar();
     renderPlaybook();
+}
+
+function renderLogins() {
+    var list = document.getElementById('loginList');
+    list.innerHTML = '<p style="color:var(--text-dim);font-size:13px;">Loading logins...</p>';
+
+    fetch(AT_URL.replace(encodeURIComponent('RSVPs'), encodeURIComponent('Logins')) + '?sort%5B0%5D%5Bfield%5D=Timestamp&sort%5B0%5D%5Bdirection%5D=desc&maxRecords=25', { headers: AT_HEADERS })
+    .then(function(res) { return res.json(); })
+    .then(function(data) {
+        var logins = data.records || [];
+        if (logins.length === 0) {
+            list.innerHTML = '<p style="color:var(--text-dim);font-size:13px;font-style:italic;">No logins recorded yet. Logins will appear here once the email goes out.</p>';
+            return;
+        }
+        var html = '<table style="width:100%;border-collapse:collapse;font-size:13px;">';
+        html += '<tr style="border-bottom:1px solid var(--border);"><th style="text-align:left;padding:8px 12px;color:var(--text-dim);font-size:11px;text-transform:uppercase;letter-spacing:1px;">Name</th><th style="text-align:left;padding:8px 12px;color:var(--text-dim);font-size:11px;text-transform:uppercase;letter-spacing:1px;">Page</th><th style="text-align:left;padding:8px 12px;color:var(--text-dim);font-size:11px;text-transform:uppercase;letter-spacing:1px;">When</th></tr>';
+        logins.forEach(function(r) {
+            var f = r.fields;
+            var when = f.Timestamp ? new Date(f.Timestamp).toLocaleString() : '—';
+            html += '<tr style="border-bottom:1px solid var(--border);">';
+            html += '<td style="padding:8px 12px;font-weight:600;">' + escHtml(f.Name || 'Unknown') + '</td>';
+            html += '<td style="padding:8px 12px;color:var(--text-dim);font-family:var(--font-mono);font-size:12px;">' + escHtml(f.Page || '—') + '</td>';
+            html += '<td style="padding:8px 12px;font-family:var(--font-mono);color:var(--text-dim);font-size:12px;">' + when + '</td>';
+            html += '</tr>';
+        });
+        html += '</table>';
+        list.innerHTML = html;
+    })
+    .catch(function() {
+        list.innerHTML = '<p style="color:var(--red);font-size:13px;">Error loading logins.</p>';
+    });
 }
 
 function renderCalendar() {
