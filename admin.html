@@ -190,6 +190,21 @@
         .pb-dates li { padding:8px 14px; border-bottom:1px solid var(--border); display:flex; gap:12px; font-size:13px; }
         .pb-dates .dl { font-family:var(--font-mono); font-weight:600; color:var(--accent); min-width:80px; flex-shrink:0; }
         .pb-count { font-size:12px; color:var(--text-dim); font-family:var(--font-mono); padding:5px 0; }
+        .hcard-stats { display:flex; gap:6px; flex-wrap:wrap; margin-bottom:8px; }
+        .hcard-stat { font-family:var(--font-mono); font-size:11px; padding:3px 7px; border-radius:3px; background:rgba(139,148,158,0.08); color:var(--text-dim); }
+        .hcard-stat strong { color:var(--text); font-weight:600; }
+        .hcard-stat.win-high strong { color:var(--green); }
+        .hcard-stat.win-low strong { color:var(--red); }
+        .hcard-stat.drought-9 { background:rgba(63,185,80,0.12); }
+        .hcard-stat.drought-9 strong { color:var(--green); }
+        .supply-dot { display:inline-block; width:8px; height:8px; border-radius:50%; margin-right:4px; vertical-align:middle; }
+        .supply-dot.sg { background:#3fb950; }
+        .supply-dot.sy { background:#d29922; }
+        .supply-dot.sr { background:#f85149; }
+        .supply-label { font-size:10px; color:var(--text-dim); font-family:var(--font-mono); vertical-align:middle; }
+        .hcard-top-right { display:flex; align-items:center; gap:8px; }
+        .hcard-soy-extra { font-size:12px; color:var(--text-dim); margin-top:6px; font-family:var(--font-mono); }
+        .hcard-soy-extra span { margin-right:10px; }
 
         @media (max-width: 900px) {
             .cal-grid { grid-template-columns: repeat(2, 1fr); }
@@ -297,13 +312,15 @@
 </div>
 
 <script>
+var ALL_TIMES = ['8:00 AM','9:00 AM','10:00 AM','11:00 AM','12:00 PM','1:00 PM','2:00 PM','3:00 PM','4:00 PM'];
+var AM_TIMES = ['8:00 AM','9:00 AM','10:00 AM','11:00 AM','12:00 PM'];
 var DAYS = [
-    { date: '2026-12-01', label: 'Tuesday', display: 'Dec 1' },
-    { date: '2026-12-02', label: 'Wednesday', display: 'Dec 2' },
-    { date: '2026-12-03', label: 'Thursday', display: 'Dec 3' },
-    { date: '2026-12-04', label: 'Friday', display: 'Dec 4' }
+    { date: '2026-11-30', label: 'Monday', display: 'Nov 30', times: ALL_TIMES },
+    { date: '2026-12-01', label: 'Tuesday', display: 'Dec 1', times: ALL_TIMES },
+    { date: '2026-12-02', label: 'Wednesday', display: 'Dec 2', times: AM_TIMES },
+    { date: '2026-12-04', label: 'Friday', display: 'Dec 4', times: ALL_TIMES }
 ];
-var TIMES = ['8:00 AM','9:00 AM','10:00 AM','11:00 AM','12:00 PM','1:00 PM','2:00 PM','3:00 PM','4:00 PM'];
+var TIMES = ALL_TIMES;
 var pendingSlot = null;
 
 function getBookings() {
@@ -356,7 +373,7 @@ function renderCalendar() {
             '<button class="day-brief" onclick="sendDailyBrief(\'' + day.date + '\',\'' + day.display + '\')">Daily Brief</button>';
         col.appendChild(header);
 
-        TIMES.forEach(function(time) {
+        (day.times || TIMES).forEach(function(time) {
             var b = bookings.find(function(x) { return x.date === day.date && x.time === time; });
             var slot = document.createElement('div');
 
@@ -381,7 +398,7 @@ function renderCalendar() {
         grid.appendChild(col);
     });
 
-    var total = DAYS.length * TIMES.length;
+    var total = DAYS.reduce(function(sum, d) { return sum + (d.times || TIMES).length; }, 0);
     document.getElementById('statBooked').textContent = booked;
     document.getElementById('statOpen').textContent = total - booked;
     document.getElementById('statTotal').textContent = total;
@@ -454,43 +471,85 @@ function escHtml(s) {
 
 // === Hybrid Playbook Data ===
 var CORN_HYBRIDS = [
-    { id:'P96567PCE', trait:'PCE', traitLabel:'PowerCore Enlist', note:'', tags:[] },
-    { id:'P96567V', trait:'V', traitLabel:'Vorceed Enlist', note:'', tags:[] },
-    { id:'P9845PCE', trait:'PCE', traitLabel:'PowerCore Enlist', note:'Stable tough play.', tags:['tough acre'] },
-    { id:'P9845V', trait:'V', traitLabel:'Vorceed Enlist', note:'', tags:[] },
-    { id:'P99491PCE', trait:'PCE', traitLabel:'PowerCore Enlist', note:'', tags:[] },
-    { id:'P99491V', trait:'V', traitLabel:'Vorceed Enlist', note:'', tags:[] },
-    { id:'P00549PCE', trait:'PCE', traitLabel:'PowerCore Enlist', note:'', tags:[] },
-    { id:'P0075AM', trait:'AM', traitLabel:'AcreMax', note:'', tags:[] },
-    { id:'P0075Q', trait:'Q', traitLabel:'Qrome', note:'', tags:[] },
-    { id:'P02405V', trait:'V', traitLabel:'Vorceed Enlist', note:'A little higher populations and needs management.', tags:['higher pop'] },
-    { id:'P03115V', trait:'V', traitLabel:'Vorceed Enlist', note:'One of the toughest products in the lineup. Tough dryland to 200 bu environment.', tags:['dryland','tough acre'] },
-    { id:'P03357PCUE', trait:'PCUE', traitLabel:'PowerCore Ultra Enlist', note:'Not a dryland play.', tags:['irrigated'] },
-    { id:'P03802PCE', trait:'PCE', traitLabel:'PowerCore Enlist', note:'Place on high yield, good water, good fertility.', tags:['irrigated','push yield'] },
-    { id:'P04651V', trait:'V', traitLabel:'Vorceed Enlist', note:'', tags:[] },
-    { id:'P05081PCUE', trait:'PCUE', traitLabel:'PowerCore Ultra Enlist', note:'Head smut — needs Raxil.', tags:['needs Raxil'] },
-    { id:'P05466V', trait:'V', traitLabel:'Vorceed Enlist', note:'Keep it off of really hilly stressed acres.', tags:['avoid stress'] },
-    { id:'P08215PCUE', trait:'PCUE', traitLabel:'PowerCore Ultra Enlist', note:'', tags:[] },
-    { id:'P08527V', trait:'V', traitLabel:'Vorceed Enlist', note:'For three years, one of the best performers. Doesn’t like low organic matter pH.', tags:['top performer','avoid low pH'] },
-    { id:'P09076PCE', trait:'PCE', traitLabel:'PowerCore Enlist', note:'', tags:[] },
-    { id:'P10300PCE', trait:'PCE', traitLabel:'PowerCore Enlist', note:'', tags:[] },
-    { id:'P10625PCUE', trait:'PCUE', traitLabel:'PowerCore Ultra Enlist', note:'Tough acre product.', tags:['tough acre'] },
-    { id:'P10705V', trait:'V', traitLabel:'Vorceed Enlist', note:'Setting up to be the triple for 10300. Keep on the better acre, push yield. Drought score update from 7 to 8.', tags:['push yield','drought 8'] },
-    { id:'P11259PCE', trait:'PCE', traitLabel:'PowerCore Enlist', note:'Super solid hybrid.', tags:[] },
-    { id:'P12517PCUE', trait:'PCUE', traitLabel:'PowerCore Ultra Enlist', note:'The king of kings. Will be stable to unreal. Keep off really tough rough sands, limited water — use 12904 instead.', tags:['top performer','avoid limited water'] },
-    { id:'P13777PCUE', trait:'PCUE', traitLabel:'PowerCore Ultra Enlist', note:'Keep off tough acres — this is a Lamborghini and needs a smooth runway. Will take lower population on good ground and reduced water, will flex.', tags:['push yield','lower pop ok'] },
-    { id:'P14270PCE', trait:'PCE', traitLabel:'PowerCore Enlist', note:'Late season plant health is incredible.', tags:['standability'] },
-    { id:'P14270V', trait:'V', traitLabel:'Vorceed Enlist', note:'', tags:[] },
-    { id:'P14364PCUE', trait:'PCUE', traitLabel:'PowerCore Ultra Enlist', note:'', tags:[] },
-    { id:'P14830AML', trait:'AML', traitLabel:'AcreMax Leptra', note:'', tags:[] },
-    { id:'P15517V', trait:'V', traitLabel:'Vorceed Enlist', note:'Silage.', tags:['silage'] }
+    { id:'P96567PCE', trait:'PCE', traitLabel:'PowerCore Enlist', comps:6, yieldAdv:1.8, winPct:67, drought:8, supply:'red',
+      note:'', tags:[] },
+    { id:'P96567V', trait:'V', traitLabel:'Vorceed Enlist', comps:6, yieldAdv:-12.0, winPct:17, drought:8, supply:'green',
+      note:'', tags:[] },
+    { id:'P9845PCE', trait:'PCE', traitLabel:'PowerCore Enlist', comps:69, yieldAdv:-2.6, winPct:36, drought:9, supply:null,
+      note:'Stable tough play. Drought 9 is rare — not about winning yield contests, about surviving bad years.', tags:['tough acre','dryland'] },
+    { id:'P9845V', trait:'V', traitLabel:'Vorceed Enlist', comps:10, yieldAdv:-3.5, winPct:30, drought:9, supply:null,
+      note:'', tags:['dryland'] },
+    { id:'P99491PCE', trait:'PCE', traitLabel:'PowerCore Enlist', comps:50, yieldAdv:-4.2, winPct:36, drought:8, supply:'green',
+      note:'', tags:[] },
+    { id:'P99491V', trait:'V', traitLabel:'Vorceed Enlist', comps:41, yieldAdv:-0.1, winPct:51, drought:8, supply:'green',
+      note:'', tags:[] },
+    { id:'P00549PCE', trait:'PCE', traitLabel:'PowerCore Enlist', comps:58, yieldAdv:-1.1, winPct:48, drought:8, supply:null,
+      note:'', tags:[] },
+    { id:'P0075AM', trait:'AM', traitLabel:'AcreMax', comps:134, yieldAdv:0.8, winPct:61, drought:8, supply:null,
+      note:'', tags:[] },
+    { id:'P0075Q', trait:'Q', traitLabel:'Qrome', comps:102, yieldAdv:-1.7, winPct:47, drought:8, supply:null,
+      note:'Food-grade. Gives up ~2.5 bu/A vs AM version.', tags:['food grade'] },
+    { id:'P02405V', trait:'V', traitLabel:'Vorceed Enlist', comps:148, yieldAdv:4.5, winPct:68, drought:8, supply:'yellow',
+      note:'Higher populations and needs management. Yield leader in 102 CRM class.', tags:['higher pop','yield leader'] },
+    { id:'P03115V', trait:'V', traitLabel:'Vorceed Enlist', comps:264, yieldAdv:-5.1, winPct:37, drought:9, supply:null,
+      note:'One of the toughest products in the lineup. Tough dryland to 200 bushel environment.', tags:['dryland','tough acre'] },
+    { id:'P03357PCUE', trait:'PCUE', traitLabel:'PowerCore Ultra Enlist', comps:292, yieldAdv:4.3, winPct:61, drought:8, supply:'green',
+      note:'NOT a dryland play. Needs water and management. Harvest on time — Grain Drydown 3.', tags:['irrigated','harvest early'] },
+    { id:'P03802PCE', trait:'PCE', traitLabel:'PowerCore Enlist', comps:70, yieldAdv:0.0, winPct:46, drought:7, supply:'yellow',
+      note:'Place on high yield, good water, good fertility.', tags:['irrigated','push yield'] },
+    { id:'P04651V', trait:'V', traitLabel:'Vorceed Enlist', comps:148, yieldAdv:-12.2, winPct:20, drought:9, supply:'yellow',
+      note:'Niche dryland survival play. 15-20% runt plants found in 2026 — seed lab investigating. Retest 2027.', tags:['dryland','under investigation'] },
+    { id:'P05081PCUE', trait:'PCUE', traitLabel:'PowerCore Ultra Enlist', comps:89, yieldAdv:3.3, winPct:53, drought:9, supply:'yellow',
+      note:'Head smut — needs Raxil. Drought 9 that actually wins more than it loses.', tags:['needs Raxil','dryland'] },
+    { id:'P05466V', trait:'V', traitLabel:'Vorceed Enlist', comps:449, yieldAdv:-0.3, winPct:47, drought:7, supply:'green',
+      note:'Keep off really hilly stressed acres. Needs Raxil (Head Smut 2). Workhorse 105 CRM.', tags:['needs Raxil','avoid stress'] },
+    { id:'P08215PCUE', trait:'PCUE', traitLabel:'PowerCore Ultra Enlist', comps:173, yieldAdv:-4.1, winPct:41, drought:9, supply:'green',
+      note:'Drought 9 with best Test Weight in the deck (7). Harvest on time — Grain Drydown 3.', tags:['dryland','harvest early'] },
+    { id:'P08527V', trait:'V', traitLabel:'Vorceed Enlist', comps:979, yieldAdv:5.6, winPct:65, drought:8, supply:'green',
+      note:'Three years running, one of the best performers. 979 comps — the workhorse. Doesn’t like low organic matter / high pH. Fills grain faster under heat stress.', tags:['top performer','avoid low pH'] },
+    { id:'P09076PCE', trait:'PCE', traitLabel:'PowerCore Enlist', comps:407, yieldAdv:0.3, winPct:50, drought:8, supply:'green',
+      note:'Grain Drydown 6 — rarity in this deck. Park it and forget it. Southern Rust 3 is a flag.', tags:['standability','late harvest ok'] },
+    { id:'P10300PCE', trait:'PCE', traitLabel:'PowerCore Enlist', comps:166, yieldAdv:3.8, winPct:61, drought:7, supply:'red',
+      note:'Well-rounded yield leader. Beats P08527V head-to-head. Good disease tolerance across the board.', tags:['yield leader'] },
+    { id:'P10625PCUE', trait:'PCUE', traitLabel:'PowerCore Ultra Enlist', comps:321, yieldAdv:-6.5, winPct:31, drought:8, supply:'yellow',
+      note:'Tough acre product. Roots 7 and Brittle Stalk 7 — it stays standing on challenging ground.', tags:['tough acre','standability'] },
+    { id:'P10705V', trait:'V', traitLabel:'Vorceed Enlist', comps:75, yieldAdv:3.0, winPct:59, drought:8, supply:'yellow',
+      note:'Setting up to be the triple for P10300. Keep on the better acres, push yield. Drought updated from 7 to 8.', tags:['push yield'] },
+    { id:'P11259PCE', trait:'PCE', traitLabel:'PowerCore Enlist', comps:147, yieldAdv:10.5, winPct:77, drought:9, supply:'yellow',
+      note:'Super solid hybrid. Beats 10 of 10 matchups. Drought 9 on a yield leader is rare.', tags:['yield leader','dryland','top performer'] },
+    { id:'P12517PCUE', trait:'PCUE', traitLabel:'PowerCore Ultra Enlist', comps:137, yieldAdv:5.5, winPct:63, drought:8, supply:'yellow',
+      note:'The king of kings. Stable to unreal. Keep off really tough rough sands, limited water — use P12904 instead on those acres.', tags:['top performer','avoid limited water'] },
+    { id:'P12517V', trait:'V', traitLabel:'Vorceed Enlist', comps:0, yieldAdv:null, winPct:null, drought:null, supply:'red',
+      note:'Red supply — sell your allocation.', tags:['sell allocation'] },
+    { id:'P13777PCUE', trait:'PCUE', traitLabel:'PowerCore Ultra Enlist', comps:240, yieldAdv:4.8, winPct:60, drought:7, supply:'yellow',
+      note:'Lamborghini — needs a smooth runway. Keep off tough acres. Will take lower population on good ground and reduced water, will flex.', tags:['push yield','lower pop ok'] },
+    { id:'P13777V', trait:'V', traitLabel:'Vorceed Enlist', comps:0, yieldAdv:null, winPct:null, drought:null, supply:'red',
+      note:'Red supply — sell your allocation.', tags:['sell allocation'] },
+    { id:'P14270PCE', trait:'PCE', traitLabel:'PowerCore Enlist', comps:68, yieldAdv:-0.6, winPct:44, drought:7, supply:'green',
+      note:'Late season plant health is incredible. NLB 7 is unique — Goss’s 7 + NLB 7 combo.', tags:['standability','disease tolerance'] },
+    { id:'P14270V', trait:'V', traitLabel:'Vorceed Enlist', comps:53, yieldAdv:-3.8, winPct:38, drought:7, supply:'yellow',
+      note:'V version gives up more yield than PCE. Same great plant health. Use PCE version if possible.', tags:['disease tolerance'] },
+    { id:'P14364PCUE', trait:'PCUE', traitLabel:'PowerCore Ultra Enlist', comps:155, yieldAdv:3.3, winPct:59, drought:9, supply:'yellow',
+      note:'Drought 9 with Grain Drydown 6 — rare combo. Can leave standing without moisture worry. Southern Rust 3 is a flag.', tags:['dryland','late harvest ok'] },
+    { id:'P14830AML', trait:'AML', traitLabel:'AcreMax Leptra', comps:122, yieldAdv:5.8, winPct:64, drought:6, supply:'red',
+      note:'Yield machine. Runs -1.5 moisture — plan on drying costs. Keep on irrigated ground (Drought 6).', tags:['irrigated','yield leader'] },
+    { id:'P15517V', trait:'V', traitLabel:'Vorceed Enlist', comps:26, yieldAdv:-5.6, winPct:31, drought:8, supply:'yellow',
+      note:'SILAGE play. Don’t evaluate as grain hybrid.', tags:['silage'] }
 ];
 
 var SOYBEAN_VARS = [
-    { id:'P22Z02E', trait:'E3', traitLabel:'Enlist E3', note:'', tags:[] },
-    { id:'P23Z58E', trait:'E3', traitLabel:'Enlist E3', note:'Good on pH.', tags:['pH tolerant'] },
-    { id:'P26Z24E', trait:'E3', traitLabel:'Enlist E3', note:'Good canopy. Not as sensitive to dicamba.', tags:['good canopy'] },
-    { id:'P27Z41E', trait:'E3', traitLabel:'Enlist E3', note:'The standard for our geography.', tags:['standard'] }
+    { id:'P22Z02E', trait:'E3', traitLabel:'Enlist E3', comps:324, yieldAdv:0.4, winPct:54, supply:null,
+      scn:'PI88788', stand:7, emerge:7, idc:6, sds:6,
+      note:'', tags:[] },
+    { id:'P23Z58E', trait:'E3', traitLabel:'Enlist E3', comps:772, yieldAdv:0.1, winPct:53, supply:null,
+      scn:'Peking', stand:7, emerge:7, idc:7, sds:5, frogeye:8,
+      note:'Good on pH. Iron Chlorosis 7 and Peking SCN source.', tags:['pH tolerant'] },
+    { id:'P26Z24E', trait:'E3', traitLabel:'Enlist E3', comps:466, yieldAdv:2.1, winPct:73, supply:null,
+      scn:'Peking', stand:7, emerge:7, idc:null, sds:8,
+      note:'Good canopy. Not as sensitive to dicamba. 73% win rate is dominant.', tags:['good canopy','yield leader'] },
+    { id:'P27Z41E', trait:'E3', traitLabel:'Enlist E3', comps:1278, yieldAdv:0.0, winPct:47, supply:null,
+      scn:'PI88788', stand:8, emerge:7, idc:7, sds:7,
+      note:'The standard for our geography. 1,278 comps — massive data set. Standability 8.', tags:['standard','workhorse'] }
 ];
 
 var SEASON_NOTES = [
@@ -513,10 +572,11 @@ var SEASON_NOTES = [
 
 var KEY_DATES = [
     { date:'Nov 21', text:'Post-Harvest Meeting RSVP Deadline — no exceptions' },
-    { date:'Nov 30', text:'Pioneer Days Open House begins' },
-    { date:'Dec 1', text:'PHI Notes Due' },
-    { date:'Dec 2', text:'Pioneer Days — AM only (STC meeting)' },
-    { date:'Dec 4', text:'Pioneer Days last day' },
+    { date:'Nov 26', text:'Thanksgiving' },
+    { date:'Nov 30', text:'Pioneer Days Open House begins (Mon)' },
+    { date:'Dec 1', text:'Pioneer Days (Tue) + PHI Loan Payment Deadline' },
+    { date:'Dec 2', text:'Pioneer Days — AM only (STC meeting PM)' },
+    { date:'Dec 4', text:'Pioneer Days last day (Fri) + First Payment Deadline' },
     { date:'Dec 15–16', text:'District CD Post-Harvest Meeting — Black Hawk, CO' }
 ];
 
@@ -526,13 +586,44 @@ function traitClass(t) { return 't-' + t.toLowerCase(); }
 
 function renderHybridCard(h) {
     var search = h.id.toLowerCase() + ' ' + (h.note || '').toLowerCase() + ' ' + (h.tags || []).join(' ').toLowerCase();
-    var cls = 'hcard' + (!h.note && (!h.tags || !h.tags.length) ? ' hcard-empty' : '');
+    var cls = 'hcard' + (!h.note && (!h.tags || !h.tags.length) && !h.comps ? ' hcard-empty' : '');
     var html = '<div class="' + cls + '" data-id="' + h.id + '" data-trait="' + h.trait + '" data-search="' + search + '">';
     html += '<div class="hcard-top">';
     html += '<span class="hcard-name">' + escHtml(h.id) + '</span>';
+    html += '<span class="hcard-top-right">';
+    if (h.supply) {
+        var sc = h.supply === 'green' ? 'sg' : h.supply === 'yellow' ? 'sy' : 'sr';
+        var sl = h.supply === 'green' ? 'Available' : h.supply === 'yellow' ? 'Limited' : 'Sold Out';
+        html += '<span><span class="supply-dot ' + sc + '"></span><span class="supply-label">' + sl + '</span></span>';
+    }
     html += '<span class="hcard-trait ' + traitClass(h.trait) + '">' + escHtml(h.traitLabel) + '</span>';
-    html += '</div>';
+    html += '</span></div>';
     html += '<div class="hcard-body">';
+    if (h.comps) {
+        html += '<div class="hcard-stats">';
+        html += '<span class="hcard-stat"><strong>' + h.comps + '</strong> comps</span>';
+        if (h.yieldAdv !== null && h.yieldAdv !== undefined) {
+            html += '<span class="hcard-stat"><strong>' + (h.yieldAdv > 0 ? '+' : '') + h.yieldAdv.toFixed(1) + '</strong> bu/A</span>';
+        }
+        if (h.winPct !== null && h.winPct !== undefined) {
+            var wc = h.winPct >= 55 ? ' win-high' : h.winPct < 40 ? ' win-low' : '';
+            html += '<span class="hcard-stat' + wc + '"><strong>' + h.winPct + '%</strong> win</span>';
+        }
+        if (h.drought) {
+            var dc = h.drought >= 9 ? ' drought-9' : '';
+            html += '<span class="hcard-stat' + dc + '">Drought <strong>' + h.drought + '</strong></span>';
+        }
+        html += '</div>';
+    }
+    if (h.scn) {
+        html += '<div class="hcard-soy-extra">';
+        html += '<span>SCN: <strong>' + escHtml(h.scn) + '</strong></span>';
+        if (h.stand) html += '<span>Stand: <strong>' + h.stand + '</strong></span>';
+        if (h.idc) html += '<span>IDC: <strong>' + h.idc + '</strong></span>';
+        if (h.sds) html += '<span>SDS: <strong>' + h.sds + '</strong></span>';
+        if (h.frogeye) html += '<span>Frogeye: <strong>' + h.frogeye + '</strong></span>';
+        html += '</div>';
+    }
     if (h.note) html += '<div class="hcard-note">' + escHtml(h.note) + '</div>';
     if (h.tags && h.tags.length) {
         html += '<div class="hcard-tags">';
@@ -605,10 +696,24 @@ function renderKeyDates() {
 }
 
 function renderPricing() {
+    var af = [
+        { id:'P9845PCE', disc:'$50/unit' }, { id:'P9845V', disc:'$75/unit' },
+        { id:'P00549PCE', disc:'$70/unit' }, { id:'P00549V', disc:'$95/unit' },
+        { id:'P0075AM', disc:'$40/unit' }, { id:'P0075Q', disc:'$60/unit' },
+        { id:'P03115V', disc:'$75/unit' },
+        { id:'P0487PCE', disc:'$50/unit' }, { id:'P0487Q', disc:'$70/unit' },
+        { id:'P0622Q', disc:'$60/unit' },
+        { id:'P10625V', disc:'$60/unit' },
+        { id:'P1244AM', disc:'$20/unit' }
+    ];
     var html = '<div style="background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:16px 18px;">';
-    html += '<p style="font-size:14px;color:var(--text);margin-bottom:10px;"><strong style="color:var(--gold);">Acre Focus</strong> — Per-acre discount program for 2027 seed orders placed during Pioneer Days.</p>';
-    html += '<p style="font-size:13px;color:var(--text-dim);">Orders placed Nov 30–Dec 4 qualify for maximum early-order savings. Refer to current Pioneer pricing sheet for specific Acre Focus tier discounts and per-acre rates.</p>';
-    html += '</div>';
+    html += '<p style="font-size:14px;color:var(--text);margin-bottom:12px;"><strong style="color:var(--gold);">Acre Focus</strong> — Per-unit discounts for 2027 orders placed during Pioneer Days (Nov 30–Dec 4). 15 days to capture best offer.</p>';
+    html += '<table style="width:100%;border-collapse:collapse;font-size:13px;font-family:var(--font-mono);">';
+    html += '<tr style="border-bottom:1px solid var(--border);"><th style="text-align:left;padding:6px 8px;color:var(--text-dim);font-weight:500;">Hybrid</th><th style="text-align:right;padding:6px 8px;color:var(--text-dim);font-weight:500;">Discount</th></tr>';
+    af.forEach(function(r) {
+        html += '<tr style="border-bottom:1px solid rgba(48,54,61,0.5);"><td style="padding:6px 8px;color:var(--text);">' + escHtml(r.id) + '</td><td style="text-align:right;padding:6px 8px;color:var(--green);font-weight:600;">' + escHtml(r.disc) + '</td></tr>';
+    });
+    html += '</table></div>';
     document.getElementById('pricingContent').innerHTML = html;
 }
 
