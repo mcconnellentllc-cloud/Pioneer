@@ -414,6 +414,7 @@
         <a href="#dryland">Dryland</a>
         <a href="#irrigated">Irrigated</a>
         <a href="#scatter">Rate &times; Yield</a>
+        <a href="#planting-date">Planting Date</a>
         <a href="test-plots-2026.html">2026 Plot Data</a>
         <a href="members.html">Dashboard</a>
     </nav>
@@ -521,6 +522,31 @@
             <h3>Dryland: Population vs. Yield</h3>
             <p class="scatter-sub">Dryland populations are tightly clustered (12&ndash;14K). Hybrid selection matters more than population fine-tuning.</p>
             <svg id="scatter-svg-dry" class="scatter-svg" viewBox="-120 0 1100 500" preserveAspectRatio="xMidYMid meet"></svg>
+        </div>
+
+        <a href="#top" class="back-link">&uarr; Back to Top</a>
+    </div>
+
+    <!-- ============================================ -->
+    <!-- PLANTING DATE × YIELD -->
+    <!-- ============================================ -->
+    <div id="planting-date">
+        <div class="section-header">
+            <span class="irr-type">Timing</span>
+            <h2>Yield by Planting Date</h2>
+            <p>How does planting date affect yield? Bubble size reflects harvest acres on that date &mdash; larger bubbles mean more data confidence. Trend line shows the 5-point moving average.</p>
+        </div>
+
+        <div class="scatter-wrap">
+            <h3>Irrigated: Yield by Planting Date</h3>
+            <p class="scatter-sub">Pop &gt; 25K seeds/ac. Peak window April 18&ndash;29 averaged 255 bu/ac. After May 9, yields dropped 80&ndash;100 bu.</p>
+            <svg id="pd-irr-svg" class="scatter-svg" viewBox="-60 0 900 480" preserveAspectRatio="xMidYMid meet"></svg>
+        </div>
+
+        <div class="scatter-wrap" style="padding-top:0;">
+            <h3>Dryland: Yield by Planting Date</h3>
+            <p class="scatter-sub">Pop &lt; 15.6K seeds/ac. Early May planting generally outperformed late May. Best single date: May 9 at 73 bu/ac.</p>
+            <svg id="pd-dry-svg" class="scatter-svg" viewBox="-60 0 900 420" preserveAspectRatio="xMidYMid meet"></svg>
         </div>
 
         <a href="#top" class="back-link">&uarr; Back to Top</a>
@@ -870,6 +896,144 @@ buildBars(DRYLAND, 'dryland-chart', 75, 50);
 buildBars(IRRIGATED, 'irrigated-chart', 300, 100);
 buildScatter(IRRIGATED, 'scatter-svg', 28000, 35000, 140, 300, 'Seeding Rate (seeds/acre)', 'Yield (bu/acre)');
 buildScatter(DRYLAND, 'scatter-svg-dry', 11800, 14500, 5, 75, 'Seeding Rate (seeds/acre)', 'Yield (bu/acre)');
+
+var PD_IRR = [
+    {dt:'04/15',ac:126.8,y:257.1},{dt:'04/16',ac:118.0,y:206.2},{dt:'04/18',ac:128.5,y:263.8},
+    {dt:'04/19',ac:264.1,y:254.8},{dt:'04/20',ac:340.9,y:205.1},{dt:'04/21',ac:672.4,y:227.3},
+    {dt:'04/22',ac:452.4,y:224.6},{dt:'04/23',ac:945.1,y:232.5},{dt:'04/24',ac:1601.9,y:249.4},
+    {dt:'04/25',ac:996.0,y:246.3},{dt:'04/26',ac:289.8,y:241.4},{dt:'04/27',ac:1264.3,y:261.4},
+    {dt:'04/28',ac:493.0,y:269.6},{dt:'04/29',ac:917.2,y:260.9},{dt:'04/30',ac:1447.8,y:242.1},
+    {dt:'05/01',ac:2701.5,y:230.0},{dt:'05/02',ac:3305.1,y:245.1},{dt:'05/03',ac:2402.7,y:240.7},
+    {dt:'05/04',ac:3446.9,y:233.9},{dt:'05/05',ac:171.8,y:259.7},{dt:'05/07',ac:1526.3,y:245.3},
+    {dt:'05/08',ac:2230.7,y:247.5},{dt:'05/09',ac:2234.4,y:221.5},{dt:'05/10',ac:477.2,y:130.6},
+    {dt:'05/13',ac:1633.7,y:156.4},{dt:'05/14',ac:1719.1,y:175.7},{dt:'05/15',ac:1625.4,y:153.0}
+];
+var PD_DRY = [
+    {dt:'05/01',ac:117.4,y:66.9},{dt:'05/02',ac:135.9,y:53.3},{dt:'05/03',ac:116.1,y:52.7},
+    {dt:'05/04',ac:160.8,y:57.5},{dt:'05/08',ac:63.0,y:54.0},{dt:'05/09',ac:211.1,y:72.7},
+    {dt:'05/10',ac:221.3,y:62.3},{dt:'05/11',ac:1279.4,y:51.8},{dt:'05/12',ac:911.1,y:58.0},
+    {dt:'05/13',ac:692.7,y:30.8},{dt:'05/14',ac:682.6,y:55.2},{dt:'05/15',ac:711.8,y:45.7},
+    {dt:'05/16',ac:638.6,y:44.3},{dt:'05/17',ac:167.0,y:41.0},{dt:'05/19',ac:811.7,y:55.8},
+    {dt:'05/21',ac:195.4,y:45.0},{dt:'05/22',ac:203.6,y:50.3},{dt:'05/23',ac:648.5,y:60.2},
+    {dt:'05/24',ac:211.0,y:35.8},{dt:'05/25',ac:174.8,y:48.3},{dt:'05/26',ac:591.1,y:56.9},
+    {dt:'05/27',ac:347.7,y:43.8},{dt:'05/28',ac:384.7,y:33.2},{dt:'05/29',ac:317.4,y:36.4},
+    {dt:'05/30',ac:134.3,y:37.5},{dt:'05/31',ac:19.9,y:20.9},{dt:'06/02',ac:65.2,y:32.1},
+    {dt:'06/03',ac:57.0,y:16.8}
+];
+
+function buildDateChart(data, svgId, yMin, yMax, peakStart, peakEnd, peakLabel, color) {
+    var svg = document.getElementById(svgId);
+    if (!svg) return;
+
+    var L = 60, R = 760, T = 40, B = 360;
+    var html = '';
+
+    var parseDate = function(s) {
+        var parts = s.split('/');
+        return new Date(2026, parseInt(parts[0]) - 1, parseInt(parts[1]));
+    };
+
+    var dateMin = parseDate(data[0].dt);
+    var dateMax = parseDate(data[data.length - 1].dt);
+    var daySpan = (dateMax - dateMin) / 86400000;
+
+    function xPos(dt) {
+        var d = parseDate(dt);
+        var dayOff = (d - dateMin) / 86400000;
+        return L + (dayOff / daySpan) * (R - L);
+    }
+    function yPos(v) {
+        return B - (v - yMin) / (yMax - yMin) * (B - T);
+    }
+
+    html += '<rect x="'+L+'" y="'+T+'" width="'+(R-L)+'" height="'+(B-T)+'" fill="#fafaf7" stroke="#ddd" rx="2"/>';
+
+    var pxStart = xPos(peakStart);
+    var pxEnd = xPos(peakEnd);
+    html += '<rect x="'+pxStart.toFixed(1)+'" y="'+T+'" width="'+(pxEnd-pxStart).toFixed(1)+'" height="'+(B-T)+'" fill="rgba(26,71,42,0.06)" stroke="none"/>';
+    html += '<text x="'+((pxStart+pxEnd)/2).toFixed(1)+'" y="'+(B-8)+'" text-anchor="middle" font-size="9.5" fill="#1a472a" font-weight="700" font-style="italic" opacity="0.7">'+peakLabel+'</text>';
+
+    var yStepSize = yMax - yMin > 100 ? 25 : 10;
+    for (var yv = yMin; yv <= yMax; yv += yStepSize) {
+        var py = yPos(yv);
+        html += '<line x1="'+L+'" y1="'+py.toFixed(1)+'" x2="'+R+'" y2="'+py.toFixed(1)+'" stroke="#e0ddd4" stroke-width="1"/>';
+        html += '<text x="'+(L-8)+'" y="'+(py+4).toFixed(1)+'" text-anchor="end" font-size="11" fill="#888">'+yv+'</text>';
+    }
+
+    var months = [{m:3,d:15},{m:3,d:20},{m:3,d:25},{m:4,d:1},{m:4,d:5},{m:4,d:10},{m:4,d:15},{m:4,d:20},{m:4,d:25},{m:5,d:1},{m:5,d:5}];
+    var dayNames = ['Apr 15','Apr 20','Apr 25','May 1','May 5','May 10','May 15','May 20','May 25','Jun 1','Jun 5'];
+    var dayIdx = 0;
+    for (var mi = 0; mi < months.length; mi++) {
+        var md = months[mi];
+        var testDate = new Date(2026, md.m, md.d);
+        if (testDate >= dateMin && testDate <= dateMax) {
+            var px = L + ((testDate - dateMin) / 86400000 / daySpan) * (R - L);
+            html += '<line x1="'+px.toFixed(1)+'" y1="'+T+'" x2="'+px.toFixed(1)+'" y2="'+B+'" stroke="#e0ddd4" stroke-width="1"/>';
+            html += '<text x="'+px.toFixed(1)+'" y="'+(B+16)+'" text-anchor="middle" font-size="10" fill="#888">'+dayNames[mi]+'</text>';
+        }
+    }
+    html += '<text x="'+((L+R)/2)+'" y="'+(B+38)+'" text-anchor="middle" font-size="12" fill="#666" font-weight="600">Planting Date (2026)</text>';
+    html += '<text x="10" y="'+((T+B)/2)+'" text-anchor="middle" font-size="12" fill="#666" font-weight="600" transform="rotate(-90,10,'+((T+B)/2)+')">Yield (bu/acre)</text>';
+
+    var pts = data.map(function(d) {
+        var r = Math.max(4, 2 + Math.log10(Math.max(d.ac, 1)) * 4);
+        if (r > 20) r = 20;
+        return {d: d, px: xPos(d.dt), py: yPos(d.y), r: r};
+    });
+
+    var window = 5;
+    var maPoints = [];
+    for (var i = 0; i < pts.length; i++) {
+        var sum = 0, count = 0;
+        var lo = Math.max(0, i - Math.floor(window / 2));
+        var hi = Math.min(pts.length - 1, i + Math.floor(window / 2));
+        for (var j = lo; j <= hi; j++) { sum += pts[j].d.y; count++; }
+        maPoints.push({px: pts[i].px, py: yPos(sum / count)});
+    }
+    var pathD = 'M' + maPoints[0].px.toFixed(1) + ',' + maPoints[0].py.toFixed(1);
+    for (var i = 1; i < maPoints.length; i++) {
+        pathD += ' L' + maPoints[i].px.toFixed(1) + ',' + maPoints[i].py.toFixed(1);
+    }
+    html += '<path d="'+pathD+'" fill="none" stroke="'+color+'" stroke-width="2.5" stroke-opacity="0.7" stroke-linejoin="round"/>';
+
+    pts.forEach(function(p) {
+        html += '<circle cx="'+p.px.toFixed(1)+'" cy="'+p.py.toFixed(1)+'" r="'+p.r.toFixed(1)+'" fill="'+color+'" fill-opacity="0.5" stroke="'+color+'" stroke-width="1.5"/>';
+    });
+
+    var labelBoxes = [];
+    pts.forEach(function(p) {
+        var lx = p.px, ly = p.py - p.r - 6;
+        var w = 22, h = 11;
+        var box = {x1: lx - w/2, y1: ly - h, x2: lx + w/2, y2: ly};
+        var collision = false;
+        for (var k = 0; k < labelBoxes.length; k++) {
+            var b = labelBoxes[k];
+            if (box.x1 < b.x2 + 2 && box.x2 > b.x1 - 2 && box.y1 < b.y2 + 1 && box.y2 > b.y1 - 1) {
+                collision = true;
+                break;
+            }
+        }
+        if (collision) {
+            ly = p.py + p.r + 14;
+            box = {x1: lx - w/2, y1: ly - h, x2: lx + w/2, y2: ly};
+            var still = false;
+            for (var k = 0; k < labelBoxes.length; k++) {
+                var b = labelBoxes[k];
+                if (box.x1 < b.x2 + 2 && box.x2 > b.x1 - 2 && box.y1 < b.y2 + 1 && box.y2 > b.y1 - 1) { still = true; break; }
+            }
+            if (still) return;
+        }
+        labelBoxes.push(box);
+        html += '<text x="'+lx.toFixed(1)+'" y="'+ly.toFixed(1)+'" text-anchor="middle" font-size="9" fill="#555" font-weight="600">'+p.d.y.toFixed(0)+'</text>';
+    });
+
+    html += '<text x="'+(R-4)+'" y="'+(B-6)+'" text-anchor="end" font-size="8" fill="#aaa" font-style="italic">Bubble size = harvest acres (confidence)</text>';
+
+    svg.innerHTML = html;
+}
+
+buildDateChart(PD_IRR, 'pd-irr-svg', 100, 280, '04/18', '04/29', 'Peak Window: Apr 18–29', '#1565c0');
+buildDateChart(PD_DRY, 'pd-dry-svg', 10, 80, '05/01', '05/12', 'Peak Window: May 1–12', '#e65100');
 </script>
 </body>
 </html>
