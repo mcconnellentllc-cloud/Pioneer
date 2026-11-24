@@ -576,12 +576,25 @@
         </div>
 
         <div class="scatter-wrap" style="padding-top:0;">
+            <h3>GDU Available vs. Yield by Planting Date</h3>
+            <p class="scatter-sub">Earlier planting = more growing degree units available through Oct 10 (20-yr NE Colorado averages). Irrigated fields (blue) show a GDU-yield trend with R&sup2;. Dryland (orange) is water-limited &mdash; additional GDUs alone don&rsquo;t improve yield in drought.</p>
+            <svg id="gdu-yield-svg" class="scatter-svg" viewBox="-60 0 940 500" preserveAspectRatio="xMidYMid meet"></svg>
+        </div>
+
+        <div class="scatter-wrap" style="padding-top:0;">
+            <h3>Water &amp; Yield &mdash; Rule of Thumb</h3>
+            <p class="scatter-sub">Research shows 10&ndash;12 bu/ac per inch of effective water (rain + irrigation). The shaded band shows this range applied to the 2026 territory averages. Both irrigated and dryland fall within the band.</p>
+            <svg id="water-yield-svg" class="scatter-svg" viewBox="-60 0 740 420" preserveAspectRatio="xMidYMid meet"></svg>
+        </div>
+
+        <div class="scatter-wrap" style="padding-top:0;">
             <h3>Key Takeaways</h3>
             <div style="font-size:14px;color:var(--ink-soft);line-height:1.7;max-width:720px;">
                 <p style="margin-bottom:10px;"><strong style="color:var(--ink);">1. Soil temp &ne; yield predictor.</strong> Irrigated peak yields came when soil was 46&ndash;50&deg;F &mdash; <em>below</em> the 50&deg;F threshold. Cool soil delayed emergence but didn&rsquo;t hurt final yield. Getting seed in the ground early mattered more than waiting for warm soil.</p>
                 <p style="margin-bottom:10px;"><strong style="color:var(--ink);">2. Freeze events marked boundaries, not barriers.</strong> The Apr 18 hard freeze (22&deg;F low) and May 1 freeze (25&deg;F low) bookend the irrigated peak window. Corn planted just before or during these events still yielded 240&ndash;270 bu/ac.</p>
                 <p style="margin-bottom:10px;"><strong style="color:var(--ink);">3. Moisture trumped temperature for dryland.</strong> With topsoil 92% short-to-very-short through April, the May 5&ndash;6 rain event was the inflection point. Dryland corn planted around that moisture pulse outperformed later plantings into warm, dry soil.</p>
-                <p><strong style="color:var(--ink);">4. Late planting penalty is about GDUs, not conditions.</strong> By mid-May, soil was 58&ndash;62&deg;F and moisture had improved &mdash; ideal germination conditions. But yields cratered because the growing season was too short to accumulate enough heat units.</p>
+                <p style="margin-bottom:10px;"><strong style="color:var(--ink);">4. Late planting penalty is about GDUs, not conditions.</strong> By mid-May, soil was 58&ndash;62&deg;F and moisture had improved &mdash; ideal germination conditions. But yields cratered because the growing season was too short to accumulate enough heat units.</p>
+                <p><strong style="color:var(--ink);">5. Water budget tells the story.</strong> Nebraska Extension: 1&Prime; of effective water &asymp; 10&ndash;12 bu/ac corn. Our dryland average (~45 bu/ac) implies ~4&Prime; effective rain during the drought. Irrigated average (~226 bu/ac) implies ~21&Prime; total water. The rule of thumb aligns with both ends of our 2026 data.</p>
             </div>
         </div>
 
@@ -1291,6 +1304,161 @@ function buildWeatherYieldChart(yieldData, wxData, svgId, yieldMin, yieldMax, yi
 
 buildWeatherYieldChart(PD_IRR, WEATHER, 'wx-irr-svg', 100, 280, '#1565c0', '04/18', '04/29');
 buildWeatherYieldChart(PD_DRY, WEATHER, 'wx-dry-svg', 10, 80, '#e65100', '05/01', '05/12');
+
+function estimateGDU(dtStr) {
+    var parts = dtStr.split('/');
+    var m = parseInt(parts[0]), d = parseInt(parts[1]);
+    var rates = [0,0,0,0,11.25,20.0,17.33,18.71,17.42,12.67,5.81];
+    var endDay = [0,0,0,0,30,31,30,31,31,30,10];
+    var total = 0;
+    for (var mo = m; mo <= 10; mo++) {
+        var start = (mo === m) ? d : (mo === 4 ? 15 : 1);
+        var end = endDay[mo];
+        if (mo === 4 && start < 15) start = 15;
+        var days = end - start + 1;
+        if (days > 0) total += days * rates[mo];
+    }
+    return Math.round(total);
+}
+
+function linReg(pts, xKey, yKey) {
+    var n = pts.length, sx = 0, sy = 0, sxy = 0, sx2 = 0;
+    pts.forEach(function(p) { sx += p[xKey]; sy += p[yKey]; sxy += p[xKey]*p[yKey]; sx2 += p[xKey]*p[xKey]; });
+    var denom = n * sx2 - sx * sx;
+    if (denom === 0) return {slope:0, intercept:0, r2:0};
+    var slope = (n*sxy - sx*sy) / denom;
+    var intercept = (sy - slope*sx) / n;
+    var meanY = sy / n, ssRes = 0, ssTot = 0;
+    pts.forEach(function(p) {
+        var pred = slope * p[xKey] + intercept;
+        ssRes += (p[yKey] - pred) * (p[yKey] - pred);
+        ssTot += (p[yKey] - meanY) * (p[yKey] - meanY);
+    });
+    return {slope: slope, intercept: intercept, r2: ssTot > 0 ? 1 - ssRes / ssTot : 0};
+}
+
+function buildGDUChart() {
+    var svg = document.getElementById('gdu-yield-svg');
+    if (!svg) return;
+    var irrPts = PD_IRR.map(function(d) { return {gdu: estimateGDU(d.dt), y: d.y, ac: d.ac}; });
+    var dryPts = PD_DRY.map(function(d) { return {gdu: estimateGDU(d.dt), y: d.y, ac: d.ac}; });
+    var L = 70, R = 760, T = 50, B = 420;
+    var xMin = 2000, xMax = 2950, yMin = 0, yMax = 280;
+    var html = '';
+    function xP(v) { return L + (v - xMin) / (xMax - xMin) * (R - L); }
+    function yP(v) { return B - (v - yMin) / (yMax - yMin) * (B - T); }
+
+    html += '<rect x="'+L+'" y="'+T+'" width="'+(R-L)+'" height="'+(B-T)+'" fill="#fafaf7" stroke="#ddd" rx="2"/>';
+
+    var matX = xP(2500);
+    html += '<rect x="'+L+'" y="'+T+'" width="'+(matX-L).toFixed(1)+'" height="'+(B-T)+'" fill="rgba(198,40,40,0.04)"/>';
+    html += '<line x1="'+matX.toFixed(1)+'" y1="'+T+'" x2="'+matX.toFixed(1)+'" y2="'+B+'" stroke="#c62828" stroke-width="1.5" stroke-dasharray="6,4" opacity="0.5"/>';
+    html += '<text x="'+(matX+5).toFixed(1)+'" y="'+(T+14)+'" font-size="9" fill="#c62828" font-weight="600" opacity="0.7">&lt; 2,500 GDU — Maturity risk zone</text>';
+
+    for (var yv = 0; yv <= 280; yv += 40) {
+        html += '<line x1="'+L+'" y1="'+yP(yv).toFixed(1)+'" x2="'+R+'" y2="'+yP(yv).toFixed(1)+'" stroke="#e0ddd4"/>';
+        html += '<text x="'+(L-8)+'" y="'+(yP(yv)+4).toFixed(1)+'" text-anchor="end" font-size="11" fill="#888">'+yv+'</text>';
+    }
+    for (var xv = 2000; xv <= 2900; xv += 200) {
+        html += '<line x1="'+xP(xv).toFixed(1)+'" y1="'+T+'" x2="'+xP(xv).toFixed(1)+'" y2="'+B+'" stroke="#e0ddd4"/>';
+        html += '<text x="'+xP(xv).toFixed(1)+'" y="'+(B+16)+'" text-anchor="middle" font-size="10" fill="#888">'+xv+'</text>';
+    }
+
+    html += '<text x="'+((L+R)/2)+'" y="'+(B+38)+'" text-anchor="middle" font-size="12" fill="#666" font-weight="600">Estimated Available GDU (Planting to Oct 10, 20-yr avg)</text>';
+    html += '<text x="10" y="'+((T+B)/2)+'" text-anchor="middle" font-size="12" fill="#666" font-weight="600" transform="rotate(-90,10,'+((T+B)/2)+')">Yield (bu/acre)</text>';
+
+    html += '<circle cx="'+(L+20)+'" cy="'+(T-22)+'" r="6" fill="#1565c0" fill-opacity="0.6" stroke="#1565c0" stroke-width="1.5"/>';
+    html += '<text x="'+(L+30)+'" y="'+(T-18)+'" font-size="11" fill="#444" font-weight="600">Irrigated</text>';
+    html += '<circle cx="'+(L+120)+'" cy="'+(T-22)+'" r="6" fill="#e65100" fill-opacity="0.6" stroke="#e65100" stroke-width="1.5"/>';
+    html += '<text x="'+(L+130)+'" y="'+(T-18)+'" font-size="11" fill="#444" font-weight="600">Dryland</text>';
+    html += '<text x="'+(L+220)+'" y="'+(T-18)+'" font-size="9" fill="#999" font-style="italic">Bubble size = harvest acres &middot; Dashed = linear trend</text>';
+
+    irrPts.forEach(function(p) {
+        var r = Math.max(3, 2 + Math.log10(Math.max(p.ac, 1)) * 3); if (r > 16) r = 16;
+        html += '<circle cx="'+xP(p.gdu).toFixed(1)+'" cy="'+yP(p.y).toFixed(1)+'" r="'+r.toFixed(1)+'" fill="#1565c0" fill-opacity="0.45" stroke="#1565c0" stroke-width="1.2"/>';
+    });
+    dryPts.forEach(function(p) {
+        var r = Math.max(3, 2 + Math.log10(Math.max(p.ac, 1)) * 3); if (r > 16) r = 16;
+        html += '<circle cx="'+xP(p.gdu).toFixed(1)+'" cy="'+yP(p.y).toFixed(1)+'" r="'+r.toFixed(1)+'" fill="#e65100" fill-opacity="0.45" stroke="#e65100" stroke-width="1.2"/>';
+    });
+
+    var irrReg = linReg(irrPts, 'gdu', 'y');
+    var dryReg = linReg(dryPts, 'gdu', 'y');
+    var ix1 = 2400, ix2 = 2900;
+    html += '<line x1="'+xP(ix1).toFixed(1)+'" y1="'+yP(irrReg.slope*ix1+irrReg.intercept).toFixed(1)+'" x2="'+xP(ix2).toFixed(1)+'" y2="'+yP(irrReg.slope*ix2+irrReg.intercept).toFixed(1)+'" stroke="#1565c0" stroke-width="2" opacity="0.5" stroke-dasharray="8,4"/>';
+    var dx1 = 2050, dx2 = 2700;
+    html += '<line x1="'+xP(dx1).toFixed(1)+'" y1="'+yP(dryReg.slope*dx1+dryReg.intercept).toFixed(1)+'" x2="'+xP(dx2).toFixed(1)+'" y2="'+yP(dryReg.slope*dx2+dryReg.intercept).toFixed(1)+'" stroke="#e65100" stroke-width="2" opacity="0.5" stroke-dasharray="8,4"/>';
+
+    html += '<text x="'+(R-4)+'" y="'+(T+14)+'" text-anchor="end" font-size="10" fill="#1565c0" font-weight="600">Irrigated R&sup2; = '+irrReg.r2.toFixed(2)+'</text>';
+    html += '<text x="'+(R-4)+'" y="'+(T+28)+'" text-anchor="end" font-size="10" fill="#e65100" font-weight="600">Dryland R&sup2; = '+dryReg.r2.toFixed(2)+'</text>';
+    html += '<text x="'+(R-4)+'" y="'+(B-6)+'" text-anchor="end" font-size="8" fill="#aaa" font-style="italic">GDU estimates: 20-yr avg monthly rates from NE Colorado (seedbook)</text>';
+    svg.innerHTML = html;
+}
+
+function buildWaterChart() {
+    var svg = document.getElementById('water-yield-svg');
+    if (!svg) return;
+    var L = 70, R = 620, T = 40, B = 340;
+    var xMax = 30, yMax = 300;
+    var html = '';
+    function xP(v) { return L + (v / xMax) * (R - L); }
+    function yP(v) { return B - (v / yMax) * (B - T); }
+
+    html += '<rect x="'+L+'" y="'+T+'" width="'+(R-L)+'" height="'+(B-T)+'" fill="#fafaf7" stroke="#ddd" rx="2"/>';
+
+    var polyPts = '';
+    for (var w = 0; w <= 30; w += 0.5) polyPts += xP(w).toFixed(1)+','+yP(Math.min(w*12,yMax)).toFixed(1)+' ';
+    for (var w = 30; w >= 0; w -= 0.5) polyPts += xP(w).toFixed(1)+','+yP(Math.min(w*10,yMax)).toFixed(1)+' ';
+    html += '<polygon points="'+polyPts.trim()+'" fill="rgba(26,71,42,0.12)"/>';
+
+    var l10 = '';
+    for (var w = 0; w <= 30; w += 0.5) l10 += xP(w).toFixed(1)+','+yP(Math.min(w*10,yMax)).toFixed(1)+' ';
+    html += '<polyline points="'+l10.trim()+'" fill="none" stroke="#2e7d32" stroke-width="1.5" opacity="0.6"/>';
+    var l12 = '';
+    for (var w = 0; w <= 25; w += 0.5) l12 += xP(w).toFixed(1)+','+yP(Math.min(w*12,yMax)).toFixed(1)+' ';
+    html += '<polyline points="'+l12.trim()+'" fill="none" stroke="#2e7d32" stroke-width="1.5" opacity="0.6"/>';
+
+    var labelW = 14, midY = labelW * 11;
+    var lx = xP(labelW), ly = yP(midY);
+    html += '<text x="'+lx.toFixed(1)+'" y="'+(ly-6).toFixed(1)+'" text-anchor="middle" font-size="11" fill="#2e7d32" font-weight="700" opacity="0.8" transform="rotate(-31,'+lx.toFixed(1)+','+(ly-6).toFixed(1)+')">10&ndash;12 bu/ac per inch</text>';
+
+    for (var yv = 0; yv <= 300; yv += 50) {
+        html += '<line x1="'+L+'" y1="'+yP(yv).toFixed(1)+'" x2="'+R+'" y2="'+yP(yv).toFixed(1)+'" stroke="#e0ddd4"/>';
+        html += '<text x="'+(L-8)+'" y="'+(yP(yv)+4).toFixed(1)+'" text-anchor="end" font-size="11" fill="#888">'+yv+'</text>';
+    }
+    for (var xv = 0; xv <= 30; xv += 5) {
+        html += '<line x1="'+xP(xv).toFixed(1)+'" y1="'+T+'" x2="'+xP(xv).toFixed(1)+'" y2="'+B+'" stroke="#e0ddd4"/>';
+        html += '<text x="'+xP(xv).toFixed(1)+'" y="'+(B+16)+'" text-anchor="middle" font-size="10" fill="#888">'+xv+'&Prime;</text>';
+    }
+
+    html += '<text x="'+((L+R)/2)+'" y="'+(B+36)+'" text-anchor="middle" font-size="12" fill="#666" font-weight="600">Effective Water (inches) &mdash; Rain + Irrigation</text>';
+    html += '<text x="10" y="'+((T+B)/2)+'" text-anchor="middle" font-size="12" fill="#666" font-weight="600" transform="rotate(-90,10,'+((T+B)/2)+')">Yield (bu/acre)</text>';
+
+    var tIrrAc = 0, wIrrY = 0;
+    PD_IRR.forEach(function(d) { tIrrAc += d.ac; wIrrY += d.ac * d.y; });
+    var irrAvg = wIrrY / tIrrAc, irrW = irrAvg / 11;
+    var tDryAc = 0, wDryY = 0;
+    PD_DRY.forEach(function(d) { tDryAc += d.ac; wDryY += d.ac * d.y; });
+    var dryAvg = wDryY / tDryAc, dryW = dryAvg / 11;
+
+    html += '<circle cx="'+xP(irrW).toFixed(1)+'" cy="'+yP(irrAvg).toFixed(1)+'" r="12" fill="#1565c0" fill-opacity="0.6" stroke="#1565c0" stroke-width="2"/>';
+    html += '<text x="'+(xP(irrW)+16).toFixed(1)+'" y="'+(yP(irrAvg)-6).toFixed(1)+'" font-size="11" fill="#1565c0" font-weight="700">Irrigated Avg</text>';
+    html += '<text x="'+(xP(irrW)+16).toFixed(1)+'" y="'+(yP(irrAvg)+8).toFixed(1)+'" font-size="9" fill="#999">'+irrAvg.toFixed(0)+' bu/ac &middot; ~'+irrW.toFixed(0)+'&Prime; water</text>';
+
+    html += '<circle cx="'+xP(dryW).toFixed(1)+'" cy="'+yP(dryAvg).toFixed(1)+'" r="12" fill="#e65100" fill-opacity="0.6" stroke="#e65100" stroke-width="2"/>';
+    html += '<text x="'+(xP(dryW)+16).toFixed(1)+'" y="'+(yP(dryAvg)-6).toFixed(1)+'" font-size="11" fill="#e65100" font-weight="700">Dryland Avg</text>';
+    html += '<text x="'+(xP(dryW)+16).toFixed(1)+'" y="'+(yP(dryAvg)+8).toFixed(1)+'" font-size="9" fill="#999">'+dryAvg.toFixed(0)+' bu/ac &middot; ~'+dryW.toFixed(0)+'&Prime; rain</text>';
+
+    html += '<rect x="'+(L+10)+'" y="'+(T+8)+'" width="244" height="42" rx="4" fill="rgba(198,40,40,0.06)"/>';
+    html += '<text x="'+(L+20)+'" y="'+(T+24)+'" font-size="10" fill="#c62828" font-weight="700">2026: 91% of CO in moderate drought</text>';
+    html += '<text x="'+(L+20)+'" y="'+(T+40)+'" font-size="9" fill="#c62828" opacity="0.8">51% extreme drought &middot; July hottest on record</text>';
+
+    html += '<text x="'+(R-4)+'" y="'+(B-6)+'" text-anchor="end" font-size="8" fill="#aaa" font-style="italic">Source: Nebraska Extension &mdash; 1&Prime; effective water &asymp; 10&ndash;12 bu/ac corn</text>';
+    svg.innerHTML = html;
+}
+
+buildGDUChart();
+buildWaterChart();
 </script>
 </body>
 </html>
