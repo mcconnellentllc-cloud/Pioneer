@@ -415,6 +415,7 @@
         <a href="#irrigated">Irrigated</a>
         <a href="#scatter">Rate &times; Yield</a>
         <a href="#planting-date">Planting Date</a>
+        <a href="#weather-corr">Weather &times; Yield</a>
         <a href="test-plots-2026.html">2026 Plot Data</a>
         <a href="members.html">Dashboard</a>
     </nav>
@@ -552,11 +553,47 @@
         <a href="#top" class="back-link">&uarr; Back to Top</a>
     </div>
 
+    <!-- ============================================ -->
+    <!-- WEATHER × YIELD CORRELATION -->
+    <!-- ============================================ -->
+    <div id="weather-corr">
+        <div class="section-header">
+            <span class="irr-type">Conditions</span>
+            <h2>Weather &times; Yield Correlation</h2>
+            <p>How did air temperature, soil temperature, and soil moisture during the planting window affect yield? Daily air temp estimates from NWS regional summaries; soil temp at 4&Prime; modeled from air temp using exponential smoothing. Topsoil moisture from USDA NASS weekly crop progress reports.</p>
+        </div>
+
+        <div class="scatter-wrap">
+            <h3>Irrigated: Planting Conditions vs. Yield</h3>
+            <p class="scatter-sub">April 15 &ndash; May 15. Two hard freezes (Apr 18, May 1) dropped soil temps below 50&deg;F. The peak yield window (Apr 18&ndash;29) coincided with soil temps in the 46&ndash;50&deg;F range &mdash; seeds waited in cool soil, then emerged into warming conditions.</p>
+            <svg id="wx-irr-svg" class="scatter-svg" viewBox="-10 0 940 520" preserveAspectRatio="xMidYMid meet"></svg>
+        </div>
+
+        <div class="scatter-wrap" style="padding-top:0;">
+            <h3>Dryland: Planting Conditions vs. Yield</h3>
+            <p class="scatter-sub">May 1 &ndash; June 3. Soil temps crossed the 50&deg;F planting threshold around May 8. Best dryland yields came from early May planting (May 1&ndash;12) as May 5&ndash;6 storms broke the drought. After May 12, warm soil couldn&rsquo;t offset lost growing season days.</p>
+            <svg id="wx-dry-svg" class="scatter-svg" viewBox="-10 0 940 520" preserveAspectRatio="xMidYMid meet"></svg>
+        </div>
+
+        <div class="scatter-wrap" style="padding-top:0;">
+            <h3>Key Takeaways</h3>
+            <div style="font-size:14px;color:var(--ink-soft);line-height:1.7;max-width:720px;">
+                <p style="margin-bottom:10px;"><strong style="color:var(--ink);">1. Soil temp &ne; yield predictor.</strong> Irrigated peak yields came when soil was 46&ndash;50&deg;F &mdash; <em>below</em> the 50&deg;F threshold. Cool soil delayed emergence but didn&rsquo;t hurt final yield. Getting seed in the ground early mattered more than waiting for warm soil.</p>
+                <p style="margin-bottom:10px;"><strong style="color:var(--ink);">2. Freeze events marked boundaries, not barriers.</strong> The Apr 18 hard freeze (22&deg;F low) and May 1 freeze (25&deg;F low) bookend the irrigated peak window. Corn planted just before or during these events still yielded 240&ndash;270 bu/ac.</p>
+                <p style="margin-bottom:10px;"><strong style="color:var(--ink);">3. Moisture trumped temperature for dryland.</strong> With topsoil 92% short-to-very-short through April, the May 5&ndash;6 rain event was the inflection point. Dryland corn planted around that moisture pulse outperformed later plantings into warm, dry soil.</p>
+                <p><strong style="color:var(--ink);">4. Late planting penalty is about GDUs, not conditions.</strong> By mid-May, soil was 58&ndash;62&deg;F and moisture had improved &mdash; ideal germination conditions. But yields cratered because the growing season was too short to accumulate enough heat units.</p>
+            </div>
+        </div>
+
+        <a href="#top" class="back-link">&uarr; Back to Top</a>
+    </div>
+
     <div class="methodology">
         <h3>About This Data</h3>
         <p>Aggregated from area Pioneer data across Logan, Phillips, and Sedgwick counties. 2026 crop year, Pioneer brand only.</p>
         <p>Yield and seeding rate are as-reported from combine and planter data. Dryland entries require a minimum of 10 harvest acres; irrigated entries require 15 acres. Entries below these thresholds are shown with reduced emphasis.</p>
         <p>This data reflects actual grower results from a wide range of field conditions, soil types, and management practices. It is not a controlled experiment. Use alongside test plot data and multi-year performance records for product positioning decisions.</p>
+        <p><strong>Weather data sources:</strong> Daily air temperatures estimated from NWS Boulder and Goodland regional summaries, BoulderCast weekly reviews, HPRCC climate reports, and Haxtun climate normals. Soil temperature at 4&Prime; depth modeled using exponential smoothing of daily mean air temperature (not station observations). Topsoil moisture ratings from USDA NASS Colorado Crop Progress reports. These are estimates for the Haxtun, CO area &mdash; not station-recorded observations.</p>
     </div>
 
     <footer>
@@ -1034,6 +1071,226 @@ function buildDateChart(data, svgId, yMin, yMax, peakStart, peakEnd, peakLabel, 
 
 buildDateChart(PD_IRR, 'pd-irr-svg', 100, 280, '04/18', '04/29', 'Peak Window: Apr 18–29', '#1565c0');
 buildDateChart(PD_DRY, 'pd-dry-svg', 10, 80, '05/01', '05/12', 'Peak Window: May 1–12', '#e65100');
+
+var WEATHER = [
+    {dt:'04/15',hi:78,lo:42,st:50},{dt:'04/16',hi:80,lo:44,st:52},{dt:'04/17',hi:75,lo:38,st:53},
+    {dt:'04/18',hi:45,lo:22,st:50},{dt:'04/19',hi:52,lo:26,st:48},{dt:'04/20',hi:55,lo:28,st:47},
+    {dt:'04/21',hi:58,lo:30,st:47},{dt:'04/22',hi:56,lo:29,st:46},{dt:'04/23',hi:60,lo:32,st:46},
+    {dt:'04/24',hi:62,lo:33,st:46},{dt:'04/25',hi:65,lo:35,st:47},{dt:'04/26',hi:68,lo:36,st:48},
+    {dt:'04/27',hi:72,lo:38,st:49},{dt:'04/28',hi:74,lo:40,st:50},{dt:'04/29',hi:68,lo:34,st:50},
+    {dt:'04/30',hi:55,lo:28,st:49},{dt:'05/01',hi:50,lo:25,st:47},{dt:'05/02',hi:54,lo:28,st:46},
+    {dt:'05/03',hi:60,lo:32,st:46},{dt:'05/04',hi:65,lo:36,st:47},{dt:'05/05',hi:62,lo:40,st:48},
+    {dt:'05/06',hi:58,lo:38,st:48},{dt:'05/07',hi:68,lo:42,st:49},{dt:'05/08',hi:72,lo:44,st:50},
+    {dt:'05/09',hi:75,lo:46,st:52},{dt:'05/10',hi:78,lo:48,st:54},{dt:'05/11',hi:82,lo:50,st:56},
+    {dt:'05/12',hi:86,lo:52,st:58},{dt:'05/13',hi:88,lo:54,st:60},{dt:'05/14',hi:85,lo:52,st:61},
+    {dt:'05/15',hi:80,lo:48,st:62},{dt:'05/16',hi:76,lo:46,st:62},{dt:'05/17',hi:74,lo:44,st:62},
+    {dt:'05/18',hi:72,lo:42,st:61},{dt:'05/19',hi:76,lo:46,st:61},{dt:'05/20',hi:78,lo:48,st:61},
+    {dt:'05/21',hi:80,lo:50,st:62},{dt:'05/22',hi:76,lo:48,st:62},{dt:'05/23',hi:74,lo:46,st:62},
+    {dt:'05/24',hi:78,lo:48,st:62},{dt:'05/25',hi:80,lo:50,st:63},{dt:'05/26',hi:82,lo:52,st:64},
+    {dt:'05/27',hi:78,lo:50,st:64},{dt:'05/28',hi:76,lo:48,st:64},{dt:'05/29',hi:80,lo:50,st:64},
+    {dt:'05/30',hi:82,lo:52,st:65},{dt:'05/31',hi:78,lo:48,st:65},{dt:'06/01',hi:80,lo:50,st:65},
+    {dt:'06/02',hi:82,lo:52,st:65},{dt:'06/03',hi:84,lo:54,st:66}
+];
+
+function buildWeatherYieldChart(yieldData, wxData, svgId, yieldMin, yieldMax, yieldColor, peakStart, peakEnd) {
+    var svg = document.getElementById(svgId);
+    if (!svg) return;
+
+    var L = 65, R = 830, T = 35, B = 400, RAxis = 880;
+    var tMin = 15, tMax = 95;
+    var html = '';
+
+    var parseDate = function(s) {
+        var parts = s.split('/');
+        return new Date(2026, parseInt(parts[0]) - 1, parseInt(parts[1]));
+    };
+
+    var yDates = yieldData.map(function(d) { return parseDate(d.dt); });
+    var dateMin = yDates[0];
+    var dateMax = yDates[yDates.length - 1];
+    var daySpan = (dateMax - dateMin) / 86400000;
+
+    var wx = wxData.filter(function(w) {
+        var d = parseDate(w.dt);
+        return d >= dateMin && d <= dateMax;
+    });
+
+    function xPos(dt) {
+        var d = (typeof dt === 'string') ? parseDate(dt) : dt;
+        return L + ((d - dateMin) / 86400000 / daySpan) * (R - L);
+    }
+    function tY(v) { return B - (v - tMin) / (tMax - tMin) * (B - T); }
+    function yY(v) { return B - (v - yieldMin) / (yieldMax - yieldMin) * (B - T); }
+
+    html += '<rect x="'+L+'" y="'+T+'" width="'+(R-L)+'" height="'+(B-T)+'" fill="#fafaf7" stroke="#ddd" rx="2"/>';
+
+    var pxS = xPos(peakStart), pxE = xPos(peakEnd);
+    html += '<rect x="'+pxS.toFixed(1)+'" y="'+T+'" width="'+(pxE-pxS).toFixed(1)+'" height="'+(B-T)+'" fill="rgba(26,71,42,0.06)"/>';
+
+    for (var tv = 20; tv <= 90; tv += 10) {
+        var py = tY(tv);
+        html += '<line x1="'+L+'" y1="'+py.toFixed(1)+'" x2="'+R+'" y2="'+py.toFixed(1)+'" stroke="#e8e5dc" stroke-width="0.7"/>';
+        html += '<text x="'+(L-6)+'" y="'+(py+4).toFixed(1)+'" text-anchor="end" font-size="10" fill="#888">'+tv+'&deg;</text>';
+    }
+
+    var py50 = tY(50);
+    html += '<line x1="'+L+'" y1="'+py50.toFixed(1)+'" x2="'+R+'" y2="'+py50.toFixed(1)+'" stroke="#c62828" stroke-width="1.5" stroke-dasharray="6,4" opacity="0.6"/>';
+    html += '<text x="'+(L+4)+'" y="'+(py50-5).toFixed(1)+'" font-size="9" fill="#c62828" font-weight="600">50&deg;F Planting Threshold</text>';
+
+    var yStepSize = yieldMax - yieldMin > 100 ? 25 : 10;
+    for (var yv = yieldMin; yv <= yieldMax; yv += yStepSize) {
+        var ry = yY(yv);
+        html += '<text x="'+(RAxis)+'" y="'+(ry+4).toFixed(1)+'" text-anchor="end" font-size="10" fill="'+yieldColor+'">'+yv+'</text>';
+        html += '<line x1="'+(R+2)+'" y1="'+ry.toFixed(1)+'" x2="'+(R+6)+'" y2="'+ry.toFixed(1)+'" stroke="'+yieldColor+'" stroke-width="1"/>';
+    }
+
+    var months = [{m:3,d:15},{m:3,d:20},{m:3,d:25},{m:4,d:1},{m:4,d:5},{m:4,d:10},{m:4,d:15},{m:4,d:20},{m:4,d:25},{m:5,d:1},{m:5,d:5}];
+    var dayNames = ['Apr 15','Apr 20','Apr 25','May 1','May 5','May 10','May 15','May 20','May 25','Jun 1','Jun 5'];
+    for (var mi = 0; mi < months.length; mi++) {
+        var md = months[mi];
+        var testDate = new Date(2026, md.m, md.d);
+        if (testDate >= dateMin && testDate <= dateMax) {
+            var px = xPos(testDate);
+            html += '<line x1="'+px.toFixed(1)+'" y1="'+T+'" x2="'+px.toFixed(1)+'" y2="'+B+'" stroke="#e8e5dc" stroke-width="0.7"/>';
+            html += '<text x="'+px.toFixed(1)+'" y="'+(B+16)+'" text-anchor="middle" font-size="10" fill="#888">'+dayNames[mi]+'</text>';
+        }
+    }
+
+    if (wx.length > 1) {
+        var bandPath = 'M';
+        for (var i = 0; i < wx.length; i++) {
+            var px = xPos(wx[i].dt);
+            bandPath += (i === 0 ? '' : ' L') + px.toFixed(1) + ',' + tY(wx[i].hi).toFixed(1);
+        }
+        for (var i = wx.length - 1; i >= 0; i--) {
+            var px = xPos(wx[i].dt);
+            bandPath += ' L' + px.toFixed(1) + ',' + tY(wx[i].lo).toFixed(1);
+        }
+        bandPath += ' Z';
+        html += '<path d="'+bandPath+'" fill="rgba(100,149,237,0.15)" stroke="none"/>';
+
+        var hiPath = 'M', loPath = 'M';
+        for (var i = 0; i < wx.length; i++) {
+            var px = xPos(wx[i].dt);
+            hiPath += (i === 0 ? '' : ' L') + px.toFixed(1) + ',' + tY(wx[i].hi).toFixed(1);
+            loPath += (i === 0 ? '' : ' L') + px.toFixed(1) + ',' + tY(wx[i].lo).toFixed(1);
+        }
+        html += '<path d="'+hiPath+'" fill="none" stroke="rgba(100,149,237,0.5)" stroke-width="1.2"/>';
+        html += '<path d="'+loPath+'" fill="none" stroke="rgba(100,149,237,0.5)" stroke-width="1.2"/>';
+
+        var soilPath = 'M';
+        for (var i = 0; i < wx.length; i++) {
+            var px = xPos(wx[i].dt);
+            soilPath += (i === 0 ? '' : ' L') + px.toFixed(1) + ',' + tY(wx[i].st).toFixed(1);
+        }
+        html += '<path d="'+soilPath+'" fill="none" stroke="#c62828" stroke-width="2.5" stroke-linejoin="round"/>';
+
+        for (var i = 0; i < wx.length; i++) {
+            var px = xPos(wx[i].dt);
+            html += '<circle cx="'+px.toFixed(1)+'" cy="'+tY(wx[i].st).toFixed(1)+'" r="2.5" fill="#c62828"/>';
+        }
+    }
+
+    var freezeEvents = [
+        {dt:'04/18', label:'Hard Freeze\n22°F Low'},
+        {dt:'05/01', label:'Freeze\n25°F Low'}
+    ];
+    freezeEvents.forEach(function(ev) {
+        var ed = parseDate(ev.dt);
+        if (ed >= dateMin && ed <= dateMax) {
+            var px = xPos(ev.dt);
+            var lines = ev.label.split('\n');
+            html += '<line x1="'+px.toFixed(1)+'" y1="'+(T+2)+'" x2="'+px.toFixed(1)+'" y2="'+(T+30)+'" stroke="#c62828" stroke-width="1.5" opacity="0.7"/>';
+            html += '<rect x="'+(px-38).toFixed(1)+'" y="'+(T-1)+'" width="76" height="'+(lines.length*13+4)+'" rx="3" fill="#fff" stroke="#c62828" stroke-width="0.8" opacity="0.9"/>';
+            for (var li = 0; li < lines.length; li++) {
+                html += '<text x="'+px.toFixed(1)+'" y="'+(T+12+li*13).toFixed(1)+'" text-anchor="middle" font-size="9" fill="#c62828" font-weight="'+(li===0?'700':'600')+'">'+lines[li]+'</text>';
+            }
+        }
+    });
+
+    var moistEvent = {dt:'05/06', label:'Rain Event—Drought Break'};
+    var med = parseDate(moistEvent.dt);
+    if (med >= dateMin && med <= dateMax) {
+        var px = xPos(moistEvent.dt);
+        html += '<line x1="'+px.toFixed(1)+'" y1="'+(B-30)+'" x2="'+px.toFixed(1)+'" y2="'+(B-2)+'" stroke="#1565c0" stroke-width="1.5" opacity="0.7"/>';
+        html += '<rect x="'+(px-52).toFixed(1)+'" y="'+(B-46)+'" width="104" height="16" rx="3" fill="#fff" stroke="#1565c0" stroke-width="0.8" opacity="0.9"/>';
+        html += '<text x="'+px.toFixed(1)+'" y="'+(B-34)+'" text-anchor="middle" font-size="9" fill="#1565c0" font-weight="700">'+moistEvent.label+'</text>';
+    }
+
+    var yPts = yieldData.map(function(d) {
+        var r = Math.max(5, 2 + Math.log10(Math.max(d.ac, 1)) * 4);
+        if (r > 18) r = 18;
+        return {d: d, px: xPos(d.dt), py: yY(d.y), r: r};
+    });
+
+    var window = 5;
+    var maPoints = [];
+    for (var i = 0; i < yPts.length; i++) {
+        var sum = 0, count = 0;
+        var lo = Math.max(0, i - Math.floor(window / 2));
+        var hi = Math.min(yPts.length - 1, i + Math.floor(window / 2));
+        for (var j = lo; j <= hi; j++) { sum += yPts[j].d.y; count++; }
+        maPoints.push({px: yPts[i].px, py: yY(sum / count)});
+    }
+    var maPath = 'M' + maPoints[0].px.toFixed(1) + ',' + maPoints[0].py.toFixed(1);
+    for (var i = 1; i < maPoints.length; i++) {
+        maPath += ' L' + maPoints[i].px.toFixed(1) + ',' + maPoints[i].py.toFixed(1);
+    }
+    html += '<path d="'+maPath+'" fill="none" stroke="'+yieldColor+'" stroke-width="2" stroke-opacity="0.6" stroke-linejoin="round" stroke-dasharray="4,3"/>';
+
+    yPts.forEach(function(p) {
+        html += '<circle cx="'+p.px.toFixed(1)+'" cy="'+p.py.toFixed(1)+'" r="'+p.r.toFixed(1)+'" fill="'+yieldColor+'" fill-opacity="0.45" stroke="'+yieldColor+'" stroke-width="1.5"/>';
+    });
+
+    var labelBoxes = [];
+    yPts.forEach(function(p) {
+        var lx = p.px, ly = p.py - p.r - 5;
+        var w = 24, h = 11;
+        var box = {x1: lx - w/2, y1: ly - h, x2: lx + w/2, y2: ly};
+        var collision = false;
+        for (var k = 0; k < labelBoxes.length; k++) {
+            var b = labelBoxes[k];
+            if (box.x1 < b.x2 + 2 && box.x2 > b.x1 - 2 && box.y1 < b.y2 + 1 && box.y2 > b.y1 - 1) { collision = true; break; }
+        }
+        if (collision) {
+            ly = p.py + p.r + 14;
+            box = {x1: lx - w/2, y1: ly - h, x2: lx + w/2, y2: ly};
+            var still = false;
+            for (var k = 0; k < labelBoxes.length; k++) {
+                var b = labelBoxes[k];
+                if (box.x1 < b.x2 + 2 && box.x2 > b.x1 - 2 && box.y1 < b.y2 + 1 && box.y2 > b.y1 - 1) { still = true; break; }
+            }
+            if (still) return;
+        }
+        labelBoxes.push(box);
+        html += '<text x="'+lx.toFixed(1)+'" y="'+ly.toFixed(1)+'" text-anchor="middle" font-size="8.5" fill="'+yieldColor+'" font-weight="600">'+p.d.y.toFixed(0)+'</text>';
+    });
+
+    html += '<text x="10" y="'+((T+B)/2)+'" text-anchor="middle" font-size="11" fill="#888" font-weight="600" transform="rotate(-90,10,'+((T+B)/2)+')">Temperature (&deg;F)</text>';
+    html += '<text x="'+(RAxis+8)+'" y="'+((T+B)/2)+'" text-anchor="middle" font-size="11" fill="'+yieldColor+'" font-weight="600" transform="rotate(90,'+(RAxis+8)+','+((T+B)/2)+')">Yield (bu/acre)</text>';
+    html += '<text x="'+((L+R)/2)+'" y="'+(B+38)+'" text-anchor="middle" font-size="12" fill="#666" font-weight="600">Planting Date (2026)</text>';
+
+    var legX = L + 10, legY = B + 50;
+    html += '<rect x="'+legX+'" y="'+legY+'" width="12" height="8" fill="rgba(100,149,237,0.15)" stroke="rgba(100,149,237,0.5)" stroke-width="1"/>';
+    html += '<text x="'+(legX+16)+'" y="'+(legY+8)+'" font-size="9" fill="#666">Air Temp (High/Low)</text>';
+    var leg2X = legX + 130;
+    html += '<line x1="'+leg2X+'" y1="'+(legY+4)+'" x2="'+(leg2X+14)+'" y2="'+(legY+4)+'" stroke="#c62828" stroke-width="2.5"/>';
+    html += '<circle cx="'+(leg2X+7)+'" cy="'+(legY+4)+'" r="2.5" fill="#c62828"/>';
+    html += '<text x="'+(leg2X+18)+'" y="'+(legY+8)+'" font-size="9" fill="#666">Soil Temp 4&Prime; (est.)</text>';
+    var leg3X = leg2X + 130;
+    html += '<line x1="'+leg3X+'" y1="'+(legY+4)+'" x2="'+(leg3X+14)+'" y2="'+(legY+4)+'" stroke="#c62828" stroke-width="1.5" stroke-dasharray="6,4" opacity="0.6"/>';
+    html += '<text x="'+(leg3X+18)+'" y="'+(legY+8)+'" font-size="9" fill="#666">50&deg;F Threshold</text>';
+    var leg4X = leg3X + 110;
+    html += '<circle cx="'+(leg4X+6)+'" cy="'+(legY+4)+'" r="5" fill="'+yieldColor+'" fill-opacity="0.45" stroke="'+yieldColor+'" stroke-width="1.5"/>';
+    html += '<text x="'+(leg4X+16)+'" y="'+(legY+8)+'" font-size="9" fill="#666">Yield (bu/ac)</text>';
+
+    html += '<text x="'+(R-4)+'" y="'+(B+54)+'" text-anchor="end" font-size="7.5" fill="#bbb" font-style="italic">Air temps: NWS Boulder/Goodland regional summaries. Soil temp: modeled estimate. Not station observations.</text>';
+
+    svg.innerHTML = html;
+}
+
+buildWeatherYieldChart(PD_IRR, WEATHER, 'wx-irr-svg', 100, 280, '#1565c0', '04/18', '04/29');
+buildWeatherYieldChart(PD_DRY, WEATHER, 'wx-dry-svg', 10, 80, '#e65100', '05/01', '05/12');
 </script>
 </body>
 </html>
